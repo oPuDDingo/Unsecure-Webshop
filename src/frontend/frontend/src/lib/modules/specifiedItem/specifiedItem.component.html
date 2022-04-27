@@ -1,0 +1,59 @@
+
+<li class="list-group-item specified-item mb-2 rounded-pill ps-5"
+(mouseenter)="onMouseEnter( )"
+(mouseleave)="onMouseLeave( )">
+    <div class="row">
+      <div class="col-lg-1 d-xxl-block d-none">
+        <img class="rounded" src="../../../assets/01.png" width="100rem">
+      </div>
+      <div class="col">
+        <div>
+          <h3>{{ specifiedItem.name }}</h3>
+        </div>
+
+        <div class="row">
+          <div class="col-sm d-md-block d-none">
+            Artikelnr: {{ specifiedItem.articleNumber }}
+          </div>
+          <div class="col float-end">
+            {{ specifiedItem.amount }}€
+          </div>
+          <div class="col">
+            <span *ngIf="this.editableQuantity; else editableQuantityTemplate">Menge: {{ specifiedItem.quantity }}</span>
+            <ng-template #editableQuantityTemplate>
+              <div class="form-inline" style="display: block;">
+                <div class="d-flex" [ngClass]="editableQuantity ? 'justify-content-between': ''">
+                  <label class="form-label" style="float: left; margin-right: 0.5rem" for="quantity">Menge: </label>
+                  <select *ngIf="this.editableQuantity; else quantity" class="form-select" id="quantity" style="width: 70%">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+                    <option>9</option>
+                  </select>
+                  <ng-template #quantity>
+                    <span>{{ specifiedItem.quantity }}</span>
+                  </ng-template>
+                </div>
+              </div>
+            </ng-template>
+          </div>
+          <color-circle class="col" [color]="specifiedItem.color" [clickable]="false"></color-circle>
+          <div class="col">
+            {{ specifiedItem.storage }} GB
+          </div>
+        </div>
+      </div>
+
+      <delete *ngIf="showDeleteButton && showTrash" class="" style="align-self: center"></delete>
+
+    </div>
+</li>
+
+
+
+
