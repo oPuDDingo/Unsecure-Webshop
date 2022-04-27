@@ -7,8 +7,6 @@ import {Component, Input} from "@angular/core";
 })
 export class NavbarComponent {
   @Input()
-  title: String | undefined;
+  title?: String;
 
-  constructor() {
-  }
 }
