@@ -1,0 +1,10 @@
+<accordion [isAnimated]="true">
+  <accordion-group *ngFor="let order of orderList">
+    <button class="accordionButton"
+            accordion-heading type="button">
+      <order-header [itemList]="order.items" [orderDate]="order.date"></order-header>
+<!--      <img src="assets/arrow_down_black.svg">-->
+    </button>
+    This is just some content to illustrate fancy headings.
+  </accordion-group>
+</accordion>

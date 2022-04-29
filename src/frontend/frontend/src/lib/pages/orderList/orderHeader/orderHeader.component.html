@@ -1,0 +1,19 @@
+<div class="content" xmlns="http://www.w3.org/1999/html" (click)="toggleIsOpen()">
+  <div *ngFor="let item of itemList" class="float-none">
+    <div class="row">
+      <div class="col-1">
+        <img class="imgSize" [src]="item.picture">
+      </div>
+      <span class="col"><h3>{{item.name}}</h3></span>
+    </div>
+    <div *ngIf="itemList.length>1 && item!=itemList[itemList.length-1]">
+      <span layout="row"><hr flex/></span>
+    </div>
+  </div>
+  <div class="mx-auto">
+    Bestellt am {{orderDate}} <br/>
+    <img *ngIf="isOpen==false" src="assets/arrow_down_black.svg">
+    <img *ngIf="isOpen==true" src="assets/arrow_up_black.svg">
+  </div>
+</div>
+
