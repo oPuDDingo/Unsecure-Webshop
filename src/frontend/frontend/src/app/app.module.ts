@@ -5,12 +5,14 @@ import { AppComponent } from './app.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {NavbarComponent} from "../lib/modules/navbar.component";
+import {NavbarComponent} from "../lib/modules/navbar/navbar.component";
+import {NavbarItemsComponent} from "../lib/modules/navbar.items/navbar.items.component";
 
 @NgModule({
     declarations: [
         AppComponent,
-        NavbarComponent
+        NavbarComponent,
+        NavbarItemsComponent
     ],
   imports: [
     BrowserModule,
