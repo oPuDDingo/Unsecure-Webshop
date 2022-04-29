@@ -7,10 +7,6 @@
 //  -webkit-font-smoothing: antialiased;
 //  -moz-osx-font-smoothing: grayscale;
 //}
-
-.navbar-body{
-
-}
 //h1,
 //h2,
 //h3,
@@ -39,11 +35,8 @@
   display: flex;
   align-items: center;
   background-color: #ffffff;
-  color: white;
   font-weight: 600;
 }
-
-
 
 .navbar-shop-name{
   font: {
@@ -56,10 +49,11 @@
   text-align: center;
   text-decoration: none;
   padding-left: 30px;
+  position: relative;
+  top: -5px;
 }
 .navbar-header {
   border-color: #101820;
-
 }
 .navbar-shop-name:hover {
   color: #36b4ce;
@@ -68,6 +62,50 @@
 .animate {
   transition: border-radius 2s ease;
 }
+
+.input {
+  border: none;
+}
+
+.input:focus {
+
+}
+
+.search-field:focus {
+  outline: none;
+  border-color: red;
+  outline-color:#FF0;
+}
+
+.search-field:hover {
+  border: 1.5px solid #009688;
+
+}
+.search-field {
+
+}
+
+.wrapper {
+  outline: none;
+  color: white;
+  padding:10%;
+  margin-left: -100%;
+  margin-top: 6%;
+  position: relative;
+
+}
+
+ul li {
+  display: inline;
+  padding: 0.7em;
+  position: relative;
+  right: 300px;
+  a {
+    text-decoration: none;
+    font-size: 1.5em;
+  }
+}
+
 
 //
 //.navbar img {
