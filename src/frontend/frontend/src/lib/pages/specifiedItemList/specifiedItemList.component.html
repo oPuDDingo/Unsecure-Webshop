@@ -1,9 +1,10 @@
 <ul class="list-group" style="margin: 50px">
   <specified-item *ngFor="let item of itemList"
-  [showDeleteButton]="showDeleteButton"
-  [editableQuantity]="editableQuantity"
-  [specifiedItem]="item"
-  (onDeleteEvent)="onItemDelete()"
-  (onQuantityChangeEvent)="onItemChange()"></specified-item>
+    [showDeleteButton]="showDeleteButton"
+    [editableQuantity]="editableQuantity"
+    [specifiedItem]="item"
+    (onDeleteEvent)="onItemDelete($event)"
+    (onQuantityChangeEvent)="onItemChange($event)">
+  </specified-item>
 </ul>
 
