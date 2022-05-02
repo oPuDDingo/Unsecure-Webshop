@@ -1,9 +1,9 @@
 export interface Address {
   name: String,
-  country: String,
-  address: String,
-  address2: String,
-  zipCode: number,
+  street: String,
+  house_number: String,
+  postCode: number,
+  address_suplement: String,
   city: String,
-  deliveryInstructions: String
+  country: String
 }

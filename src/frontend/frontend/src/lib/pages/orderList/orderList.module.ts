@@ -5,11 +5,12 @@ import {BrowserModule} from "@angular/platform-browser";
 import {AccordionModule} from "ngx-bootstrap/accordion";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {OrderHeaderComponent} from "./orderHeader/orderHeader.component";
+import {OrderBodyComponent} from "./orderBody/orderBody.component";
 
 @NgModule({
-  declarations: [
-    OrderListComponent, OrderHeaderComponent
-  ],
+    declarations: [
+        OrderListComponent, OrderHeaderComponent, OrderBodyComponent
+    ],
   imports: [
     BrowserModule,
     AccordionModule.forRoot(),

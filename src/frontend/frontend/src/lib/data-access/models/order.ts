@@ -4,9 +4,12 @@ import {Payment} from "./payment";
 
 export interface Order {
   id: number,
-  mail?: String,
+  order_number: number,
   items: Item[],
   address?: Address,
-  payment?: Payment,
+  amount?: number,
+  iban?: String,
+  bic?: String,
+  account_owner?: String,
   date: String
 }

@@ -8,7 +8,9 @@ import {Item} from "../../../data-access/models/item";
   styleUrls: ['./orderHeader.component.scss']
 })
 export class OrderHeaderComponent {
+  // @ts-ignore
   @Input() itemList: Item[];
+  // @ts-ignore
   @Input() orderDate: String;
 
   isOpen:boolean = false;
