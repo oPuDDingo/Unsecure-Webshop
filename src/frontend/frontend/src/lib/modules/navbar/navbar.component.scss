@@ -1,75 +1,35 @@
 
-//:host {
-//  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-//  font-size: 14px;
-//  color: #333;
-//  box-sizing: border-box;
-//  -webkit-font-smoothing: antialiased;
-//  -moz-osx-font-smoothing: grayscale;
-//}
-//h1,
-//h2,
-//h3,
-//h4,
-//h5,
-//h6 {
-//  margin: 8px 0;
-//}
-//
-//p {
-//  margin: 0;
-//}
-//
-//.spacer {
-//  flex: 1;
-//}
-//
 .navbar {
   position: absolute;
   border-radius: 0% 0% 62% 0%;
-  border: 5px solid #2121b0;
+  background-color: #ed6e00;
   top: 0;
   left: 0;
   right: 0;
   height: 100px;
   display: flex;
-  align-items: center;
-  background-color: #ffffff;
+  flex-direction: row;
   font-weight: 600;
+
 }
 
 .navbar-shop-name{
+  text-transform: uppercase;
+  text-align: center;
+  margin-left: 20px;
+}
+.navbar-shop-name a{
+  color: white;
   font: {
     size: 30px;
     family: Dubiel;
-    weight: 700;
   }
-  color: #2121b0;
-  text-transform: uppercase;
-  text-align: center;
-  text-decoration: none;
-  padding-left: 30px;
-  position: relative;
-  top: -5px;
-}
-.navbar-header {
-  border-color: #101820;
 }
 .navbar-shop-name:hover {
-  color: #36b4ce;
+  color: #d99048;
   text-decoration: none;
 }
-.animate {
-  transition: border-radius 2s ease;
-}
 
-.input {
-  border: none;
-}
-
-.input:focus {
-
-}
 
 .search-field:focus {
   outline: none;
@@ -82,31 +42,21 @@
 
 }
 .search-field {
-
-}
-
-.wrapper {
   outline: none;
   color: white;
-  padding:10%;
-  margin-left: -100%;
-  margin-top: 6%;
-  position: relative;
+  margin: 20px;
+}
 
+.search-field input{
+  width: 400px;
+  height: 30px;
+  border-radius: 20px;
 }
 
 ul li {
   display: inline;
-  padding: 0.7em;
-  position: relative;
-  right: 300px;
-  a {
-    text-decoration: none;
-    font-size: 1.5em;
-  }
-  a:hover {
-    color: #36b4ce;
-  }
+  flex-direction: row;
+  padding: 10px;
 }
 
 
