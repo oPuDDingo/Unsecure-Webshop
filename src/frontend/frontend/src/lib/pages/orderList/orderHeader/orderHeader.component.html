@@ -12,8 +12,7 @@
   </div>
   <div class="mx-auto">
     Bestellt am {{orderDate}} <br/>
-    <img *ngIf="isOpen==false" src="assets/arrow_down_black.svg">
-    <img *ngIf="isOpen==true" src="assets/arrow_up_black.svg">
+    <img [ngClass]="isOpen ? 'toggle-up' : 'toggle-down'" src="assets/arrow_down_black.svg">
   </div>
 </div>
 

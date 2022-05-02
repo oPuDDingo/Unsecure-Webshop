@@ -17,3 +17,15 @@ hr{
   opacity: 0.5;
 }
 
+.toggle-up {
+  transform: rotate(180deg);
+}
+
+.toggle-down {
+  transform: rotate(0);
+}
+
+img {
+  transition: all 0.75s ease;
+}
+
