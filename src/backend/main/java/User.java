@@ -12,6 +12,16 @@ public class User {
     private String title;
     private String profilePicturePath;
     private boolean realUser;
+    private WishList wishList();
+    private String description;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public int getId() {
         return id;

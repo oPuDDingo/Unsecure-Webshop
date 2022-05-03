@@ -6,7 +6,6 @@ public class Order {
 
     private int id;
     private int orderNumber;
-    private int quantity;
     private String orderDate;
     private double amount;
     private String iban;
@@ -15,6 +14,7 @@ public class Order {
     private User user;
     private Address address;
     private ArrayList<ArticleVersion> articleVersions = new ArrayList<>();
+    private ArrayList<Integer> quantity = new ArrayList<>();
     private ArrayList<Coupon> coupons = new ArrayList<>();
 
     public int getId() {

@@ -4,7 +4,7 @@ public class WishList {
 
     private int id;
     private int quantity;
-    private ArticleVersion articleVersion;
+    private ArrayList<ArrayList> articleVersions = new ArrayLis<>();
     private User user;
 
     public int getId() {
