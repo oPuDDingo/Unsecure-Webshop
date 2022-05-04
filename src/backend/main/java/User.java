@@ -6,7 +6,7 @@ public class User {
     private String email;
     private String firstname;
     private String lastname;
-    //private String password; //Not needed only for complete
+    private String password;
     private boolean newsletter;
     private String salutation;
     private String title;
