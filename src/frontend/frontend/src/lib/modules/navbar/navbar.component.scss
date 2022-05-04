@@ -1,6 +1,6 @@
 
 .navbar {
-  position: absolute;
+  position: fixed;
   background-color: #ed6e00;
   left: 50px;
   right: 50px;
@@ -9,6 +9,7 @@
   flex-direction: row;
   border-radius: 30px;
   margin-top: 20px;
+  overflow: auto;
 }
 
 .navbar-shop-name{
@@ -25,14 +26,12 @@
 }
 .navbar-shop-name a:hover {
   color: #8c3d1f;
-  text-decoration: none;
 }
 
 
 .search-field input:focus {
   outline-color: #ffffff;
   width: 400px;
-
 }
 
 .search-field {

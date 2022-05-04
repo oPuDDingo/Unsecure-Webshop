@@ -1,24 +1,26 @@
 .nav-item{
   position: absolute;
-  background-color: #ed6e00;
-  left: 50px;
-  right: 50px;
+  background-color: transparent;
+  left: 100px;
+  right: 100px;
   height: 100px;
   display: flex;
   flex-direction: row;
   border-radius: 30px;
-  margin-top: 15px;
+  margin-top: 130px;
+  overflow: auto;
+  padding-left: 50px;
+  padding-right: 50px;
 }
 
 .items {
+  text-transform: uppercase;
+  text-align: center;
+  padding-top: 20px;
+}
+.items a {
   padding: 20px;
-  float: left;
-
-  a {
-    text-decoration: none;
-  }
-  a:hover {
-    color: #36b4ce;
-  }
+  font-size:35px;
+  color:black;
 }
 
