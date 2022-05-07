@@ -1,13 +1,12 @@
 
-.container-fluid{
+.container-fluid {
   background-color: #f1f1f1;
 
 }
 
-.container-lg{
+.container-lg {
   text-align: left;
-  padding:30px;
-
+  padding: 30px;
 
 
 }
@@ -23,6 +22,7 @@ input[type=text], input[type=submit] {
   background-color: white;
   border-radius: 10px;
 }
+
 button[type=submit] {
   background-color: blue;
   color: white;
