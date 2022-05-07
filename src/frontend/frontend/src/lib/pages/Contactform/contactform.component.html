@@ -1,27 +1,43 @@
 <div class="container-fluid">
-  <div class="innerContainer">
-    <h1>KONTAKTFORMULAR</h1>
-  </div>
-
-  <h3>NAME*</h3>
-
-  <ul class="list-group list-group-horizontal">
-    <ul class="list-group list-group-flush">
-      <input type="text" name="firstname" required> <h5>Vorname</h5>
-    </ul>
-    <ul class="list-group list-group-flush">
-      <input type="text" name="lastname" required>
-      <h5>Nachname</h5>
-    </ul>
-  </ul>
 
 
-  <h3>EMAIL*</h3>
-  <input type="text" name="mail" required>
-  <h3>NACHRICHT</h3>
-  <input type="text" name="message" required>
-  <h3>DATENSCHUTZ*</h3>
-  <input type="checkbox">
-  Ich willige in die Datenschutzerklärung ein.
-  <input type="submit" value="ABSENDEN">
+<div class="container-lg">
+  <h1>KONTAKTFORMULAR</h1>
+  <hr />
+  <form action="/action_page.php" class="needs-validation">
+    <h3>NAME*</h3>
+    <div class="row">
+      <div class="col">
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Vorname" required>
+    </div>
+    </div>
+      <div class="col">
+
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Nachname" required>
+    </div> </div>
+    </div>
+
+    <h3>EMAIL*</h3>
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Deine Email" required>
+    </div>
+
+    <h3>NACHRICHT</h3>
+    <div>
+    <textarea class="form-control" rows="7" id="comment" name="text"></textarea>
+    </div>
+
+    <h3>DATENSCHUTZ*</h3>
+    <div class="form-check mb-3">
+      <input class="form-check-input" type="checkbox" id="myCheck" name="remember" required>
+      <label class="form-check-label" for="myCheck"> Ich willige in die Datenschutzerklärung ein.</label>
+      <div class="valid-feedback">Valid.</div>
+      <div class="invalid-feedback"></div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">ABSENDEN</button>
+  </form>
+</div>
 </div>

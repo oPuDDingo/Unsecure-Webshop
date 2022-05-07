@@ -1,36 +1,52 @@
 
 .container-fluid{
   background-color: #f1f1f1;
-}
-
-
-.innerContainer {
-  width: 100%;
-  background-color: #f1f1f1;
-  color: black;
-  display: inline-block;
 
 }
+
+.container-lg{
+  text-align: left;
+  padding:30px;
+
+
+
+}
+
 
 input[type=text], input[type=submit] {
   width: 100%;
   padding: 12px;
-  margin: 8px 0;
+  margin-bottom: 40px;
   display: inline-block;
   border: 1px solid blue;
   box-sizing: border-box;
   background-color: white;
+  border-radius: 10px;
 }
-input[type=submit] {
+button[type=submit] {
   background-color: blue;
   color: white;
   border: none;
   border-radius: 10px;
+  padding: 12px;
+  width: 30%;
+  margin: 30px 0;
 }
 
-input[type=submit]:hover {
+button[type=submit]:hover {
   opacity: 0.8;
 }
 
+.form-control {
+  border: 1px solid blue;
+  border-radius: 10px;
+  margin-bottom: 40px;
+}
+
+hr {
+  width: 50%;
+  color: blue;
+  margin-bottom: 40px;
+}
 
 
