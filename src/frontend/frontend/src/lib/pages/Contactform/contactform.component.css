@@ -1,0 +1,36 @@
+
+.container-fluid{
+  background-color: #f1f1f1;
+}
+
+
+.innerContainer {
+  width: 100%;
+  background-color: #f1f1f1;
+  color: black;
+  display: inline-block;
+
+}
+
+input[type=text], input[type=submit] {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid blue;
+  box-sizing: border-box;
+  background-color: white;
+}
+input[type=submit] {
+  background-color: blue;
+  color: white;
+  border: none;
+  border-radius: 10px;
+}
+
+input[type=submit]:hover {
+  opacity: 0.8;
+}
+
+
+
