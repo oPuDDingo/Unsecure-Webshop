@@ -1,5 +1,6 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Order} from "../../data-access/models/order";
+import {OrderStore} from "../../data-access/service/order.store";
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
@@ -7,10 +8,10 @@ import {Order} from "../../data-access/models/order";
   templateUrl: './orderList.component.html',
   styleUrls: ['./orderList.component.scss']
 })
-export class OrderListComponent {
+export class OrderListComponent implements OnInit {
   @Input() orderList: Order[];
 
-  constructor() {
+  constructor(private orderStore: OrderStore) {
     this.orderList = [
       {
         id: 1, order_number: 1878869613, items: [ {id:1, name:"IPhone 12 MAX", storage:64, articleNumber:3215464, amount:132.45, quantity:1, color:"red", picture:"assets/01.png"},
@@ -23,6 +24,10 @@ export class OrderListComponent {
         date: "24.05.2020"
       }
     ];
+  }
+
+  ngOnInit() {
+    this.orderStore.loadOrders().subscribe(orders => this.orderList = orders);
   }
 
 }

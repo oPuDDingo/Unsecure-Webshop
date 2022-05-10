@@ -4,6 +4,6 @@
             accordion-heading type="button">
       <order-header [itemList]="order.items" [orderDate]="order.date"></order-header>
     </button>
-    <order-body></order-body>
+    <order-body [orderNumber]="order.id"></order-body>
   </accordion-group>
 </accordion>

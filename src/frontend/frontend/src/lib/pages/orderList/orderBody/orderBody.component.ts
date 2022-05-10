@@ -1,19 +1,20 @@
-import {Component, Input, OnInit} from "@angular/core";
+import {AfterViewInit, Component, Input} from "@angular/core";
 import {Order} from "../../../data-access/models/order";
+import {OrderStore} from "../../../data-access/service/order.store";
 
 @Component({
   selector: 'order-body',
   templateUrl: './orderBody.component.html',
   styleUrls: ['./orderBody.component.scss']
 })
-export class OrderBodyComponent implements OnInit{
+export class OrderBodyComponent implements AfterViewInit{
 
   // @ts-ignore
   @Input() orderNumber: number;
 
   order: Order;
 
-  constructor() {
+  constructor(private orderStore: OrderStore) {
     this.order =
       {
         id: 1, order_number: 3044654687132, items: [ {id:1, name:"IPhone 12 MAX", storage:64, articleNumber:3215464, amount:132.45, quantity:1, color:"red", picture:"assets/01.png"},
@@ -23,10 +24,9 @@ export class OrderBodyComponent implements OnInit{
       }
   }
 
-  ngOnInit() {
-  //   this.orderList = store.getOrder(this.orderNumber)
+  ngAfterViewInit() {
+    this.orderStore.loadOrderById(this.orderNumber).subscribe(orderWithBody => this.order = orderWithBody);
   }
-
 
 
 }
