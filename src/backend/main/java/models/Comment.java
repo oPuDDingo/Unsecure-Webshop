@@ -1,9 +1,11 @@
-package src.backend.main.java;
+package src.backend.main.java.models;
 
 public class Comment {
 
     private int id;
     private String commentText;
+
+    public Comment(){}
 
     public int getId() {
         return id;

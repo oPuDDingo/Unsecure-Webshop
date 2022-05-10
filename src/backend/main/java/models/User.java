@@ -1,27 +1,17 @@
-package src.backend.main.java;
+package src.backend.main.java.models;
 
 public class User {
-
     private int id;
-    private String email;
+    private String main;
     private String firstname;
     private String lastname;
-    private String password;
     private boolean newsletter;
     private String salutation;
     private String title;
     private String profilePicturePath;
-    private boolean realUser;
-    private WishList wishList();
     private String description;
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    public User(){}
 
     public int getId() {
         return id;
@@ -31,12 +21,12 @@ public class User {
         this.id = id;
     }
 
-    public String getEmail() {
-        return email;
+    public String getMain() {
+        return main;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setMain(String main) {
+        this.main = main;
     }
 
     public String getFirstname() {
@@ -87,11 +77,11 @@ public class User {
         this.profilePicturePath = profilePicturePath;
     }
 
-    public boolean isRealUser() {
-        return realUser;
+    public String getDescription() {
+        return description;
     }
 
-    public void setRealUser(boolean realUser) {
-        this.realUser = realUser;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
