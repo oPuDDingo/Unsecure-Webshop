@@ -1,5 +1,4 @@
 import {NgModule} from "@angular/core";
-import {AppComponent} from "../../../app/app.component";
 import {OrderListComponent} from "./orderList.component";
 import {BrowserModule} from "@angular/platform-browser";
 import {AccordionModule} from "ngx-bootstrap/accordion";
@@ -8,9 +7,9 @@ import {OrderHeaderComponent} from "./orderHeader/orderHeader.component";
 import {OrderBodyComponent} from "./orderBody/orderBody.component";
 
 @NgModule({
-    declarations: [
-        OrderListComponent, OrderHeaderComponent, OrderBodyComponent
-    ],
+  declarations: [
+    OrderListComponent, OrderHeaderComponent, OrderBodyComponent
+  ],
   imports: [
     BrowserModule,
     AccordionModule.forRoot(),
@@ -19,4 +18,5 @@ import {OrderBodyComponent} from "./orderBody/orderBody.component";
   providers: [],
   exports: [OrderListComponent]
 })
-export class OrderListModule { }
+export class OrderListModule {
+}

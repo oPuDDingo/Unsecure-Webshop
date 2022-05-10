@@ -13,7 +13,7 @@ export class OrderHeaderComponent {
   // @ts-ignore
   @Input() orderDate: String;
 
-  isOpen:boolean = false;
+  isOpen: boolean = false;
 
   toggleIsOpen() {
     this.isOpen = !this.isOpen;

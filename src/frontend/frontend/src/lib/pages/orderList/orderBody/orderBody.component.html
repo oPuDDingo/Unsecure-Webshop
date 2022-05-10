@@ -10,24 +10,26 @@
     </div>
   </div>
   <div>
-    <div class="bodyArticel" *ngFor="let item of order.items">
+    <div *ngFor="let item of order.items" class="bodyArticel">
       <div class="articelName">{{item.name}} {{item.color}}<br/></div>
       <div class="row">
         <div class="col-sm-2">Menge: {{item.quantity}}</div>
-        <div class="col-sm-2">Preis: {{item.amount}}€</div><br/>
+        <div class="col-sm-2">Preis: {{item.amount}}€</div>
+        <br/>
       </div>
       Zeitraum für Rückgabe endet am (noch machen mit date)
       <div *ngIf="order.items.length>1 && item!=order.items[order.items.length-1]">
         <span layout="row"><hr flex/></span>
       </div>
     </div>
-<!--    <span style="font-weight: bold;">Versandadresse</span>-->
+    <!--    <span style="font-weight: bold;">Versandadresse</span>-->
     <div>
-      <div class="alert alert-warning alert-dismissible" *ngIf="order.address == null"> <!--testen ob die Warning geht-->
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      <div *ngIf="order.address == null" class="alert alert-warning alert-dismissible">
+        <!--testen ob die Warning geht-->
+        <button class="btn-close" data-bs-dismiss="alert" type="button"></button>
         <strong>Warning!</strong> Die Versandadresse konnte für diese Bestellung nicht vollständig geladen werden!
       </div>
-      <div class="d-flex justify-content-around" *ngIf="order.address">
+      <div *ngIf="order.address" class="d-flex justify-content-around">
         <div class="d-flex flex-column">
           <span class="headers">Versandadresse</span>
           <span class="contentAdress">Name</span>
