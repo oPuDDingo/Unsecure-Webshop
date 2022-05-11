@@ -1,4 +1,4 @@
-package src.backend.main.java.models;
+package backend.main.java.models;
 
 import java.util.List;
 
