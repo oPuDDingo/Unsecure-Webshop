@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './app.component';
-import {ArticleOverviewModule} from "../lib/pages/articleOverview/articleOverview.module";
+import {OrderProcessModule} from "../lib/pages/orderProcess/orderProcess.module";
 
 @NgModule({
   declarations: [
@@ -10,7 +10,7 @@ import {ArticleOverviewModule} from "../lib/pages/articleOverview/articleOvervie
   ],
   imports: [
     BrowserModule,
-    ArticleOverviewModule
+    OrderProcessModule
   ],
   providers: [],
   bootstrap: [AppComponent]

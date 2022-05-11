@@ -1,0 +1,29 @@
+<div class="mb-4">
+  <h2>Zahlung</h2>
+</div>
+<div class="row">
+  <div class="col">
+    <div class="inputbox mt-3"><input class="form-control" name="name" required="required" type="text"> <span>Kontoinhaber</span>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="inputbox mt-3 mr-2">
+          <input (keyup)="updateIbanValue()" [(ngModel)]="iban" class="form-control" maxlength="27"
+                 name="name" required="required" type="text">
+          <i class="fa fa-credit-card"></i>
+          <span>IBAN</span>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="d-flex flex-row">
+          <div class="inputbox mt-3 mr-2"><input class="form-control" name="name" required="required" type="text">
+            <span>BIC</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-4 mb-4 d-flex justify-content-between">
+      <button class="btn btn-primary px-3 ms-auto">Weiter</button>
+    </div>
+  </div>
+</div>
