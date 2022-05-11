@@ -67,7 +67,7 @@ export class OrderListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.orderStore.loadOrders().subscribe(orders => this.orderList = orders);
+    // this.orderStore.loadOrders().subscribe(orders => this.orderList = orders);
   }
 
 }

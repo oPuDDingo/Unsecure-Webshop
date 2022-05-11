@@ -1,7 +1,7 @@
 <accordion [isAnimated]="true">
   <accordion-group *ngFor="let order of orderList">
-    <button class="accordionButton"
-            accordion-heading type="button">
+    <button accordion-heading
+            class="accordionButton" type="button">
       <order-header [itemList]="order.items" [orderDate]="order.date"></order-header>
     </button>
     <order-body [orderNumber]="order.id"></order-body>

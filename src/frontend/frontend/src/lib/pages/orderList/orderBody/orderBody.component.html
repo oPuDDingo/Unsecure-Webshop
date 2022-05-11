@@ -2,13 +2,14 @@
   <div class="d-flex justify-content-between">
     <div class="d-flex flex-column">
       <span>Summe</span>
-      <span>{{order.amount}}</span>
+      <span>{{order.amount}}€</span>
     </div>
     <div class="d-flex flex-column">
       <span>Bestellnummer</span>
       <span>{{order.order_number}}</span>
     </div>
   </div>
+  <span><hr flex style="border-style: solid"/></span>
   <div>
     <div *ngFor="let item of order.items" class="bodyArticel">
       <div class="articelName">{{item.name}} {{item.color}}<br/></div>
@@ -17,12 +18,18 @@
         <div class="col-sm-2">Preis: {{item.amount}}€</div>
         <br/>
       </div>
-      Zeitraum für Rückgabe endet am (noch machen mit date)
+      <div *ngIf="newDate != ''">Zeitraum für Rückgabe endet am {{newDate}}</div>
+      <div *ngIf="newDate == ''" class="alert alert-warning alert-dismissible">
+        <!--testen ob die Warning geht-->
+        <button class="btn-close" data-bs-dismiss="alert" type="button"></button>
+        <strong>Warning!</strong> Der Rückgabezeitraum konnte nicht ermittelt werden!
+      </div>
+
       <div *ngIf="order.items.length>1 && item!=order.items[order.items.length-1]">
-        <span layout="row"><hr flex/></span>
+        <span><hr flex/></span>
       </div>
     </div>
-    <!--    <span style="font-weight: bold;">Versandadresse</span>-->
+    <span><hr flex style="border-style: solid"/></span>
     <div>
       <div *ngIf="order.address == null" class="alert alert-warning alert-dismissible">
         <!--testen ob die Warning geht-->
