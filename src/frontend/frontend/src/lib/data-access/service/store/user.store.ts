@@ -33,7 +33,7 @@ export class UserStore {
       "oldPassword": oldPassword,
       "newPassword": newPassword
     }
-    this.backendService.updateUser(userPayload).subscribe();
+    // this.backendService.updateUser(userPayload).subscribe();
   }
 
 

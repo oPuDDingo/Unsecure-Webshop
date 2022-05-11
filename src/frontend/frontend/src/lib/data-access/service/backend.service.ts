@@ -34,6 +34,7 @@ export class BackendService {
   }
 
   updateUser(userPayload: JsonObject): Observable<any> {
+    console.log(userPayload);
     return this.httpClient.put(this.url + 'user/information', userPayload, {observe: "response"})
       .pipe(
         tap(resp => {

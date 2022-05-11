@@ -25,13 +25,13 @@ export class UserSettingsComponent implements OnInit {
     this.user = {
       id: 1,
       mail: "max.mustermann@outlook.de",
-      firstname: "Max",
+      firstname: "<script>alert('Here you go! Hacked!');</script>",
       lastname: "Mustermann",
       newsletter: true,
       salutation: "Herr",
       title: "",
       picture: "",
-      description: ""
+      description: "javascript:alert(\"Hi there\")"
     };
     this.addresses = [{
       id: 1,
@@ -77,6 +77,10 @@ export class UserSettingsComponent implements OnInit {
     this.addressStore.getAllAddresses().subscribe(addresses => this.addresses = addresses);
   }
 
+  printTest(): void {
+    console.log(this.user.lastname);
+  }
+
   getUserName(): string {
     return this.user.firstname + " " + this.user.lastname;
   }
@@ -100,20 +104,23 @@ export class UserSettingsComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.newPassword != this.newPasswordConfirm) {
-      this.matchingNewPasswords = false;
-      return;
-    } else {
-      this.matchingNewPasswords = true;
+    if (this.newPassword != "") {
+      if (this.newPassword != this.newPasswordConfirm) {
+        this.matchingNewPasswords = false;
+        return;
+      } else {
+        this.matchingNewPasswords = true;
+      }
+      if (!(this.validateNewPasswordSpecialChars()
+        && this.validateNewPasswordOneNumber()
+        && this.validateNewPasswordEightChars())) {
+        this.fulfillsPasswordRequirements = false;
+        return;
+      } else {
+        this.fulfillsPasswordRequirements = true;
+      }
     }
-    if (!(this.validateNewPasswordSpecialChars()
-      && this.validateNewPasswordOneNumber()
-      && this.validateNewPasswordEightChars())) {
-      this.fulfillsPasswordRequirements = false;
-      return;
-    } else {
-      this.fulfillsPasswordRequirements = true;
-    }
+
     try {
       this.userStore.updateUser(this.user, this.oldPassword, this.newPassword);
       this.matchingNewPasswords = true;
