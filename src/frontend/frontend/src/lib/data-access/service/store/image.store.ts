@@ -2,8 +2,6 @@ import {BackendService} from "../backend.service";
 import {Subject} from "rxjs";
 
 
-declare var imageType: typeof Image;
-
 export class ImageStore {
 
 
