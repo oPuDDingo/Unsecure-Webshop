@@ -1,5 +1,5 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import {Injectable} from "@angular/core";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -7,5 +7,6 @@ import { HttpClient } from "@angular/common/http";
 export class BackendService {
   readonly url: string = 'http://localhost:4200/api/';
 
-  constructor( private httpClient: HttpClient ) { }
+  constructor(private httpClient: HttpClient) {
+  }
 }
