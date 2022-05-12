@@ -1,31 +1,25 @@
-<form action="/action_page.php">
-    <div class="container-sm">
-      <button type="button" class="btn-close"></button>
-      <h1>NEWSLETTER ABONNIEREN</h1>
-      <div class="innerContainer">
-        <input type="text" placeholder="EMAIL" name="mail" required>
-        <div class="innerContainer">
-          <input type="submit" value="ANMELDEN">
-        </div>
-        <label>
-          <p>Mit der Anmeldung akzeptieren Sie unsere AGBs.
-          <p>
-        </label>
-      </div>
-    </div>
-</form>
-
-
-<button type="button" class="btn btn-primary" (click)="openModal(template)">Create template modal</button>
+<button (click)="openModal(template)" class="btn btn-primary" type="button">Newsletter abnonnieren</button>
 
 <ng-template #template>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">Modal</h4>
-    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+    <h2 class="modal-title">NEWSLETTER ABONNIEREN</h2>
+    <button (click)="modalRef?.hide()" aria-label="Close" class="btn-close close pull-right" type="button">
       <span aria-hidden="true" class="visually-hidden">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    This is a modal.
+    <form action="/action_page.php">
+      <div class="form-floating mb-3 mt-3">
+        <input class="form-control" id="email" name="email" placeholder="Enter email" type="text">
+        <label for="email">Email</label>
+      </div>
+      <label>
+        <p>Mit der Anmeldung akzeptieren Sie unsere AGBs.
+        <p>
+      </label>
+      <button class="btn btn-primary" type="submit">ANMELDEN</button>
+
+
+    </form>
   </div>
 </ng-template>
