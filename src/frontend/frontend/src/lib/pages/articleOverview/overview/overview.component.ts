@@ -10,5 +10,4 @@ export class OverviewComponent {
   // @ts-ignore
   @Input article: Article;
 
-
 }
