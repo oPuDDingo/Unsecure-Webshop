@@ -1,0 +1,9 @@
+<div class="d-flex flex-row">
+  <h1>{{article.modelName}}</h1>
+  <h3>{{article.amount}}</h3>
+  <div class="d-flex flex-row">
+    <div *ngFor="let color of ['red', 'blue', 'green', 'black', 'white']">
+      <color-circle [clickable]="true" [color]="color"></color-circle>
+    </div>
+  </div>
+</div>

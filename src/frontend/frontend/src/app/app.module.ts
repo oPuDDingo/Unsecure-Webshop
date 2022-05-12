@@ -3,6 +3,7 @@ import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './app.component';
 import {ArticleOverviewModule} from "../lib/pages/articleOverview/articleOverview.module";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -10,6 +11,7 @@ import {ArticleOverviewModule} from "../lib/pages/articleOverview/articleOvervie
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     ArticleOverviewModule
   ],
   providers: [],

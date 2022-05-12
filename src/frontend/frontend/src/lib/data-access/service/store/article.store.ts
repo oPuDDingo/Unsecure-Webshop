@@ -1,7 +1,11 @@
 import {Article} from "../../models/article";
 import {BackendService} from "../backend.service";
 import {Subject} from "rxjs";
+import {Injectable} from "@angular/core";
 
+@Injectable({
+  providedIn: 'root'
+})
 export class ArticleStore {
   articles: Article[] = [];
 
