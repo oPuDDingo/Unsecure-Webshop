@@ -2,7 +2,8 @@ import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './app.component';
-import {OrderProcessModule} from "../lib/pages/orderProcess/orderProcess.module";
+import {ArticleOverviewModule} from "../lib/pages/articleOverview/articleOverview.module";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -10,7 +11,8 @@ import {OrderProcessModule} from "../lib/pages/orderProcess/orderProcess.module"
   ],
   imports: [
     BrowserModule,
-    OrderProcessModule
+    HttpClientModule,
+    ArticleOverviewModule
   ],
   providers: [],
   bootstrap: [AppComponent]

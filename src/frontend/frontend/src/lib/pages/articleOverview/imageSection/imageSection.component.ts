@@ -12,7 +12,7 @@ export class ImageSectionComponent implements OnInit {
   @Input article: Article;
 
   // @ts-ignore
-  activePicture: string = this.article.picture[0];
+  activePicture: string;
 
   images: Map<string, Blob> = new Map<string, Blob>();
 
@@ -20,11 +20,12 @@ export class ImageSectionComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.article.picture.forEach(name => {
-      this.imageStore.loadImageByName(name).subscribe(image => {
-        this.images.set(name, image);
-      });
-    });
+    this.activePicture = this.article.picture[0];
+    // this.article.picture.forEach(name => {
+    //   this.imageStore.loadImageByName(name).subscribe(image => {
+    //     this.images.set(name, image);
+    //   });
+    // });
   }
 
   getImage(name: string): Blob {
