@@ -2,7 +2,7 @@ package backend.main.java.models;
 
 public class User {
     private int id;
-    private String main;
+    private String mail;
     private String firstname;
     private String lastname;
     private boolean newsletter;
@@ -23,12 +23,12 @@ public class User {
         this.id = id;
     }
 
-    public String getMain() {
-        return main;
+    public String getMail() {
+        return mail;
     }
 
-    public void setMain(String main) {
-        this.main = main;
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
     public String getFirstname() {

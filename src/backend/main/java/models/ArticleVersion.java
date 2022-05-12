@@ -1,9 +1,9 @@
 package backend.main.java.models;
 
-public class ArticleVersion {
+public class ArticleVersion { //Specifyed Item
 
-    private int id;
-    private String articleNumber;
+    private int id; //Aus m zu n Table
+    private int articleNumber; //ID des article
     private String name;
     private int quantity;
     private int gbSize;
@@ -21,11 +21,11 @@ public class ArticleVersion {
         this.id = id;
     }
 
-    public String getArticleNumber() {
+    public int getArticleNumber() {
         return articleNumber;
     }
 
-    public void setArticleNumber(String articleNumber) {
+    public void setArticleNumber(int articleNumber) {
         this.articleNumber = articleNumber;
     }
 

@@ -7,11 +7,20 @@
     <groupId>groupId</groupId>
     <artifactId>unsicherer-web-shop-fuer-die-lehre</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <dependencies> <dependency>
+    <dependencies>
+
+        <dependency>
         <groupId>org.xerial</groupId>
         <artifactId>sqlite-jdbc</artifactId>
         <version>3.36.0.3</version>
-    </dependency></dependencies>>
+    </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>31.0.1-jre</version>
+        </dependency>
+    </dependencies>>
 
     <properties>
         <maven.compiler.source>16</maven.compiler.source>
