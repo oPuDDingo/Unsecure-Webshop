@@ -51,8 +51,9 @@ export class OrderBodyComponent implements AfterViewInit {
           country: "Germany"
         },
         amount: 3546.50,
-        iban: "DE458000400758",
-        bic: "GENODEF5K76",
+        payment: {
+          iban: "DE458000400758"
+        },
         date: "12.03.2022"
       }
   }

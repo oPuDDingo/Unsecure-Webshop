@@ -45,7 +45,9 @@ export class OrderListComponent implements OnInit {
           city: "Musterhausen",
           country: "Germany"
         },
-        iban: "DE458000400758",
+        payment: {
+          iban: "DE458000400758"
+        },
         date: "12.03.2022"
       },
       {

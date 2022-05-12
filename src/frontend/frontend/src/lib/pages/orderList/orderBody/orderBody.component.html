@@ -47,7 +47,12 @@
           <span>{{order.address.postCode}}, {{order.address.city}}</span><br/>
           <span class="headers">Zahlungsart</span>
           <span class="contentAdress">IBAN</span>
-          <span>{{order.iban}}</span>
+          <div *ngIf="order.payment == null" class="alert alert-warning alert-dismissible">
+            <!--testen ob die Warning geht-->
+            <button class="btn-close" data-bs-dismiss="alert" type="button"></button>
+            <strong>Warning!</strong> Die Zahlungsart konnte für diese Bestellung nicht vollständig geladen werden!
+          </div>
+          <span *ngIf="order.payment">{{order.payment.iban}}</span>
         </div>
         <div class="d-flex flex-column">
           <br/>

@@ -8,8 +8,6 @@ export interface Order {
   items: Item[],
   address?: Address,
   amount?: number,
-  iban?: String,
-  bic?: String,
-  account_owner?: String,
+  payment?: Payment,
   date: String
 }
