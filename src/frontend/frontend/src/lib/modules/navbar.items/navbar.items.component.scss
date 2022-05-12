@@ -1,26 +1,17 @@
-.nav-item{
-  position: absolute;
-  background-color: transparent;
-  left: 100px;
-  right: 100px;
-  height: 100px;
-  display: flex;
-  flex-direction: row;
-  border-radius: 30px;
-  margin-top: 130px;
-  overflow: auto;
-  padding-left: 50px;
-  padding-right: 50px;
-}
+@import "node_modules/bootstrap/scss/bootstrap";
 
 .items {
-  text-transform: uppercase;
-  text-align: center;
-  padding-top: 20px;
-}
-.items a {
-  padding: 20px;
-  font-size:35px;
-  color:black;
+  background-color: transparent;
+  //margin-left: 3rem;
+  //margin-right: 3rem;
+  height: 4rem;
 }
 
+.items a {
+  color: #154486;
+  text-decoration: none;
+  font: {
+    size: 30px;
+    family: Dubiel;
+  }
+}
