@@ -4,7 +4,7 @@ import {Component} from "@angular/core";
   {
     selector: 'contactform',
     templateUrl: './contactform.component.html',
-    styleUrls: ['./contactform.component.css']
+    styleUrls: ['./contactform.component.scss']
   }
 )
 

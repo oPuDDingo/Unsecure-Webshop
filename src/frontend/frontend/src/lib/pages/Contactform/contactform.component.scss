@@ -1,3 +1,4 @@
+@import "node_modules/bootstrap/scss/bootstrap";
 
 .container-fluid {
   background-color: #f1f1f1;
@@ -11,20 +12,19 @@
 
 }
 
-
 input[type=text], input[type=submit] {
   width: 100%;
   padding: 12px;
   margin-bottom: 40px;
   display: inline-block;
-  border: 1px solid blue;
+  border: 1px solid $primary;
   box-sizing: border-box;
   background-color: white;
   border-radius: 10px;
 }
 
 button[type=submit] {
-  background-color: blue;
+  background-color: $primary;
   color: white;
   border: none;
   border-radius: 10px;
@@ -38,14 +38,14 @@ button[type=submit]:hover {
 }
 
 .form-control {
-  border: 1px solid blue;
+  border: 1px solid $primary;
   border-radius: 10px;
   margin-bottom: 40px;
 }
 
 hr {
   width: 50%;
-  color: blue;
+  color: $primary;
   margin-bottom: 40px;
 }
 
