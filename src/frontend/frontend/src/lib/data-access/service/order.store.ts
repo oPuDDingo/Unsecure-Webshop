@@ -1,4 +1,3 @@
-
 import {Injectable} from '@angular/core';
 import {Order} from "../models/order";
 import {Subject} from "rxjs";
@@ -13,9 +12,8 @@ export class OrderStore {
   orders: Order[] = [];
   ordersSubject: Subject<Order[]> = new Subject<Order[]>();
   orderWithBody: Order[] = [];
-  orderWithBodySubject: Subject<Order> = new Subject<Order>();
 
-  constructor( private backendService: BackendService ) {
+  constructor(private backendService: BackendService) {
 
   }
 
@@ -30,16 +28,17 @@ export class OrderStore {
   }
 
   loadOrderById(orderId: number): Subject<Order> {
+    const orderLocalSubject: Subject<Order> = new Subject<Order>();
     let index = this.orderWithBody.findIndex(order => order.id === orderId);
-    if(index == -1) {
-      this.backendService.loadOrdersWithFullBody().subscribe( order => {
+    if (index == -1) {
+      this.backendService.loadOrdersWithFullBody().subscribe(order => {
         this.orderWithBody.push(order);
-        this.orderWithBodySubject.next(order);
+        orderLocalSubject.next(order);
       });
     } else {
-      this.orderWithBodySubject.next(this.orderWithBody[index]);
+      orderLocalSubject.next(this.orderWithBody[index]);
     }
-    return this.orderWithBodySubject;
+    return orderLocalSubject;
   }
 
 
