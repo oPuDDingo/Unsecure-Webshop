@@ -2,6 +2,7 @@ package backend.main.java.database;
 
 import backend.main.java.models.*;
 import com.google.common.hash.Hashing;
+import org.checkerframework.checker.units.qual.A;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
@@ -51,9 +52,8 @@ public class DataAccessShopDatabase {
         int newsletter = user.isNewsletter() ? 1 : 0;
         try {
             stmt = con.createStatement();
-            String sql ="INSERT INTO User(e_mail, firstname, lastname, password, newsletter, salutation, title, description, real_user) " +
-                    "VALUES('"+user.getEmail()+"', '"+user.getFirstname()+"', '"+user.getLastname()+"', '"+this.encryptPasswordRealUser(user.getPassword())+"',"+0+", '"+user.getSalutation()+"', '"+
-                    user.getTitle()+"', '"+user.getTitle()+"', "+1+");";
+            String sql ="INSERT INTO User(e_mail, firstname, lastname, password,real_user) " +
+                    "VALUES('"+user.getEmail()+"', '"+user.getFirstname()+"', '"+user.getLastname()+"', '"+this.encryptPasswordRealUser(user.getPassword())+"',"+1+");";
             stmt.execute(sql);
             int userId = stmt.getGeneratedKeys().getInt(1);
             user.setId(userId);
@@ -68,7 +68,7 @@ public class DataAccessShopDatabase {
         return true;
     }
 
-    public boolean postAddress(Address address, int userId){
+    public boolean putAddress(Address address, int userId){
         Connection con = this.createConnection();
         Statement stmt =null;
         try {
@@ -177,7 +177,7 @@ public class DataAccessShopDatabase {
         try {
             stmt = con.createStatement();
             String sql ="UPDATE user SET firstname='"+ user.getFirstname()+"', lastname='"+user.getLastname()+"', title='"+user.getTitle()+"', " +
-                    "salutation='"+user.getSalutation()+"', e_mail='"+user.getMail()+"'"+"WHERE id="+userId+";";
+                    "salutation='"+user.getSalutation()+"', e_mail='"+user.getMail()+"', profile_picture='"+user.getProfilePicturePath()+"', description='"+user.getDescription()+"' "+"WHERE id="+userId+";";
             stmt.execute(sql);
             stmt.close();
             con.close();
@@ -238,6 +238,69 @@ public class DataAccessShopDatabase {
         try {
             stmt = con.createStatement();
             String sql="UPDATE user SET password='"+hash+"' WHERE id="+userId+";";
+            stmt.execute(sql);
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean checkAuthData(int userId, String password){
+        Connection con = this.createConnection();
+        Statement stmt =null;
+        String hash="";
+        String rightPassword="";
+        if(this.isRealUser(userId)){
+            hash=this.encryptPasswordRealUser(password);
+        }
+        else{
+            hash=this.encryptPasswordDummyUser(password);
+        }
+        try {
+            stmt = con.createStatement();
+            String sql = "SELECT password FROM user WHERE id="+userId+";";
+            ResultSet rs = stmt.executeQuery(sql);
+            rightPassword = rs.getString("password");
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if(hash.equals(rightPassword)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public void postWishListItem(ArticleVersion articleVersion, int userId){
+        Connection con = this.createConnection();
+        Statement stmt =null;
+        int wishListId=this.findWishListId(userId);
+        int articleVersionId=this.findArticleVersionId(articleVersion.getArticleNumber(), articleVersion.getGbSize(), articleVersion.getColor());
+        try {
+            stmt =con.createStatement();
+            String sql="INSERT INTO wish_list_article_version(quantity, wish_list_id, article_version_id) " +
+                    "VALUES("+articleVersion.getQuantity()+", "+wishListId+", "+articleVersionId+");";
+            stmt.execute(sql);
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void postShoppingCartItem(ArticleVersion articleVersion, int userId){
+        Connection con = this.createConnection();
+        Statement stmt =null;
+        int shoppingCartId= this.findShoppingCartId(userId);
+        int articleVersionId=this.findArticleVersionId(articleVersion.getArticleNumber(), articleVersion.getGbSize(), articleVersion.getColor());
+        try {
+            stmt =con.createStatement();
+            String sql="INSERT INTO shopping_cart_article_version(quantity, shopping_cart_id, article_version_id) " +
+                    "VALUES("+articleVersion.getQuantity()+", "+shoppingCartId+", "+articleVersionId+");";
             stmt.execute(sql);
             stmt.close();
             con.close();
@@ -314,6 +377,7 @@ public class DataAccessShopDatabase {
             String sql="SELECT real_user FROM user WHERE id="+userId+";";
             ResultSet rs = stmt.executeQuery(sql);
             real = rs.getBoolean("real_user");
+            rs.close();
             stmt.close();
             con.close();
         } catch (SQLException e) {
@@ -322,9 +386,48 @@ public class DataAccessShopDatabase {
         return real;
     }
 
+    private int findArticleVersionId(int articleId, int gbSize, String color){
+        Connection con = this.createConnection();
+        Statement stmt =null;
+        int articleVersionId=-1;
+        try {
+            stmt =con.createStatement();
+            String sql="SELECT id FROM article_version WHERE article_id="+articleId+" AND gb_size="+gbSize+" AND color='"+color+"';";
+            ResultSet rs = stmt.executeQuery(sql);
+            articleVersionId = rs.getInt("id");
+            rs.close();
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return articleVersionId;
+    }
+
+    private int findShoppingCartId(int userId){
+        Connection con = this.createConnection();
+        Statement stmt =null;
+        int shoppingCartId =-1;
+        try {
+            stmt = con.createStatement();
+            String sql="SELECT id FROM shopping_cart WHERE user_id="+userId+";";
+            ResultSet rs = stmt.executeQuery(sql);
+            shoppingCartId = rs.getInt("id");
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return shoppingCartId;
+    }
+
     public static void main(String[] args) throws SQLException {
         DataAccessShopDatabase s = new DataAccessShopDatabase();
-        User u = new User();
-        s.putPassword("987654", 1);
+        ArticleVersion a = new ArticleVersion();
+        a.setQuantity(99);
+        a.setColor("red");
+        a.setGbSize(522);
+        a.setArticleNumber(1);
+        s.postShoppingCartItem(a, 2);
     }
 }
