@@ -186,20 +186,6 @@ public class DataAccessShopDatabase {
         }
     }
 
-    public void putAddress(Address address){ //Nicht feritg
-        Connection con = this.createConnection();
-        Statement stmt =null;
-        try {
-            stmt = con.createStatement();
-            String sql="UPDATE address SET ";
-            stmt.execute(sql);
-            stmt.close();
-            con.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void putPassword(String password, int userId){
         Connection con = this.createConnection();
         Statement stmt =null;
@@ -330,6 +316,21 @@ public class DataAccessShopDatabase {
         return user;
     }
 
+    public  Address getAddress(int addressId){ //nicht fertig
+        Connection con = this.createConnection();
+        Statement stmt =null;
+        Address address =null;
+        try {
+            stmt =con.createStatement();
+            String sql="SELECT name, street_house_number, address_suplement, postcode, city, country, delivery_instructions FROM address WHERE id="+addressId;
+            ResultSet rs = stmt.executeQuery(sql);
+            rs.close();
+            stmt.close();
+            con.close()
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     private boolean postWishList(int userId){
         Connection con = this.createConnection();
         Statement stmt =null;
@@ -447,5 +448,6 @@ public class DataAccessShopDatabase {
         User u;
         u = s.getUserInformation(1);
         System.out.println(u.getFirstname()+" "+u.getLastname());
+
     }
 }
