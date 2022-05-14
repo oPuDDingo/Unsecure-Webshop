@@ -6,6 +6,7 @@ import {OverviewComponent} from "./overview/overview.component";
 import {CommentComponent} from "./comment/comment.component";
 import {ImageSectionComponent} from "./imageSection/imageSection.component";
 import {FormsModule} from "@angular/forms";
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import {FormsModule} from "@angular/forms";
   imports: [
     BrowserModule,
     FormsModule,
+    ButtonsModule.forRoot()
   ],
   providers: [],
   bootstrap: [],
