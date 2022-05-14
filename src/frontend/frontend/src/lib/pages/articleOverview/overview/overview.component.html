@@ -1,4 +1,4 @@
-<div class="d-flex flex-column p-4 border border-2 rounded-3">
+<div class="d-flex flex-column p-4 border border-2 rounded-3 gap-4">
   <h2>{{article.amount}}€</h2>
   <span *ngIf="article.availability; else notAvailable" class="text-success">Auf Lager.</span>
 
@@ -8,12 +8,12 @@
 
   <div *ngIf="article.availability" class="form-floating">
     <select class="form-select" id="sel1" name="sellist">
-      <option *ngFor="let index of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" [(ngModel)]="article.">{{index}}</option>
+      <option *ngFor="let index of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" (change)="onChangeQuantity(index)">{{index}}</option>
     </select>
     <label class="form-label" for="sel1">Menge:</label>
   </div>
 
-  <button class="btn btn-primary" type="button">In den Einkaufswagen</button>
+  <button class="btn btn-primary" type="button" (click)="onAddToShoppingCart()">In den Einkaufswagen</button>
   <div class="d-flex flex-column ps-4">
     <span *ngFor="let text of ['pro Verkauf ein Baum', 'Gratis Rückversand', '30 Tage Rückgaberecht']">
       <img alt="done" src="assets/done_black.svg">
@@ -21,6 +21,6 @@
     </span>
   </div>
 
-  <button class="btn btn-primary" type="button">Auf die Wunschliste</button>
+  <button class="btn btn-primary" type="button" (click)="onAddToShoppingCart()">Auf die Wunschliste</button>
 
 </div>
