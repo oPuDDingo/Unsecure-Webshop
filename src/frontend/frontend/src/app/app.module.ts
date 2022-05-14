@@ -11,6 +11,10 @@ import {FooterComponent} from "../lib/modules/footer/footer.component";
 import {FrontItemGroupComponent} from "../lib/modules/frontItemGroup/frontItemGroup.component";
 import {BoardComponent} from "../lib/modules/board/board.component";
 import {FrontItemComponent} from "../lib/modules/frontItem/frontItem.component";
+import {LoginComponent} from "../lib/modules/login/login.component";
+import {RouterModule, Routes} from "@angular/router";
+
+const routes: Routes = [{path: '/login', component: LoginComponent}]
 
 @NgModule({
   declarations: [
@@ -20,13 +24,15 @@ import {FrontItemComponent} from "../lib/modules/frontItem/frontItem.component";
     FooterComponent,
     FrontItemGroupComponent,
     FrontItemComponent,
-    BoardComponent
+    BoardComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     ModalModule.forRoot(),
     AccordionModule.forRoot(),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    RouterModule
   ],
   providers: [],
   bootstrap: [AppComponent]
