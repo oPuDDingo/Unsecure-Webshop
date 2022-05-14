@@ -8,12 +8,24 @@ public class User {
     private boolean newsletter;
     private String salutation;
     private String title;
-    private String profilePicturePath;
+    private String profilePicture;
     private String description;
     private String email;
     private String password;
 
     public User(){}
+
+    public User(int id, String email, String firstname, String lastname, boolean newsletter, String salutation, String title, String profilePicture, String description ){
+        this.id=id;
+        this.email=email;
+        this.firstname=firstname;
+        this.lastname=lastname;
+        this.newsletter=newsletter;
+        this.salutation=salutation;
+        this.title=title;
+        this.profilePicture=profilePicture;
+        this.description=description;
+    }
 
     public int getId() {
         return id;
@@ -71,12 +83,12 @@ public class User {
         this.title = title;
     }
 
-    public String getProfilePicturePath() {
-        return profilePicturePath;
+    public String getProfilePicture() {
+        return profilePicture;
     }
 
-    public void setProfilePicturePath(String profilePicturePath) {
-        this.profilePicturePath = profilePicturePath;
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
     }
 
     public String getDescription() {

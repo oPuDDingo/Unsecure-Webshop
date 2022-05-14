@@ -177,7 +177,7 @@ public class DataAccessShopDatabase {
         try {
             stmt = con.createStatement();
             String sql ="UPDATE user SET firstname='"+ user.getFirstname()+"', lastname='"+user.getLastname()+"', title='"+user.getTitle()+"', " +
-                    "salutation='"+user.getSalutation()+"', e_mail='"+user.getMail()+"', profile_picture='"+user.getProfilePicturePath()+"', description='"+user.getDescription()+"' "+"WHERE id="+userId+";";
+                    "salutation='"+user.getSalutation()+"', e_mail='"+user.getMail()+"', profile_picture='"+user.getProfilePicture()+"', description='"+user.getDescription()+"' "+"WHERE id="+userId+";";
             stmt.execute(sql);
             stmt.close();
             con.close();
@@ -311,6 +311,25 @@ public class DataAccessShopDatabase {
         }
     }
 
+    public User getUserInformation(int userId){
+        Connection con = this.createConnection();
+        Statement stmt =null;
+        User user=null;
+        try {
+            stmt =con.createStatement();
+            String sql="SELECT e_mail, firstname, lastname, newsletter, salutation, title, profile_picture, description FROM user WHERE id="+userId+";";
+            ResultSet rs= stmt.executeQuery(sql);
+            user = new User(userId, rs.getString("e_mail"), rs.getString("firstname"), rs.getString("lastname"), rs.getBoolean("newsletter"), rs.getString("salutation"),
+                    rs.getString("title"), rs.getString("profile_picture"), rs.getString("description"));
+            rs.close();
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+
     private boolean postWishList(int userId){
         Connection con = this.createConnection();
         Statement stmt =null;
@@ -425,12 +444,8 @@ public class DataAccessShopDatabase {
 
     public static void main(String[] args) throws SQLException {
         DataAccessShopDatabase s = new DataAccessShopDatabase();
-        ArticleVersion a = new ArticleVersion();
-        a.setQuantity(444);
-        a.setColor("red");
-        a.setGbSize(522);
-        a.setArticleNumber(1);
-        a.setId(1);
-        s.putShoppingCartItem(a);
+        User u;
+        u = s.getUserInformation(1);
+        System.out.println(u.getFirstname()+" "+u.getLastname());
     }
 }
