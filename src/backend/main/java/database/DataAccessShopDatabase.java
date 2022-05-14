@@ -326,10 +326,11 @@ public class DataAccessShopDatabase {
             ResultSet rs = stmt.executeQuery(sql);
             rs.close();
             stmt.close();
-            con.close()
+            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return address;
     }
     private boolean postWishList(int userId){
         Connection con = this.createConnection();
