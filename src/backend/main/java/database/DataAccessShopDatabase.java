@@ -186,34 +186,6 @@ public class DataAccessShopDatabase {
         }
     }
 
-    public void putShoppingCartItem(int shoppingCartItemId, int quantity){
-        Connection con = this.createConnection();
-        Statement stmt =null;
-        try {
-            stmt = con.createStatement();
-            String sql="UPDATE shopping_cart_article_version SET quantity="+quantity+" WHERE id="+shoppingCartItemId+";";
-            stmt.execute(sql);
-            stmt.close();
-            con.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void putWishListItem(int wishListItemId, int quantity){
-        Connection con = this.createConnection();
-        Statement stmt =null;
-        try {
-            stmt = con.createStatement();
-            String sql="UPDATE wish_list_article_version SET quantity="+quantity+" WHERE id="+wishListItemId+";";
-            stmt.execute(sql);
-            stmt.close();
-            con.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void putAddress(Address address){ //Nicht feritg
         Connection con = this.createConnection();
         Statement stmt =null;
@@ -301,6 +273,36 @@ public class DataAccessShopDatabase {
             stmt =con.createStatement();
             String sql="INSERT INTO shopping_cart_article_version(quantity, shopping_cart_id, article_version_id) " +
                     "VALUES("+articleVersion.getQuantity()+", "+shoppingCartId+", "+articleVersionId+");";
+            stmt.execute(sql);
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void putWishListItem(ArticleVersion articleVersion){
+        Connection con = this.createConnection();
+        Statement stmt =null;
+        int articleVersionId=this.findArticleVersionId(articleVersion.getArticleNumber(), articleVersion.getGbSize(), articleVersion.getColor());
+        try {
+            stmt = con.createStatement();
+            String sql ="UPDATE wish_list_article_version SET quantity="+articleVersion.getQuantity()+", article_version_id="+articleVersionId+" WHERE id="+articleVersion.getId()+";";
+            stmt.execute(sql);
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void putShoppingCartItem(ArticleVersion articleVersion){
+        Connection con = this.createConnection();
+        Statement stmt =null;
+        int articleVersionId=this.findArticleVersionId(articleVersion.getArticleNumber(), articleVersion.getGbSize(), articleVersion.getColor());
+        try {
+            stmt = con.createStatement();
+            String sql ="UPDATE shopping_cart_article_version SET quantity="+articleVersion.getQuantity()+", article_version_id="+articleVersionId+" WHERE id="+articleVersion.getId()+";";
             stmt.execute(sql);
             stmt.close();
             con.close();
@@ -424,10 +426,11 @@ public class DataAccessShopDatabase {
     public static void main(String[] args) throws SQLException {
         DataAccessShopDatabase s = new DataAccessShopDatabase();
         ArticleVersion a = new ArticleVersion();
-        a.setQuantity(99);
+        a.setQuantity(444);
         a.setColor("red");
         a.setGbSize(522);
         a.setArticleNumber(1);
-        s.postShoppingCartItem(a, 2);
+        a.setId(1);
+        s.putShoppingCartItem(a);
     }
 }
