@@ -21,14 +21,14 @@ export class ArticleOverviewComponent implements OnInit {
     operatingSystem: "IOS",
     releaseDate: "05.09.2019",
     availability: true,
-    picture: ["iphone11"],
+    picture: ["iphone11", "near", "left"],
     brand: "Apple",
     comments: ["Super Ding", "Find ich klasse"],
     resolution: "1792 x 828",
     screen: "IPS"
   };
 
-  specifiedItem: SpecifiedItem = { articleNumber: this.article.articleNumber, quantity: 1, gbSize: 128, color: 'red'};
+  specifiedItem: SpecifiedItem = {articleNumber: this.article.articleNumber, quantity: 1, gbSize: 128, color: 'red'};
 
   constructor(private articleStore: ArticleStore) {
   }

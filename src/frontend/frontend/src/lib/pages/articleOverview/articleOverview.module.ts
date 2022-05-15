@@ -6,7 +6,8 @@ import {OverviewComponent} from "./overview/overview.component";
 import {CommentComponent} from "./comment/comment.component";
 import {ImageSectionComponent} from "./imageSection/imageSection.component";
 import {FormsModule} from "@angular/forms";
-import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import {ButtonsModule} from 'ngx-bootstrap/buttons';
+import {CarouselModule} from 'ngx-bootstrap/carousel';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
   imports: [
     BrowserModule,
     FormsModule,
-    ButtonsModule.forRoot()
+    ButtonsModule.forRoot(),
+    CarouselModule.forRoot()
   ],
   providers: [],
   bootstrap: [],

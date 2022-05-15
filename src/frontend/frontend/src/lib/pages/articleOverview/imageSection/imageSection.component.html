@@ -1,10 +1,5 @@
-<div class="row">
-  <div class="col">
-    <div *ngFor="let picture of article.picture" [ngClass]="activePicture == picture ? 'active' : ''" class="row">
-      <img [src]="getImage(picture)" alt="{{picture}}">
-    </div>
-  </div>
-  <div class="col">
-    <img [src]="getImage(activePicture)" alt="{{activePicture}}">
-  </div>
-</div>
+<carousel [interval]="10000" [isAnimated]="true">
+  <slide *ngFor="let picture of article.picture">
+    <img [src]="getImage(picture)" alt="{{picture}}" style="display: block; width: 100%;">
+  </slide>
+</carousel>

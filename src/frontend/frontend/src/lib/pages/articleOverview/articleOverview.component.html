@@ -1,17 +1,20 @@
 <div class="row">
-  <article-overview-images [article]="article" class="col-3"></article-overview-images>
+  <article-overview-images [article]="article"
+                           class="col-xl-5 col-lg-5 col-md-6">
+  </article-overview-images>
   <article-overview-specifications
-    class="col-3"
-    [article]="article"
     (colorChangedEvent)="onUpdateColor($event)"
-    (storageChangeEvent)="onUpdateGbSize($event)">
+    (storageChangeEvent)="onUpdateGbSize($event)"
+    [article]="article"
+    class="col-xl-3 col-lg-6 col-md-6">
   </article-overview-specifications>
   <article-overview-overview
-    [article]="article"
-    (changeQuantityEvent)="onUpdateQuantity($event)"
     (addToShoppingCartEvent)="onAddToShoppingCart()"
     (addToWishListEvent)="onAddToWishList()"
-    class="col-3"></article-overview-overview>
+    (changeQuantityEvent)="onUpdateQuantity($event)"
+    [article]="article"
+    class="col-xl-3 col-12">
+  </article-overview-overview>
 </div>
 
 <article-overview-comment></article-overview-comment>

@@ -11,16 +11,12 @@ export class ImageSectionComponent implements OnInit {
   // @ts-ignore
   @Input article: Article;
 
-  // @ts-ignore
-  activePicture: string;
-
   images: Map<string, Blob> = new Map<string, Blob>();
 
   constructor(private imageStore: ImageStore) {
   }
 
   ngOnInit() {
-    this.activePicture = this.article.picture[0];
     // this.article.picture.forEach(name => {
     //   this.imageStore.loadImageByName(name).subscribe(image => {
     //     this.images.set(name, image);
@@ -28,9 +24,13 @@ export class ImageSectionComponent implements OnInit {
     // });
   }
 
-  getImage(name: string): Blob {
-    // @ts-ignore
-    return this.images.get(name);
+  // getImage(name: string): Blob {
+  //   // @ts-ignore
+  //   return this.images.get(name);
+  // }
+
+  getImage(name: string): string {
+    return "assets/" + name + ".webp";
   }
 
 }
