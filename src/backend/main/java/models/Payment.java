@@ -7,6 +7,13 @@ public class Payment {
 
     public Payment(){}
 
+    public Payment(String iban, String bic, String accountHolder)
+    {
+        this.iban = iban;
+        this.bic = bic;
+        this.accountHolder = accountHolder;
+    }
+
     public String getIban() {
         return iban;
     }

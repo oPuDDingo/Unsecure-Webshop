@@ -13,6 +13,19 @@ public class Address {
 
     public Address(){}
 
+    public Address(int id, String name, String country, String address, String address2, String zipcode, String city,
+                   String deliveryInstructions)
+    {
+        this.id = id;
+        this.name = name;
+        this.country = country;
+        this.address = address;
+        this.address2 = address2;
+        this.zipcode = zipcode;
+        this.city = city;
+        this.deliveryInstructions = deliveryInstructions;
+    }
+
     public int getId() {
         return id;
     }

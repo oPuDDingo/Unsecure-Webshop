@@ -316,14 +316,15 @@ public class DataAccessShopDatabase {
         return user;
     }
 
-    public  Address getAddress(int addressId){ //nicht fertig
+    public Address getAddress(int addressId){ //nicht fertig
         Connection con = this.createConnection();
         Statement stmt =null;
         Address address =null;
         try {
             stmt =con.createStatement();
-            String sql="SELECT name, street_house_number, address_suplement, postcode, city, country, delivery_instructions FROM address WHERE id="+addressId;
+            String sql="SELECT name, street_house_number, address_suplement, postcode, city, country, delivery_instruction FROM address WHERE id="+addressId;
             ResultSet rs = stmt.executeQuery(sql);
+            address = new Address(addressId, rs.getString("name"), rs.getString("country"), rs.getString("street_house_number"), rs.getString("address_suplement"), rs.getString("postcode"), rs.getString("city"), rs.getString("delivery_instruction"));
             rs.close();
             stmt.close();
             con.close();
@@ -332,6 +333,66 @@ public class DataAccessShopDatabase {
         }
         return address;
     }
+
+    public Payment getPayment(int orderId){
+        Connection con = this.createConnection();
+        Statement stmt =null;
+        Payment payment =null;
+        try {
+            stmt =con.createStatement();
+            String sql="SELECT iban, bic, account_owner FROM sales_order WHERE id="+orderId+";";
+            ResultSet rs = stmt.executeQuery(sql);
+            payment = new Payment(rs.getString("iban"), rs.getString("bic"), rs.getString("account_owner"));
+            rs.close();
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return payment;
+    }
+
+    public void postOrder(Order order, int userId, boolean clean){
+        Connection con = this.createConnection();
+        Statement stmt =null;
+        try {
+            stmt = con.createStatement();
+            String sql="INSERT INTO sales_order(order_date, amount, iban, bic, account_owner, user_id, address_id) " +
+                    "VALUES('"+order.getOrderDate()+"', "+order.getAmount()+", '"+order.getPayment().getIban()+"', '"+order.getPayment().getBic()+"', '"+order.getPayment().getAccountHolder()+
+                    "', "+userId+", "+order.getAddress().getId()+");";
+            String sql2="SELECT last_insert_rowid();";
+            stmt.execute(sql);
+            ResultSet rs = stmt.executeQuery(sql2);
+            int orderId =rs.getInt(1);
+            stmt.close();
+            con.close();
+            for(ArticleVersion articleVersion : order.getArticles()){
+                this.postOrderItem(articleVersion, orderId);
+            }
+            this.deleteShoppingCart(userId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if(clean){
+            this.deleteShoppingCart(userId);
+        }
+    }
+
+    public void deleteShoppingCart(int userId){
+        Connection con = this.createConnection();
+        Statement stmt =null;
+        int shoppingCartId = this.findShoppingCartId(userId);
+        try {
+            stmt=con.createStatement();
+            String sql="DELETE FROM shopping_cart_article_version WHERE shopping_Cart_id="+shoppingCartId+";";
+            stmt.execute(sql);
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     private boolean postWishList(int userId){
         Connection con = this.createConnection();
         Statement stmt =null;
@@ -444,11 +505,33 @@ public class DataAccessShopDatabase {
         return shoppingCartId;
     }
 
+    private void postOrderItem(ArticleVersion articleVersion, int orderId){
+        Connection con = this.createConnection();
+        Statement stmt =null;
+        int articleVersionId=this.findArticleVersionId(articleVersion.getArticleNumber(), articleVersion.getGbSize(), articleVersion.getColor());
+        try {
+            stmt =con.createStatement();
+            String sql="INSERT INTO sales_order_article_version(quantity, sales_order_id, article_version_id) " +
+                    "VALUES("+articleVersion.getQuantity()+", "+orderId+", "+articleVersionId+");";
+            stmt.execute(sql);
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     public static void main(String[] args) throws SQLException {
         DataAccessShopDatabase s = new DataAccessShopDatabase();
-        User u;
-        u = s.getUserInformation(1);
-        System.out.println(u.getFirstname()+" "+u.getLastname());
-
+        Order o = new Order();
+        ArrayList<ArticleVersion> al = new ArrayList<>();
+        ArticleVersion a = new ArticleVersion();
+        a.setColor("red");
+        a.setGbSize(522);
+        a.setArticleNumber(1);
+        al.add(a);
+        o.setArticles(al);
+        o.setPayment(new Payment());
+        o.setAddress(new Address());
+        s.postOrder(o,2,false);
     }
 }
