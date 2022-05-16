@@ -21,55 +21,8 @@ export class UserSettingsComponent implements OnInit {
   fulfillsPasswordRequirements: boolean = true;
   validOldPassword: boolean = true;
 
-  constructor(private userStore: UserStore, private addressStore: AddressStore) {
-    this.user = {
-      id: 1,
-      mail: "max.mustermann@outlook.de",
-      firstname: "<script>alert('Here you go! Hacked!');</script>",
-      lastname: "Mustermann",
-      newsletter: true,
-      salutation: "Herr",
-      title: "",
-      picture: "",
-      description: "javascript:alert(\"Hi there\")"
-    };
-    this.addresses = [{
-      id: 1,
-      name: "Tim Nöth",
-      country: "Deutschland",
-      address: "Sartoriusstr 4",
-      address2: "",
-      zipCode: 1234156,
-      city: "Würzburg"
-    },
-      {
-        id: 2,
-        name: "Tim Nöth",
-        country: "Deutschland",
-        address: "Sartoriusstr 4",
-        address2: "",
-        zipCode: 1234156,
-        city: "Würzburg"
-      },
-      {
-        id: 3,
-        name: "Franzi Goll",
-        country: "Frankreich",
-        address: "Unter der Brücke 4",
-        address2: "2. Stock",
-        zipCode: 489460,
-        city: "Paris"
-      },
-      {
-        id: 4,
-        name: "Valerie Morvieller",
-        country: "Deutschland",
-        address: "Sartoriusstr 4",
-        address2: "App. 106",
-        zipCode: 115648,
-        city: "Würzburg"
-      },
-    ]
+  constructor(private userStore: UserStore, private addressStore: AddressStore, private imageStore: ImageStore) {
+    // toDo: implement Image Store
   }
 
   ngOnInit() {
@@ -85,8 +38,8 @@ export class UserSettingsComponent implements OnInit {
     return this.user.firstname + " " + this.user.lastname;
   }
 
-  getProfileImageUrl(): string {
-    return location.origin + "/images/" + this.user.picture;
+  getProfileImage(): Blob {
+    return this.imageStore.loadImage(this.user.picture);
   }
 
   validateNewPasswordEightChars(): boolean {
