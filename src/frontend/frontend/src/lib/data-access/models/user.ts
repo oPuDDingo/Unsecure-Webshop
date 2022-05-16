@@ -1,11 +1,12 @@
 export interface User {
-  id: number; // TODO muss man ";" oder "," am Ende machen?
+  id?: number;
   mail: string;
   firstname: string;
   lastname: string;
-  newsletter: boolean;
-  salutation: string;
-  title: string;
-  picture: string;
-  description: string;
+  newsletter?: boolean;
+  salutation?: string;
+  title?: string;
+  profilePicture?: string;
+  description?: string;
+  password?: string;
 }

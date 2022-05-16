@@ -1,13 +1,14 @@
-import {Item} from "./item";
 import {Address} from "./address";
 import {Payment} from "./payment";
+import {SpecifiedItem} from "./specifiedItem";
+import {Coupon} from "./coupon";
 
 export interface Order {
   orderNumber: number;
   date: string;
-  items: Item[];
+  specifiedItems: SpecifiedItem[];
   amount?: number;
   address?: Address[];
-  payment?: Payment[]; // TODO interface für Post relevant?
-  // coupons: Coupon[];    // TODO wird des benötigt?
+  payment?: Payment[];
+  coupons?: Coupon[];
 }

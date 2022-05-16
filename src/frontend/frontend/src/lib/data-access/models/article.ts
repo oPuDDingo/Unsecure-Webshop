@@ -1,4 +1,4 @@
-export interface Item {
+export interface Article {
   articelNumber: number;
   name: string;
   amount: number;
@@ -9,5 +9,5 @@ export interface Item {
   releaseDate?: string;
   screen?: string;
   resolution?: string;
-  pictures?: string[]; // TODO wie werden die Bilder als Array gespeichert?
+  pictures?: string[];
 }

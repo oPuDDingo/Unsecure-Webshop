@@ -6,5 +6,5 @@ export interface Address {
   zipCode: number;
   city: string;
   country: string;
-  deliveryInstructions: string;  // TODO oder addressSuplement ?
+  deliveryInstructions?: string;
 }
