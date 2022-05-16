@@ -1,0 +1,19 @@
+<div style="font-size: xx-large">
+  Meine Wunschliste
+  <img src="assets/favorite_opsz40.svg" type="heart"/>
+</div>
+<div (click)="onWishListDelete()" class="col text-end">
+  <button (mouseleave)="showText=false"
+          (mouseover)="showText=true"
+          class="btn-sm btn-danger text-body rounded-pill"
+          style="font-weight: bold"
+          type="button">
+    <span *ngIf="showText">Wunschliste löschen</span>
+    <img src="assets/delete.svg">
+  </button>
+</div>
+<specified-item-list
+  (onDeleteEvent)="onItemDelete($event)"
+  (onQuantityChangeEvent)="onItemChange($event)"
+  [itemList]="wishlist.itemList">
+</specified-item-list>
