@@ -17,20 +17,16 @@ export class ImageSectionComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.article.picture.forEach(name => {
-    //   this.imageStore.loadImageByName(name).subscribe(image => {
-    //     this.images.set(name, image);
-    //   });
-    // });
+    this.article.picture.forEach(name => {
+      this.imageStore.loadImageByName(name).subscribe(image => {
+        this.images.set(name, image);
+      });
+    });
   }
 
-  // getImage(name: string): Blob {
-  //   // @ts-ignore
-  //   return this.images.get(name);
-  // }
-
-  getImage(name: string): string {
-    return "assets/" + name + ".webp";
+  getImage(name: string): Blob {
+    // @ts-ignore
+    return this.images.get(name);
   }
 
 }
