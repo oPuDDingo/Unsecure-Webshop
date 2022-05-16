@@ -6,6 +6,6 @@ export interface User {
   newsletter: boolean;
   salutation: string;
   title: string;
-  picture: string;
+  profilePicture: string;
   description: string;
 }
