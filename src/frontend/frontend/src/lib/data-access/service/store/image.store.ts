@@ -1,5 +1,5 @@
 import {BackendService} from "../backend.service";
-import {Subject} from "rxjs";
+import {ReplaySubject} from "rxjs";
 import {Injectable} from "@angular/core";
 
 @Injectable({
@@ -8,18 +8,19 @@ import {Injectable} from "@angular/core";
 export class ImageStore {
 
 
-  images: Map<string, Blob> = new Map<string, Blob>();
+  images: Map<number, string> = new Map<number, string>();
 
   constructor(private backendService: BackendService) {
   }
 
-  loadImageByName(name: string): Subject<Blob> {
-    const imageSubject: Subject<Blob> = new Subject<Blob>();
-    let image = this.images.get(name);
+  loadImageById(id: number): ReplaySubject<string> {
+    const imageSubject: ReplaySubject<string> = new ReplaySubject<string>();
+    let image = this.images.get(id);
     if (image == undefined) {
-      this.backendService.getImageByName(name).subscribe(imageBlob => {
-        this.images.set(name, imageBlob);
-        imageSubject.next(imageBlob);
+      this.backendService.getImageById(id).subscribe(imageString => {
+        let base64String = "data:image/png;base64, " + imageString;
+        this.images.set(id, base64String);
+        imageSubject.next(base64String);
       })
     } else {
       imageSubject.next(image);

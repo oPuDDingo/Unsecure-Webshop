@@ -11,22 +11,24 @@ export class ImageSectionComponent implements OnInit {
   // @ts-ignore
   @Input article: Article;
 
-  images: Map<string, Blob> = new Map<string, Blob>();
+  images: Map<number, string> = new Map<number, string>();
 
   constructor(private imageStore: ImageStore) {
   }
 
   ngOnInit() {
-    this.article.picture.forEach(name => {
-      this.imageStore.loadImageByName(name).subscribe(image => {
-        this.images.set(name, image);
+    this.article.picture.forEach(id => {
+      this.imageStore.loadImageById(id).subscribe(image => {
+        this.images.set(id, image);
       });
     });
   }
 
-  getImage(name: string): Blob {
-    // @ts-ignore
-    return this.images.get(name);
+  getImage(id: number): void {
+    this.images.set(id, "");
+    this.imageStore.loadImageById(id).subscribe(image =>
+      this.images.set(id, image)
+    );
   }
 
 }

@@ -21,7 +21,7 @@ export class ArticleOverviewComponent implements OnInit {
     operatingSystem: "IOS",
     releaseDate: "05.09.2019",
     availability: true,
-    picture: ["iphone11", "near", "left"],
+    picture: [1, 2, 3],
     brand: "Apple",
     comments: ["Super Ding", "Find ich klasse"],
     resolution: "1792 x 828",

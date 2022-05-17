@@ -16,7 +16,7 @@ export class BackendService {
     return this.httpClient.get<Article>(this.url + 'articles/' + articleNumber);
   }
 
-  getImageByName(name: string): Observable<Blob> {
-    return this.httpClient.get(this.url + 'images/' + name, {responseType: 'blob'});
+  getImageById(id: number): Observable<any> {
+    return this.httpClient.get(this.url + 'images/' + id, {responseType: 'text'});
   }
 }

@@ -9,7 +9,7 @@ export interface Article {
   screen: string;
   resolution: string;
   brand: string;
-  picture: string[];
+  picture: number[];
   comments: string[];
   availability: boolean;
 }
