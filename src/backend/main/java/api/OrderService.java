@@ -1,6 +1,6 @@
-package api;
+package backend.main.java.api;
 
-import models.Order;
+import backend.main.java.models.Order;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;

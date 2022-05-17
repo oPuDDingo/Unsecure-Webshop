@@ -1,4 +1,4 @@
-package models;
+package backend.main.java.models;
 
 public class User {
 	private int id;

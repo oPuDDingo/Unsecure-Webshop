@@ -1,4 +1,4 @@
-package api;
+package backend.main.java.api;
 
 
 import javax.ws.rs.*;
@@ -15,7 +15,7 @@ import javax.ws.rs.core.Response;
 
 		if (username.equals("admin") && password.equals("admin"))
 		{
-			return Response.ok("Login successful").build();
+			return Response.ok("sessionID").build();
 		} else {
 			return Response.status(401).build();
 		}

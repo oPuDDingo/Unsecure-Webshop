@@ -1,3 +1,5 @@
+package backend.main.java;
+
 import org.apache.catalina.Context;
 import org.apache.catalina.WebResourceRoot;
 import org.apache.catalina.startup.Tomcat;

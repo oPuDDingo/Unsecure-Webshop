@@ -1,6 +1,6 @@
-package api;
+package backend.main.java.api;
 
-import models.Coupon;
+import backend.main.java.models.Coupon;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;

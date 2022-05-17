@@ -1,6 +1,6 @@
-package api;
+package backend.main.java.api;
 
-import models.ArticleVersion;
+import backend.main.java.models.ArticleVersion;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;

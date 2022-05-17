@@ -1,8 +1,8 @@
-package api;
+package backend.main.java.api;
 
-import models.Address;
-import models.Payment;
-import models.User;
+import backend.main.java.models.User;
+import backend.main.java.models.Address;
+import backend.main.java.models.Payment;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
@@ -31,14 +31,14 @@ import java.net.URI;
 	}
 
 	@PUT @Consumes(MediaType.APPLICATION_JSON) public Response modifyUser(
-		@DefaultValue("") @QueryParam("sessionID") final String sessionID, final User user)
+		@QueryParam("sessionID") final String sessionID, final User user)
 	{
 		// edit in database
 		return Response.ok(user).build();
 	}
 
 	@DELETE public Response deleteUser(
-		@DefaultValue("") @QueryParam("sessionID") final String sessionID
+		@QueryParam("sessionID") final String sessionID
 	)
 	{
 		//get user from database with sessionID and delete it
@@ -46,7 +46,7 @@ import java.net.URI;
 	}
 
 	@Path("payment") @GET @Produces(MediaType.APPLICATION_JSON) public Response getUserPayment(
-		@DefaultValue("") @QueryParam("sessionID") String sessionID
+		@QueryParam("sessionID") String sessionID
 	)
 	{
 		// get from database with sessionID
@@ -54,7 +54,7 @@ import java.net.URI;
 	}
 
 	@Path("payment") @PUT @Consumes(MediaType.APPLICATION_JSON) public Response modifyUserPayment(
-		@DefaultValue("") @QueryParam("sessionID") String sessionID,
+		@QueryParam("sessionID") String sessionID,
 		final Payment payment
 	)
 	{
@@ -64,7 +64,7 @@ import java.net.URI;
 	}
 
 	@Path("payment") @DELETE public Response deleteUserPayment(
-		@DefaultValue("") @QueryParam("sessionID") String sessionID
+		@QueryParam("sessionID") String sessionID
 	)
 	{
 		// get user with session id and delete related payment info
@@ -72,7 +72,7 @@ import java.net.URI;
 	}
 
 	@GET @Path("{id}") @Produces(MediaType.APPLICATION_JSON) public Response getAddress(
-		@DefaultValue("") @QueryParam("sessionID") String semester,
+		@QueryParam("sessionID") String semester,
 		@PathParam("id") final long id
 	)
 	{
@@ -80,7 +80,7 @@ import java.net.URI;
 	}
 
 	@Path("address") @POST @Produces(MediaType.APPLICATION_JSON) public Response createAddress(
-		@DefaultValue("") @QueryParam("sessionID") String sessionID,
+		@QueryParam("sessionID") String sessionID,
 		@Context UriInfo uriInfo, final Address address
 	)
 	{
@@ -90,7 +90,7 @@ import java.net.URI;
 	}
 
 	@Path("address") @PUT @Consumes(MediaType.APPLICATION_JSON) public Response modifyAddress(
-		@DefaultValue("") @QueryParam("sessionID") String sessionID,
+		@QueryParam("sessionID") String sessionID,
 		final Address address)
 	{
 		// edit in database
@@ -98,7 +98,7 @@ import java.net.URI;
 	}
 
 	@Path("address/{id}") @DELETE public Response deleteAddress(
-		@DefaultValue("") @QueryParam("sessionID") String sessionID,
+		@QueryParam("sessionID") String sessionID,
 		@PathParam("id") final int id
 	)
 	{
@@ -107,7 +107,7 @@ import java.net.URI;
 	}
 
 	@Path("mail") @GET @Produces(MediaType.APPLICATION_JSON) public Response getUserMail(
-		@DefaultValue("") @QueryParam("sessionID") String sessionID
+		@QueryParam("sessionID") String sessionID
 	)
 	{
 		// get from database with sessionID
@@ -116,7 +116,7 @@ import java.net.URI;
 
 
 	@Path("mail") @PUT @Consumes(MediaType.APPLICATION_JSON) public Response createUserMail(
-		@DefaultValue("") @QueryParam("sessionID") String sessionID,
+		@QueryParam("sessionID") String sessionID,
 		@Context UriInfo uriInfo, final String mail
 	)
 	{

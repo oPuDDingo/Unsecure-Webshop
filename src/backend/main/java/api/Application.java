@@ -1,6 +1,5 @@
-package api;
+package backend.main.java.api;
 
-import models.Article;
 import org.glassfish.jersey.server.ResourceConfig;
 
 import javax.ws.rs.ApplicationPath;
