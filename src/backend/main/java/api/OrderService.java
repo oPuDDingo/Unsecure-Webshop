@@ -19,7 +19,10 @@ import java.util.List;
 		return Response.ok(orders).build();
 	}
 
-	@GET @Path("{id}") public Response getOrderbyID(@PathParam("id") final int id) {
+	@GET @Path("{id}") public Response getOrderbyID(
+		@PathParam("id") final int id
+	)
+	{
 		//get from database
 		return Response.ok(Order.getRandomOrder(id)).build();
 	}
@@ -33,6 +36,6 @@ import java.util.List;
 			// send delete request to wishlist
 		}
 		// create/move order in withlist
-		return Response.created(new URI("placeholder for uri -> /orders/id")).build();
+		return Response.created(new URI("placeholder")).build(); // placeholder for uri -> /orders/id
 	}
 }

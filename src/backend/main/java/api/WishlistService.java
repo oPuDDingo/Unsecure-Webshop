@@ -26,10 +26,10 @@ import java.util.List;
 	) throws URISyntaxException
 	{
 		// create article in database
-		return Response.created(new URI("placeholder article number")).build();
+		return Response.created(new URI("placeholder-article-number")).build();
 	}
 
-	@PUT @Consumes(MediaType.APPLICATION_JSON) @Path("item/{id}") public Response modifyWishlistItem(
+	@PUT @Consumes(MediaType.APPLICATION_JSON) @Path("items/{id}") public Response modifyWishlistItem(
 		@PathParam("id") final int id,
 		final ArticleVersion articleVersion
 	)

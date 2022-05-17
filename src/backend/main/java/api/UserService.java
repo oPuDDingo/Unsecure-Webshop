@@ -13,7 +13,7 @@ import java.net.URI;
 
 @Path("user") public class UserService
 {
-	@GET @Path("information") @Produces(MediaType.APPLICATION_JSON) public Response getUser(
+	@GET @Produces(MediaType.APPLICATION_JSON) public Response getUser(
 		@CookieParam("sessionID") final String session)
 	{
 		//get by session id
@@ -32,7 +32,8 @@ import java.net.URI;
 	}
 
 	@PUT @Consumes(MediaType.APPLICATION_JSON) public Response modifyUser(
-		@CookieParam("sessionID") final String sessionID, final User user)
+		@CookieParam("sessionID") final String sessionID,
+		final User user)
 	{
 		// edit in database
 		return Response.ok(user).build();
@@ -52,6 +53,17 @@ import java.net.URI;
 		return Response.ok(Payment.getRandomPayment()).build();
 	}
 
+	@Path("payment") @POST @Consumes(MediaType.APPLICATION_JSON) public Response addUserPayment(
+		@CookieParam("sessionID") String sessionID,
+		@Context UriInfo uriInfo,
+		final Payment payment)
+	{
+		// get from database with sessionID
+		// modify payment in database
+		final URI locationURI = uriInfo.getAbsolutePathBuilder().build();
+		return Response.created(locationURI).build();
+	}
+
 	@Path("payment") @PUT @Consumes(MediaType.APPLICATION_JSON) public Response modifyUserPayment(
 		@CookieParam("sessionID") String sessionID, final Payment payment)
 	{
@@ -67,14 +79,17 @@ import java.net.URI;
 		return Response.noContent().build();
 	}
 
-	@GET @Path("{id}") @Produces(MediaType.APPLICATION_JSON) public Response getAddress(
-		@CookieParam("sessionID") String semester, @PathParam("id") final long id)
+	@GET @Path("/address/{id}") @Produces(MediaType.APPLICATION_JSON) public Response getAddress(
+		@CookieParam("sessionID") String semester,
+		@PathParam("id") final long id)
 	{
 		return Response.ok(Address.getRandomAddress()).build();
 	}
 
 	@Path("address") @POST @Produces(MediaType.APPLICATION_JSON) public Response createAddress(
-		@CookieParam("sessionID") String sessionID, @Context UriInfo uriInfo, final Address address)
+		@CookieParam("sessionID") String sessionID,
+		@Context UriInfo uriInfo,
+		final Address address)
 	{
 		// post to database with sessionID
 		final URI locationURI = uriInfo.getAbsolutePathBuilder().path(Long.toString(address.getId())).build();
@@ -120,7 +135,7 @@ import java.net.URI;
 	)
 	{
 		// turn on newsletter
-		return Response.ok("signed in for newsletter").build();
+		return Response.ok("signed up for newsletter").build();
 	}
 
 	@Path("newsletter") @DELETE public Response turnOffNewsletter(
@@ -131,7 +146,7 @@ import java.net.URI;
 		return Response.ok("cancelled newsletter subscription").build();
 	}
 
-	@Path("password") @PUT public Response modifyPassword(
+	@Path("password") @Consumes(MediaType.TEXT_PLAIN) @PUT public Response modifyPassword(
 		@CookieParam("sessionID") final String sessionID,
 		final String password)
 	{

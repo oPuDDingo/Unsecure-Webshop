@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Article {
 
-	private String articleNumber;
+	private int articleNumber;
 	private String modelName;
 	private double amount;
 	private int stars;
@@ -13,16 +13,15 @@ public class Article {
 	private String releaseDate;
 	private String screen;
 	private String resolution;
-	private String productionYear;
 	private String brand;
-	private List<String> pictures;
 	private List<Comment> comments;
+	private List<Integer> imageIds;
 
 	public Article(){}
 
-	public Article(String articleNumber, String modelName, double amount, int stars, String operatingSystem,
-		String releaseDate, String screen, String resolution, String productionYear, String brand,
-		List<String> pictures, List<Comment> comments)
+	public Article(int articleNumber, String modelName, double amount, int stars, String operatingSystem,
+		String releaseDate, String screen, String resolution, String brand,
+		List<Comment> comments, List<Integer> imageIds)
 	{
 		this.articleNumber = articleNumber;
 		this.modelName = modelName;
@@ -32,31 +31,28 @@ public class Article {
 		this.releaseDate = releaseDate;
 		this.screen = screen;
 		this.resolution = resolution;
-		this.productionYear = productionYear;
 		this.brand = brand;
-		this.pictures = pictures;
 		this.comments = comments;
+		this.imageIds=imageIds;
 	}
 
-	public Article(String articleNumber, String modelName, double amount, List<String> pictures)
+	public Article(int articleNumber, String modelName, double amount, List<String> pictures)
 	{
 		this.articleNumber = articleNumber;
 		this.modelName = modelName;
 		this.amount = amount;
-		this.pictures = pictures;
 	}
 
-	public static Article getRandomArticle() {
-		return new Article("195438", "Iphone", 2.0, 4, "iOS", "2018",
-			"AMOLED", "1024x704", "2017", "Apple", new ArrayList<>(),
-			new ArrayList<Comment>());
+	public static Article getRandomArticle()
+	{
+		return new Article();
 	}
 
-	public String getArticleNumber() {
+	public int getArticleNumber() {
 		return articleNumber;
 	}
 
-	public void setArticleNumber(String articleNumber) {
+	public void setArticleNumber(int articleNumber) {
 		this.articleNumber = articleNumber;
 	}
 
@@ -116,14 +112,6 @@ public class Article {
 		this.resolution = resolution;
 	}
 
-	public String getProductionYear() {
-		return productionYear;
-	}
-
-	public void setProductionYear(String productionYear) {
-		this.productionYear = productionYear;
-	}
-
 	public String getBrand() {
 		return brand;
 	}
@@ -132,19 +120,19 @@ public class Article {
 		this.brand = brand;
 	}
 
-	public List<String> getPictures() {
-		return pictures;
-	}
-
-	public void setPictures(List<String> pictures) {
-		this.pictures = pictures;
-	}
-
 	public List<Comment> getComments() {
 		return comments;
 	}
 
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
+	}
+
+	public List<Integer> getImageIds() {
+		return imageIds;
+	}
+
+	public void setImageIds(List<Integer> imageIds) {
+		this.imageIds = imageIds;
 	}
 }

@@ -4,23 +4,22 @@ import java.util.List;
 
 public class ArticleShort {
 
-	private String articleNumber;
+	private int articleNumber;
 	private String modelName;
 	private double amount;
 	private List<String> pictures;
 
 	public ArticleShort(){}
 
-	public ArticleShort(String articleNumber, String modelName, double amount, List<String> pictures)
+	public ArticleShort(int articleNumber, String modelName, double amount)
 	{
 		this.articleNumber = articleNumber;
 		this.modelName = modelName;
 		this.amount = amount;
-		this.pictures = pictures;
 	}
 
 	public static ArticleShort articleToShort(Article article) {
-		return new ArticleShort(article.getArticleNumber(), article.getModelName(), article.getAmount(), article.getPictures());
+		return new ArticleShort(article.getArticleNumber(), article.getModelName(), article.getAmount());
 	}
 
 	public static ArticleShort getRandomArticleShort() {
@@ -28,11 +27,11 @@ public class ArticleShort {
 	}
 
 
-	public String getArticleNumber() {
+	public int getArticleNumber() {
 		return articleNumber;
 	}
 
-	public void setArticleNumber(String articleNumber) {
+	public void setArticleNumber(int articleNumber) {
 		this.articleNumber = articleNumber;
 	}
 

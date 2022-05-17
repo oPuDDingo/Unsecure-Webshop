@@ -1,5 +1,5 @@
 package backend.main.java.api;
-
+import backend.main.java.Logic;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -13,12 +13,12 @@ import javax.ws.rs.core.Response;
 	) {
 		// database check
 
-		if (username.equals("admin") && password.equals("admin"))
+		String session = Logic.login(username, password);
+		if (session == null)
 		{
-			return Response.ok("sessionID").build();
-		} else {
-			return Response.status(401).build();
+			return Response.status(404).build(); // login data not found
 		}
+		return Response.ok(session).build();
 	}
 
 

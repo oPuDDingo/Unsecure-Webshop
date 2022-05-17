@@ -13,14 +13,14 @@ import java.util.Base64;
 
 @Path("images") public class ImageService
 {
-	@GET @Produces(MediaType.APPLICATION_JSON) public Response getImage(
-		@QueryParam("name") final String name
+	@GET @Path("{id}") @Produces(MediaType.APPLICATION_JSON) public Response getImage(
+		@PathParam("id") final String name
 	)
 	{
-		// find in database by name
+		// find in database by id and get the byte data
 
 		String imageBytes = getByteArrayFromImageURL("https://www.kindpng.com/picc/m/6-67785_broken-phone-png-broken-iphone-transparent-png-download.png");
-		Image image = new Image(1, "iPhone 12", imageBytes);
+		Image image = new Image(1, imageBytes);
 		return Response.ok(image).build();
 	}
 
