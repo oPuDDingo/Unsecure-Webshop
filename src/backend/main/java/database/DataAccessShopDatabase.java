@@ -412,6 +412,24 @@ public class DataAccessShopDatabase {
         return article;
     }
 
+    public Login getLogin(int userId){
+        Connection con = this.createConnection();
+        Statement stmt =null;
+        Login login = null;
+        try {
+            stmt = con.createStatement();
+            String sql="SELECT e_mail, password FROM user WHERE id="+userId+";";
+            ResultSet rs = stmt.executeQuery(sql);
+            login = new Login(rs.getString("e_mail"), rs.getString("password"));
+            rs.close();
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return login;
+    }
+
     private boolean postWishList(int userId){
         Connection con = this.createConnection();
         Statement stmt =null;
@@ -583,8 +601,8 @@ public class DataAccessShopDatabase {
 
     public static void main(String[] args) throws SQLException {
         DataAccessShopDatabase s = new DataAccessShopDatabase();
-        Article a = s.getArticle(1);
-        System.out.println(a.getBrand());
-        System.out.println(a.getModelName());
+        Login l = s.getLogin(1);
+        System.out.println(l.getEmail());
+        System.out.println(l.getPassword());
     }
 }
