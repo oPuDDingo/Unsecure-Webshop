@@ -2,61 +2,71 @@ package backend.main.java.models;
 
 public class Comment {
 
-    private int id;
-    private String commentText;
-    private int userId;
-    private String firstname;
-    private String lastname;
-    private String profilePicture;
+	private int id;
+	private String commentText;
+	private int userId;
+	private String firstname;
+	private String lastname;
+	private String profilePicture;
 
 
-    public Comment(){}
+	public Comment(){}
 
-    public int getId() {
-        return id;
-    }
+	public Comment(int id, String commentText, int userId, String firstname, String lastname, String profilePicture)
+	{
+		this.id = id;
+		this.commentText = commentText;
+		this.userId = userId;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.profilePicture = profilePicture;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public String getCommentText() {
-        return commentText;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public void setCommentText(String commentText) {
-        this.commentText = commentText;
-    }
+	public String getCommentText() {
+		return commentText;
+	}
 
-    public int getUserId() {
-        return userId;
-    }
+	public void setCommentText(String commentText) {
+		this.commentText = commentText;
+	}
 
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
+	public int getUserId() {
+		return userId;
+	}
 
-    public String getFirstname() {
-        return firstname;
-    }
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
+	public String getFirstname() {
+		return firstname;
+	}
 
-    public String getLastname() {
-        return lastname;
-    }
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
+	public String getLastname() {
+		return lastname;
+	}
 
-    public String getProfilePicture() {
-        return profilePicture;
-    }
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
 
-    public void setProfilePicture(String profilePicture) {
-        this.profilePicture = profilePicture;
-    }
+	public String getProfilePicture() {
+		return profilePicture;
+	}
+
+	public void setProfilePicture(String profilePicture) {
+		this.profilePicture = profilePicture;
+	}
 }

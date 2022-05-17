@@ -2,42 +2,60 @@ package backend.main.java.models;
 
 public class Coupon {
 
-    private int id;
-    private String name;
-    private double percent;
-    private boolean active;
+	private int id;
+	private String name;
+	private double percent;
+	private boolean active;
 
-    public Coupon(){}
+	public Coupon(){}
 
-    public int getId() {
-        return id;
-    }
+	public Coupon(int id, String name, double percent, boolean active)
+	{
+		this.id = id;
+		this.name = name;
+		this.percent = percent;
+		this.active = active;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public static Coupon getRandomCoupon()
+	{
+		return getRandomCoupon("DISCOUNT15");
+	}
 
-    public String getName() {
-        return name;
-    }
+	public static Coupon getRandomCoupon(final String name)
+	{
+		return new Coupon(2, name, 15, true);
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public double getPercent() {
-        return percent;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public void setPercent(double percent) {
-        this.percent = percent;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public boolean isActive() {
-        return active;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setActive(boolean active) {
-        this.active = active;
-    }
+	public double getPercent() {
+		return percent;
+	}
+
+	public void setPercent(double percent) {
+		this.percent = percent;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
 }

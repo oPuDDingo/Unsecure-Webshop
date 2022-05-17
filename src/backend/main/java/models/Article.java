@@ -1,117 +1,133 @@
 package backend.main.java.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Article {
 
-    private String articleNumber;
-    private String modelName;
-    private double amount;
-    private int stars;
-    private String operatingSystem;
-    private String releaseDate;
-    private String screen;
-    private String resolution;
-    private String productionYear;
-    private String brand;
-    private List<String> pictures;
-    private List<Comment> comments;
+	private int articleNumber;
+	private String modelName;
+	private double amount;
+	private int stars;
+	private String operatingSystem;
+	private String releaseDate;
+	private String screen;
+	private String resolution;
+	private String brand;
+	private List<Comment> comments;
+	private List<Integer> imageIds;
 
-    public Article(){}
+	public Article(){}
 
-    public String getArticleNumber() {
-        return articleNumber;
-    }
+	public Article(int articleNumber, String modelName, double amount, int stars, String operatingSystem,
+		String releaseDate, String screen, String resolution, String brand,
+		List<Comment> comments, List<Integer> imageIds)
+	{
+		this.articleNumber = articleNumber;
+		this.modelName = modelName;
+		this.amount = amount;
+		this.stars = stars;
+		this.operatingSystem = operatingSystem;
+		this.releaseDate = releaseDate;
+		this.screen = screen;
+		this.resolution = resolution;
+		this.brand = brand;
+		this.comments = comments;
+		this.imageIds=imageIds;
+	}
 
-    public void setArticleNumber(String articleNumber) {
-        this.articleNumber = articleNumber;
-    }
+	public Article(int articleNumber, String modelName, double amount, List<String> pictures)
+	{
+		this.articleNumber = articleNumber;
+		this.modelName = modelName;
+		this.amount = amount;
+	}
 
-    public String getModelName() {
-        return modelName;
-    }
+	public int getArticleNumber() {
+		return articleNumber;
+	}
 
-    public void setModelName(String modelName) {
-        this.modelName = modelName;
-    }
+	public void setArticleNumber(int articleNumber) {
+		this.articleNumber = articleNumber;
+	}
 
-    public double getAmount() {
-        return amount;
-    }
+	public String getModelName() {
+		return modelName;
+	}
 
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
+	public void setModelName(String modelName) {
+		this.modelName = modelName;
+	}
 
-    public int getStars() {
-        return stars;
-    }
+	public double getAmount() {
+		return amount;
+	}
 
-    public void setStars(int numberOfValutation, int sumOfValutation){
-        this.stars = Math.round(sumOfValutation/numberOfValutation);
-    }
+	public void setAmount(double amount) {
+		this.amount = amount;
+	}
 
-    public String getOperatingSystem() {
-        return operatingSystem;
-    }
+	public int getStars() {
+		return stars;
+	}
 
-    public void setOperatingSystem(String operatingSystem) {
-        this.operatingSystem = operatingSystem;
-    }
+	public void setStars(int numberOfValutation, int sumOfValutation){
+		this.stars = Math.round(sumOfValutation/numberOfValutation);
+	}
 
-    public String getReleaseDate() {
-        return releaseDate;
-    }
+	public String getOperatingSystem() {
+		return operatingSystem;
+	}
 
-    public void setReleaseDate(String releaseDate) {
-        this.releaseDate = releaseDate;
-    }
+	public void setOperatingSystem(String operatingSystem) {
+		this.operatingSystem = operatingSystem;
+	}
 
-    public String getScreen() {
-        return screen;
-    }
+	public String getReleaseDate() {
+		return releaseDate;
+	}
 
-    public void setScreen(String screen) {
-        this.screen = screen;
-    }
+	public void setReleaseDate(String releaseDate) {
+		this.releaseDate = releaseDate;
+	}
 
-    public String getResolution() {
-        return resolution;
-    }
+	public String getScreen() {
+		return screen;
+	}
 
-    public void setResolution(String resolution) {
-        this.resolution = resolution;
-    }
+	public void setScreen(String screen) {
+		this.screen = screen;
+	}
 
-    public String getProductionYear() {
-        return productionYear;
-    }
+	public String getResolution() {
+		return resolution;
+	}
 
-    public void setProductionYear(String productionYear) {
-        this.productionYear = productionYear;
-    }
+	public void setResolution(String resolution) {
+		this.resolution = resolution;
+	}
 
-    public String getBrand() {
-        return brand;
-    }
+	public String getBrand() {
+		return brand;
+	}
 
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
 
-    public List<String> getPictures() {
-        return pictures;
-    }
+	public List<Comment> getComments() {
+		return comments;
+	}
 
-    public void setPictures(List<String> pictures) {
-        this.pictures = pictures;
-    }
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
 
-    public List<Comment> getComments() {
-        return comments;
-    }
+	public List<Integer> getImageIds() {
+		return imageIds;
+	}
 
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-    }
+	public void setImageIds(List<Integer> imageIds) {
+		this.imageIds = imageIds;
+	}
 }

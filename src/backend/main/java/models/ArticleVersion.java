@@ -2,78 +2,95 @@ package backend.main.java.models;
 
 public class ArticleVersion { //Specifyed Item
 
-    private int id; //Aus m zu n Table
-    private int articleNumber; //ID des article
-    private String name;
-    private int quantity;
-    private int gbSize;
-    private String color;
-    private double amount;
-    private String picture;
+	private int id; //Aus m zu n Table
+	private int articleNumber; //ID des article
+	private String name;
+	private int quantity;
+	private int gbSize;
+	private String color;
+	private double amount;
+	private String picture;
 
-    public ArticleVersion(){}
+	public ArticleVersion(){}
 
-    public int getId() {
-        return id;
-    }
+	public ArticleVersion(int id, int articleNumber, String name, int quantity, int gbSize, String color, double amount,
+		String picture)
+	{
+		this.id = id;
+		this.articleNumber = articleNumber;
+		this.name = name;
+		this.quantity = quantity;
+		this.gbSize = gbSize;
+		this.color = color;
+		this.amount = amount;
+		this.picture = picture;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public static ArticleVersion getRandomArticleVersion() {
+		return new ArticleVersion(24, 2846, "Iphone", 1, 64, "Red", 4.0, "picture");
+	}
 
-    public int getArticleNumber() {
-        return articleNumber;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public void setArticleNumber(int articleNumber) {
-        this.articleNumber = articleNumber;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public int getArticleNumber() {
+		return articleNumber;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setArticleNumber(int articleNumber) {
+		this.articleNumber = articleNumber;
+	}
 
-    public int getQuantity() {
-        return quantity;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public int getGbSize() {
-        return gbSize;
-    }
+	public int getQuantity() {
+		return quantity;
+	}
 
-    public void setGbSize(int gbSize) {
-        this.gbSize = gbSize;
-    }
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
 
-    public String getColor() {
-        return color;
-    }
+	public int getGbSize() {
+		return gbSize;
+	}
 
-    public void setColor(String color) {
-        this.color = color;
-    }
+	public void setGbSize(int gbSize) {
+		this.gbSize = gbSize;
+	}
 
-    public double getAmount() {
-        return amount;
-    }
+	public String getColor() {
+		return color;
+	}
 
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
+	public void setColor(String color) {
+		this.color = color;
+	}
 
-    public String getPicture() {
-        return picture;
-    }
+	public double getAmount() {
+		return amount;
+	}
 
-    public void setPicture(String picture) {
-        this.picture = picture;
-    }
+	public void setAmount(double amount) {
+		this.amount = amount;
+	}
+
+	public String getPicture() {
+		return picture;
+	}
+
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
 }

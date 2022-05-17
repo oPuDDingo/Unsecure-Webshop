@@ -1,117 +1,121 @@
 package backend.main.java.models;
 
 public class User {
-    private int id;
-    private String mail;
-    private String firstname;
-    private String lastname;
-    private boolean newsletter;
-    private String salutation;
-    private String title;
-    private String profilePicture;
-    private String description;
-    private String email;
-    private String password;
+	private int id;
+	private String mail;
+	private String firstname;
+	private String lastname;
+	private boolean newsletter;
+	private String salutation;
+	private String title;
+	private String profilePicture;
+	private String description;
+	private String email;
+	private String password;
 
-    public User(){}
+	public User(){}
 
-    public User(int id, String email, String firstname, String lastname, boolean newsletter, String salutation, String title, String profilePicture, String description ){
-        this.id=id;
-        this.email=email;
-        this.firstname=firstname;
-        this.lastname=lastname;
-        this.newsletter=newsletter;
-        this.salutation=salutation;
-        this.title=title;
-        this.profilePicture=profilePicture;
-        this.description=description;
-    }
+	public User(int id, String email, String firstname, String lastname, boolean newsletter, String salutation, String title, String profilePicture, String description ){
+		this.id=id;
+		this.email=email;
+		this.firstname=firstname;
+		this.lastname=lastname;
+		this.newsletter=newsletter;
+		this.salutation=salutation;
+		this.title=title;
+		this.profilePicture=profilePicture;
+		this.description=description;
+	}
 
-    public int getId() {
-        return id;
-    }
+	public static User getRandomUser() {
+		return new User(1, "mail@mail.com", "Max", "Mustermann", true, "Hi, my name is Max", "Dr.", "/picture", "description" );
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public String getMail() {
-        return mail;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
+	public String getMail() {
+		return mail;
+	}
 
-    public String getFirstname() {
-        return firstname;
-    }
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
+	public String getFirstname() {
+		return firstname;
+	}
 
-    public String getLastname() {
-        return lastname;
-    }
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
+	public String getLastname() {
+		return lastname;
+	}
 
-    public boolean isNewsletter() {
-        return newsletter;
-    }
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
 
-    public void setNewsletter(boolean newsletter) {
-        this.newsletter = newsletter;
-    }
+	public boolean isNewsletter() {
+		return newsletter;
+	}
 
-    public String getSalutation() {
-        return salutation;
-    }
+	public void setNewsletter(boolean newsletter) {
+		this.newsletter = newsletter;
+	}
 
-    public void setSalutation(String salutation) {
-        this.salutation = salutation;
-    }
+	public String getSalutation() {
+		return salutation;
+	}
 
-    public String getTitle() {
-        return title;
-    }
+	public void setSalutation(String salutation) {
+		this.salutation = salutation;
+	}
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+	public String getTitle() {
+		return title;
+	}
 
-    public String getProfilePicture() {
-        return profilePicture;
-    }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-    public void setProfilePicture(String profilePicture) {
-        this.profilePicture = profilePicture;
-    }
+	public String getProfilePicture() {
+		return profilePicture;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public void setProfilePicture(String profilePicture) {
+		this.profilePicture = profilePicture;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 }

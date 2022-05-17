@@ -1,40 +1,45 @@
 package backend.main.java.models;
 
 public class Payment {
-    private String iban;
-    private String bic;
-    private String accountHolder;
+	private String iban;
+	private String bic;
+	private String accountHolder;
 
-    public Payment(){}
+	public Payment(){}
 
-    public Payment(String iban, String bic, String accountHolder)
-    {
-        this.iban = iban;
-        this.bic = bic;
-        this.accountHolder = accountHolder;
-    }
+	public Payment(String iban, String bic, String accountHolder)
+	{
+		this.iban = iban;
+		this.bic = bic;
+		this.accountHolder = accountHolder;
+	}
 
-    public String getIban() {
-        return iban;
-    }
+	public static Payment getRandomPayment()
+	{
+		return new Payment("DE12 2345 1234 1264 9765", "BYLADEM1", "Max Mustermann");
+	}
 
-    public void setIban(String iban) {
-        this.iban = iban;
-    }
+	public String getIban() {
+		return iban;
+	}
 
-    public String getBic() {
-        return bic;
-    }
+	public void setIban(String iban) {
+		this.iban = iban;
+	}
 
-    public void setBic(String bic) {
-        this.bic = bic;
-    }
+	public String getBic() {
+		return bic;
+	}
 
-    public String getAccountHolder() {
-        return accountHolder;
-    }
+	public void setBic(String bic) {
+		this.bic = bic;
+	}
 
-    public void setAccountHolder(String accountHolder) {
-        this.accountHolder = accountHolder;
-    }
+	public String getAccountHolder() {
+		return accountHolder;
+	}
+
+	public void setAccountHolder(String accountHolder) {
+		this.accountHolder = accountHolder;
+	}
 }

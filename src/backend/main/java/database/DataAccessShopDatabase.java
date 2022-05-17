@@ -303,9 +303,10 @@ public class DataAccessShopDatabase {
         User user=null;
         try {
             stmt =con.createStatement();
-            String sql="SELECT e_mail, firstname, lastname, newsletter, salutation, title, profile_picture, description FROM user WHERE id="+userId+";";
+            String sql="SELECT id, e_mail, firstname, lastname, newsletter, salutation, title, profile_picture, description FROM user WHERE id="+userId+";";
+            System.out.println(sql);
             ResultSet rs= stmt.executeQuery(sql);
-            user = new User(userId, rs.getString("e_mail"), rs.getString("firstname"), rs.getString("lastname"), rs.getBoolean("newsletter"), rs.getString("salutation"),
+            user = new User(rs.getInt("id"), rs.getString("e_mail"), rs.getString("firstname"), rs.getString("lastname"), rs.getBoolean("newsletter"), rs.getString("salutation"),
                     rs.getString("title"), rs.getString("profile_picture"), rs.getString("description"));
             rs.close();
             stmt.close();
@@ -391,6 +392,24 @@ public class DataAccessShopDatabase {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public Article getArticle(int articleId){
+        Connection con = this.createConnection();
+        Statement stmt =null;
+        Article article = null;
+        try {
+            stmt = con.createStatement();
+            String sql="SELECT article.id, model_name, price, operating_system, release_date, screen, resolution, valuation_sum, number_of_valuation, name FROM article INNER JOIN brand ON brand.id=article.brand_id WHERE article.id="+articleId+";";
+            ResultSet rs = stmt.executeQuery(sql);
+            article = new Article(rs.getInt("id"), rs.getString("model_name"), rs.getDouble("price"), Math.round(rs.getInt("valuation_sum")/rs.getInt("number_of_valuation")), rs.getString("operating_system"),
+                    rs.getString("release_date"), rs.getString("screen"), rs.getString("resolution"), rs.getString("name"),this.getComments(articleId), this.getPictureIds(articleId));
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return article;
     }
 
     private boolean postWishList(int userId){
@@ -520,18 +539,52 @@ public class DataAccessShopDatabase {
             e.printStackTrace();
         }
     }
+
+    private List<Integer> getPictureIds(int articleId){
+        Connection con = this.createConnection();
+        Statement stmt =null;
+        List<Integer> pictureIds = new ArrayList<>();
+        try {
+            stmt = con.createStatement();
+            String sql="SELECT id FROM picture WHERE article_id="+articleId+";";
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()){
+                pictureIds.add(rs.getInt("id"));
+            }
+            rs.close();
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return pictureIds;
+    }
+
+    private List<Comment> getComments(int articleId){
+        Connection con = this.createConnection();
+        Statement stmt =null;
+        List<Comment> comments = new ArrayList<>();
+        try {
+            stmt = con.createStatement();
+            String sql="SELECT comment.id AS commentId, comment.comment_text, user.firstname, user.lastname, user.id AS userId, user.profile_picture FROM comment INNER JOIN user ON comment.user_id = user.id " +
+                    "WHERE article_id="+articleId+";";
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()){
+                comments.add(new Comment(rs.getInt("commentId"), rs.getString("comment_text"), rs.getInt("userId"), rs.getString("firstname"), rs.getString("lastname"), rs.getString("profile_picture")));
+            }
+            rs.close();
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return comments;
+    }
+
     public static void main(String[] args) throws SQLException {
         DataAccessShopDatabase s = new DataAccessShopDatabase();
-        Order o = new Order();
-        ArrayList<ArticleVersion> al = new ArrayList<>();
-        ArticleVersion a = new ArticleVersion();
-        a.setColor("red");
-        a.setGbSize(522);
-        a.setArticleNumber(1);
-        al.add(a);
-        o.setArticles(al);
-        o.setPayment(new Payment());
-        o.setAddress(new Address());
-        s.postOrder(o,2,false);
+        Article a = s.getArticle(1);
+        System.out.println(a.getBrand());
+        System.out.println(a.getModelName());
     }
 }
