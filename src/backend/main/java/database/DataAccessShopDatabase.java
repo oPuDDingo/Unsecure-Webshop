@@ -204,35 +204,6 @@ public class DataAccessShopDatabase {
         }
     }
 
-    public boolean checkAuthData(int userId, String password){
-        Connection con = this.createConnection();
-        Statement stmt =null;
-        String hash="";
-        String rightPassword="";
-        if(this.isRealUser(userId)){
-            hash=this.encryptPasswordRealUser(password);
-        }
-        else{
-            hash=this.encryptPasswordDummyUser(password);
-        }
-        try {
-            stmt = con.createStatement();
-            String sql = "SELECT password FROM user WHERE id="+userId+";";
-            ResultSet rs = stmt.executeQuery(sql);
-            rightPassword = rs.getString("password");
-            stmt.close();
-            con.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        if(hash.equals(rightPassword)){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-
     public void postWishListItem(ArticleVersion articleVersion, int userId){
         Connection con = this.createConnection();
         Statement stmt =null;
@@ -412,22 +383,31 @@ public class DataAccessShopDatabase {
         return article;
     }
 
-    public Login getLogin(int userId){
+    public String login(String email, String password){
+        if (this.checkAuthData(email, password)){
+            return this.createSessionKey(email);
+        }
+        else{
+            return "";
+        }
+    }
+
+    public Coupon getCoupon(String couponName){
         Connection con = this.createConnection();
         Statement stmt =null;
-        Login login = null;
+        Coupon coupon = null;
         try {
             stmt = con.createStatement();
-            String sql="SELECT e_mail, password FROM user WHERE id="+userId+";";
+            String sql="SELECT id, code, discount_percent, active FROM coupon WHERE code='"+couponName+"';";
             ResultSet rs = stmt.executeQuery(sql);
-            login = new Login(rs.getString("e_mail"), rs.getString("password"));
+            coupon = new Coupon(rs.getInt("id"), rs.getString("code"), rs.getDouble("discount_percent"), rs.getBoolean("active"));
             rs.close();
             stmt.close();
             con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return login;
+        return coupon;
     }
 
     private boolean postWishList(int userId){
@@ -599,10 +579,60 @@ public class DataAccessShopDatabase {
         return comments;
     }
 
+    private boolean checkAuthData(String email, String password){
+        Connection con = this.createConnection();
+        Statement stmt =null;
+        String hash="";
+        String rightPassword="";
+        int userId;
+        if(this.isRealUser(this.findUserId(email))){
+            hash=this.encryptPasswordRealUser(password);
+        }
+        else{
+            hash=this.encryptPasswordDummyUser(password);
+        }
+        try {
+            stmt = con.createStatement();
+            String sql = "SELECT password FROM user WHERE e_mail="+email+";";
+            ResultSet rs = stmt.executeQuery(sql);
+            rightPassword = rs.getString("password");
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if(hash.equals(rightPassword)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    private int findUserId(String email){
+        Connection con = this.createConnection();
+        Statement stmt =null;
+        int userId=-1;
+        try {
+            stmt = con.createStatement();
+            String sql="SELECT id FROM user WHERE e_mail='"+email+"';";
+            ResultSet rs = stmt.executeQuery(sql);
+            userId = rs.getInt("id");
+            rs.close();
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userId;
+    }
+
+    private String createSessionKey(String email){ //erzeugt Session Key
+        return "";
+    }
+
     public static void main(String[] args) throws SQLException {
         DataAccessShopDatabase s = new DataAccessShopDatabase();
-        Login l = s.getLogin(1);
-        System.out.println(l.getEmail());
-        System.out.println(l.getPassword());
+        System.out.println(s.getCoupon("Bidermann30").getPercent());
     }
 }
