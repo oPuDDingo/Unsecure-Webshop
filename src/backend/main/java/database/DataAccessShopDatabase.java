@@ -410,6 +410,32 @@ public class DataAccessShopDatabase {
         return coupon;
     }
 
+    public Wishlist getWishlist(int userId){
+        Connection con = this.createConnection();
+        Statement stmt =null;
+        Wishlist wishlist = new Wishlist();
+        int wishListId = this.findWishListId(userId);
+        ArrayList<ArticleVersion> articleVersionList = new ArrayList<>();
+        try {
+            stmt = con.createStatement();
+            String sql="SELECT id, quantity, article_version_id FROM wish_list_article_version WHERE wish_list_id="+wishListId+";";
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()){
+                ArticleVersion articleVersion = this.getArticleVersion(rs.getInt("article_version_id"));
+                articleVersion.setId(rs.getInt("id"));
+                articleVersion.setQuantity(rs.getInt("quantity"));
+                articleVersionList.add(articleVersion);
+            }
+            rs.close();
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        wishlist.setArticles(articleVersionList);
+        return wishlist;
+    }
+
     private boolean postWishList(int userId){
         Connection con = this.createConnection();
         Statement stmt =null;
@@ -627,12 +653,31 @@ public class DataAccessShopDatabase {
         return userId;
     }
 
+    private ArticleVersion getArticleVersion(int articleVersionId){
+        Connection con = this.createConnection();
+        Statement stmt =null;
+        ArticleVersion articleVersion=null;
+        try {
+            stmt = con.createStatement();
+            String sql="SELECT * FROM article_version WHERE id="+articleVersionId+";";
+            ResultSet rs = stmt.executeQuery(sql);
+            articleVersion = new ArticleVersion(-1, rs.getInt("article_id"), 0, rs.getInt("gb_size"), rs.getString("color"));
+            rs.close();
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return articleVersion;
+    }
+
     private String createSessionKey(String email){ //erzeugt Session Key
         return "";
     }
 
     public static void main(String[] args) throws SQLException {
         DataAccessShopDatabase s = new DataAccessShopDatabase();
-        System.out.println(s.getCoupon("Bidermann30").getPercent());
+        Wishlist w =s.getWishlist(1);
+        System.out.println(w.getArticles().size());
     }
 }
