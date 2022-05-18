@@ -410,10 +410,9 @@ public class DataAccessShopDatabase {
         return coupon;
     }
 
-    public Wishlist getWishlist(int userId){
+    public List<ArticleVersion> getWishlist(int userId){
         Connection con = this.createConnection();
         Statement stmt =null;
-        Wishlist wishlist = new Wishlist();
         int wishListId = this.findWishListId(userId);
         ArrayList<ArticleVersion> articleVersionList = new ArrayList<>();
         try {
@@ -432,8 +431,31 @@ public class DataAccessShopDatabase {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        wishlist.setArticles(articleVersionList);
-        return wishlist;
+        return articleVersionList;
+    }
+
+    public List<ArticleVersion> getShoppingCart(int userId){
+        Connection con = this.createConnection();
+        Statement stmt =null;
+        int shoppingCartId = this.findShoppingCartId(userId);
+        ArrayList<ArticleVersion> articleVersionList = new ArrayList<>();
+        try {
+            stmt = con.createStatement();
+            String sql="SELECT id, quantity, article_version_id FROM shopping_cart_article_version WHERE shopping_cart_id="+shoppingCartId+";";
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()){
+                ArticleVersion articleVersion = this.getArticleVersion(rs.getInt("article_version_id"));
+                articleVersion.setId(rs.getInt("id"));
+                articleVersion.setQuantity(rs.getInt("quantity"));
+                articleVersionList.add(articleVersion);
+            }
+            rs.close();
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return articleVersionList;
     }
 
     private boolean postWishList(int userId){
@@ -677,7 +699,6 @@ public class DataAccessShopDatabase {
 
     public static void main(String[] args) throws SQLException {
         DataAccessShopDatabase s = new DataAccessShopDatabase();
-        Wishlist w =s.getWishlist(1);
-        System.out.println(w.getArticles().size());
+        System.out.println(s.getShoppingCart(1).size());
     }
 }
