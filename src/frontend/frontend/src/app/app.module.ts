@@ -13,6 +13,7 @@ import {BoardComponent} from "../lib/modules/board/board.component";
 import {FrontItemComponent} from "../lib/modules/frontItem/frontItem.component";
 import {LoginComponent} from "../lib/modules/login/login.component";
 import {RouterModule, Routes} from "@angular/router";
+import {RegisterComponent} from "../lib/modules/register/register.component";
 
 const routes: Routes = [{path: '/login', component: LoginComponent}]
 
@@ -25,7 +26,8 @@ const routes: Routes = [{path: '/login', component: LoginComponent}]
     FrontItemGroupComponent,
     FrontItemComponent,
     BoardComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
