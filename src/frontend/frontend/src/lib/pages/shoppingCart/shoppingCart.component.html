@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col" style="font-size: xx-large">
+    Mein Warenkorb
+    <img src="assets/shopping_cart_opsz40.svg" type="heart"/>
+  </div>
+</div>
+<specified-item-list
+  (onDeleteEvent)="onItemDelete($event)"
+  (onQuantityChangeEvent)="onItemChange($event)"
+  [itemList]="shoppingCart.itemList">
+</specified-item-list>
+<div class="col text-end">
+  <button class="btn-sm btn-primary text-white rounded-pill"
+          style="font-weight: bold"
+          type="button">
+    <span>Zahlen</span>
+    <img src="assets/shopping_cart_checkout_white_opsz24.ico">
+  </button>
+</div>
