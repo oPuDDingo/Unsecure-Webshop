@@ -6,14 +6,20 @@
         <div class="account-settings">
           <div class="user-profile">
             <div class="user-avatar">
-              <img [alt]="getUserName()" [src]="getProfileImage()">
+              <img [alt]="getUserName()" [src]="getProfileImage()" class="rounded">
+              <br>
+              <label class="btn btn-primary w-100">
+                <input (change)="onUpdateProfilePicture($event)" accept=".png, .jpeg" type="file"/>
+                Profielbild ändern
+              </label>
+
             </div>
             <h5 class="user-name">{{ getUserName() }}</h5>
             <h6 class="user-email">{{ this.user.mail }}</h6>
           </div>
           <div class="about">
             <h5 *ngIf="user.description != ''" class="mb-2 text-primary">About</h5>
-            <p>{{user.description}}</p>
+            <p #descriptionField [innerHTML]="getDescription()"></p>
           </div>
         </div>
       </div>
@@ -64,13 +70,25 @@
           </div>
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <label for="mail">Beschreibung</label>
-            <textarea [(ngModel)]="user.description" class="form-control" rows="5"></textarea>
+            <textarea [(ngModel)]="user.description" class="form-control"
+                      rows="5">
+            </textarea>
           </div>
         </div>
         <div class="row gutters">
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-            <h6 class="mb-3 text-primary">Addressen</h6>
-            <addresses [addresses]="addresses"></addresses>
+            <h6 class="mb-3">Addressen</h6>
+            <addresses (addAddressEvent)="onAddUserAddress()" *ngIf="addresses.length > 0; else noAddresses"
+                       [addresses]="addresses">
+            </addresses>
+
+            <ng-template #noAddresses>
+              <alert type="info">
+                Du hast noch keine Addresses angelegt.
+                <button (click)="onAddUserAddress()" class="btn btn-info" type="button">Klick hier</button>
+                um eine anzulegen.
+              </alert>
+            </ng-template>
           </div>
 
         </div>
@@ -116,7 +134,7 @@
         <div class="row gutters">
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="btn-group text-right float-end">
-              <button class="btn btn-secondary" name="submit" type="button">abbruch</button>
+              <button class="btn btn-secondary" name="submit" type="button">abbrechen</button>
               <button (click)="onSubmit()" class="btn btn-primary" id="submit" name="submit" type="button">speichern
               </button>
             </div>

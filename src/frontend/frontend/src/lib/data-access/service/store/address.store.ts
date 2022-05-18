@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {BackendService} from "../backend.service";
-import {Address} from "../../models/address";
+import {Address} from "../../models";
 import {Subject} from "rxjs";
 
 @Injectable({
@@ -9,11 +9,15 @@ import {Subject} from "rxjs";
 export class AddressStore {
 
   // @ts-ignore
-  addresses: Address[];
+  addresses: Address[] = [];
   addressesSubject: Subject<Address[]> = new Subject<Address[]>();
 
   constructor(private backendService: BackendService) {
 
+  }
+
+  createAddress(address: Address): void {
+    this.backendService.createAddress(address).subscribe(address => this.addresses.push(address));
   }
 
   getAddress(id: number): Subject<Address> {

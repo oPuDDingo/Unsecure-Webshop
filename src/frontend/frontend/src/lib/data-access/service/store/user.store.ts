@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {User} from "../../models/user";
+import {User} from "../../models";
 import {BackendService} from "../backend.service";
 import {Subject} from "rxjs";
 
@@ -25,13 +25,18 @@ export class UserStore {
     return this.userSubject;
   }
 
-  updateUser(user: User, oldPassword: string, newPassword: string): void {
+  updateUser(user: User, oldPassword: string = "", newPassword: string = ""): void {
     this.user = user;
     this.userSubject.next(this.user);
-    let userPayload = {
-      ...user,
-      "oldPassword": oldPassword,
-      "newPassword": newPassword
+    let userPayload: any = {
+      ...user
+    }
+    if (oldPassword != "" && newPassword != "") {
+      userPayload = {
+        ...user,
+        "oldPassword": oldPassword,
+        "newPassword": newPassword
+      }
     }
     // this.backendService.updateUser(userPayload).subscribe();
   }

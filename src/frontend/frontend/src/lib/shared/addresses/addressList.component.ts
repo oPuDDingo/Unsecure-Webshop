@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from "@angular/core";
-import {Address} from "../../data-access/models/address";
+import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
+import {Address} from "../../data-access/models";
 import {AddressStore} from "../../data-access/service/store/address.store";
 
 @Component({
@@ -9,6 +9,7 @@ import {AddressStore} from "../../data-access/service/store/address.store";
 })
 export class AddressListComponent implements OnInit {
   @Input() addresses: Address[] = [];
+  @Output() addAddressEvent: EventEmitter<Address> = new EventEmitter<Address>();
 
   constructor(private addressStore: AddressStore) {
 
@@ -20,6 +21,10 @@ export class AddressListComponent implements OnInit {
         this.addresses = addresses;
       });
     }
+  }
+
+  onAddAddress(): void {
+    this.addAddressEvent.emit();
   }
 
 

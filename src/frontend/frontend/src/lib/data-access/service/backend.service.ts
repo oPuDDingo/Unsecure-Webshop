@@ -1,9 +1,8 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {User} from "../models/user";
+import {Address, User} from "../models";
 import {Observable, tap} from "rxjs";
 import {JsonObject} from "@angular/compiler-cli/ngcc/src/packages/entry_point";
-import {Address} from "../models/address";
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +11,18 @@ export class BackendService {
   readonly url: string = 'http://localhost:4200/api/';
 
   constructor(private httpClient: HttpClient) {
+  }
+
+  createAddress(address: Address): Observable<Address> {
+    let addressPayload = {
+      "name": address.name,
+      "country": address.country,
+      "address": address.address,
+      "address2": address.address2,
+      "zipCode": address.zipCode,
+      "city": address.city
+    };
+    return this.httpClient.post<Address>(this.url + 'user/addresses', addressPayload);
   }
 
   loadAddressById(id: number): Observable<Address> {
