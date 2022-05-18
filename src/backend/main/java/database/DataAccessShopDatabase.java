@@ -458,6 +458,25 @@ public class DataAccessShopDatabase {
         return articleVersionList;
     }
 
+    public Order getOrder(int orderId){
+        Connection con = this.createConnection();
+        Statement stmt =null;
+        Order order =null;
+        try {
+            stmt = con.createStatement();
+            String sql="SELECT * FROM sales_order WHERE id="+orderId+";";
+            ResultSet rs = stmt.executeQuery(sql);
+            order = new Order(orderId, null, null, this.getAddress(rs.getInt("address_id")), this.getPayment(orderId), rs.getString("order_date"), rs.getDouble("amount"));
+            order.setArticles(this.getOrderItems(orderId));
+            rs.close();
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return order;
+    }
+
     private boolean postWishList(int userId){
         Connection con = this.createConnection();
         Statement stmt =null;
@@ -684,6 +703,7 @@ public class DataAccessShopDatabase {
             String sql="SELECT * FROM article_version WHERE id="+articleVersionId+";";
             ResultSet rs = stmt.executeQuery(sql);
             articleVersion = new ArticleVersion(-1, rs.getInt("article_id"), 0, rs.getInt("gb_size"), rs.getString("color"));
+            articleVersion.setArticle(this.getArticle(rs.getInt("article_id")));
             rs.close();
             stmt.close();
             con.close();
@@ -693,12 +713,34 @@ public class DataAccessShopDatabase {
         return articleVersion;
     }
 
+    private List<ArticleVersion> getOrderItems(int orderId){
+        Connection con = this.createConnection();
+        Statement stmt =null;
+        ArrayList<ArticleVersion> articleVersionList = new ArrayList<>();
+        try {
+            stmt = con.createStatement();
+            String sql="SELECT id, article_version_id FROM sales_order_article_version WHERE sales_order_id="+orderId+";";
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()){
+                ArticleVersion articleVersion = this.getArticleVersion(rs.getInt("article_version_id"));
+                articleVersion.setId(rs.getInt("id"));
+                articleVersionList.add(articleVersion);
+            }
+            rs.close();
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return articleVersionList;
+    }
+
     private String createSessionKey(String email){ //erzeugt Session Key
         return "";
     }
 
     public static void main(String[] args) throws SQLException {
         DataAccessShopDatabase s = new DataAccessShopDatabase();
-        System.out.println(s.getShoppingCart(1).size());
+        s.getOrder(1);
     }
 }
