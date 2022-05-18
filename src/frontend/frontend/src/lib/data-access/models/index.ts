@@ -7,3 +7,4 @@ export * from './shoppingcart';
 export * from './specifiedItem';
 export * from './user';
 export * from './wishlist';
+export * from './Commentary';
