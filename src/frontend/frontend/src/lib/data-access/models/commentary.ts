@@ -1,5 +1,5 @@
 export interface Commentary {
-  id?: number; // TODO optional bei id und userId?
+  id?: number;
   commentText: string;
   firstname: string;
   lastname: string;

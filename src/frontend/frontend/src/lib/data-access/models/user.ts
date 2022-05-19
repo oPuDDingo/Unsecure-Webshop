@@ -6,7 +6,7 @@ export interface User {
   newsletter?: boolean;
   salutation?: string;
   title?: string;
-  profilePicture?: number;
+  profilePicture?: string;
   description?: string;
   password?: string;
 }

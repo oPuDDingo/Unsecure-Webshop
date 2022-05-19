@@ -1,8 +1,8 @@
-import {Commentary} from "./Commentary";
+import {Commentary} from "./commentary";
 
 export interface Article {
   articelNumber: number;
-  name: string; // TODO modelName == name?
+  modelName: string;
   amount: number;
   brand?: string;
   stars?: number;
@@ -10,6 +10,6 @@ export interface Article {
   releaseDate?: string;
   screen?: string;
   resolution?: string;
-  pictures?: number[]; // TODO brauch ich ein picture einzeln für die Frontpage oder Itemliste?
+  pictures?: number[];
   comments?: Commentary[];
 }
