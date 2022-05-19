@@ -29,7 +29,7 @@ public class DataAccessShopDatabase {
         return c;
     }
 
-    public boolean postComment(Comment comment, int articleId, int userId){
+    public boolean postComment(Commentary comment, int articleId, int userId){
         Connection con = this.createConnection();
         Statement stmt = null;
         try {
@@ -625,17 +625,17 @@ public class DataAccessShopDatabase {
         return pictureIds;
     }
 
-    private List<Comment> getComments(int articleId){
+    private List<Commentary> getComments(int articleId){
         Connection con = this.createConnection();
         Statement stmt =null;
-        List<Comment> comments = new ArrayList<>();
+        List<Commentary> comments = new ArrayList<>();
         try {
             stmt = con.createStatement();
             String sql="SELECT comment.id AS commentId, comment.comment_text, user.firstname, user.lastname, user.id AS userId, user.profile_picture FROM comment INNER JOIN user ON comment.user_id = user.id " +
                     "WHERE article_id="+articleId+";";
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next()){
-                comments.add(new Comment(rs.getInt("commentId"), rs.getString("comment_text"), rs.getInt("userId"), rs.getString("firstname"), rs.getString("lastname"), rs.getString("profile_picture")));
+                comments.add(new Commentary(rs.getInt("commentId"), rs.getString("comment_text"), rs.getInt("userId"), rs.getString("firstname"), rs.getString("lastname"), rs.getString("profile_picture")));
             }
             rs.close();
             stmt.close();

@@ -14,14 +14,14 @@ public class Article {
 	private String screen;
 	private String resolution;
 	private String brand;
-	private List<Comment> comments;
+	private List<Commentary> comments;
 	private List<Integer> imageIds;
 
 	public Article(){}
 
 	public Article(int articleNumber, String modelName, double amount, int stars, String operatingSystem,
 		String releaseDate, String screen, String resolution, String brand,
-		List<Comment> comments, List<Integer> imageIds)
+		List<Commentary> comments, List<Integer> imageIds)
 	{
 		this.articleNumber = articleNumber;
 		this.modelName = modelName;
@@ -115,11 +115,11 @@ public class Article {
 		this.brand = brand;
 	}
 
-	public List<Comment> getComments() {
+	public List<Commentary> getComments() {
 		return comments;
 	}
 
-	public void setComments(List<Comment> comments) {
+	public void setComments(List<Commentary> comments) {
 		this.comments = comments;
 	}
 
