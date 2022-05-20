@@ -9,6 +9,14 @@
   (onQuantityChangeEvent)="onItemChange($event)"
   [itemList]="shoppingCart.itemList">
 </specified-item-list>
+<div class="d-flex flex-row-reverse">
+  <div class="col-2 text-end">
+    Gesamtsumme ({{this.quantity}} Artikel) : {{this.amount}} €
+    <hr>
+  </div>
+</div>
+<div class="text-end text-muted"> zzgl. Versandkosten</div>
+<br/>
 <div class="col text-end">
   <button class="btn-sm btn-primary text-white rounded-pill"
           style="font-weight: bold"

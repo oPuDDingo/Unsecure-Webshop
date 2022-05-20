@@ -13,6 +13,9 @@ export class ShoppingCartComponent {
   @Output() onDeleteEvent: EventEmitter<number> = new EventEmitter<number>();
   @Output() onQuantityChangeEvent: EventEmitter<{ itemId: number, quantity: number }> = new EventEmitter<{ itemId: number, quantity: number }>();
 
+  amount: number = 0;
+  quantity: number = 0;
+
   constructor() {
     this.shoppingCart = {
       id: 1,
@@ -62,7 +65,7 @@ export class ShoppingCartComponent {
           storage: 512,
           articleNumber: 1757356,
           amount: 599.00,
-          quantity: 1,
+          quantity: 2,
           color: "green",
           picture: "d"
         }]
@@ -71,9 +74,26 @@ export class ShoppingCartComponent {
 
   onItemDelete(itemId: number): void { // TODO muss ich das weitergeben oder hier verarbeiten?
     this.onDeleteEvent.emit(itemId);
+    this.calculateAmount();
   }
 
   onItemChange(event: any): void {
     this.onQuantityChangeEvent.emit(event);
+    this.calculateAmount();
+  }
+
+  ngOnInit(): void {
+    this.calculateAmount();
+  }
+
+  calculateAmount(): void {
+    this.amount = 0;
+    this.quantity = 0;
+    // this.shoppingCart.itemList.every(element => this.amount += element.amount);
+    // this.shoppingCart.itemList.every(element => this.quantity += element.quantity); // TODO ist des unten clean?
+    this.shoppingCart.itemList.every(element => {
+      this.amount += element.amount * element.quantity;
+      return this.quantity += element.quantity;
+    });
   }
 }
