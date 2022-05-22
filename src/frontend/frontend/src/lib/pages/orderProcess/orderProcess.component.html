@@ -1,6 +1,6 @@
 <ul class="nav nav-pills justify-content-center gap-5">
   <li class="nav-item">
-    <a class="nav-link" href="#"><img alt="shopping_cart" src="assets/shopping_cart.svg"></a>
+    <a class="nav-link"><img alt="shopping_cart" src="assets/shopping_cart.svg"></a>
   </li>
   <li class="nav-item">
     <a class="nav-link" href="#"><img alt="local_shipping" src="assets/local_shipping.svg"></a>
@@ -12,3 +12,7 @@
     <a class="nav-link" href="#"><img alt="done" src="assets/done.svg"></a>
   </li>
 </ul>
+
+<order-items *ngIf="currentStep == 0"></order-items>
+<!--<addresses *ngIf="currentStep == 1"></addresses>-->
+<payment-information *ngIf="currentStep == 2"></payment-information>
