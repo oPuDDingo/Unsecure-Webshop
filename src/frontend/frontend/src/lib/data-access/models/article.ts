@@ -1,7 +1,7 @@
 import {Commentary} from "./commentary";
 
 export interface Article {
-  articelNumber: number;
+  articleNumber: number;
   modelName: string;
   amount: number;
   brand?: string;
