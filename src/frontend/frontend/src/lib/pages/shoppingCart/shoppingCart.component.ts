@@ -69,8 +69,8 @@ export class ShoppingCartComponent {
     }
   }
 
-  onItemDelete(itemId: number): void { // TODO muss ich das weitergeben oder hier verarbeiten?
-    // this.onDeleteEvent.emit(itemId);
+  onItemDelete(itemId: number): void {
+    this.shoppingCartStore.deleteItem(itemId);
     this.calculateAmount();
   }
 
@@ -87,8 +87,6 @@ export class ShoppingCartComponent {
   calculateAmount(): void {
     this.amount = 0;
     this.quantity = 0;
-    // this.shoppingCart.itemList.every(element => this.amount += element.amount);
-    // this.shoppingCart.itemList.every(element => this.quantity += element.quantity); // TODO ist des unten clean?
     this.shoppingCart.itemList.forEach(element => {
       this.amount += element.amount * element.quantity;
       this.quantity += element.quantity;

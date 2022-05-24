@@ -18,12 +18,16 @@ export class BackendService {
 
   updateShoppingCart(shoppingCart: ShoppingCart): Observable<ShoppingCart> {
     let itemsPayload = {items: shoppingCart.itemList};
-    return this.httpClient.put<any>(this.url + 'cart/items', itemsPayload)
+    return this.httpClient.put<ShoppingCart>(this.url + 'cart/items', itemsPayload)
   }
 
   updateShoppingCartItem(item: SpecifiedItem): Observable<SpecifiedItem> {
     let itemPayload = {...item};
-    return this.httpClient.put<any>(this.url + 'cart/items/' + item.id, itemPayload)
+    return this.httpClient.put<SpecifiedItem>(this.url + 'cart/items/' + item.id, itemPayload)
+  }
+
+  deleteShoppingCartItem(itemId: number): Observable<ShoppingCart> {
+    return this.httpClient.delete<any>(this.url + 'cart/items/' + itemId);
   }
 
 }

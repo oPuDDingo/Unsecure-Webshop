@@ -48,4 +48,13 @@ export class ShoppingCartStore {
     this.backendService.updateShoppingCart(this.shoppingCart).subscribe();
     return this.shoppingCartSubject;
   }
+
+  deleteItem(itemId: number): ReplaySubject<ShoppingCart> {
+    let index = this.shoppingCart.itemList.findIndex(i => itemId == i.id);
+    this.shoppingCart.itemList.splice(index, 1);
+    this.shoppingCartSubject.next(this.shoppingCart);
+    this.backendService.deleteShoppingCartItem(itemId).subscribe();
+    return this.shoppingCartSubject;
+  }
+
 }
