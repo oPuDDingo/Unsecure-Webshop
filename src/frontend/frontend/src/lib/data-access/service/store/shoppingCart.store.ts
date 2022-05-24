@@ -24,10 +24,10 @@ export class ShoppingCartStore {
   }
 
   updateItems(items: SpecifiedItem[]): ReplaySubject<Shoppingcart> {
-   this.shoppingCart.itemList = items;
-   this.backendService.updateShoppingCart(this.shoppingCart).subscribe();
-   this.shoppingCartSubject.next(this.shoppingCart);
-   return this.shoppingCartSubject;
+    this.shoppingCart.itemList = items;
+    this.shoppingCartSubject.next(this.shoppingCart);
+    this.backendService.updateShoppingCart(this.shoppingCart).subscribe();
+    return this.shoppingCartSubject;
   }
 
   addItem(item: SpecifiedItem): ReplaySubject<Shoppingcart> {
