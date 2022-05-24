@@ -14,7 +14,7 @@ public class Payment {
 		this.accountHolder = accountHolder;
 	}
 
-	public static Payment getRandomPayment()
+	public static Payment getExamplePayment()
 	{
 		return new Payment("DE12 2345 1234 1264 9765", "BYLADEM1", "Max Mustermann");
 	}

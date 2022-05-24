@@ -26,7 +26,7 @@ public class Address {
 		this.deliveryInstructions = deliveryInstructions;
 	}
 
-	public static Address getRandomAddress() {
+	public static Address getExampleAddress() {
 		return new Address(1, "Example", "Example Land", "Example Street", "Example House", "12345", "Example City", "Example Instructions");
 	}
 

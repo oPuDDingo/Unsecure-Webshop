@@ -1,17 +1,19 @@
 package backend.main.java.api;
 
+import backend.main.java.DataHandler;
 import backend.main.java.models.Coupon;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("coupons") public class CouponService
 {
-	@GET @Path("{name}") public Response getCoupon(
+	@Path("{name}") @GET @Produces(MediaType.APPLICATION_JSON) public Response getCoupon(
 		@PathParam("name") final String name
 	)
 	{
-		// search by name in database
-		return Response.ok(Coupon.getRandomCoupon(name)).build();
+		Coupon coupon = DataHandler.getCoupon(name);
+		return Response.ok(coupon).build();
 	}
 }

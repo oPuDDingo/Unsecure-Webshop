@@ -1,13 +1,13 @@
 package backend.main.java.models;
 
-public class Image {
-
+public class Picture
+{
 	private int id;
 	private String data;
 
-	public Image(){}
+	public Picture(){}
 
-	public Image(int id, String data)
+	public Picture(int id, String data)
 	{
 		this.id = id;
 		this.data = data;

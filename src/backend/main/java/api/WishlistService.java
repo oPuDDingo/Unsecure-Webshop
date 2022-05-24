@@ -38,7 +38,7 @@ import java.util.List;
 		return Response.ok(articleVersion).build();
 	}
 
-	@DELETE public Response deleteAllItems() {
+	@Path("items") @DELETE public Response deleteAllItems() {
 		// delete all items
 		return Response.noContent().build();
 	}
@@ -49,6 +49,4 @@ import java.util.List;
 		// get specific item and delete it
 		return Response.noContent().build();
 	}
-
-
 }

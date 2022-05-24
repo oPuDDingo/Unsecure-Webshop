@@ -1,6 +1,6 @@
 package backend.main.java.models;
 
-public class Comment {
+public class Commentary {
 
 	private int id;
 	private String commentText;
@@ -9,10 +9,9 @@ public class Comment {
 	private String lastname;
 	private String profilePicture;
 
+	public Commentary(){}
 
-	public Comment(){}
-
-	public Comment(int id, String commentText, int userId, String firstname, String lastname, String profilePicture)
+	public Commentary(int id, String commentText, int userId, String firstname, String lastname, String profilePicture)
 	{
 		this.id = id;
 		this.commentText = commentText;

@@ -14,14 +14,14 @@ public class Article {
 	private String screen;
 	private String resolution;
 	private String brand;
-	private List<Comment> comments;
-	private List<Integer> imageIds;
+	private List<Commentary> comments;
+	private List<Integer> pictureIds;
 
 	public Article(){}
 
 	public Article(int articleNumber, String modelName, double amount, int stars, String operatingSystem,
 		String releaseDate, String screen, String resolution, String brand,
-		List<Comment> comments, List<Integer> imageIds)
+		List<Commentary> comments, List<Integer> pictureIds)
 	{
 		this.articleNumber = articleNumber;
 		this.modelName = modelName;
@@ -33,19 +33,21 @@ public class Article {
 		this.resolution = resolution;
 		this.brand = brand;
 		this.comments = comments;
-		this.imageIds=imageIds;
+		this.pictureIds=pictureIds;
 	}
 
-	public Article(int articleNumber, String modelName, double amount, List<String> pictures)
+	public static Article getExampleArticle()
 	{
-		this.articleNumber = articleNumber;
-		this.modelName = modelName;
-		this.amount = amount;
+		return new Article(12345, "iPhone 12", 1, 5, "iOS", "2018", "AMOLED", "720x350", "Apple", null, null);
 	}
 
-	public static Article getRandomArticle()
-	{
-		return new Article();
+	public static List<Object> getExampleArticleList(int amount) {
+		List<Object> list = new ArrayList<>();
+		for (int i = 0; i < amount; i++)
+		{
+			list.add(getExampleArticle());
+		}
+		return list;
 	}
 
 	public int getArticleNumber() {
@@ -120,19 +122,19 @@ public class Article {
 		this.brand = brand;
 	}
 
-	public List<Comment> getComments() {
+	public List<Commentary> getComments() {
 		return comments;
 	}
 
-	public void setComments(List<Comment> comments) {
+	public void setComments(List<Commentary> comments) {
 		this.comments = comments;
 	}
 
-	public List<Integer> getImageIds() {
-		return imageIds;
+	public List<Integer> getPictureIds() {
+		return pictureIds;
 	}
 
-	public void setImageIds(List<Integer> imageIds) {
-		this.imageIds = imageIds;
+	public void setPictureIds(List<Integer> pictureIds) {
+		this.pictureIds = pictureIds;
 	}
 }

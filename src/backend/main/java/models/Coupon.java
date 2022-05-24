@@ -17,12 +17,12 @@ public class Coupon {
 		this.active = active;
 	}
 
-	public static Coupon getRandomCoupon()
+	public static Coupon getExampleCoupon()
 	{
-		return getRandomCoupon("DISCOUNT15");
+		return getExampleCoupon("DISCOUNT15");
 	}
 
-	public static Coupon getRandomCoupon(final String name)
+	public static Coupon getExampleCoupon(final String name)
 	{
 		return new Coupon(2, name, 15, true);
 	}

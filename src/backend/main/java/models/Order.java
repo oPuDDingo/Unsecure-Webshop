@@ -27,16 +27,16 @@ public class Order {
 		this.amount = amount;
 	}
 
-	public static Order getRandomOrder(int number) {
+	public static Order getExampleOrder(int number) {
 		List<ArticleVersion> articles = new ArrayList<>();
 		List<Coupon> coupons = new ArrayList<>();
 		for (int i = 0; i < 3; i++)
 		{
 			articles.add(ArticleVersion.getRandomArticleVersion());
-			coupons.add(Coupon.getRandomCoupon());
+			coupons.add(Coupon.getExampleCoupon());
 		}
 
-		return new Order(number, articles, coupons, Address.getRandomAddress(), Payment.getRandomPayment(), "2018", 1);
+		return new Order(number, articles, coupons, Address.getExampleAddress(), Payment.getExamplePayment(), "2018", 1);
 	}
 
 	public int getOrderNumber() {

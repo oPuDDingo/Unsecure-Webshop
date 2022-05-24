@@ -1,47 +1,42 @@
 package backend.main.java.api;
 
+import backend.main.java.DataHandler;
 import backend.main.java.models.ArticleVersion;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
 
 @Path("cart") public class CartService
 {
-	@GET @Path("items") public Response getCartItems() {
-		List<ArticleVersion> articles = new ArrayList<>();
-		for (int i = 0; i < 3; i++)
-		{
-			articles.add(ArticleVersion.getRandomArticleVersion());
-		}
-		return Response.ok(articles).build();
-	}
+	@Context protected UriInfo uriInfo;
 
-	@POST @Consumes(MediaType.APPLICATION_JSON) @Path("items") public Response createCartItem(
-		final ArticleVersion articleVersion
-	) throws URISyntaxException
-	{
-		// create article in database
-		return Response.created(new URI("placeholder_article_number")).build();
-	}
+	@Path("items") @GET @Produces(MediaType.APPLICATION_JSON)  public Response getCartItems()
+	{ return Response.ok(DataHandler.getCartItems()).build(); }
 
-	@PUT @Consumes(MediaType.APPLICATION_JSON) @Path("items/{id}") public Response modifyCartItem(
-		@PathParam("id") final int id,
+	@Path("items") @POST @Consumes(MediaType.APPLICATION_JSON)  public Response createCartItem(
+		@Context final UriInfo uriInfo,
 		final ArticleVersion articleVersion
 	)
 	{
-		// modify article in database
+		int id = DataHandler.createCartItem(articleVersion);
+		URI location = uriInfo.getAbsolutePathBuilder().path(String.valueOf(id)).build();
+		return Response.created(location).build();
+	}
+
+	@Path("items/{id}")@PUT @Consumes(MediaType.APPLICATION_JSON)  public Response modifyCartItem(
+		@PathParam("id") final int id, final ArticleVersion articleVersion)
+	{
+		DataHandler.modifyCartItem(id, articleVersion);
 		return Response.ok(articleVersion).build();
 	}
 
-	@DELETE @Path("items/{id}") public Response deleteCartItem(
-		@PathParam("id") final int id
-	) {
-		// get specific item and delete it
+	@Path("items/{id}")@DELETE @Consumes(MediaType.APPLICATION_JSON)  public Response deleteCartItem(@PathParam("id") final int id)
+	{
+		DataHandler.deleteCartItem(id);
 		return Response.noContent().build();
 	}
 }

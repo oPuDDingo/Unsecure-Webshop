@@ -27,7 +27,7 @@ public class User {
 		this.description=description;
 	}
 
-	public static User getRandomUser() {
+	public static User getExampleUser() {
 		return new User(1, "mail@mail.com", "Max", "Mustermann", true, "Hi, my name is Max", "Dr.", "/picture", "description" );
 	}
 

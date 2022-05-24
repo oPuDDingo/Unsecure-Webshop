@@ -1,13 +1,10 @@
 package backend.main.java.api;
 
-import backend.main.java.models.Article;
-import backend.main.java.models.ArticleShort;
+import backend.main.java.DataHandler;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.ArrayList;
-import java.util.List;
 
 @Path("articles") public class ArticleService
 {
@@ -17,27 +14,11 @@ import java.util.List;
 		@DefaultValue("") @QueryParam("brand") final String brand,
 		@DefaultValue("") @QueryParam("name") final String name
 	)
-	{
-		//get from page
-		List<Object> list = new ArrayList<>();
-		for (int i = 0; i < 9; i++)
-		{
-			if (specifications)
-			{
-				list.add(Article.getRandomArticle());
-			} else {
-				list.add(ArticleShort.getRandomArticleShort());
-			}
-		}
-
-		return Response.ok(list).build();
-	}
+	{ return Response.ok(DataHandler.getArticles(page, brand, name, specifications)).build(); }
 
 
 	@GET @Path("{id}") @Produces(MediaType.APPLICATION_JSON) public Response getArticleByID(
 		@PathParam("id") final int id
 	)
-	{
-		return Response.ok(Article.getRandomArticle()).build();
-	}
+	{ return Response.ok(DataHandler.getArticle(id)).build(); }
 }
