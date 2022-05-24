@@ -3,7 +3,7 @@ export * from './article';
 export * from './coupon';
 export * from './order';
 export * from './payment';
-export * from './shoppingcart';
+export * from './shoppingCart';
 export * from './specifiedItem';
 export * from './user';
 export * from './wishlist';

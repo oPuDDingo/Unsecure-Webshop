@@ -1,6 +1,6 @@
 import {SpecifiedItem} from "./specifiedItem";
 
-export interface Shoppingcart {
+export interface ShoppingCart {
   id: number;
   itemList: SpecifiedItem[];
 }
