@@ -11,7 +11,7 @@ import java.io.File;
 public class Start
 {
 	private static final String CONTEXT_PATH = "/";
-	private static final String WEB_APP_LOCATION = "src/main/webapp/";
+	private static final String WEB_APP_LOCATION = "src/backend/main/webapp/";
 	private static final String WEB_APP_MOUNT = "/WEB-INF/classes";
 	private static final String WEB_APP_CLASSES = "target/classes";
 
