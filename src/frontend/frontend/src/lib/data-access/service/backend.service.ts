@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {ShoppingCart} from "../models";
+import {ShoppingCart, SpecifiedItem} from "../models";
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +19,11 @@ export class BackendService {
   updateShoppingCart(shoppingCart: ShoppingCart): Observable<ShoppingCart> {
     let itemsPayload = {items: shoppingCart.itemList};
     return this.httpClient.put<any>(this.url + 'cart/items', itemsPayload)
+  }
+
+  updateShoppingCartItem(item: SpecifiedItem): Observable<SpecifiedItem> {
+    let itemPayload = {...item};
+    return this.httpClient.put<any>(this.url + 'cart/items/' + item.id, itemPayload)
   }
 
 }

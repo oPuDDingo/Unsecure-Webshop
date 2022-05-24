@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from "@angular/core";
+import {Component} from "@angular/core";
 import {ShoppingCart} from "src/lib/data-access/models";
 import {ShoppingCartStore} from "../../data-access/service/shoppingCart.store";
 
@@ -8,11 +8,7 @@ import {ShoppingCartStore} from "../../data-access/service/shoppingCart.store";
   styleUrls: ['./shoppingCart.component.scss']
 })
 export class ShoppingCartComponent {
-  @Input() shoppingCart: ShoppingCart;
-  @Input() showText: boolean = false;
-
-  @Output() onDeleteEvent: EventEmitter<number> = new EventEmitter<number>();
-  @Output() onQuantityChangeEvent: EventEmitter<{ itemId: number, quantity: number }> = new EventEmitter<{ itemId: number, quantity: number }>();
+  shoppingCart: ShoppingCart;
 
   amount: number = 0;
   quantity: number = 0;
@@ -74,16 +70,17 @@ export class ShoppingCartComponent {
   }
 
   onItemDelete(itemId: number): void { // TODO muss ich das weitergeben oder hier verarbeiten?
-    this.onDeleteEvent.emit(itemId);
+    // this.onDeleteEvent.emit(itemId);
     this.calculateAmount();
   }
 
   onItemChange(event: any): void {
-    this.onQuantityChangeEvent.emit(event);
+    this.shoppingCartStore.updateItem(event.itemId, event.quantity);
     this.calculateAmount();
   }
 
   ngOnInit(): void {
+    // this.shoppingCartStore.loadShoppingCart().subscribe(shoppingCart => this.shoppingCart = shoppingCart)
     this.calculateAmount();
   }
 
@@ -92,9 +89,9 @@ export class ShoppingCartComponent {
     this.quantity = 0;
     // this.shoppingCart.itemList.every(element => this.amount += element.amount);
     // this.shoppingCart.itemList.every(element => this.quantity += element.quantity); // TODO ist des unten clean?
-    this.shoppingCart.itemList.every(element => {
+    this.shoppingCart.itemList.forEach(element => {
       this.amount += element.amount * element.quantity;
-      return this.quantity += element.quantity;
+      this.quantity += element.quantity;
     });
   }
 }

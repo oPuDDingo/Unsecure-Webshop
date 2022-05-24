@@ -1,11 +1,12 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 
-import { AccordionModule } from 'ngx-bootstrap/accordion';
-import { SpecifiedItemComponent } from "./specifiedItem/specifiedItem.component";
-import { ColorCircleComponent } from "../../shared/colorCircle/colorCircle.component";
-import { SpecifiedItemListComponent } from "./specifiedItemList.component";
-import { DeleteButtonComponent } from "../../shared/deleteButton/deleteButton.component";
+import {AccordionModule} from 'ngx-bootstrap/accordion';
+import {SpecifiedItemComponent} from "./specifiedItem/specifiedItem.component";
+import {ColorCircleComponent} from "../../shared/colorCircle/colorCircle.component";
+import {SpecifiedItemListComponent} from "./specifiedItemList.component";
+import {DeleteButtonComponent} from "../../shared/deleteButton/deleteButton.component";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -13,10 +14,12 @@ import { DeleteButtonComponent } from "../../shared/deleteButton/deleteButton.co
   ],
   imports: [
     BrowserModule,
-    AccordionModule.forRoot()
+    AccordionModule.forRoot(),
+    FormsModule
   ],
   providers: [],
   bootstrap: [],
   exports: [SpecifiedItemListComponent]
 })
-export class SpecifiedItemListModule { }
+export class SpecifiedItemListModule {
+}

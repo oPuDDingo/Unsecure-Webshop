@@ -34,6 +34,14 @@ export class ShoppingCartStore {
     return this.shoppingCartSubject;
   }
 
+  updateItem(itemId: number, newQuantity: number): ReplaySubject<ShoppingCart> {
+    let index = this.shoppingCart.itemList.findIndex(i => itemId == i.id);
+    this.shoppingCart.itemList[index].quantity = newQuantity;
+    this.shoppingCartSubject.next(this.shoppingCart);
+    this.backendService.updateShoppingCartItem(this.shoppingCart.itemList[index]).subscribe();
+    return this.shoppingCartSubject;
+  }
+
   addItem(item: SpecifiedItem): ReplaySubject<ShoppingCart> {
     this.shoppingCart.itemList.push(item);
     this.shoppingCartSubject.next(this.shoppingCart);
