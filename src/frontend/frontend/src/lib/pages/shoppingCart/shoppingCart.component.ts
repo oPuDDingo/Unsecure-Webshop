@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, Output} from "@angular/core";
 import {ShoppingCart} from "src/lib/data-access/models";
+import {ShoppingCartStore} from "../../data-access/service/shoppingCart.store";
 
 @Component({
   selector: 'shopping-cart',
@@ -16,7 +17,7 @@ export class ShoppingCartComponent {
   amount: number = 0;
   quantity: number = 0;
 
-  constructor() {
+  constructor(private shoppingCartStore: ShoppingCartStore) {
     this.shoppingCart = {
       id: 1,
       itemList: [{
