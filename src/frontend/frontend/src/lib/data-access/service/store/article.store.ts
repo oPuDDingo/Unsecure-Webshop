@@ -19,7 +19,7 @@ export class ArticleStore {
       this.backendService.getArticleById(articleNumber).subscribe(article => {
         this.articles.push(article);
         articleSubject.next(article);
-      })
+      });
     } else {
       articleSubject.next(this.articles[index]);
     }

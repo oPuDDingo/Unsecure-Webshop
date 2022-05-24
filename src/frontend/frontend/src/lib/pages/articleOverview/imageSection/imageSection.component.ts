@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from "@angular/core";
 import {Article} from "../../../data-access/models/article";
 import {ImageStore} from "../../../data-access/service/store/image.store";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
   selector: 'article-overview-images',
@@ -13,22 +14,17 @@ export class ImageSectionComponent implements OnInit {
 
   images: Map<number, string> = new Map<number, string>();
 
-  constructor(private imageStore: ImageStore) {
+  constructor(private imageStore: ImageStore, private sanitizer: DomSanitizer) {
   }
 
   ngOnInit() {
-    this.article.picture.forEach(id => {
-      this.imageStore.loadImageById(id).subscribe(image => {
-        this.images.set(id, image);
+    console.log(this.article);
+    if (this.article.pictureIds) {
+      this.article.pictureIds.forEach(id => {
+        this.imageStore.loadImageById(id).subscribe(image => {
+          this.images.set(id, image);
+        });
       });
-    });
+    }
   }
-
-  getImage(id: number): void {
-    this.images.set(id, "");
-    this.imageStore.loadImageById(id).subscribe(image =>
-      this.images.set(id, image)
-    );
-  }
-
 }

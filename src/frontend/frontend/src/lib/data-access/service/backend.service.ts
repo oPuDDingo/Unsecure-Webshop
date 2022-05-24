@@ -16,11 +16,12 @@ export class BackendService {
   }
 
   getArticleById(articleNumber: number): Observable<Article> {
+    console.log(articleNumber);
     return this.httpClient.get<Article>(this.url + 'articles/' + articleNumber);
   }
 
   getImageById(id: number): Observable<any> {
-    return this.httpClient.get(this.url + 'images/' + id, {responseType: 'text'});
+    return this.httpClient.get(this.url + 'pictures/' + id, {responseType: 'text'});
   }
 
   getOrder(id: number): Observable<Order> {

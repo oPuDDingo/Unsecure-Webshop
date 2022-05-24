@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {BackendService} from "../backend.service";
-import {Address} from "../../models";
 import {Subject} from "rxjs";
+import {Address} from "../../models/address";
 
 @Injectable({
   providedIn: 'root'

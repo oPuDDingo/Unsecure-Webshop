@@ -1,16 +1,16 @@
 import {BackendService} from "../backend.service";
 import {ReplaySubject} from "rxjs";
 import {Injectable} from "@angular/core";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ImageStore {
 
-
   images: Map<number, string> = new Map<number, string>();
 
-  constructor(private backendService: BackendService) {
+  constructor(private backendService: BackendService, private sanitizer: DomSanitizer) {
   }
 
   loadImageById(id: number): ReplaySubject<string> {
@@ -18,12 +18,13 @@ export class ImageStore {
     let image = this.images.get(id);
     if (image == undefined) {
       this.backendService.getImageById(id).subscribe(imageString => {
-        let base64String = "data:image/png;base64, " + imageString;
-        this.images.set(id, base64String);
-        imageSubject.next(base64String);
+        let base64Str: string = `data:image/jpeg;base64,` + JSON.parse(imageString)["data"];
+        this.images.set(id, base64Str);
+        imageSubject.next(base64Str);
       })
     } else {
-      imageSubject.next(image);
+      // @ts-ignore
+      imageSubject.next(this.images.get(id));
     }
     return imageSubject;
   }

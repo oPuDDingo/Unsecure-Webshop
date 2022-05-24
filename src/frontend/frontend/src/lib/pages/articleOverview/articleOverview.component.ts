@@ -1,7 +1,8 @@
-import {Component, Input, OnInit} from "@angular/core";
-import {Article} from "../../data-access/models/article";
+import {Component, OnInit} from "@angular/core";
 import {ArticleStore} from "../../data-access/service/store/article.store";
 import {SpecifiedItem} from "../../data-access/models/specifiedItem";
+import {ActivatedRoute} from "@angular/router";
+import {Article} from "../../data-access/models/article";
 
 @Component({
   selector: 'article-overview',
@@ -10,32 +11,20 @@ import {SpecifiedItem} from "../../data-access/models/specifiedItem";
 })
 export class ArticleOverviewComponent implements OnInit {
   // @ts-ignore
-  @Input articleNumber: number;
+  article: Article = undefined;
+
   // @ts-ignore
-  article: Article = {
-    articleNumber: 1,
-    modelName: "Iphone 11",
-    amount: 1099.99,
-    stars: 4,
-    numberOfValuation: 1023123,
-    operatingSystem: "IOS",
-    releaseDate: "05.09.2019",
-    availability: true,
-    picture: [1, 2, 3],
-    brand: "Apple",
-    comments: ["Super Ding", "Find ich klasse"],
-    resolution: "1792 x 828",
-    screen: "IPS"
-  };
+  specifiedItem: SpecifiedItem;
 
-  specifiedItem: SpecifiedItem = {articleNumber: this.article.articleNumber, quantity: 1, gbSize: 128, color: 'red'};
-
-  constructor(private articleStore: ArticleStore) {
+  constructor(private articleStore: ArticleStore, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
-
-    // this.articleStore.loadArticleById(this.articleNumber).subscribe(article => this.article = article);
+    let articleNumber: number = this.route.snapshot.params['id'];
+    this.articleStore.loadArticleById(articleNumber).subscribe(article => {
+      this.article = article;
+      this.specifiedItem = {articleNumber: this.article.articleNumber, quantity: 1, gbSize: 128, color: 'red'};
+    });
   }
 
   onUpdateQuantity(value: number): void {
