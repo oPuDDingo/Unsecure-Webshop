@@ -1,19 +1,17 @@
-import {Component, EventEmitter, Input, Output} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {Wishlist} from "../../data-access/models/wishlist";
+import {WishlistStore} from "../../data-access/service/wishlist.store";
 
 @Component({
   selector: 'wish-list',
   templateUrl: './wishlist.component.html',
   styleUrls: ['./wishlist.component.scss']
 })
-export class WishlistComponent {
-  @Input() wishlist: Wishlist;
-  @Input() showText: boolean = false;
+export class WishlistComponent implements OnInit {
+  wishlist: Wishlist;
+  showText: boolean = false;
 
-  @Output() onDeleteEvent: EventEmitter<number> = new EventEmitter<number>();
-  @Output() onQuantityChangeEvent: EventEmitter<{ itemId: number, quantity: number }> = new EventEmitter<{ itemId: number, quantity: number }>();
-
-  constructor() {
+  constructor(private wishlistStore: WishlistStore) {
     this.wishlist = {
       id: 1,
       itemList: [{
@@ -70,15 +68,18 @@ export class WishlistComponent {
   }
 
   onWishListDelete(): void {
-    this.onDeleteEvent.emit(this.wishlist.id);
+    this.wishlistStore.deleteWishlist();
   }
 
-  onItemDelete(itemId: number): void { // TODO muss ich das weitergeben oder hier verarbeiten?
-    this.onDeleteEvent.emit(itemId);
+  onItemDelete(itemId: number): void {
+    this.wishlistStore.deleteItem(itemId);
   }
 
   onItemChange(event: any): void {
-    this.onQuantityChangeEvent.emit(event);
+    this.wishlistStore.updateItem(event.itemId, event.quantity)
   }
 
+  ngOnInit(): void {
+    // this.wishlistStore.loadWishList().subscribe(wishlist => this.wishlist = wishlist)
+  }
 }
