@@ -1,5 +1,4 @@
 import {Injectable} from "@angular/core";
-import {Article} from "../../models/article";
 import {BackendService} from "../backend.service";
 import {Subject} from "rxjs";
 

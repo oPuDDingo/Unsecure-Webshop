@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {AppComponent} from './app.component';
 import {ItemListModule} from "../lib/pages/ItemList/itemList.module";
+import {AppRoutingModule} from "./app-routing.module";
 
 
 @NgModule({
@@ -9,7 +10,7 @@ import {ItemListModule} from "../lib/pages/ItemList/itemList.module";
     AppComponent
   ],
   imports: [
-    BrowserModule, ItemListModule
+    BrowserModule, ItemListModule, AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
