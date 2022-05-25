@@ -1,4 +1,4 @@
-import {Commentary} from "./Commentary";
+import {Commentary} from "./commentary";
 
 export interface Article {
   articleNumber: number;

@@ -13,9 +13,9 @@ export class OrderProcessComponent implements OnInit {
 
   // @ts-ignore
   shoppingCart: Shoppingcart;
+
   // @ts-ignore
   addresses: Address[];
-
 
   currentStep: number = 0;
   reachedStep: number = 0;
@@ -26,6 +26,11 @@ export class OrderProcessComponent implements OnInit {
   ngOnInit() {
     this.shoppingCartStore.getShoppingCart().subscribe(shoppingCart => this.shoppingCart = shoppingCart);
     this.addressStore.getAllAddresses().subscribe(addresses => this.addresses = addresses);
+  }
+
+  changeStep(selectedStep: number): void {
+    this.reachedStep++;
+    this.currentStep = selectedStep;
   }
 
 }

@@ -9,7 +9,7 @@ import {Address} from "../../models/address";
 export class AddressStore {
 
   // @ts-ignore
-  addresses: Address[] = [];
+  addresses: Address[];
   addressesSubject: Subject<Address[]> = new Subject<Address[]>();
 
   constructor(private backendService: BackendService) {
@@ -34,11 +34,15 @@ export class AddressStore {
   }
 
   getAllAddresses(): Subject<Address[]> {
-    if (this.addresses == []) {
+    if (this.addresses == undefined) {
       this.backendService.loadAllAddresses().subscribe(addresses => {
+        console.log(addresses);
         this.addresses = addresses;
         this.addressesSubject.next(this.addresses);
       });
+    } else {
+      console.log("else")
+      this.addressesSubject.next(this.addresses);
     }
     return this.addressesSubject;
   }

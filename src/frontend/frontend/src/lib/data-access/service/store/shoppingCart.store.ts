@@ -2,7 +2,11 @@ import {Shoppingcart} from "../../models/shoppingcart";
 import {ReplaySubject} from "rxjs";
 import {BackendService} from "../backend.service";
 import {SpecifiedItem} from "../../models/specifiedItem";
+import {Injectable} from "@angular/core";
 
+@Injectable({
+  providedIn: 'root'
+})
 export class ShoppingCartStore {
   // @ts-ignore
   shoppingCart: Shoppingcart;
@@ -14,6 +18,7 @@ export class ShoppingCartStore {
   getShoppingCart(): ReplaySubject<Shoppingcart> {
     if (this.shoppingCart == undefined) {
       this.backendService.getShoppingCart().subscribe(shoppingCart => {
+        console.log(shoppingCart);
         this.shoppingCart = shoppingCart;
         this.shoppingCartSubject.next(this.shoppingCart);
       });

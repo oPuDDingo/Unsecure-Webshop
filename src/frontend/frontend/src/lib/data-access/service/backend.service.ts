@@ -29,7 +29,7 @@ export class BackendService {
   }
 
   getShoppingCart(): Observable<Shoppingcart> {
-    return this.httpClient.get<Shoppingcart>(this.url + 'cart');
+    return this.httpClient.get<Shoppingcart>(this.url + 'cart/items');
   }
 
   updateShoppingCart(shoppingCart: Shoppingcart): Observable<Shoppingcart> {
@@ -57,10 +57,10 @@ export class BackendService {
     return this.httpClient.get<Address[]>(this.url + 'user/addresses');
   }
 
-  updateAddress(address: Address): Observable<any> {
+  updateAddress(address: Address): Observable<Address> {
     let addressPayload = {
       ...address
     };
-    return this.httpClient.put(this.url + 'user/addresses/' + address.id, addressPayload);
+    return this.httpClient.put<Address>(this.url + 'user/addresses/' + address.id, addressPayload);
   }
 }

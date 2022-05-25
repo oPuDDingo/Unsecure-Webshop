@@ -42,11 +42,13 @@ export class ArticleOverviewComponent implements OnInit {
   onAddToShoppingCart(): void {
     //toDo: add to cart Service
     //toDo: redirect to /shoppingCart
+    // this.router.navigate(['/shoppingCart']);
   }
 
   onAddToWishList(): void {
     //toDo: add to wish list Service
     //toDo: redirect to /wishList
+    // this.router.navigate(['/wishList']);
   }
 
 }
