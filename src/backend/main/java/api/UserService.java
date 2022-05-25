@@ -11,6 +11,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.net.URI;
+import java.util.List;
 
 @Path("user") public class UserService
 {
@@ -77,15 +78,22 @@ import java.net.URI;
 		return Response.noContent().build();
 	}
 
-	@GET @Path("/address/{id}") @Produces(MediaType.APPLICATION_JSON) public Response getUserAddress(
+	@GET @Path("/addresses/{id}") @Produces(MediaType.APPLICATION_JSON) public Response getUserAddress(
 		@CookieParam("sessionID") String session,
 		@PathParam("id") final int id)
 	{
-		DataHandler.getUserAddress(session, id);
-		return Response.ok(Address.getExampleAddress()).build();
+		Address userAddress = DataHandler.getUserAddress(session, id);
+		return Response.ok(userAddress).build();
 	}
 
-	@Path("address") @POST @Produces(MediaType.APPLICATION_JSON) public Response createUserAddress(
+	@GET @Path("addresses") @Produces(MediaType.APPLICATION_JSON) public Response getAllUserAddresses(
+		@CookieParam("sessionID") String session)
+	{
+		List<Address> userAddresses = DataHandler.getAllUserAddresses(session);
+		return Response.ok(userAddresses).build();
+	}
+
+	@Path("addresses") @POST @Produces(MediaType.APPLICATION_JSON) public Response createUserAddress(
 		@CookieParam("sessionID") String session,
 		@Context UriInfo uriInfo,
 		final Address address)
@@ -95,7 +103,7 @@ import java.net.URI;
 		return Response.created(location).build();
 	}
 
-	@Path("address/{id}") @PUT @Consumes(MediaType.APPLICATION_JSON) public Response modifyUserAddress(
+	@Path("addresses/{id}") @PUT @Consumes(MediaType.APPLICATION_JSON) public Response modifyUserAddress(
 		@CookieParam("sessionID") final String session,
 		@PathParam("id") final int id,
 		final Address address)
@@ -104,7 +112,7 @@ import java.net.URI;
 		return Response.ok(address).build();
 	}
 
-	@Path("address/{id}") @DELETE public Response deleteUserAddress(
+	@Path("addresses/{id}") @DELETE public Response deleteUserAddress(
 		@CookieParam("sessionID") String session,
 		@PathParam("id") final int id)
 	{

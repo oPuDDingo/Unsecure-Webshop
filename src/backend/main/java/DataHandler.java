@@ -3,6 +3,7 @@ package backend.main.java;
 import backend.main.java.models.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class DataHandler
@@ -121,6 +122,11 @@ public class DataHandler
 	public static Address getUserAddress(String session, int addressID) {
 		// return Database.getUserAddress(session, addressID);
 		return Address.getExampleAddress();
+	}
+
+	public static List<Address> getAllUserAddresses(String session) {
+		// return Database.getAllUserAddress(session, addressID);
+		return Collections.nCopies( 4, Address.getExampleAddress() );
 	}
 
 	public static int createUserAddress(String session, Address address) {
