@@ -1,9 +1,8 @@
 package backend.main.java.models;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class Article {
+public class Article { //erledigt
 
 	private int articleNumber;
 	private String modelName;
@@ -15,13 +14,13 @@ public class Article {
 	private String resolution;
 	private String brand;
 	private List<Commentary> comments;
-	private List<Integer> imageIds;
+	private List<Integer> pictureIds;
 
 	public Article(){}
 
 	public Article(int articleNumber, String modelName, double amount, int stars, String operatingSystem,
 		String releaseDate, String screen, String resolution, String brand,
-		List<Commentary> comments, List<Integer> imageIds)
+		List<Commentary> comments, List<Integer> pictureIds)
 	{
 		this.articleNumber = articleNumber;
 		this.modelName = modelName;
@@ -33,7 +32,7 @@ public class Article {
 		this.resolution = resolution;
 		this.brand = brand;
 		this.comments = comments;
-		this.imageIds=imageIds;
+		this.pictureIds = pictureIds;
 	}
 
 	public Article(int articleNumber, String modelName, double amount, List<String> pictures)
@@ -123,11 +122,11 @@ public class Article {
 		this.comments = comments;
 	}
 
-	public List<Integer> getImageIds() {
-		return imageIds;
+	public List<Integer> getPictureIds() {
+		return pictureIds;
 	}
 
-	public void setImageIds(List<Integer> imageIds) {
-		this.imageIds = imageIds;
+	public void setPictureIds(List<Integer> pictureIds) {
+		this.pictureIds = pictureIds;
 	}
 }

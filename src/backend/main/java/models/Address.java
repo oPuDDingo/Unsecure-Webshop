@@ -1,27 +1,27 @@
 package backend.main.java.models;
 
-public class Address {
+public class Address { //erledigt
 
 	private int id;
 	private String name;
 	private String country;
 	private String address;
 	private String address2;
-	private String zipcode;
+	private String zipCode;
 	private String city;
 	private String deliveryInstructions;
 
 	public Address() {}
 
-	public Address(int id, String name, String country, String address, String address2, String zipcode, String city,
-		String deliveryInstructions)
+	public Address(int id, String name, String country, String address, String address2, String zipCode, String city,
+				   String deliveryInstructions)
 	{
 		this.id = id;
 		this.name = name;
 		this.country = country;
 		this.address = address;
 		this.address2 = address2;
-		this.zipcode = zipcode;
+		this.zipCode = zipCode;
 		this.city = city;
 		this.deliveryInstructions = deliveryInstructions;
 	}
@@ -70,12 +70,12 @@ public class Address {
 		this.address2 = address2;
 	}
 
-	public String getZipcode() {
-		return zipcode;
+	public String getZipCode() {
+		return zipCode;
 	}
 
-	public void setZipcode(String zipcode) {
-		this.zipcode = zipcode;
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
 	}
 
 	public String getCity() {

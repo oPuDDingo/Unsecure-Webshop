@@ -1,6 +1,6 @@
 package backend.main.java.models;
 
-public class Coupon {
+public class Coupon {	//erledigt
 
 	private int id;
 	private String name;

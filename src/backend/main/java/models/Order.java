@@ -1,29 +1,28 @@
 package backend.main.java.models;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class Order {
+public class Order {	//erledigt
 
 	private int orderNumber;
-	private List<ArticleVersion> articles;
-	private List<Coupon> coupons;
+	private List<ArticleVersion> specifiedItems;
+	private Coupon coupon;
 	private Address address;
 	private Payment payment;
-	private String orderDate;
+	private String date;
 	private double amount;
 
 	public Order(){}
 
-	public Order(int orderNumber, List<ArticleVersion> articles, List<Coupon> coupons, Address address, Payment payment,
-		String orderDate, double amount)
+	public Order(int orderNumber, List<ArticleVersion> specifiedItems, Coupon coupon, Address address, Payment payment,
+				 String date, double amount)
 	{
 		this.orderNumber = orderNumber;
-		this.articles = articles;
-		this.coupons = coupons;
+		this.specifiedItems = specifiedItems;
+		this.coupon = coupon;
 		this.address = address;
 		this.payment = payment;
-		this.orderDate = orderDate;
+		this.date = date;
 		this.amount = amount;
 	}
 
@@ -35,20 +34,20 @@ public class Order {
 		this.orderNumber = orderNumber;
 	}
 
-	public List<ArticleVersion> getArticles() {
-		return articles;
+	public List<ArticleVersion> getSpecifiedItems() {
+		return specifiedItems;
 	}
 
-	public void setArticles(List<ArticleVersion> articles) {
-		this.articles = articles;
+	public void setSpecifiedItems(List<ArticleVersion> specifiedItems) {
+		this.specifiedItems = specifiedItems;
 	}
 
-	public List<Coupon> getCoupons() {
-		return coupons;
+	public Coupon getCoupon() {
+		return coupon;
 	}
 
-	public void setCoupons(List<Coupon> coupons) {
-		this.coupons = coupons;
+	public void setCoupon(Coupon coupon) {
+		this.coupon = coupon;
 	}
 
 	public Address getAddress() {
@@ -67,12 +66,12 @@ public class Order {
 		this.payment = payment;
 	}
 
-	public String getOrderDate() {
-		return orderDate;
+	public String getDate() {
+		return date;
 	}
 
-	public void setOrderDate(String orderDate) {
-		this.orderDate = orderDate;
+	public void setDate(String date) {
+		this.date = date;
 	}
 
 	public double getAmount() {

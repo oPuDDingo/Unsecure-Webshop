@@ -1,24 +1,24 @@
 package backend.main.java.models;
 
-public class Commentary {
+public class Commentary {	//erledigt
 
 	private int id;
 	private String commentText;
 	private int userId;
-	private String firstname;
-	private String lastname;
+	private String firstName;
+	private String lastName;
 	private String profilePicture;
 
 
 	public Commentary(){}
 
-	public Commentary(int id, String commentText, int userId, String firstname, String lastname, String profilePicture)
+	public Commentary(int id, String commentText, int userId, String firstName, String lastName, String profilePicture)
 	{
 		this.id = id;
 		this.commentText = commentText;
 		this.userId = userId;
-		this.firstname = firstname;
-		this.lastname = lastname;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.profilePicture = profilePicture;
 	}
 
@@ -46,20 +46,20 @@ public class Commentary {
 		this.userId = userId;
 	}
 
-	public String getFirstname() {
-		return firstname;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public String getLastname() {
-		return lastname;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public String getProfilePicture() {

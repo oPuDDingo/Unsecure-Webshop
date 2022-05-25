@@ -2,11 +2,8 @@ package backend.main.java.database;
 
 import backend.main.java.models.*;
 import com.google.common.hash.Hashing;
-import org.checkerframework.checker.units.qual.A;
 
-import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +50,7 @@ public class DataAccessShopDatabase {
         try {
             stmt = con.createStatement();
             String sql ="INSERT INTO User(e_mail, firstname, lastname, password,real_user) " +
-                    "VALUES('"+user.getEmail()+"', '"+user.getFirstname()+"', '"+user.getLastname()+"', '"+this.encryptPasswordRealUser(user.getPassword())+"',"+1+");";
+                    "VALUES('"+user.getMail()+"', '"+user.getFirstName()+"', '"+user.getLastName()+"', '"+this.encryptPasswordRealUser(user.getPassword())+"',"+1+");";
             stmt.execute(sql);
             int userId = stmt.getGeneratedKeys().getInt(1);
             user.setId(userId);
@@ -74,7 +71,7 @@ public class DataAccessShopDatabase {
         try {
             stmt = con.createStatement();
             String sql="INSERT INTO address(street_house_number, postcode, address_suplement, city, country, name, delivery_instruction, user_id)" +
-                    "VALUES('"+address.getAddress()+"', '"+address.getZipcode()+"', '"+address.getAddress2()+"', '"+address.getCity()+"', '"+address.getCountry()
+                    "VALUES('"+address.getAddress()+"', '"+address.getZipCode()+"', '"+address.getAddress2()+"', '"+address.getCity()+"', '"+address.getCountry()
                     +"', '"+address.getName()+"', '"+address.getDeliveryInstructions()+"', "+userId+");";
             stmt.execute(sql);
             stmt.close();
@@ -176,7 +173,7 @@ public class DataAccessShopDatabase {
         Statement stmt =null;
         try {
             stmt = con.createStatement();
-            String sql ="UPDATE user SET firstname='"+ user.getFirstname()+"', lastname='"+user.getLastname()+"', title='"+user.getTitle()+"', " +
+            String sql ="UPDATE user SET firstname='"+ user.getFirstName()+"', lastname='"+user.getLastName()+"', title='"+user.getTitle()+"', " +
                     "salutation='"+user.getSalutation()+"', e_mail='"+user.getMail()+"', profile_picture='"+user.getProfilePicture()+"', description='"+user.getDescription()+"' "+"WHERE id="+userId+";";
             stmt.execute(sql);
             stmt.close();
@@ -330,7 +327,7 @@ public class DataAccessShopDatabase {
         try {
             stmt = con.createStatement();
             String sql="INSERT INTO sales_order(order_date, amount, iban, bic, account_owner, user_id, address_id) " +
-                    "VALUES('"+order.getOrderDate()+"', "+order.getAmount()+", '"+order.getPayment().getIban()+"', '"+order.getPayment().getBic()+"', '"+order.getPayment().getAccountHolder()+
+                    "VALUES('"+order.getDate()+"', "+order.getAmount()+", '"+order.getPayment().getIban()+"', '"+order.getPayment().getBic()+"', '"+order.getPayment().getAccountHolder()+
                     "', "+userId+", "+order.getAddress().getId()+");";
             String sql2="SELECT last_insert_rowid();";
             stmt.execute(sql);
@@ -338,7 +335,7 @@ public class DataAccessShopDatabase {
             int orderId =rs.getInt(1);
             stmt.close();
             con.close();
-            for(ArticleVersion articleVersion : order.getArticles()){
+            for(ArticleVersion articleVersion : order.getSpecifiedItems()){
                 this.postOrderItem(articleVersion, orderId);
             }
             this.deleteShoppingCart(userId);
@@ -467,7 +464,7 @@ public class DataAccessShopDatabase {
             String sql="SELECT * FROM sales_order WHERE id="+orderId+";";
             ResultSet rs = stmt.executeQuery(sql);
             order = new Order(orderId, null, null, this.getAddress(rs.getInt("address_id")), this.getPayment(orderId), rs.getString("order_date"), rs.getDouble("amount"));
-            order.setArticles(this.getOrderItems(orderId));
+            order.setSpecifiedItems(this.getOrderItems(orderId));
             rs.close();
             stmt.close();
             con.close();

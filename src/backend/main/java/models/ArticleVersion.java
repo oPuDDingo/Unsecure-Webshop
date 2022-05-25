@@ -1,22 +1,28 @@
 package backend.main.java.models;
 
-public class ArticleVersion { //Specifyed Item
+public class ArticleVersion { //Specifyed Item		//erledigt
 
 	private int id; //Aus m zu n Table
 	private int articleNumber; //ID des article
 	private int quantity;
 	private int gbSize;
 	private String color;
-	private Article article;
+	private String name; //model_name
+	private double amount;
+	private int pictureId;
+
 	public ArticleVersion(){}
 
-	public ArticleVersion(int id, int articleNumber, int quantity, int gbSize, String color)
+	public ArticleVersion(int id, int articleNumber, int quantity, int gbSize, String color, String name, double amount, int pictureId)
 	{
 		this.id = id;
 		this.articleNumber = articleNumber;
 		this.quantity = quantity;
 		this.gbSize = gbSize;
 		this.color = color;
+		this.name=name;
+		this.amount=amount;
+		this.pictureId=pictureId;
 	}
 
 	public int getId() {
@@ -59,11 +65,27 @@ public class ArticleVersion { //Specifyed Item
 		this.color = color;
 	}
 
-	public Article getArticle() {
-		return article;
+	public String getName() {
+		return name;
 	}
 
-	public void setArticle(Article article) {
-		this.article = article;
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public double getAmount() {
+		return amount;
+	}
+
+	public void setAmount(double amount) {
+		this.amount = amount;
+	}
+
+	public int getPictureId() {
+		return pictureId;
+	}
+
+	public void setPictureId(int pictureId) {
+		this.pictureId = pictureId;
 	}
 }
