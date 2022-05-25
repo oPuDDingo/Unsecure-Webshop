@@ -1,6 +1,5 @@
 import {Component, OnInit} from "@angular/core";
 import {ShoppingCartStore} from "../../data-access/service/store/shoppingCart.store";
-import {Shoppingcart} from "../../data-access/models/shoppingcart";
 import {Address} from "../../data-access/models/address";
 import {AddressStore} from "../../data-access/service/store/address.store";
 import {SpecifiedItem} from "../../data-access/models";
@@ -13,7 +12,7 @@ import {SpecifiedItem} from "../../data-access/models";
 export class OrderProcessComponent implements OnInit {
 
   // @ts-ignore
-  shoppingCart: Shoppingcart;
+  itemsList: SpecifiedItem[];
 
   // @ts-ignore
   addresses: Address[];
@@ -25,9 +24,9 @@ export class OrderProcessComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.shoppingCartStore.getShoppingCart().subscribe(shoppingCart => {
-      this.shoppingCart = shoppingCart;
-      console.log(this.shoppingCart.itemList)
+    this.shoppingCartStore.getShoppingCart().subscribe(items => {
+      this.itemsList = items;
+      console.log(this.itemsList)
     });
     this.addressStore.getAllAddresses().subscribe(addresses => this.addresses = addresses);
   }
@@ -38,6 +37,6 @@ export class OrderProcessComponent implements OnInit {
   }
 
   getItemList(): SpecifiedItem[] {
-    return this.shoppingCart.itemList;
+    return this.itemsList;
   }
 }

@@ -13,6 +13,6 @@
   </li>
 </ul>
 
-<order-items *ngIf="currentStep == 0 && this.shoppingCart" [itemList]="getItemList()"></order-items>
+<order-items *ngIf="currentStep == 0 && this.itemsList" [itemList]="getItemList()"></order-items>
 <!--<addresses *ngIf="currentStep == 1 && this.addresses"></addresses>-->
-<payment-information *ngIf="currentStep == 2 && this.shoppingCart"></payment-information>
+<payment-information *ngIf="currentStep == 2 && this.itemsList"></payment-information>
