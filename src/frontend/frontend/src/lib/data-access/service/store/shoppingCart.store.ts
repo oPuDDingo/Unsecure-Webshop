@@ -1,4 +1,3 @@
-import {Shoppingcart} from "../../models/shoppingcart";
 import {ReplaySubject} from "rxjs";
 import {BackendService} from "../backend.service";
 import {SpecifiedItem} from "../../models/specifiedItem";
@@ -9,35 +8,36 @@ import {Injectable} from "@angular/core";
 })
 export class ShoppingCartStore {
   // @ts-ignore
-  shoppingCart: Shoppingcart;
-  shoppingCartSubject: ReplaySubject<Shoppingcart> = new ReplaySubject<Shoppingcart>(1);
+  itemList: SpecifiedItem[];
+  itemListSubject: ReplaySubject<SpecifiedItem[]> = new ReplaySubject<SpecifiedItem[]>(1);
 
   constructor(private backendService: BackendService) {
   }
 
-  getShoppingCart(): ReplaySubject<Shoppingcart> {
-    if (this.shoppingCart == undefined) {
-      this.backendService.getShoppingCart().subscribe(shoppingCart => {
-        this.shoppingCart = shoppingCart;
-        this.shoppingCartSubject.next(this.shoppingCart);
+  getShoppingCart(): ReplaySubject<SpecifiedItem[]> {
+    if (this.itemList == undefined) {
+      this.backendService.getShoppingCart().subscribe(items => {
+        this.itemList = items;
+        this.itemListSubject.next(this.itemList);
       });
     } else {
-      this.shoppingCartSubject.next(this.shoppingCart);
+      this.itemListSubject.next(this.itemList);
     }
-    return this.shoppingCartSubject;
+    return this.itemListSubject;
   }
 
-  updateItems(items: SpecifiedItem[]): ReplaySubject<Shoppingcart> {
-    this.shoppingCart.itemList = items;
-    this.shoppingCartSubject.next(this.shoppingCart);
-    this.backendService.updateShoppingCart(this.shoppingCart).subscribe();
-    return this.shoppingCartSubject;
+  updateItem(item: SpecifiedItem): ReplaySubject<SpecifiedItem[]> {
+    let index = this.itemList.findIndex(i => i.id === item.id);
+    this.itemList[index] = item;
+    this.itemListSubject.next(this.itemList);
+    this.backendService.updateShoppingCartItem(index, item).subscribe();
+    return this.itemListSubject;
   }
 
-  addItem(item: SpecifiedItem): ReplaySubject<Shoppingcart> {
-    this.shoppingCart.itemList.push(item);
-    this.backendService.updateShoppingCart(this.shoppingCart).subscribe();
-    this.shoppingCartSubject.next(this.shoppingCart);
-    return this.shoppingCartSubject;
+  addItem(item: SpecifiedItem): ReplaySubject<SpecifiedItem[]> {
+    this.itemList.push(item);
+    this.itemListSubject.next(this.itemList);
+    this.backendService.addShoppingCartItem(item).subscribe();
+    return this.itemListSubject;
   }
 }
