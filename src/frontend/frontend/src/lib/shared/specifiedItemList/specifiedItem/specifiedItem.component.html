@@ -25,7 +25,7 @@
               <div [ngClass]="editableQuantity ? 'justify-content-between': ''" class="d-flex">
                 <label class="form-label">Menge: </label>
                 <select (change)="onItemChange($event)" *ngIf="this.editableQuantity; else quantity"
-                        class="form-select w-50">
+                        [(ngModel)]="specifiedItem.quantity" class="form-select w-50">
                   <option *ngFor="let number of [1,2,3,4,5,6,7,8,9]">{{ number }}</option>
                 </select>
                 <ng-template #quantity>
@@ -37,7 +37,7 @@
         </div>
         <color-circle [clickable]="false" [color]="specifiedItem.color" class="col-md-2 text-center"></color-circle>
         <div class="col-md-2 text-center">
-          {{ specifiedItem.storage }} GB
+          {{ specifiedItem.gbSize }} GB
         </div>
         <div class="col text-end">
           <delete (onClickEvent)="onItemDelete()" *ngIf="showDeleteButton && showTrash"

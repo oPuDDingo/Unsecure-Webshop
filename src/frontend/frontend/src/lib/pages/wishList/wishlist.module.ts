@@ -3,7 +3,7 @@ import {BrowserModule} from '@angular/platform-browser';
 
 import {AccordionModule} from 'ngx-bootstrap/accordion';
 import {WishlistComponent} from "./wishlist.component";
-import {SpecifiedItemListModule} from "../specifiedItemList/specifiedItemList.module";
+import {SpecifiedItemListModule} from "../../shared/specifiedItemList/specifiedItemList.module";
 
 @NgModule({
   declarations: [
@@ -12,6 +12,7 @@ import {SpecifiedItemListModule} from "../specifiedItemList/specifiedItemList.mo
   imports: [
     BrowserModule,
     AccordionModule.forRoot(),
+    SpecifiedItemListModule,
     SpecifiedItemListModule
   ],
   providers: [],

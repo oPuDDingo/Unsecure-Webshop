@@ -22,7 +22,9 @@ export class SpecifiedItemComponent {
   }
 
   onItemChange(event: any): void {
-    this.onQuantityChangeEvent.emit({itemId: this.specifiedItem.id, quantity: event.target.value});
+    if (this.specifiedItem.id) {
+      this.onQuantityChangeEvent.emit({itemId: this.specifiedItem.id, quantity: event.target.value});
+    }
   }
 
   onMouseEnter(): void {
@@ -34,6 +36,6 @@ export class SpecifiedItemComponent {
   }
 
   getPictureUrl(): string {
-    return location.origin + '/images/' + this.specifiedItem.picture;
+    return location.origin + '/images/' + this.specifiedItem.pictureId;
   }
 }

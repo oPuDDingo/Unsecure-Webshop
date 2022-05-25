@@ -1,6 +1,5 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {Wishlist} from "../models/wishlist";
 import {Observable} from "rxjs";
 import {SpecifiedItem} from "../models";
 
@@ -13,13 +12,13 @@ export class BackendService {
   constructor(private httpClient: HttpClient) {
   }
 
-  loadWishList(): Observable<Wishlist> {
-    return this.httpClient.get<Wishlist>(this.url + 'wishlist') // TODO brauch ich eine ID?
+  loadWishList(): Observable<SpecifiedItem[]> {
+    return this.httpClient.get<SpecifiedItem[]>(this.url + 'wishlist/items')
   }
 
-  updateWishList(wishlist: Wishlist): Observable<Wishlist> {
-    let itemsPayload = {items: wishlist.itemList};
-    return this.httpClient.put<Wishlist>(this.url + 'wishlist/items', itemsPayload)
+  updateWishList(specifiedItems: SpecifiedItem[]): Observable<SpecifiedItem[]> {
+    let itemsPayload = {items: specifiedItems};
+    return this.httpClient.put<SpecifiedItem[]>(this.url + 'wishlist/items', itemsPayload)
   }
 
   updateWishListItem(item: SpecifiedItem): Observable<SpecifiedItem> {
@@ -27,11 +26,11 @@ export class BackendService {
     return this.httpClient.put<SpecifiedItem>(this.url + 'wishlist/items/' + item.id, itemPayload)
   }
 
-  deleteWishListItem(itemId: number): Observable<Wishlist> {
+  deleteWishListItem(itemId: number): Observable<any[]> {
     return this.httpClient.delete<any>(this.url + 'wishlist/items/' + itemId);
   }
 
-  deleteWishList(): Observable<Wishlist> {
+  deleteWishList(): Observable<any> {
     return this.httpClient.delete<any>(this.url + 'wishlist/items');
   }
 }
