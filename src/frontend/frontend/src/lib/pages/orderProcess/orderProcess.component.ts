@@ -1,8 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {ShoppingCartStore} from "../../data-access/service/store/shoppingCart.store";
-import {Address} from "../../data-access/models/address";
+import {Address, SpecifiedItem} from "../../data-access/models";
 import {AddressStore} from "../../data-access/service/store/address.store";
-import {SpecifiedItem} from "../../data-access/models";
 
 @Component({
   selector: 'order-process',
