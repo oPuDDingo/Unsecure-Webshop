@@ -395,9 +395,9 @@ public class DataAccessShopDatabase {
         Coupon coupon = null;
         try {
             stmt = con.createStatement();
-            String sql="SELECT id, code, discount_percent, active FROM coupon WHERE code='"+couponName+"';";
+            String sql="SELECT * FROM coupon WHERE code='"+couponName+"';";
             ResultSet rs = stmt.executeQuery(sql);
-            coupon = new Coupon(rs.getInt("id"), rs.getString("code"), rs.getDouble("discount_percent"), rs.getBoolean("active"));
+            coupon = new Coupon(rs.getString("code"), rs.getDouble("discount_percent"), rs.getBoolean("active"));
             rs.close();
             stmt.close();
             con.close();
@@ -463,7 +463,7 @@ public class DataAccessShopDatabase {
             stmt = con.createStatement();
             String sql="SELECT * FROM sales_order WHERE id="+orderId+";";
             ResultSet rs = stmt.executeQuery(sql);
-            order = new Order(orderId, null, null, this.getAddress(rs.getInt("address_id")), this.getPayment(orderId), rs.getString("order_date"), rs.getDouble("amount"));
+            order = new Order(orderId, null, this.getCoupon(rs.getString("coupon_code")), this.getAddress(rs.getInt("address_id")), this.getPayment(orderId), rs.getString("order_date"), rs.getDouble("amount"));
             order.setSpecifiedItems(this.getOrderItems(orderId));
             rs.close();
             stmt.close();
@@ -691,7 +691,7 @@ public class DataAccessShopDatabase {
         return userId;
     }
 
-    private ArticleVersion getArticleVersion(int articleVersionId){
+    private ArticleVersion getArticleVersion(int articleVersionId){ //to test
         Connection con = this.createConnection();
         Statement stmt =null;
         ArticleVersion articleVersion=null;
@@ -699,8 +699,8 @@ public class DataAccessShopDatabase {
             stmt = con.createStatement();
             String sql="SELECT * FROM article_version WHERE id="+articleVersionId+";";
             ResultSet rs = stmt.executeQuery(sql);
-            articleVersion = new ArticleVersion(-1, rs.getInt("article_id"), 0, rs.getInt("gb_size"), rs.getString("color"));
-            articleVersion.setArticle(this.getArticle(rs.getInt("article_id")));
+            Article article = this.getArticle(rs.getInt("article_id"));
+            articleVersion = new ArticleVersion(-1, rs.getInt("article_id"), rs.getInt("quantity"), rs.getInt("gb_size"), rs.getString("color"), article.getModelName(), article.getAmount(), this.getPictureIds(article.getArticleNumber()).get(0));
             rs.close();
             stmt.close();
             con.close();
