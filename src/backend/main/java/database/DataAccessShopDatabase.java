@@ -19,9 +19,9 @@ public class DataAccessShopDatabase {
         }
          catch (SQLException ex) {
              System.out.println(ex.getMessage());
-             System.out.println("Fehler beim Verbinden mit der Datenbank!");
+             System.out.println("Can't create Connection!");
         } catch (ClassNotFoundException e) {
-            System.out.println("Klasse nicht gefunden!");
+            System.out.println("Class not found!");
         }
         return c;
     }
@@ -31,7 +31,7 @@ public class DataAccessShopDatabase {
         Statement stmt = null;
         try {
             stmt = con.createStatement();
-            for(String sql: CreateDatabase.createDatabase){
+            for(String sql: DatabaseQueries.createDatabase){
                 stmt.execute(sql);
             }
             stmt.close();
@@ -40,6 +40,8 @@ public class DataAccessShopDatabase {
             e.printStackTrace();
             return false;
         }
+        this.postBrands();
+        this.postDummyUser();
         return true;
     }
 
@@ -48,7 +50,7 @@ public class DataAccessShopDatabase {
         Statement stmt = null;
         try {
             stmt = con.createStatement();
-            for(String sql: DeleteDatabase.deleteDatabase){
+            for(String sql: DatabaseQueries.deleteDatabase){
                 stmt.execute(sql);
             }
             stmt.close();
@@ -68,7 +70,7 @@ public class DataAccessShopDatabase {
             String sql= "INSERT INTO comment(comment_text, article_id, user_id) " +
                     "VALUES('"+comment.getCommentText()+"', "+articleId+", "+userId+");";
             stmt.execute(sql);
-            stmt.close();;
+            stmt.close();
             con.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -766,12 +768,40 @@ public class DataAccessShopDatabase {
         return articleVersionList;
     }
 
-    private String createSessionKey(String email){ //erzeugt Session Key
-        return "";
+    private void postBrands(){
+        Connection con = this.createConnection();
+        Statement stmt =null;
+        try {
+            stmt = con.createStatement();
+            for(String sql : DatabaseQueries.brands){
+                stmt.execute("INSERT INTO brand(name) VALUES('"+sql+"');");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void postDummyUser(){
+        Connection con = this.createConnection();
+        Statement stmt =null;
+        try {
+            stmt = con.createStatement();
+            for(User u : DatabaseQueries.users){
+                stmt.execute("INSERT INTO user(e_mail, firstname, lastname, password, newsletter, salutation, title, profile_picture, real_user, description) " +
+                        "VALUES('"+u.getMail()+"', '"+u.getFirstName()+"', '"+u.getLastName()+"', '"+this.encryptPasswordDummyUser(u.getPassword())+"', "+u.isNewsletter()+",'"+
+                        u.getSalutation()+"', '"+u.getTitle()+"', '"+u.getProfilePicture()+"', "+false+",'"+u.getDescription()+"');");
+                this.postShoppingCart(u.getId());
+                this.postWishList(u.getId());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public static void main(String[] args) throws SQLException {
         DataAccessShopDatabase s = new DataAccessShopDatabase();
+        s.deleteDatabase();
         s.createDatabase();
     }
 }

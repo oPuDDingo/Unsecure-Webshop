@@ -1,6 +1,12 @@
 package backend.main.java.database;
 
-public class CreateDatabase {
+import backend.main.java.models.User;
+
+public class DatabaseQueries {
+
+    public static String[] deleteDatabase= new String[]{"DROP TABLE address;", "DROP TABLE article;", "DROP TABLE article_version;", "DROP TABLE brand;",
+            "DROP TABLE comment;", "DROP TABLE coupon;", "DROP TABLE picture;", "DROP TABLE sales_order;", "DROP TABLE sales_order_article_version", "DROP TABLE session;",
+            "DROP TABLE shopping_cart;", "DROP TABLE shopping_cart_article_version;", "DROP TABLE user;", "DROP TABLE wish_list;", "DROP TABLE wish_list_article_version;"};
 
     public static String[] createDatabase = new String[]{
             "CREATE TABLE brand(\n" +
@@ -128,4 +134,12 @@ public class CreateDatabase {
                     ");"
 
     };
+
+    public static String[] brands = new String[]{"Samsung", "Apple", "Xiaomi","Sony"};
+
+    public static User[] users = new User[]{new User(1, "Admin@Admin.de", "admin", "admin", false, "", "", "", "Admin User", "123456789"),
+    new User(2, "Test@test.de", "test", "test", false, "", "", "", "Test User", "test123456789")};
+
+
 }
+
