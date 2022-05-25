@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {ShoppingCart, SpecifiedItem} from "../models";
+import {SpecifiedItem} from "../models";
 
 @Injectable({
   providedIn: 'root'
@@ -16,9 +16,9 @@ export class BackendService {
     return this.httpClient.get<SpecifiedItem[]>(this.url + 'cart/items')
   }
 
-  updateItemList(itemList: SpecifiedItem[]): Observable<ShoppingCart> {
+  updateItemList(itemList: SpecifiedItem[]): Observable<SpecifiedItem[]> {
     let itemsPayload = {items: itemList};
-    return this.httpClient.put<ShoppingCart>(this.url + 'cart/items', itemsPayload)
+    return this.httpClient.put<SpecifiedItem[]>(this.url + 'cart/items', itemsPayload)
   }
 
   updateShoppingCartItem(item: SpecifiedItem): Observable<SpecifiedItem> {

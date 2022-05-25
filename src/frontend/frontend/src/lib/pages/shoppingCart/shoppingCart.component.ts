@@ -1,6 +1,6 @@
 import {Component} from "@angular/core";
 import {SpecifiedItem} from "src/lib/data-access/models";
-import {ShoppingCartStore} from "../../data-access/service/shoppingCart.store";
+import {ShoppingCartStore} from "../../data-access/service/store/shoppingCart.store";
 
 @Component({
   selector: 'shopping-cart',
@@ -90,7 +90,7 @@ export class ShoppingCartComponent {
     this.quantity = 0;
     if (this.itemList) {
       this.itemList.forEach(element => {
-        this.amount += element.amount * element.quantity;
+        this.amount += element.amount ? element.amount * element.quantity : -1;
         this.quantity += element.quantity;
       });
     }

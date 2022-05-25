@@ -3,7 +3,7 @@ import {BrowserModule} from '@angular/platform-browser';
 
 import {AccordionModule} from 'ngx-bootstrap/accordion';
 import {ShoppingCartComponent} from "./shoppingCart.component";
-import {SpecifiedItemListModule} from "../specifiedItemList/specifiedItemList.module";
+import {SpecifiedItemListModule} from "../../shared/specifiedItemList/specifiedItemList.module";
 
 @NgModule({
   declarations: [
