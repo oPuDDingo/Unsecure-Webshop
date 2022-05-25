@@ -3,7 +3,6 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Article} from "../models/article";
 import {Order} from "../models/order";
-import {Shoppingcart} from "../models/shoppingcart";
 import {Address} from "../models/address";
 import {SpecifiedItem} from "../models";
 
@@ -32,9 +31,12 @@ export class BackendService {
     return this.httpClient.get<SpecifiedItem[]>(this.url + 'cart/items');
   }
 
-  updateShoppingCart(shoppingCart: Shoppingcart): Observable<Shoppingcart> {
-    let itemsPayload = {items: shoppingCart.itemList};
-    return this.httpClient.put<any>(this.url + 'cart/items', itemsPayload);
+  addShoppingCartItem(item: SpecifiedItem): Observable<any> {
+    return this.httpClient.post(this.url + 'cart/items', item);
+  }
+
+  updateShoppingCartItem(id: number, item: SpecifiedItem): Observable<SpecifiedItem[]> {
+    return this.httpClient.put<any>(this.url + 'cart/items/' + id, item);
   }
 
   createAddress(address: Address): Observable<Address> {
