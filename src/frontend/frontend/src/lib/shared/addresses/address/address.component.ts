@@ -1,5 +1,5 @@
 import {Component, Input, TemplateRef} from "@angular/core";
-import {Address} from "../../../data-access/models/address";
+import {Address} from "../../../data-access/models";
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {AddressStore} from "../../../data-access/service/store/address.store";
 
@@ -25,7 +25,7 @@ export class AddressComponent {
   }
 
   onCancel(): void {
-    this.addressStore.getAddress(this.address.id).subscribe(address => this.address = address);
+    this.addressStore.loadAddressById(this.address.id).subscribe(address => this.address = address);
     this.modalRef?.hide();
   }
 

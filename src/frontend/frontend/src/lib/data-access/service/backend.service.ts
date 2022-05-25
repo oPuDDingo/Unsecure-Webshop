@@ -41,12 +41,12 @@ export class BackendService {
   }
 
   loadUser(): Observable<User> {
-    return this.httpClient.get<User>(this.url + 'user/information');
+    return this.httpClient.get<User>(this.url + 'user');
   }
 
   updateUser(userPayload: JsonObject): Observable<any> {
     console.log(userPayload);
-    return this.httpClient.put(this.url + 'user/information', userPayload, {observe: "response"})
+    return this.httpClient.put(this.url + 'user', userPayload, {observe: "response"})
       .pipe(
         tap(resp => {
           console.log(resp);
@@ -59,4 +59,7 @@ export class BackendService {
       );
   }
 
+  getImageById(id: number): Observable<any> {
+    return this.httpClient.get(this.url + 'pictures/' + id, {responseType: 'text'});
+  }
 }

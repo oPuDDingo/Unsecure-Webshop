@@ -9,7 +9,7 @@
     <div *ngIf="address.address2 == ''"><br></div>
   </div>
   <button (click)="onEditAddressEvent(editAddress)" class="btn row">
-    <img src="assets/edit.svg">
+    <img alt="edit" src="assets/edit.svg">
   </button>
 </div>
 
@@ -77,8 +77,7 @@
   <div class="modal-footer">
     <div class="btn-group float-end">
       <button (click)="onCancel()" class="btn btn-secondary" name="submit" type="button">abbrechen</button>
-      <button (click)="onSubmit()" class="btn btn-primary" id="submit" name="submit" type="button">speichern
-      </button>
+      <button (click)="onSubmit()" class="btn btn-primary" id="submit" name="submit" type="button">speichern</button>
     </div>
   </div>
 </ng-template>

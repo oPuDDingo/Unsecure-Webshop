@@ -10,8 +10,10 @@ import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
   styleUrls: ['./userSettings.component.scss']
 })
 export class UserSettingsComponent implements OnInit {
+  // @ts-ignore
   user: User;
-  addresses: Address[] = [];
+  // @ts-ignore
+  addresses: Address[];
 
   oldPassword: string = '';
   newPassword: string = '';
@@ -25,52 +27,33 @@ export class UserSettingsComponent implements OnInit {
   @ViewChild('descriptionField') descriptionRef: ElementRef;
 
   constructor(private userStore: UserStore, private addressStore: AddressStore, private sanitizer: DomSanitizer) {
-    // private imageStore: ImageStore
-    // toDo: implement Image Store
-    // toDo: remove hardcoded user and address
-
-    this.user = {
-      id: 1,
-      mail: "test@mail.de",
-      firstname: "Max",
-      lastname: "Mustermann",
-      newsletter: false,
-      salutation: "",
-      title: "",
-      profilePicture: "",
-      description: "test 123 <script>alert('Dont laugh, this is not a joke!')</script>"
-    }
-    this.addresses = [{
-      id: 1,
-      name: "Max Mustermann",
-      country: "Deutschland",
-      address: "Teststr. 4",
-      address2: "1. Stock",
-      zipCode: 156,
-      city: "Teststadt"
-    }]
   }
 
   ngOnInit() {
-    //this.userStore.getUser().subscribe(user => this.user = user);
-    //this.addressStore.getAllAddresses().subscribe(addresses => this.addresses = addresses);
+    this.userStore.loadUser().subscribe(user => {
+      this.user = user;
+    });
+    this.addressStore.loadAllAddresses().subscribe(addresses => {
+      this.addresses = addresses
+    });
   }
 
   printTest(): void {
-    console.log(this.user.lastname);
+    console.log(this.user.lastName);
   }
 
   getUserName(): string {
-    return this.user.firstname + " " + this.user.lastname;
+    return this.user.firstName + " " + this.user.lastName;
   }
 
   getProfileImage(): string {
-    //return this.imageStore.loadImage(this.user.profilePicture);
-    return "";
+    console.log(this.user.profilePicture);
+    return `data:image/jpeg;base64,` + this.user.profilePicture;
   }
 
   getDescription(): SafeHtml {
-    return this.sanitizer.bypassSecurityTrustHtml(this.user.description);
+    let description: string = this.user.description ? this.user.description : "";
+    return this.sanitizer.bypassSecurityTrustHtml(description);
   }
 
   validateNewPasswordEightChars(): boolean {
@@ -88,7 +71,16 @@ export class UserSettingsComponent implements OnInit {
   }
 
   onAddUserAddress(): void {
-    this.addressStore.createAddress({id: 1, name: "", address: "", address2: "", city: "", zipCode: -1, country: ""});
+    this.addressStore.createAddress({
+      id: 1,
+      name: "",
+      address: "",
+      address2: "",
+      city: "",
+      zipCode: -1,
+      country: "",
+      deliveryInstructions: ""
+    });
   }
 
   onUpdateProfilePicture(event: any): void {

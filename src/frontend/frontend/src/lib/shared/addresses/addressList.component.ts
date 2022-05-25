@@ -17,7 +17,7 @@ export class AddressListComponent implements OnInit {
 
   ngOnInit() {
     if (this.addresses == []) {
-      this.addressStore.getAllAddresses().subscribe(addresses => {
+      this.addressStore.loadAllAddresses().subscribe(addresses => {
         this.addresses = addresses;
       });
     }

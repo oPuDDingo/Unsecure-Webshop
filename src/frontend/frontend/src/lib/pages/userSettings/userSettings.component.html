@@ -1,5 +1,5 @@
 <h2>Nutzer Einstellungen</h2>
-<div class="row gutters">
+<div *ngIf="user && addresses" class="row gutters">
   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
     <div class="card h-100">
       <div class="card-body">
@@ -48,7 +48,7 @@
           <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
             <div class="form-group">
               <label for="fistName">Vorname</label>
-              <input [(ngModel)]="user.firstname" class="form-control" id="fistName"
+              <input [(ngModel)]="user.firstName" class="form-control" id="fistName"
                      placeholder="Gib deinen Vornamen ein"
                      type="text">
             </div>
@@ -56,7 +56,7 @@
           <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
             <div class="form-group">
               <label for="lastName">Nachname</label>
-              <input (change)="printTest()" [(ngModel)]="user.lastname" class="form-control" id="lastName"
+              <input (change)="printTest()" [(ngModel)]="user.lastName" class="form-control" id="lastName"
                      placeholder="Gib deinen Nachnamen ein"
                      type="text">
             </div>
