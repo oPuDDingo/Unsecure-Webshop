@@ -3,6 +3,7 @@ import {ShoppingCartStore} from "../../data-access/service/store/shoppingCart.st
 import {Shoppingcart} from "../../data-access/models/shoppingcart";
 import {Address} from "../../data-access/models/address";
 import {AddressStore} from "../../data-access/service/store/address.store";
+import {SpecifiedItem} from "../../data-access/models";
 
 @Component({
   selector: 'order-process',
@@ -24,7 +25,10 @@ export class OrderProcessComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.shoppingCartStore.getShoppingCart().subscribe(shoppingCart => this.shoppingCart = shoppingCart);
+    this.shoppingCartStore.getShoppingCart().subscribe(shoppingCart => {
+      this.shoppingCart = shoppingCart;
+      console.log(this.shoppingCart.itemList)
+    });
     this.addressStore.getAllAddresses().subscribe(addresses => this.addresses = addresses);
   }
 
@@ -33,4 +37,7 @@ export class OrderProcessComponent implements OnInit {
     this.currentStep = selectedStep;
   }
 
+  getItemList(): SpecifiedItem[] {
+    return this.shoppingCart.itemList;
+  }
 }

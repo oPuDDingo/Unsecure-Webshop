@@ -6,6 +6,10 @@ li {
   background-color: $secondary;
 }
 
+li .active {
+  background-color: $primary;
+}
+
 a {
   cursor: pointer;
 }

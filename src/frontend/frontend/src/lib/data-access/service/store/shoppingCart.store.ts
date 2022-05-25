@@ -18,7 +18,6 @@ export class ShoppingCartStore {
   getShoppingCart(): ReplaySubject<Shoppingcart> {
     if (this.shoppingCart == undefined) {
       this.backendService.getShoppingCart().subscribe(shoppingCart => {
-        console.log(shoppingCart);
         this.shoppingCart = shoppingCart;
         this.shoppingCartSubject.next(this.shoppingCart);
       });

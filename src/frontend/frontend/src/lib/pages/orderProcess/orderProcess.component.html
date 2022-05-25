@@ -1,18 +1,18 @@
 <ul class="nav nav-pills justify-content-center gap-5">
-  <li class="nav-item">
+  <li [ngClass]="reachedStep >= 0 ? 'active' : ''" class="nav-item">
     <a (click)="changeStep(0)" class="nav-link"><img alt="shopping_cart" src="assets/shopping_cart.svg"></a>
   </li>
-  <li class="nav-item">
+  <li [ngClass]="reachedStep >= 1 ? 'active' : ''" class="nav-item">
     <a (click)="changeStep(1)" class="nav-link"><img alt="local_shipping" src="assets/local_shipping.svg"></a>
   </li>
-  <li class="nav-item">
+  <li [ngClass]="reachedStep >= 2 ? 'active' : ''" class="nav-item">
     <a (click)="changeStep(2)" class="nav-link"><img alt="credit_card" src="assets/credit_card.svg"></a>
   </li>
-  <li class="nav-item">
+  <li [ngClass]="reachedStep >= 3 ? 'active' : ''" class="nav-item">
     <a (click)="changeStep(3)" class="nav-link"><img alt="done" src="assets/done.svg"></a>
   </li>
 </ul>
 
-<order-items *ngIf="currentStep == 0 && this.shoppingCart"></order-items>
+<order-items *ngIf="currentStep == 0 && this.shoppingCart" [itemList]="getItemList()"></order-items>
 <!--<addresses *ngIf="currentStep == 1 && this.addresses"></addresses>-->
 <payment-information *ngIf="currentStep == 2 && this.shoppingCart"></payment-information>

@@ -6,6 +6,7 @@ import {TabsModule} from "ngx-bootstrap/tabs";
 import {RouterModule, Routes} from "@angular/router";
 import {OrderItemsComponent} from "./orderItems/orderItems.component";
 import {CommonModule} from "@angular/common";
+import {SpecifiedItemListModule} from "../specifiedItemList/specifiedItemList.module";
 
 const routes: Routes = [
   {path: 'orderProcess', component: OrderProcessComponent}
@@ -19,7 +20,8 @@ const routes: Routes = [
     FormsModule,
     TabsModule.forRoot(),
     RouterModule.forChild(routes),
-    CommonModule
+    CommonModule,
+    SpecifiedItemListModule
   ],
   providers: [],
   bootstrap: [],

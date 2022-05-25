@@ -36,12 +36,10 @@ export class AddressStore {
   getAllAddresses(): Subject<Address[]> {
     if (this.addresses == undefined) {
       this.backendService.loadAllAddresses().subscribe(addresses => {
-        console.log(addresses);
         this.addresses = addresses;
         this.addressesSubject.next(this.addresses);
       });
     } else {
-      console.log("else")
       this.addressesSubject.next(this.addresses);
     }
     return this.addressesSubject;

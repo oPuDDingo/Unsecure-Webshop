@@ -5,6 +5,7 @@ import {Article} from "../models/article";
 import {Order} from "../models/order";
 import {Shoppingcart} from "../models/shoppingcart";
 import {Address} from "../models/address";
+import {SpecifiedItem} from "../models";
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,6 @@ export class BackendService {
   }
 
   getArticleById(articleNumber: number): Observable<Article> {
-    console.log(articleNumber);
     return this.httpClient.get<Article>(this.url + 'articles/' + articleNumber);
   }
 
@@ -28,8 +28,8 @@ export class BackendService {
     return this.httpClient.get<Order>(this.url + 'orders/' + id);
   }
 
-  getShoppingCart(): Observable<Shoppingcart> {
-    return this.httpClient.get<Shoppingcart>(this.url + 'cart/items');
+  getShoppingCart(): Observable<SpecifiedItem[]> {
+    return this.httpClient.get<SpecifiedItem[]>(this.url + 'cart/items');
   }
 
   updateShoppingCart(shoppingCart: Shoppingcart): Observable<Shoppingcart> {

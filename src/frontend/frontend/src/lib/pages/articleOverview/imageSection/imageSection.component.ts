@@ -18,7 +18,6 @@ export class ImageSectionComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.article);
     if (this.article.pictureIds) {
       this.article.pictureIds.forEach(id => {
         this.imageStore.loadImageById(id).subscribe(image => {
