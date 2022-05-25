@@ -12,12 +12,12 @@ export class BackendService {
   constructor(private httpClient: HttpClient) {
   }
 
-  loadShoppingCart(): Observable<ShoppingCart> {
-    return this.httpClient.get<ShoppingCart>(this.url + 'cart') // TODO brauch ich ein ID?
+  loadShoppingCart(): Observable<SpecifiedItem[]> {
+    return this.httpClient.get<SpecifiedItem[]>(this.url + 'cart/items')
   }
 
-  updateShoppingCart(shoppingCart: ShoppingCart): Observable<ShoppingCart> {
-    let itemsPayload = {items: shoppingCart.itemList};
+  updateItemList(itemList: SpecifiedItem[]): Observable<ShoppingCart> {
+    let itemsPayload = {items: itemList};
     return this.httpClient.put<ShoppingCart>(this.url + 'cart/items', itemsPayload)
   }
 
@@ -26,7 +26,7 @@ export class BackendService {
     return this.httpClient.put<SpecifiedItem>(this.url + 'cart/items/' + item.id, itemPayload)
   }
 
-  deleteShoppingCartItem(itemId: number): Observable<ShoppingCart> {
+  deleteItem(itemId: number): Observable<any> {
     return this.httpClient.delete<any>(this.url + 'cart/items/' + itemId);
   }
 
