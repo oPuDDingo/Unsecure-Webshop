@@ -24,7 +24,7 @@ public class DataHandler
 	}
 
 	public static List<Object> getCartItems() {
-		return Article.getExampleArticleList(3);
+		return Collections.nCopies( 5, ArticleVersion.getRandomArticleVersion() );
 	}
 
 	public static int createCartItem(ArticleVersion articleVersion) {
