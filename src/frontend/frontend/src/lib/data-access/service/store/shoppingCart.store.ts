@@ -16,7 +16,7 @@ export class ShoppingCartStore {
   }
 
   loadShoppingCart(): ReplaySubject<SpecifiedItem[]> {
-    if (this.itemList == []) {
+    if (!this.itemList) {
       this.backendService.loadShoppingCart().subscribe(itemList => {
         this.itemList = itemList;
         this.itemListSubject.next(this.itemList);
