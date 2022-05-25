@@ -1,7 +1,8 @@
 export interface Commentary {
   id?: number;
   commentText: string;
-  firstname: string;
-  lastname: string;
+  firstName?: string;
+  lastName?: string;
   userId?: number;
+  profilePicture?: string;
 }

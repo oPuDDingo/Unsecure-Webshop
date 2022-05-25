@@ -10,6 +10,6 @@ export interface Article {
   releaseDate?: string;
   screen?: string;
   resolution?: string;
-  pictures?: number[];
+  pictureIds?: number[];
   comments?: Commentary[];
 }
