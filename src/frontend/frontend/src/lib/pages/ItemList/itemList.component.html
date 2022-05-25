@@ -3,11 +3,10 @@
     <div class="col-sm-2 p-3 bg-primary text-white">
       <h3 class="m-5">Hersteller</h3>
       <div class="btn-group-vertical m-5">
-        <button class="btn btn-primary" type="button">Apple</button>
-        <button class="btn btn-primary" type="button">Samsung</button>
-        <button class="btn btn-primary" type="button">Huawei</button>
-        <button class="btn btn-primary" type="button">Nokia</button>
-        <button class="btn btn-primary" type="button">Sony</button>
+        <button (click)="selectBrand('Apple')" class="btn btn-primary" type="button">Apple</button>
+        <button (click)="selectBrand('Samsung')" class="btn btn-primary" type="button">Samsung</button>
+        <button (click)="selectBrand('Xiaomi')" class="btn btn-primary" type="button">Xiaomi</button>
+        <button (click)="selectBrand('Sony')" class="btn btn-primary" type="button">Sony</button>
       </div>
 
     </div>
@@ -24,7 +23,9 @@
         </select>
           </span>
       </div>
-      <page-item [articleId]="1"></page-item>
+      <div *ngIf="articles">
+        <page-item *ngFor="let article of articles" [article]="article"></page-item>
+      </div>
     </div>
   </div>
 </div>

@@ -1,27 +1,28 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Article} from "../../data-access/models";
+import {ArticleStore} from "../../data-access/service/store/article.store";
 
 @Component({
   selector: 'itemList',
   templateUrl: './itemList.component.html',
   styleUrls: ['./itemList.component.scss']
 })
-export class ItemListComponent {/* implements OnInit
-{
+export class ItemListComponent implements OnInit {
 
   //@Input articleNumber: number;
-  article: Article = {
-    articleNumber: 1,
-    name: "IPhone 13",
-    amount: 1099.99,
-    picture: "iphone13"
-  };
+  // @ts-ignore
+  articles: Article[];
 
 
   constructor(private articleStore: ArticleStore) {
   }
 
   ngOnInit() {
-  //this.articleStore.loadArticles().subscribe(article => this.article = article);
-  }*/
-  
+    this.articleStore.loadArticles().subscribe(articles => this.articles = articles);
+  }
+
+  selectBrand(brand: string) {
+    this.articleStore.loadArticlesByBrand(brand);
+  }
+
 }
