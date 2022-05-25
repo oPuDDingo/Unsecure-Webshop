@@ -2,24 +2,18 @@ import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './app.component';
-import {HttpClientModule} from "@angular/common/http";
-import {FormsModule} from "@angular/forms";
-import {AlertModule} from "ngx-bootstrap/alert";
-import {UserSettingsModule} from "../lib/pages/userSettings/userSettings.module";
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {SpecifiedItemListModule} from "../lib/shared/specifiedItemList/specifiedItemList.module";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
-    HttpClientModule,
-    BrowserModule,
-    FormsModule,
-    AlertModule,
-    UserSettingsModule
+    BrowserModule, SpecifiedItemListModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
-  exports: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {
