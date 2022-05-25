@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {Order} from "../models";
+import {Order} from "../../models";
 import {ReplaySubject} from "rxjs";
-import {BackendService} from "./backend.service";
+import {BackendService} from "../backend.service";
 
 
 @Injectable({

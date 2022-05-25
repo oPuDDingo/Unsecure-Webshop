@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Order} from "../../data-access/models";
-import {OrderStore} from "../../data-access/service/order.store";
+import {OrderStore} from "../../data-access/service/store/order.store";
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
