@@ -22,6 +22,13 @@ import java.util.List;
 		return Response.ok(user).build();
 	}
 
+	@Path("{id}") @GET @Produces(MediaType.APPLICATION_JSON) public Response getUserById(
+		@PathParam("id") final int id)
+	{
+		User user = DataHandler.getUserById(id);
+		return Response.ok(user).build();
+	}
+
 	@POST @Consumes(MediaType.APPLICATION_JSON) public Response createUser(
 		@Context UriInfo uriInfo,
 		final User user)
@@ -78,19 +85,19 @@ import java.util.List;
 		return Response.noContent().build();
 	}
 
+	@GET @Path("addresses") @Produces(MediaType.APPLICATION_JSON) public Response getAllUserAddresses(
+		@CookieParam("sessionID") String session)
+	{
+		List<Address> userAddresses = DataHandler.getAllUserAddresses(session);
+		return Response.ok(userAddresses).build();
+	}
+
 	@GET @Path("/addresses/{id}") @Produces(MediaType.APPLICATION_JSON) public Response getUserAddress(
 		@CookieParam("sessionID") String session,
 		@PathParam("id") final int id)
 	{
 		Address userAddress = DataHandler.getUserAddress(session, id);
 		return Response.ok(userAddress).build();
-	}
-
-	@GET @Path("addresses") @Produces(MediaType.APPLICATION_JSON) public Response getAllUserAddresses(
-		@CookieParam("sessionID") String session)
-	{
-		List<Address> userAddresses = DataHandler.getAllUserAddresses(session);
-		return Response.ok(userAddresses).build();
 	}
 
 	@Path("addresses") @POST @Produces(MediaType.APPLICATION_JSON) public Response createUserAddress(

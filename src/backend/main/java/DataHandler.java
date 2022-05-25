@@ -51,10 +51,10 @@ public class DataHandler
 		return Coupon.getExampleCoupon(name);
 	}
 
-	public static Picture getPicture(int id) {
+	public static String getPicture(int id) {
 		// return Database.getPicture(id)
 		String pictureBytes = Logic.getByteArrayFromPictureURL("https://www.kindpng.com/picc/m/6-67785_broken-phone-png-broken-iphone-transparent-png-download.png");
-		return new Picture(1, pictureBytes);
+		return pictureBytes;
 	}
 
 	public static List<Order> getOrders() {
@@ -78,6 +78,11 @@ public class DataHandler
 
 	public static User getUser(String session) {
 		// User user = Database.getUser(session);
+		User user = User.getExampleUser();
+		return user;
+	}
+
+	public static User getUserById(int id) {
 		User user = User.getExampleUser();
 		return user;
 	}

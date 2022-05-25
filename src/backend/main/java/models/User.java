@@ -27,8 +27,21 @@ public class User {
 		this.description=description;
 	}
 
+	public User(int id,String firstname, String lastname, String title, String profilePicture, String description ){
+		this.id=id;
+		this.firstname=firstname;
+		this.lastname=lastname;
+		this.title=title;
+		this.profilePicture=profilePicture;
+		this.description=description;
+	}
+
 	public static User getExampleUser() {
-		return new User(1, "mail@mail.com", "Max", "Mustermann", true, "Hi, my name is Max", "Dr.", "/picture", "description" );
+		return new User(1, "mail@mail.com", "Max", "Mustermann", true, "Hi, my name is Max", "Dr.", "this is my picture in bit64", "description" );
+	}
+
+	public static User getExampleElseUser() {
+		return new User(1, "Max", "Mustermann", "Dr.", "this is my picture in 64 bits", "description" );
 	}
 
 	public int getId() {
