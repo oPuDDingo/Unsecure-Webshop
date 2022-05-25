@@ -37,7 +37,7 @@
         </div>
         <color-circle [clickable]="false" [color]="specifiedItem.color" class="col-md-2 text-center"></color-circle>
         <div class="col-md-2 text-center">
-          {{ specifiedItem.storage }} GB
+          {{ specifiedItem.gbSize }} GB
         </div>
         <div class="col text-end">
           <delete (onClickEvent)="onItemDelete()" *ngIf="showDeleteButton && showTrash"
