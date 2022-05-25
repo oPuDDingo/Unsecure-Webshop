@@ -15,7 +15,7 @@ public class DataAccessShopDatabase {
         try {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:src/backend/main/java/database/shopDatabase.db");
-            //System.out.println("Verbindung erfolgreich!");
+            //System.out.println("Connection created!");
         }
          catch (SQLException ex) {
              System.out.println(ex.getMessage());
@@ -24,6 +24,40 @@ public class DataAccessShopDatabase {
             System.out.println("Klasse nicht gefunden!");
         }
         return c;
+    }
+
+    public boolean createDatabase(){
+        Connection con = this.createConnection();
+        Statement stmt = null;
+        try {
+            stmt = con.createStatement();
+            for(String sql: CreateDatabase.createDatabase){
+                stmt.execute(sql);
+            }
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public boolean deleteDatabase(){
+        Connection con = this.createConnection();
+        Statement stmt = null;
+        try {
+            stmt = con.createStatement();
+            for(String sql: DeleteDatabase.deleteDatabase){
+                stmt.execute(sql);
+            }
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
     public boolean postComment(Commentary comment, int articleId, int userId){
@@ -738,6 +772,6 @@ public class DataAccessShopDatabase {
 
     public static void main(String[] args) throws SQLException {
         DataAccessShopDatabase s = new DataAccessShopDatabase();
-        s.getOrder(1);
+        s.createDatabase();
     }
 }
