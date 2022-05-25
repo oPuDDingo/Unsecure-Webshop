@@ -1,11 +1,10 @@
-
 export interface SpecifiedItem {
-  id: number;
-  name: string;
-  storage: number;
+  id?: number;
   articleNumber: number;
-  amount: number;
+  name?: string;
   quantity: number;
+  gbSize: number;
   color: string;
-  picture: string;
+  amount?: number;
+  pictureId?: number;
 }
