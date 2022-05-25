@@ -38,7 +38,11 @@ public class Article {
 
 	public static Article getExampleArticle()
 	{
-		return new Article(12345, "iPhone 12", 1, 5, "iOS", "2018", "AMOLED", "720x350", "Apple", null, null);
+		List<Integer> images = new ArrayList<>();
+		images.add( 0 );
+		images.add( 1 );
+		images.add( 2 );
+		return new Article(12345, "iPhone 12", 1, 5, "iOS", "2018", "AMOLED", "720x350", "Apple", null, images);
 	}
 
 	public static List<Object> getExampleArticleList(int amount) {

@@ -7,13 +7,13 @@ public class Address {
 	private String country;
 	private String address;
 	private String address2;
-	private String zipcode;
+	private String zipCode;
 	private String city;
 	private String deliveryInstructions;
 
 	public Address() {}
 
-	public Address(int id, String name, String country, String address, String address2, String zipcode, String city,
+	public Address(int id, String name, String country, String address, String address2, String zipCode, String city,
 		String deliveryInstructions)
 	{
 		this.id = id;
@@ -21,7 +21,7 @@ public class Address {
 		this.country = country;
 		this.address = address;
 		this.address2 = address2;
-		this.zipcode = zipcode;
+		this.zipCode = zipCode;
 		this.city = city;
 		this.deliveryInstructions = deliveryInstructions;
 	}
@@ -70,12 +70,12 @@ public class Address {
 		this.address2 = address2;
 	}
 
-	public String getZipcode() {
-		return zipcode;
+	public String getZipCode() {
+		return zipCode;
 	}
 
-	public void setZipcode(String zipcode) {
-		this.zipcode = zipcode;
+	public void setZipCode(String zipCode ) {
+		this.zipCode = zipCode;
 	}
 
 	public String getCity() {
