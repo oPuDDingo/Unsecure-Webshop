@@ -6,5 +6,5 @@ export interface SpecifiedItem {
   gbSize: number;
   color: string;
   amount?: number;
-  picture?: number;
+  pictureId?: number;
 }

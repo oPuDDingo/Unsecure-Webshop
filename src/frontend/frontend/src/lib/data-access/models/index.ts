@@ -4,4 +4,6 @@ export * from './coupon';
 export * from './order';
 export * from './payment';
 export * from './specifiedItem';
+export * from './user';
 export * from './commentary';
+export * from './contact';
