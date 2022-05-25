@@ -2,8 +2,8 @@
   <accordion-group *ngFor="let order of orderList">
     <button accordion-heading
             class="accordionButton" type="button">
-      <order-header [itemList]="order.items" [orderDate]="order.date"></order-header>
+      <order-header [itemList]="order.specifiedItems" [orderDate]="order.date"></order-header>
     </button>
-    <order-body [orderNumber]="order.id"></order-body>
+    <order-body [orderNumber]="order.orderNumber"></order-body>
   </accordion-group>
 </accordion>

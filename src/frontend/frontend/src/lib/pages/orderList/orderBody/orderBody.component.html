@@ -6,12 +6,12 @@
     </div>
     <div class="d-flex flex-column">
       <span>Bestellnummer</span>
-      <span>{{order.order_number}}</span>
+      <span>{{order.orderNumber}}</span>
     </div>
   </div>
   <span><hr flex style="border-style: solid"/></span>
   <div>
-    <div *ngFor="let item of order.items" class="bodyArticel">
+    <div *ngFor="let item of order.specifiedItems" class="bodyArticel">
       <div class="articelName">{{item.name}} {{item.color}}<br/></div>
       <div class="row">
         <div class="col-sm-2">Menge: {{item.quantity}}</div>
@@ -25,7 +25,7 @@
         <strong>Warning!</strong> Der Rückgabezeitraum konnte nicht ermittelt werden!
       </div>
 
-      <div *ngIf="order.items.length>1 && item!=order.items[order.items.length-1]">
+      <div *ngIf="order.specifiedItems.length>1 && item!=order.specifiedItems[order.specifiedItems.length-1]">
         <span><hr flex/></span>
       </div>
     </div>
@@ -42,9 +42,9 @@
           <span class="contentAdress">Name</span>
           <span>{{order.address.name}}</span> <br/>
           <span class="contentAdress">Straße, Haus Nr.</span>
-          <span>{{order.address.street}}, {{order.address.house_number}}</span><br/>
+          <span>{{order.address.address}}</span><br/>
           <span class="contentAdress">PLZ, Ort</span>
-          <span>{{order.address.postCode}}, {{order.address.city}}</span><br/>
+          <span>{{order.address.zipCode}}, {{order.address.city}}</span><br/>
           <span class="headers">Zahlungsart</span>
           <span class="contentAdress">IBAN</span>
           <div *ngIf="order.payment == null" class="alert alert-warning alert-dismissible">
@@ -59,7 +59,7 @@
           <span class="contentAdress">Country</span>
           <span>{{order.address.country}}</span><br/>
           <span class="contentAdress">Adresszusatz</span>
-          <span>{{order.address.address_suplement}}</span><br/>
+          <span>{{order.address.address2}}</span><br/>
         </div>
       </div>
     </div>

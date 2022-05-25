@@ -1,4 +1,5 @@
 export interface Payment {
-  iban: String,
-  accountHolder?: String
+  iban: string;
+  bic: string;
+  accountHolder: string;
 }

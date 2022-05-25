@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Order} from "../../data-access/models/order";
+import {Order} from "../../data-access/models";
 import {OrderStore} from "../../data-access/service/order.store";
 
 @Component({
@@ -14,56 +14,56 @@ export class OrderListComponent implements OnInit {
   constructor(private orderStore: OrderStore) {
     this.orderList = [
       {
-        id: 1,
-        order_number: 1878869613,
-        items: [{
+        orderNumber: 1878,
+        date: "12.03.2022",
+        specifiedItems: [{
           id: 1,
-          name: "IPhone 12 MAX",
-          storage: 64,
           articleNumber: 3215464,
-          amount: 132.45,
+          name: "IPhone 12 MAX",
           quantity: 1,
+          gbSize: 64,
           color: "red",
-          picture: "assets/01.png"
+          amount: 132.45,
+          pictureId: 1
         },
           {
             id: 2,
-            name: "Samsung Galaxy S22 Ultra",
-            storage: 128,
             articleNumber: 564218,
-            amount: 999.45,
+            name: "Samsung Galaxy S22 Ultra",
             quantity: 1,
+            gbSize: 128,
             color: "grey",
-            picture: "assets/02.png"
+            amount: 999.45,
+            pictureId: 2
           }],
         address: {
           name: "Max Mustermann",
-          street: "Musterstraße",
-          house_number: "420",
-          postCode: 69420,
-          address_suplement: "4. OG, Wohnung 20",
+          address: "Musterstraße 420",
+          zipCode: 69420,
+          address2: "4. OG, Wohnung 20",
           city: "Musterhausen",
-          country: "Germany"
+          country: "Germany",
+          deliveryInstructions: ""
         },
         payment: {
-          iban: "DE458000400758"
-        },
-        date: "12.03.2022"
+          iban: "DE458000400758",
+          bic: "",
+          accountHolder: ""
+        }
       },
       {
-        id: 2,
-        order_number: 48945616547,
-        items: [{
+        orderNumber: 48945616547,
+        date: "24.05.2020",
+        specifiedItems: [{
           id: 3,
-          name: "IPhone 11 MAX",
-          storage: 128,
           articleNumber: 231798,
-          amount: 420.69,
+          name: "IPhone 11 MAX",
           quantity: 1,
+          gbSize: 128,
           color: "spacegrey",
-          picture: "assets/03.png"
-        }],
-        date: "24.05.2020"
+          amount: 420.69,
+          pictureId: 3
+        }]
       }
     ];
   }

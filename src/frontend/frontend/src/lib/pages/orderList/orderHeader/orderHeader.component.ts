@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {Item} from "../../../data-access/models/item";
+import {SpecifiedItem} from "../../../data-access/models";
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
@@ -9,7 +9,7 @@ import {Item} from "../../../data-access/models/item";
 })
 export class OrderHeaderComponent {
   // @ts-ignore
-  @Input() itemList: Item[];
+  @Input() itemList: SpecifiedItem[];
   // @ts-ignore
   @Input() orderDate: String;
 

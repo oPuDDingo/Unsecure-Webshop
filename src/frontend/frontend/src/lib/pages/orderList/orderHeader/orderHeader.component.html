@@ -1,8 +1,8 @@
-<div class="content" xmlns="http://www.w3.org/1999/html" (click)="toggleIsOpen()">
+<div (click)="toggleIsOpen()" class="content" xmlns="http://www.w3.org/1999/html">
   <div *ngFor="let item of itemList" class="float-none">
     <div class="row">
       <div class="col-1">
-        <img class="imgSize" [src]="item.picture">
+        <img [src]="item.pictureId" class="imgSize">
       </div>
       <span class="col"><h3>{{item.name}}</h3></span>
     </div>

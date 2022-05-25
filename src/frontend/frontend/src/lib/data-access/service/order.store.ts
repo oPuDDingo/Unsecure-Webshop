@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {Order} from "../models/order";
-import {Subject} from "rxjs";
+import {Order} from "../models";
+import {ReplaySubject} from "rxjs";
 import {BackendService} from "./backend.service";
 
 
@@ -10,14 +10,14 @@ import {BackendService} from "./backend.service";
 export class OrderStore {
 
   orders: Order[] = [];
-  ordersSubject: Subject<Order[]> = new Subject<Order[]>();
+  ordersSubject: ReplaySubject<Order[]> = new ReplaySubject<Order[]>(1);
   orderWithBody: Order[] = [];
 
   constructor(private backendService: BackendService) {
 
   }
 
-  loadOrders(): Subject<Order[]> {
+  loadOrders(): ReplaySubject<Order[]> {
     if (this.orders == []) {
       this.backendService.loadOrders().subscribe(orders => {
         this.orders = orders;
@@ -27,9 +27,9 @@ export class OrderStore {
     return this.ordersSubject;
   }
 
-  loadOrderById(orderId: number): Subject<Order> {
-    const orderLocalSubject: Subject<Order> = new Subject<Order>();
-    let index = this.orderWithBody.findIndex(order => order.id === orderId);
+  loadOrderById(orderId: number): ReplaySubject<Order> {
+    const orderLocalSubject: ReplaySubject<Order> = new ReplaySubject<Order>();
+    let index = this.orderWithBody.findIndex(order => order.orderNumber === orderId);
     if (index == -1) {
       this.backendService.loadOrdersWithFullBody().subscribe(order => {
         this.orderWithBody.push(order);

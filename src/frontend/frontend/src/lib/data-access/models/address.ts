@@ -1,9 +1,10 @@
 export interface Address {
-  name: String,
-  street: String,
-  house_number: String,
-  postCode: number,
-  address_suplement: String,
-  city: String,
-  country: String
+  id?: number;
+  name: string;
+  address: string;
+  address2: string;
+  zipCode: number;
+  city: string;
+  country: string;
+  deliveryInstructions: string;
 }

@@ -1,13 +1,14 @@
-import {Item} from "./item";
 import {Address} from "./address";
 import {Payment} from "./payment";
+import {SpecifiedItem} from "./specifiedItem";
+import {Coupon} from "./coupon";
 
 export interface Order {
-  id: number,
-  order_number: number,
-  items: Item[],
-  address?: Address,
-  amount?: number,
-  payment?: Payment,
-  date: String
+  orderNumber: number;
+  date: string;
+  specifiedItems: SpecifiedItem[];
+  amount?: number;
+  address?: Address;
+  payment?: Payment;
+  coupon?: Coupon;
 }
