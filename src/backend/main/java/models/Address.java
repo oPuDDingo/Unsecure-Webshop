@@ -1,6 +1,6 @@
 package backend.main.java.models;
 
-public class Address {
+public class Address { //erledigt
 
 	private int id;
 	private String name;
@@ -74,7 +74,7 @@ public class Address {
 		return zipCode;
 	}
 
-	public void setZipCode(String zipCode ) {
+	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
 	}
 

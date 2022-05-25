@@ -3,7 +3,7 @@ package backend.main.java.models;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Article {
+public class Article { //erledigt
 
 	private int articleNumber;
 	private String modelName;
@@ -33,7 +33,14 @@ public class Article {
 		this.resolution = resolution;
 		this.brand = brand;
 		this.comments = comments;
-		this.pictureIds=pictureIds;
+		this.pictureIds = pictureIds;
+	}
+
+	public Article(int articleNumber, String modelName, double amount, List<String> pictures)
+	{
+		this.articleNumber = articleNumber;
+		this.modelName = modelName;
+		this.amount = amount;
 	}
 
 	public static Article getExampleArticle()

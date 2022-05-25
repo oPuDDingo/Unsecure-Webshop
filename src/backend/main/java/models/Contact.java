@@ -1,41 +1,41 @@
 package backend.main.java.models;
 
-public class Contact
+public class Contact //erledigt
 {
-	private String firstname;
-	private String lastname;
+	private String firstName;
+	private String lastName;
 	private String mail;
 	private String message;
 
 	public Contact()
-	{	}
+	{}
 
-	public Contact(String firstname, String lastname, String mail, String message)
+	public Contact(String firstName, String lastName, String mail, String message)
 	{
-		this.firstname = firstname;
-		this.lastname = lastname;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.mail = mail;
 		this.message = message;
 	}
 
-	public String getFirstname()
+	public String getFirstName()
 	{
-		return firstname;
+		return firstName;
 	}
 
-	public void setFirstname(String firstname)
+	public void setFirstName(String firstName)
 	{
-		this.firstname = firstname;
+		this.firstName = firstName;
 	}
 
-	public String getLastname()
+	public String getLastName()
 	{
-		return lastname;
+		return lastName;
 	}
 
-	public void setLastname(String lastname)
+	public void setLastName(String lastName)
 	{
-		this.lastname = lastname;
+		this.lastName = lastName;
 	}
 
 	public String getMail()

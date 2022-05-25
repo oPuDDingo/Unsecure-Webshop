@@ -3,23 +3,22 @@ package backend.main.java.models;
 public class User {
 	private int id;
 	private String mail;
-	private String firstname;
-	private String lastname;
+	private String firstName;
+	private String lastName;
 	private boolean newsletter;
 	private String salutation;
 	private String title;
 	private String profilePicture;
 	private String description;
-	private String email;
 	private String password;
 
 	public User(){}
 
-	public User(int id, String email, String firstname, String lastname, boolean newsletter, String salutation, String title, String profilePicture, String description ){
+	public User(int id, String mail, String firstName, String lastName, boolean newsletter, String salutation, String title, String profilePicture, String description ){
 		this.id=id;
-		this.email=email;
-		this.firstname=firstname;
-		this.lastname=lastname;
+		this.mail=mail;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.newsletter=newsletter;
 		this.salutation=salutation;
 		this.title=title;
@@ -27,10 +26,10 @@ public class User {
 		this.description=description;
 	}
 
-	public User(int id,String firstname, String lastname, String title, String profilePicture, String description ){
+	public User(int id, String firstName, String lastName, String title, String profilePicture, String description ){
 		this.id=id;
-		this.firstname=firstname;
-		this.lastname=lastname;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.title=title;
 		this.profilePicture=profilePicture;
 		this.description=description;
@@ -60,20 +59,20 @@ public class User {
 		this.mail = mail;
 	}
 
-	public String getFirstname() {
-		return firstname;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public String getLastname() {
-		return lastname;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public boolean isNewsletter() {
@@ -114,14 +113,6 @@ public class User {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	public String getPassword() {
