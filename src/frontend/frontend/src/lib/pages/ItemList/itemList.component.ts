@@ -22,7 +22,7 @@ export class ItemListComponent implements OnInit {
   }
 
   selectBrand(brand: string) {
-    this.articleStore.loadArticlesByBrand(brand);
+    this.articleStore.loadArticlesByBrand(brand).subscribe(articles => this.articles = articles);
   }
 
 }

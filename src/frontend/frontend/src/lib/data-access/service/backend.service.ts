@@ -28,9 +28,5 @@ export class BackendService {
     return this.httpClient.get<Article[]>(this.url + 'articles?brand=' + brand + '&page=8');
   }
 
-  getArticlesByPrice(amount: number): Observable<Article> {
-    return this.httpClient.get<Article>(this.url + 'articles?price=' + amount + '&page=8');
-  }
-
 
 }
