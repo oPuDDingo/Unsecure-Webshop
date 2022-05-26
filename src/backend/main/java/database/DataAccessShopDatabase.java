@@ -44,6 +44,7 @@ public class DataAccessShopDatabase {
         this.postBrands();
         this.postDummyUsers();
         this.postArticles();
+        this.postArticleVersions();
         return true;
     }
 
@@ -822,6 +823,31 @@ public class DataAccessShopDatabase {
                         "VALUES('"+article.getModelName()+"', "+article.getPrice()+", '"+article.getOperatingSystem()+"', '"+article.getReleaseDate()+"', '"+article.getScreen()+"','"+
                         article.getResolution()+"', "+article.getValuation_sum()+", "+article.getNumber_of_valuation()+", "+article.getBrand_id()+");");
             }
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void postArticleVersions(){
+        Connection con = this.createConnection();
+        Statement stmt =null;
+        try {
+            stmt = con.createStatement();
+            ArrayList<Integer> articleIds = new ArrayList<>();
+            ResultSet rs = stmt.executeQuery("SELECT id FROM article");
+            while(rs.next()){
+                articleIds.add(rs.getInt("id"));
+            }
+            for(int id : articleIds){
+                for(String color : DatabaseQueries.colors){
+                    for(String gb : DatabaseQueries.gbSizes){
+                        stmt.execute("INSERT INTO article_version(quantity, gb_size, color, article_id) VALUES(999, '"+gb+"', '"+color+"', "+id+");");
+                    }
+                }
+            }
+            rs.close();
             stmt.close();
             con.close();
         } catch (SQLException e) {

@@ -159,5 +159,9 @@ public class DatabaseQueries {
     new ArticleDB("Xperia 10 III", 399.00, "Android 11", "16.06.2018", "CinemaWide Full HD+ OLED Display", "2.520x1.080", 3, 1, 4),
     new ArticleDB("Xperia Pro-I", 199.00, "Android 11", "24.11.2022", "CinemaWide 4K 120Hz HDR OLED-Display", "3.840x1.644", 8,2,4),
     new ArticleDB("Xperia 5 III", 919.00, "Android 12", "05.05.2022", "CinemaWide FHD+ HDR OLED-Display", "2.520x1.080", 5, 1, 4)};
+
+    public static String[] colors = new String[]{"red", "blue", "green", "black", "white"};
+
+    public static String[] gbSizes = new String[]{"128", "256", "512"};
 }
 
