@@ -1,6 +1,9 @@
 package backend.main.java.database;
 
+import backend.main.java.models.Article;
 import backend.main.java.models.User;
+import backend.main.java.models.modelsdb.ArticleDB;
+import org.checkerframework.checker.units.qual.A;
 
 public class DatabaseQueries {
 
@@ -140,6 +143,21 @@ public class DatabaseQueries {
     public static User[] users = new User[]{new User(1, "Admin@Admin.de", "admin", "admin", false, "", "", "", "Admin User", "123456789"),
     new User(2, "Test@test.de", "test", "test", false, "", "", "", "Test User", "test123456789")};
 
-
+    public static ArticleDB[] articles = new ArticleDB[]{new ArticleDB("Galaxy Z Fold3", 1393.00, "Android 11.0, ONE UI 3.1.1, KNOX 3.7", "01.01.2022", "Dynamic AMOLED", "2.208x1.768", 100, 25, 1),
+    new ArticleDB("Galaxy S22 Ultra", 1449.00, "Android 12, One UI 4.1, Knox 3.8", "05.12.2021", "Dynamic AMOLED, Quad HD+", "3.088x1.440", 90, 30, 1),
+    new ArticleDB("Galaxy 21 Ultra", 1279.87, "Android 11.0, OneUI 3.1, KNOX 3.7", "28.02.2019", "Dynamic AMOLED, Quad HD+", "3.200x1.440", 5, 1, 1),
+    new ArticleDB("Galaxy Z Flip3", 799.00,"Android 11.0, ONE UI 3.1.1, KNOX 3.7", "17.04.2020", "Super AMOLED", "2.640x1.080", 25, 7, 1),
+    new ArticleDB("Galaxy Xcover", 499.00, "Android 10 AOS", "06.08.2017", "LCD-TFT", "2.340x1.080", 2,1,1),
+    new ArticleDB("Iphone 13 Pro", 1749.00, "ios 15", "17.09.2021", "Super Retina XDR Display mit ProMotion", "2.778x1.284", 16,4,2),
+    new ArticleDB("Iphone 12 Pro", 1379.00, "ios 14", "17.08.2020", "Super Retina XDR, OLED", "1.856x884", 5,1,2),
+    new ArticleDB("Iphone 11", 529.99, "ios 13", "08.06.2019", "Liquid Retina HD, IPS, True Tone Display", "1.792x828", 4, 1, 2),
+    new ArticleDB("Iphone SE NE", 489.95, "ios 13", "06.06.2018", "Retina HD Display", "1.334x750", 6, 2, 2),
+    new ArticleDB("Redmi Note 11", 219.00, "Android 11, MIUI 13", "18.09.2019", "AMOLED FHD+", "2.400x1.080", 2, 1, 3),
+    new ArticleDB("Redmi Note 9 Pro", 189.00, "Android 10 + MIUI 11", "04.11.2022", "IPS", "2.400x1.080", 5, 2, 3),
+    new ArticleDB("Redmit 9A", 107.99, "Android 10 + MIUI 11", "31.12.2020", "DotDrop-Display", "1.600x720", 4, 1, 3),
+    new ArticleDB("Poco X4 Pro", 399.00, "Android 11, MIUI 13", "21.10.2021", "AMOLED, FHD+", "2.400x1.080", 4, 1, 3),
+    new ArticleDB("Xperia 10 III", 399.00, "Android 11", "16.06.2018", "CinemaWide Full HD+ OLED Display", "2.520x1.080", 3, 1, 4),
+    new ArticleDB("Xperia Pro-I", 199.00, "Android 11", "24.11.2022", "CinemaWide 4K 120Hz HDR OLED-Display", "3.840x1.644", 8,2,4),
+    new ArticleDB("Xperia 5 III", 919.00, "Android 12", "05.05.2022", "CinemaWide FHD+ HDR OLED-Display", "2.520x1.080", 5, 1, 4)};
 }
 

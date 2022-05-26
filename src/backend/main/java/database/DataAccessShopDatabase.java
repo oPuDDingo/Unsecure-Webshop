@@ -1,6 +1,7 @@
 package backend.main.java.database;
 
 import backend.main.java.models.*;
+import backend.main.java.models.modelsdb.ArticleDB;
 import com.google.common.hash.Hashing;
 
 import java.nio.charset.StandardCharsets;
@@ -41,7 +42,8 @@ public class DataAccessShopDatabase {
             return false;
         }
         this.postBrands();
-        this.postDummyUser();
+        this.postDummyUsers();
+        this.postArticles();
         return true;
     }
 
@@ -790,7 +792,7 @@ public class DataAccessShopDatabase {
         }
     }
 
-    private void postDummyUser(){
+    private void postDummyUsers(){
         Connection con = this.createConnection();
         Statement stmt =null;
         try {
@@ -810,8 +812,26 @@ public class DataAccessShopDatabase {
 
     }
 
+    private void postArticles(){
+        Connection con = this.createConnection();
+        Statement stmt =null;
+        try {
+            stmt =con.createStatement();
+            for(ArticleDB article : DatabaseQueries.articles){
+                stmt.execute("INSERT INTO article(model_name, price, operating_system, release_date, screen, resolution, valuation_sum, number_of_valuation, brand_id) " +
+                        "VALUES('"+article.getModelName()+"', "+article.getPrice()+", '"+article.getOperatingSystem()+"', '"+article.getReleaseDate()+"', '"+article.getScreen()+"','"+
+                        article.getResolution()+"', "+article.getValuation_sum()+", "+article.getNumber_of_valuation()+", "+article.getBrand_id()+");");
+            }
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) throws SQLException {
         DataAccessShopDatabase s = new DataAccessShopDatabase();
-        System.out.println(s.getUserId("x"));
+        s.deleteDatabase();
+        s.createDatabase();
     }
 }
