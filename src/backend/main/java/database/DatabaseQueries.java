@@ -3,43 +3,16 @@ package backend.main.java.database;
 import backend.main.java.models.Article;
 import backend.main.java.models.User;
 import backend.main.java.models.modelsdb.ArticleDB;
-import org.checkerframework.checker.units.qual.A;
+
 
 public class DatabaseQueries {
 
-    public static String[] deleteDatabase= new String[]{"DROP TABLE address;", "DROP TABLE article;", "DROP TABLE article_version;", "DROP TABLE brand;",
-            "DROP TABLE comment;", "DROP TABLE coupon;", "DROP TABLE picture;", "DROP TABLE sales_order;", "DROP TABLE sales_order_article_version", "DROP TABLE session;",
+    public static String[] deleteDatabase= new String[]{"DROP TABLE address;", "DROP TABLE article_version;",
+            "DROP TABLE comment;", "DROP TABLE sales_order;", "DROP TABLE sales_order_article_version", "DROP TABLE session;",
             "DROP TABLE shopping_cart;", "DROP TABLE shopping_cart_article_version;", "DROP TABLE user;", "DROP TABLE wish_list;", "DROP TABLE wish_list_article_version;"};
+    //missing: picture, article, brand, coupon
 
     public static String[] createDatabase = new String[]{
-            "CREATE TABLE brand(\n" +
-                    "    id   INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
-                    "    name text\n" +
-                    ");",
-            "CREATE TABLE article(\n" +
-                    "    id INTEGER PRIMARY KEY AUTOINCREMENT ,\n" +
-                    "    model_name TEXT,\n" +
-                    "    price REAL,\n" +
-                    "    operating_system TEXT,\n" +
-                    "    release_date TEXT,\n" +
-                    "    screen TEXT,\n" +
-                    "    resolution TEXT,\n" +
-                    "    valuation_sum INTEGER,\n" +
-                    "    number_of_valuation INTEGER,\n" +
-                    "    brand_id INTEGER,\n" +
-                    "    FOREIGN KEY(brand_id) REFERENCES brand(id)\n" +
-                    ");",
-            "CREATE TABLE picture(\n" +
-                    "    id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
-                    "    picture_path TEXT,\n" +
-                    "    article_id INTEGER,\n" +
-                    "    FOREIGN KEY(article_id) REFERENCES article(id)\n" +
-                    ");",
-            "CREATE TABLE coupon(\n" +
-                    "    code TEXT PRIMARY KEY,\n" +
-                    "    discount_percent REAL,\n" +
-                    "    active INTEGER\n" +
-                    ");",
             "CREATE TABLE article_version(\n" +
                     "    id INTEGER PRIMARY KEY AUTOINCREMENT ,\n" +
                     "    quantity INTEGER,\n" +
@@ -154,7 +127,7 @@ public class DatabaseQueries {
     new ArticleDB("Iphone SE NE", 489.95, "ios 13", "06.06.2018", "Retina HD Display", "1.334x750", 6, 2, 2),
     new ArticleDB("Redmi Note 11", 219.00, "Android 11, MIUI 13", "18.09.2019", "AMOLED FHD+", "2.400x1.080", 2, 1, 3),
     new ArticleDB("Redmi Note 9 Pro", 189.00, "Android 10 + MIUI 11", "04.11.2022", "IPS", "2.400x1.080", 5, 2, 3),
-    new ArticleDB("Redmit 9A", 107.99, "Android 10 + MIUI 11", "31.12.2020", "DotDrop-Display", "1.600x720", 4, 1, 3),
+    new ArticleDB("Redmi 9A", 107.99, "Android 10 + MIUI 11", "31.12.2020", "DotDrop-Display", "1.600x720", 4, 1, 3),
     new ArticleDB("Poco X4 Pro", 399.00, "Android 11, MIUI 13", "21.10.2021", "AMOLED, FHD+", "2.400x1.080", 4, 1, 3),
     new ArticleDB("Xperia 10 III", 399.00, "Android 11", "16.06.2018", "CinemaWide Full HD+ OLED Display", "2.520x1.080", 3, 1, 4),
     new ArticleDB("Xperia Pro-I", 199.00, "Android 11", "24.11.2022", "CinemaWide 4K 120Hz HDR OLED-Display", "3.840x1.644", 8,2,4),

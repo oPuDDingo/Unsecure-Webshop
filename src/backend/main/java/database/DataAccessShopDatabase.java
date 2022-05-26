@@ -41,9 +41,9 @@ public class DataAccessShopDatabase {
             e.printStackTrace();
             return false;
         }
-        this.postBrands();
+        //this.postBrands();
         this.postDummyUsers();
-        this.postArticles();
+        //this.postArticles();
         this.postArticleVersions();
         return true;
     }
@@ -837,7 +837,7 @@ public class DataAccessShopDatabase {
             stmt = con.createStatement();
             ArrayList<Integer> articleIds = new ArrayList<>();
             ResultSet rs = stmt.executeQuery("SELECT id FROM article");
-            while(rs.next()){
+            while(rs.next()){  //because ResultSet resets after new execute of an SQL statement
                 articleIds.add(rs.getInt("id"));
             }
             for(int id : articleIds){
