@@ -9,36 +9,36 @@
       <div class="row">
         <div class="col">
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="Vorname" required>
+            <input [(ngModel)]="contact.firstName" class="form-control" placeholder="Vorname" required type="text">
           </div>
         </div>
         <div class="col">
 
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="Nachname" required>
+            <input [(ngModel)]="contact.lastName" class="form-control" placeholder="Nachname" required type="text">
           </div>
         </div>
       </div>
 
       <h3>EMAIL*</h3>
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="Deine Email" required>
+        <input [(ngModel)]="contact.mail" class="form-control" placeholder="Deine Email" required type="text">
       </div>
 
       <h3>NACHRICHT</h3>
       <div>
-        <textarea class="form-control" rows="7" id="comment" name="text"></textarea>
+        <textarea [(ngModel)]="contact.message" class="form-control" id="comment" name="text" rows="7"></textarea>
       </div>
 
       <h3>DATENSCHUTZ*</h3>
       <div class="form-check mb-3">
-        <input class="form-check-input" type="checkbox" id="myCheck" name="remember" required>
+        <input class="form-check-input" id="myCheck" name="remember" required type="checkbox">
         <label class="form-check-label" for="myCheck"> Ich willige in die Datenschutzerklärung ein.</label>
         <div class="valid-feedback">Valid.</div>
         <div class="invalid-feedback"></div>
       </div>
 
-      <button type="submit" class="btn btn-primary">ABSENDEN</button>
+      <button (click)="onSubmit()" class="btn btn-primary" type="submit">ABSENDEN</button>
     </form>
   </div>
 </div>

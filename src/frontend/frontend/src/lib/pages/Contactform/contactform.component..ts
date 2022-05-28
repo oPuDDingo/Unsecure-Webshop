@@ -1,4 +1,6 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
+import {Contact} from "../../data-access/models";
+import {ContactStore} from "../../data-access/service/store/contact.store";
 
 @Component(
   {
@@ -8,6 +10,19 @@ import {Component} from "@angular/core";
   }
 )
 
-export class ContactformComponent {
+export class ContactformComponent implements OnInit {
+
+  // @ts-ignore
+  contact: Contact;
+
+  constructor(private contactStore: ContactStore) {
+  }
+
+  onSubmit(): void {
+    this.contactStore.createContact(this.contact);
+  }
+
+  ngOnInit(): void {
+  }
 
 }
