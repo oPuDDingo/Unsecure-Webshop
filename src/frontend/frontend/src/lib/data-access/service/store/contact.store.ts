@@ -1,5 +1,5 @@
 import {Contact} from "../../models";
-import {Subject} from "rxjs";
+import {ReplaySubject} from "rxjs";
 import {BackendService} from "../backend.service";
 import {Injectable} from "@angular/core";
 
@@ -10,7 +10,7 @@ import {Injectable} from "@angular/core";
 export class ContactStore {
   // @ts-ignore
   contact: Contact;
-  contactSubject: Subject<Contact> = new Subject<Contact>();
+  contactSubject: ReplaySubject<Contact> = new ReplaySubject<Contact>(1);
 
   constructor(private backendService: BackendService) {
   }
