@@ -18,8 +18,14 @@ export class NewsletterComponent {
 
   }
 
+  /*validMail(): boolean {
+    let regex = /@/;
+    return regex.test(this.mail);
+  }*/
+
   onSubmit(): void {
     this.userStore.subscribeNewsletter();
+    //this.modalService._hideModal();
   }
 
 

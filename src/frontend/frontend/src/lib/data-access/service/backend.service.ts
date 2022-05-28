@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
+import {User} from "../models";
 
 @Injectable({
   providedIn: 'root'
@@ -14,5 +15,9 @@ export class BackendService {
   postNewsletter(): Observable<any> {
     // @ts-ignore
     return this.httpClient.post<any>(this.url + 'user/newsletter');
+  }
+
+  loadUser(): Observable<User> {
+    return this.httpClient.get<User>(this.url + 'user/information');
   }
 }

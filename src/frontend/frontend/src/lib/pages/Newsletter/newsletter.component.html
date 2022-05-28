@@ -10,14 +10,15 @@
   <div class="modal-body">
     <form action="/action_page.php">
       <div class="form-floating mb-3 mt-3">
-        <input class="form-control" id="email" name="email" placeholder="Enter email" type="text">
+        <input class="form-control" id="email" name="email" placeholder="Enter email"
+               type="text">
         <label for="email">Email</label>
       </div>
       <label>
         <p>Mit der Anmeldung akzeptieren Sie unsere AGBs.
         <p>
       </label>
-      <button (click)="onSubmit()" class="btn btn-primary" type="submit">ANMELDEN</button>
+      <button (click)="onSubmit()" (click)="modalRef?.hide()" class="btn btn-primary" type="submit">ANMELDEN</button>
     </form>
   </div>
 </ng-template>
