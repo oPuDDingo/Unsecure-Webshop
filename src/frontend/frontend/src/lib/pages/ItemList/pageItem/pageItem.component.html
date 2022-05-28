@@ -7,10 +7,11 @@
       <div class="container-sm">
         <h3>{{article.modelName}}</h3>
         <h6>Farbe</h6>
-
-        <div *ngFor="let color of ['red', 'blue', 'green', 'black', 'white']" class="row">
-          <div class="col">
-            <color-circle [clickable]="false" [color]="color"></color-circle>
+        <div class="row">
+          <div *ngFor="let color of ['red', 'blue', 'green', 'black', 'white']" class="col-1 mb-2">
+            <div>
+              <color-circle [clickable]="false" [color]="color"></color-circle>
+            </div>
           </div>
         </div>
         <h6>Speicherplatz</h6>
