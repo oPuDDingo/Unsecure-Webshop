@@ -14,7 +14,9 @@ export class NewsletterComponent {
 
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template, {animated: true, keyboard: true});
+    
   }
+
 
 }
 
