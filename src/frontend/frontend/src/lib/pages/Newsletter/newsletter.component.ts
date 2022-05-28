@@ -1,5 +1,6 @@
 import {Component, TemplateRef} from '@angular/core';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
+import {UserStore} from "../../data-access/service/store/user.store";
 
 @Component({
   selector: 'newsletter',
@@ -9,12 +10,16 @@ import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
 export class NewsletterComponent {
   modalRef?: BsModalRef;
 
-  constructor(private modalService: BsModalService) {
+  constructor(private modalService: BsModalService, private userStore: UserStore) {
   }
 
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template, {animated: true, keyboard: true});
-    
+
+  }
+
+  onSubmit(): void {
+    this.userStore.subscribeNewsletter();
   }
 
 
