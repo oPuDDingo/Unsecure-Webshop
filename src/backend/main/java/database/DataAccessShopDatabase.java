@@ -30,7 +30,7 @@ public class DataAccessShopDatabase {
         this.deleteDatabase();
         this.createDatabase();
     }
-    public boolean createDatabase(){
+    private void createDatabase(){
         Connection con = this.createConnection();
         Statement stmt = null;
         try {
@@ -42,16 +42,14 @@ public class DataAccessShopDatabase {
             con.close();
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
         //this.postBrands();
         this.postDummyUsers();
         //this.postArticles();
         this.postArticleVersions();
-        return true;
     }
 
-    public boolean deleteDatabase(){
+    private void deleteDatabase(){
         Connection con = this.createConnection();
         Statement stmt = null;
         try {
@@ -63,9 +61,7 @@ public class DataAccessShopDatabase {
             con.close();
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
-        return true;
     }
 
     public boolean postCommentary(Commentary comment, int articleId, int userId){
@@ -915,10 +911,6 @@ public class DataAccessShopDatabase {
 
     public static void main(String[] args) throws SQLException {
         DataAccessShopDatabase s = new DataAccessShopDatabase();
-        List<Article> a =s.getArticles(2,"Samsung");
-        System.out.println(a.size());
-        for(Article ac : a){
-            System.out.println(ac.getModelName());
-        }
+        s.resetDatabase();
     }
 }
