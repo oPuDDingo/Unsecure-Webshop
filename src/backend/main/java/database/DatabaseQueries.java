@@ -9,18 +9,18 @@ public class DatabaseQueries {
 
     public static String[] deleteDatabase= new String[]{"DROP TABLE address;", "DROP TABLE article_version;",
             "DROP TABLE comment;", "DROP TABLE sales_order;", "DROP TABLE sales_order_article_version", "DROP TABLE session;",
-            "DROP TABLE shopping_cart;", "DROP TABLE shopping_cart_article_version;", "DROP TABLE user;", "DROP TABLE wish_list;", "DROP TABLE wish_list_article_version;"};
+            "DROP TABLE shopping_cart;", "DROP TABLE user;", "DROP TABLE wish_list;"};
     //missing: picture, article, brand, coupon
 
     public static String[] createDatabase = new String[]{
-            "CREATE TABLE article_version(\n" +
-                    "    id INTEGER PRIMARY KEY AUTOINCREMENT ,\n" +
-                    "    quantity INTEGER,\n" +
-                    "    gb_size INTEGER,\n" +
-                    "    color TEXT,\n" +
-                    "    article_id INTEGER,\n" +
-                    "    FOREIGN KEY(article_id) REFERENCES article(id)\n" +
-                    ");",
+           "CREATE TABLE article_version(\n" +
+                   "    id INTEGER PRIMARY KEY AUTOINCREMENT ,\n" +
+                   "    quantity INTEGER,\n" +
+                   "    gb_size INTEGER,\n" +
+                   "    color TEXT,\n" +
+                   "    article_id INTEGER,\n" +
+                   "    FOREIGN KEY(article_id) REFERENCES article(id)\n" +
+                   ");",
             "CREATE TABLE user(\n" +
                     "    id INTEGER PRIMARY KEY AUTOINCREMENT ,\n" +
                     "    e_mail TEXT UNIQUE,\n" +
@@ -32,11 +32,6 @@ public class DatabaseQueries {
                     "    title TEXT,\n" +
                     "    profile_picture TEXT,\n" +
                     "    real_user INTEGER, description TEXT\n" +
-                    ");",
-            "CREATE TABLE wish_list(\n" +
-                    "    id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
-                    "    user_id INTEGER,\n" +
-                    "    FOREIGN KEY (user_id) REFERENCES user(id)\n" +
                     ");",
             "CREATE TABLE address(\n" +
                     "    id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
@@ -57,25 +52,20 @@ public class DatabaseQueries {
                     "    user_id INTEGER,\n" +
                     "    FOREIGN KEY (user_id) REFERENCES user(id)\n" +
                     ");",
-            "CREATE TABLE wish_list_article_version(\n" +
+            "CREATE TABLE wish_list(\n" +
                     "    id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                     "    quantity INTEGER,\n" +
-                    "    wish_list_id INTEGER,\n" +
+                    "    user_id INTEGER,\n" +
                     "    article_version_id INTEGER,\n" +
-                    "    FOREIGN KEY (wish_list_id) REFERENCES wish_list(id),\n" +
+                    "    FOREIGN KEY (user_id) REFERENCES user(id),\n" +
                     "    FOREIGN KEY (article_version_id) REFERENCES article_version(id)\n" +
                     ");",
             "CREATE TABLE shopping_cart(\n" +
                     "    id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
-                    "    user_id INTEGER,\n" +
-                    "    FOREIGN KEY (user_id) REFERENCES user(id)\n" +
-                    ");",
-            "CREATE TABLE shopping_cart_article_version(\n" +
-                    "    id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                     "    quantity INTEGER,\n" +
-                    "    shopping_cart_id INTEGER,\n" +
+                    "    user_id INTEGER,\n" +
                     "    article_version_id INTEGER,\n" +
-                    "    FOREIGN KEY (shopping_cart_id) REFERENCES shopping_cart(id),\n" +
+                    "    FOREIGN KEY (user_id) REFERENCES user(id),\n" +
                     "    FOREIGN KEY (article_version_id) REFERENCES article_version(id)\n" +
                     ");",
             "CREATE TABLE comment(\n" +
@@ -108,7 +98,6 @@ public class DatabaseQueries {
                     "    FOREIGN KEY (sales_order_id) REFERENCES sales_order(id),\n" +
                     "    FOREIGN KEY (article_version_id) REFERENCES article_version(id)\n" +
                     ");"
-
     };
 
     public static String[] brands = new String[]{"Samsung", "Apple", "Xiaomi","Sony"};

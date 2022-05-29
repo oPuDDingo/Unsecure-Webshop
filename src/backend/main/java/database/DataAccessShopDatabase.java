@@ -26,7 +26,10 @@ public class DataAccessShopDatabase {
         }
         return c;
     }
-
+    public void resetDatabase(){
+        this.deleteDatabase();
+        this.createDatabase();
+    }
     public boolean createDatabase(){
         Connection con = this.createConnection();
         Statement stmt = null;
@@ -93,8 +96,8 @@ public class DataAccessShopDatabase {
             stmt.execute(sql);
             int userId = stmt.getGeneratedKeys().getInt(1);
             user.setId(userId);
-            this.postWishList(userId);
-            this.postShoppingCart(userId);
+            //this.postWishList(userId);
+            //this.postShoppingCart(userId);
             stmt.close();
             con.close();
         } catch (SQLException e) {
@@ -243,12 +246,11 @@ public class DataAccessShopDatabase {
     public void postWishListItem(ArticleVersion articleVersion, int userId){
         Connection con = this.createConnection();
         Statement stmt =null;
-        int wishListId=this.findWishListId(userId);
         int articleVersionId=this.findArticleVersionId(articleVersion.getArticleNumber(), articleVersion.getGbSize(), articleVersion.getColor());
         try {
             stmt =con.createStatement();
-            String sql="INSERT INTO wish_list_article_version(quantity, wish_list_id, article_version_id) " +
-                    "VALUES("+articleVersion.getQuantity()+", "+wishListId+", "+articleVersionId+");";
+            String sql="INSERT INTO wish_list(quantity, user_id, article_version_id) " +
+                    "VALUES("+articleVersion.getQuantity()+", "+userId+", "+articleVersionId+");";
             stmt.execute(sql);
             stmt.close();
             con.close();
@@ -260,12 +262,11 @@ public class DataAccessShopDatabase {
     public void postShoppingCartItem(ArticleVersion articleVersion, int userId){
         Connection con = this.createConnection();
         Statement stmt =null;
-        int shoppingCartId= this.findShoppingCartId(userId);
         int articleVersionId=this.findArticleVersionId(articleVersion.getArticleNumber(), articleVersion.getGbSize(), articleVersion.getColor());
         try {
             stmt =con.createStatement();
-            String sql="INSERT INTO shopping_cart_article_version(quantity, shopping_cart_id, article_version_id) " +
-                    "VALUES("+articleVersion.getQuantity()+", "+shoppingCartId+", "+articleVersionId+");";
+            String sql="INSERT INTO shopping_cart(quantity, user_id, article_version_id) " +
+                    "VALUES("+articleVersion.getQuantity()+", "+userId+", "+articleVersionId+");";
             stmt.execute(sql);
             stmt.close();
             con.close();
@@ -280,7 +281,7 @@ public class DataAccessShopDatabase {
         int articleVersionId=this.findArticleVersionId(articleVersion.getArticleNumber(), articleVersion.getGbSize(), articleVersion.getColor());
         try {
             stmt = con.createStatement();
-            String sql ="UPDATE wish_list_article_version SET quantity="+articleVersion.getQuantity()+", article_version_id="+articleVersionId+" WHERE id="+articleVersion.getId()+";";
+            String sql ="UPDATE wish_list SET quantity="+articleVersion.getQuantity()+", article_version_id="+articleVersionId+" WHERE id="+articleVersion.getId()+";";
             stmt.execute(sql);
             stmt.close();
             con.close();
@@ -389,10 +390,9 @@ public class DataAccessShopDatabase {
     public void deleteShoppingCart(int userId){
         Connection con = this.createConnection();
         Statement stmt =null;
-        int shoppingCartId = this.findShoppingCartId(userId);
         try {
             stmt=con.createStatement();
-            String sql="DELETE FROM shopping_cart_article_version WHERE shopping_Cart_id="+shoppingCartId+";";
+            String sql="DELETE FROM shopping_cart WHERE user_id="+userId+";";
             stmt.execute(sql);
             stmt.close();
             con.close();
@@ -410,7 +410,7 @@ public class DataAccessShopDatabase {
             String sql="SELECT article.id, model_name, price, operating_system, release_date, screen, resolution, valuation_sum, number_of_valuation, name FROM article INNER JOIN brand ON brand.id=article.brand_id WHERE article.id="+articleId+";";
             ResultSet rs = stmt.executeQuery(sql);
             article = new Article(rs.getInt("id"), rs.getString("model_name"), rs.getDouble("price"), Math.round(rs.getInt("valuation_sum")/rs.getInt("number_of_valuation")), rs.getString("operating_system"),
-                    rs.getString("release_date"), rs.getString("screen"), rs.getString("resolution"), rs.getString("name"),this.getComments(articleId), this.getPictureIds(articleId));
+                    rs.getString("release_date"), rs.getString("screen"), rs.getString("resolution"), rs.getString("name"),this.getCommentaries(articleId), this.getPictureIds(articleId));
             stmt.close();
             con.close();
         } catch (SQLException e) {
@@ -427,7 +427,10 @@ public class DataAccessShopDatabase {
             stmt = con.createStatement();
             String sql="SELECT * FROM coupon WHERE code='"+couponName+"';";
             ResultSet rs = stmt.executeQuery(sql);
-            coupon = new Coupon(rs.getString("code"), rs.getDouble("discount_percent"), rs.getBoolean("active"));
+            if(rs.next()){
+                coupon = new Coupon(rs.getString("code"), rs.getDouble("discount_percent"), rs.getBoolean("active"));
+            }
+
             rs.close();
             stmt.close();
             con.close();
@@ -440,11 +443,10 @@ public class DataAccessShopDatabase {
     public List<ArticleVersion> getWishlist(int userId){
         Connection con = this.createConnection();
         Statement stmt =null;
-        int wishListId = this.findWishListId(userId);
         ArrayList<ArticleVersion> articleVersionList = new ArrayList<>();
         try {
             stmt = con.createStatement();
-            String sql="SELECT id, quantity, article_version_id FROM wish_list_article_version WHERE wish_list_id="+wishListId+";";
+            String sql="SELECT id, quantity, article_version_id FROM wish_list WHERE user_Id="+userId+";";
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next()){
                 ArticleVersion articleVersion = this.getArticleVersion(rs.getInt("article_version_id"));
@@ -464,17 +466,17 @@ public class DataAccessShopDatabase {
     public List<ArticleVersion> getShoppingCart(int userId){
         Connection con = this.createConnection();
         Statement stmt =null;
-        int shoppingCartId = this.findShoppingCartId(userId);
         ArrayList<ArticleVersion> articleVersionList = new ArrayList<>();
         try {
             stmt = con.createStatement();
-            String sql="SELECT id, quantity, article_version_id FROM shopping_cart_article_version WHERE shopping_cart_id="+shoppingCartId+";";
+            String sql="SELECT id, quantity, article_version_id FROM shopping_cart WHERE user_id="+userId+";";
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next()){
                 ArticleVersion articleVersion = this.getArticleVersion(rs.getInt("article_version_id"));
                 articleVersion.setId(rs.getInt("id"));
                 articleVersion.setQuantity(rs.getInt("quantity"));
                 articleVersionList.add(articleVersion);
+
             }
             rs.close();
             stmt.close();
@@ -552,26 +554,24 @@ public class DataAccessShopDatabase {
         return userid;
     }
 
-    public List<Commentary> getCommentaries(int articleId){
+    public List<Order> getOrders(int userId){
         Connection con = this.createConnection();
         Statement stmt =null;
-        List<Commentary> commentaries= new ArrayList<>();
+        List<Order> orders = new ArrayList<>();
         try {
             stmt = con.createStatement();
-            String sql="SELECT comment.id, comment.comment_text, comment.user_id, user.firstname, user.lastname, user.profile_picture " +
-                    "FROM comment INNER JOIN user ON comment.user_id=user.id WHERE comment.article_id="+articleId+";";
+            String sql="SELECT id FROM sales_order WHERE user_id="+userId+";";
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next()){
-                commentaries.add(new Commentary(rs.getInt("id"), rs.getString("comment_text"), rs.getInt("id"), rs.getString("firstname"),
-                        rs.getString("lastname"), rs.getString("profile_picture")));
+                orders.add(this.getOrder(rs.getInt("id")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return commentaries;
+        return orders;
     }
 
-    private boolean postWishList(int userId){
+    private boolean postWishList(int userId){ //delete
         Connection con = this.createConnection();
         Statement stmt =null;
         try {
@@ -587,7 +587,7 @@ public class DataAccessShopDatabase {
         return true;
     }
 
-    private boolean postShoppingCart(int userId){
+    private boolean postShoppingCart(int userId){ //delete
         Connection con = this.createConnection();
         Statement stmt =null;
         try {
@@ -603,7 +603,7 @@ public class DataAccessShopDatabase {
         return true;
     }
 
-    private int findWishListId(int userId){
+    private int findWishListId(int userId){ //delete
         Connection con = this.createConnection();
         Statement stmt =null;
         int wishListId =-1;
@@ -666,7 +666,7 @@ public class DataAccessShopDatabase {
         return articleVersionId;
     }
 
-    private int findShoppingCartId(int userId){
+    private int findShoppingCartId(int userId){ //delete
         Connection con = this.createConnection();
         Statement stmt =null;
         int shoppingCartId =-1;
@@ -719,7 +719,7 @@ public class DataAccessShopDatabase {
         return pictureIds;
     }
 
-    private List<Commentary> getComments(int articleId){
+    private List<Commentary> getCommentaries(int articleId){
         Connection con = this.createConnection();
         Statement stmt =null;
         List<Commentary> comments = new ArrayList<>();
@@ -876,7 +876,7 @@ public class DataAccessShopDatabase {
 
     public static void main(String[] args) throws SQLException {
         DataAccessShopDatabase s = new DataAccessShopDatabase();
-        List<Commentary>c = s.getCommentaries(1);
-        System.out.println(c.size());
+        s.deleteDatabase();
+        s.createDatabase();
     }
 }
