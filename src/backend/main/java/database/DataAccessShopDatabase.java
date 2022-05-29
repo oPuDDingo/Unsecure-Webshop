@@ -409,8 +409,13 @@ public class DataAccessShopDatabase {
             stmt = con.createStatement();
             String sql="SELECT article.id, model_name, price, operating_system, release_date, screen, resolution, valuation_sum, number_of_valuation, name FROM article INNER JOIN brand ON brand.id=article.brand_id WHERE article.id="+articleId+";";
             ResultSet rs = stmt.executeQuery(sql);
-            article = new Article(rs.getInt("id"), rs.getString("model_name"), rs.getDouble("price"), Math.round(rs.getInt("valuation_sum")/rs.getInt("number_of_valuation")), rs.getString("operating_system"),
-                    rs.getString("release_date"), rs.getString("screen"), rs.getString("resolution"), rs.getString("name"),this.getCommentaries(articleId), this.getPictureIds(articleId));
+            if(rs.next()){
+               article = new Article(rs.getInt("id"), rs.getString("model_name"), rs.getDouble("price"), Math.round(rs.getInt("valuation_sum")/rs.getInt("number_of_valuation")), rs.getString("operating_system"),
+                       rs.getString("release_date"), rs.getString("screen"), rs.getString("resolution"), rs.getString("name"),this.getCommentaries(articleId), this.getPictureIds(articleId));
+            }
+            else{
+                return null;
+            }
             stmt.close();
             con.close();
         } catch (SQLException e) {
@@ -569,6 +574,40 @@ public class DataAccessShopDatabase {
             e.printStackTrace();
         }
         return orders;
+    }
+
+    public List<Article> getArticles(int page, String brand){
+        Connection con = this.createConnection();
+        Statement stmt =null;
+        List<Article> articles = new ArrayList<>();
+        int toId= page*9;
+        int fromId = toId-8;
+        try {
+            stmt=con.createStatement();
+            if(brand.equals("")){
+                while(fromId<=toId){
+                    Article article =this.getArticle(fromId);
+                    if(article!=null){
+                        articles.add(article);
+                    }
+                    fromId++;
+                }
+            }
+            else{
+                String sql ="Select article.id AS articleId FROM article INNER JOIN brand on article.brand_id = brand.id WHERE brand.name='"+brand+"';";
+                ResultSet rs = stmt.executeQuery(sql);
+                for(int i=1;i<(page-1)*9;i++){
+                    rs.next();
+                }
+                while(rs.next() && fromId<toId){
+                    articles.add(this.getArticle(rs.getInt("articleId")));
+                    fromId++;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return articles;
     }
 
     private boolean postWishList(int userId){ //delete
@@ -876,7 +915,10 @@ public class DataAccessShopDatabase {
 
     public static void main(String[] args) throws SQLException {
         DataAccessShopDatabase s = new DataAccessShopDatabase();
-        s.deleteDatabase();
-        s.createDatabase();
+        List<Article> a =s.getArticles(2,"Samsung");
+        System.out.println(a.size());
+        for(Article ac : a){
+            System.out.println(ac.getModelName());
+        }
     }
 }
