@@ -65,7 +65,7 @@ public class DataAccessShopDatabase {
         return true;
     }
 
-    public boolean postComment(Commentary comment, int articleId, int userId){
+    public boolean postCommentary(Commentary comment, int articleId, int userId){
         Connection con = this.createConnection();
         Statement stmt = null;
         try {
@@ -552,6 +552,25 @@ public class DataAccessShopDatabase {
         return userid;
     }
 
+    public List<Commentary> getCommentaries(int articleId){
+        Connection con = this.createConnection();
+        Statement stmt =null;
+        List<Commentary> commentaries= new ArrayList<>();
+        try {
+            stmt = con.createStatement();
+            String sql="SELECT comment.id, comment.comment_text, comment.user_id, user.firstname, user.lastname, user.profile_picture " +
+                    "FROM comment INNER JOIN user ON comment.user_id=user.id WHERE comment.article_id="+articleId+";";
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()){
+                commentaries.add(new Commentary(rs.getInt("id"), rs.getString("comment_text"), rs.getInt("id"), rs.getString("firstname"),
+                        rs.getString("lastname"), rs.getString("profile_picture")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return commentaries;
+    }
+
     private boolean postWishList(int userId){
         Connection con = this.createConnection();
         Statement stmt =null;
@@ -857,7 +876,7 @@ public class DataAccessShopDatabase {
 
     public static void main(String[] args) throws SQLException {
         DataAccessShopDatabase s = new DataAccessShopDatabase();
-        s.deleteDatabase();
-        s.createDatabase();
+        List<Commentary>c = s.getCommentaries(1);
+        System.out.println(c.size());
     }
 }

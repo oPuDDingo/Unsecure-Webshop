@@ -1,6 +1,6 @@
 package backend.main.java.models;
 
-public class Address { //erledigt
+public class Address {
 
 	private int id;
 	private String name;

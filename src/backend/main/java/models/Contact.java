@@ -1,6 +1,6 @@
 package backend.main.java.models;
 
-public class Contact //erledigt
+public class Contact
 {
 	private String firstName;
 	private String lastName;

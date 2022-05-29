@@ -2,7 +2,7 @@ package backend.main.java.models;
 
 import java.util.List;
 
-public class Order {	//erledigt
+public class Order {
 
 	private int orderNumber;
 	private List<ArticleVersion> specifiedItems;

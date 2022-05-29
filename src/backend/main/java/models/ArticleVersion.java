@@ -1,6 +1,6 @@
 package backend.main.java.models;
 
-public class ArticleVersion { //Specifyed Item		//erledigt
+public class ArticleVersion { //Specifyed Item
 
 	private int id; //Aus m zu n Table
 	private int articleNumber; //ID des article

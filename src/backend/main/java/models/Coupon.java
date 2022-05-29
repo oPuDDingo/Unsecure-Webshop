@@ -1,6 +1,6 @@
 package backend.main.java.models;
 
-public class Coupon {	//erledigt
+public class Coupon {
 
 	private String name;
 	private double percent;

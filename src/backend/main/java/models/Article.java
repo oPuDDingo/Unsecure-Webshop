@@ -2,7 +2,7 @@ package backend.main.java.models;
 
 import java.util.List;
 
-public class Article { //erledigt
+public class Article {
 
 	private int articleNumber;
 	private String modelName;
