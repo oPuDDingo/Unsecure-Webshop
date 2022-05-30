@@ -5,3 +5,11 @@ li {
   height: 5rem;
   background-color: $secondary;
 }
+
+li .active {
+  background-color: $primary;
+}
+
+a {
+  cursor: pointer;
+}

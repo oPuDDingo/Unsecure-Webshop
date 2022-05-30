@@ -1,15 +1,15 @@
+import {Commentary} from "./commentary";
+
 export interface Article {
   articleNumber: number;
   modelName: string;
   amount: number;
-  stars: number;
-  numberOfValuation: number;
-  operatingSystem: string;
-  releaseDate: string;
-  screen: string;
-  resolution: string;
-  brand: string;
-  picture: number[];
-  comments: string[];
-  availability: boolean;
+  brand?: string;
+  stars?: number;
+  operatingSystem?: string;
+  releaseDate?: string;
+  screen?: string;
+  resolution?: string;
+  pictureIds?: number[];
+  comments?: Commentary[];
 }

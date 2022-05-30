@@ -1,21 +1,21 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import {OrderProcessModule} from "../lib/pages/orderProcess/orderProcess.module";
-import {PaymentInformationComponent} from "../lib/pages/orderProcess/paymentInformation/paymentInformation.component";
-import {OrderItemsComponent} from "../lib/pages/orderProcess/orderItems/orderItems.component";
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {ArticleOverviewComponent} from "../lib/pages/articleOverview/articleOverview.component";
 
 const routes: Routes = [
-  { path: 'orderProcess',
-  children: [
-    {path: 'paymentInformation', component: PaymentInformationComponent},
-    {path: 'items', component: OrderItemsComponent}
-  ]},
-  { path: '', redirectTo: 'orderProcess', pathMatch: 'full' },
+  {
+    path: 'orderProcess',
+    loadChildren: () => import('../lib/pages/orderProcess/orderProcess.module').then(m => m.OrderProcessModule)
+  },
+  {path: 'articles/:id', component: ArticleOverviewComponent},
+  {path: '', redirectTo: 'orderProcess', pathMatch: 'full'},
 ];
+
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes,{ enableTracing: true })
+    RouterModule.forRoot(routes, {enableTracing: false})
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

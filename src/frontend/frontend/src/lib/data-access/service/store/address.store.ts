@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {BackendService} from "../backend.service";
-import {Address} from "../../models";
 import {Subject} from "rxjs";
+import {Address} from "../../models/address";
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ import {Subject} from "rxjs";
 export class AddressStore {
 
   // @ts-ignore
-  addresses: Address[] = [];
+  addresses: Address[];
   addressesSubject: Subject<Address[]> = new Subject<Address[]>();
 
   constructor(private backendService: BackendService) {
@@ -34,11 +34,13 @@ export class AddressStore {
   }
 
   getAllAddresses(): Subject<Address[]> {
-    if (this.addresses == []) {
+    if (this.addresses == undefined) {
       this.backendService.loadAllAddresses().subscribe(addresses => {
         this.addresses = addresses;
         this.addressesSubject.next(this.addresses);
       });
+    } else {
+      this.addressesSubject.next(this.addresses);
     }
     return this.addressesSubject;
   }

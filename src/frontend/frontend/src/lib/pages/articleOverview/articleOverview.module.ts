@@ -1,5 +1,4 @@
 import {NgModule} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
 import {ArticleOverviewComponent} from "./articleOverview.component";
 import {SpecificationsComponent} from "./specifications/specifications.component";
 import {OverviewComponent} from "./overview/overview.component";
@@ -13,7 +12,6 @@ import {CarouselModule} from 'ngx-bootstrap/carousel';
 @NgModule({
   declarations: [ArticleOverviewComponent, SpecificationsComponent, OverviewComponent, ImageSectionComponent, CommentComponent],
   imports: [
-    BrowserModule,
     FormsModule,
     ButtonsModule.forRoot(),
     CarouselModule.forRoot()
