@@ -13,7 +13,7 @@ import {ContactStore} from "../../data-access/service/store/contact.store";
 export class ContactformComponent implements OnInit {
 
   // @ts-ignore
-  contact: Contact;
+  contact: Contact = {firstName: '', lastName: '', mail: '', message: ''};
 
   constructor(private contactStore: ContactStore) {
   }
