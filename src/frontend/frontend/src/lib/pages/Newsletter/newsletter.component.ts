@@ -23,9 +23,9 @@ export class NewsletterComponent {
     return regex.test(this.mail);
   }*/
 
-  onSubmit(): void {
+  onSubscribeToNewsletter(): void {
+    this.modalRef?.hide();
     this.userStore.subscribeNewsletter();
-    //this.modalService._hideModal();
   }
 
 
