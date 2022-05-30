@@ -2,6 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {ShoppingCartStore} from "../../data-access/service/store/shoppingCart.store";
 import {Address, Order, Payment, SpecifiedItem} from "../../data-access/models";
 import {AddressStore} from "../../data-access/service/store/address.store";
+import {OrderStore} from "../../data-access/service/store/order.store";
 
 @Component({
   selector: 'order-process',
@@ -25,10 +26,12 @@ export class OrderProcessComponent implements OnInit {
   // @ts-ignore
   order: Order;
 
+  coupon: string = "";
+
   currentStep: number = 0;
   reachedStep: number = 0;
 
-  constructor(private shoppingCartStore: ShoppingCartStore, private addressStore: AddressStore) {
+  constructor(private shoppingCartStore: ShoppingCartStore, private addressStore: AddressStore, private orderStore: OrderStore) {
   }
 
   ngOnInit() {
@@ -45,5 +48,24 @@ export class OrderProcessComponent implements OnInit {
 
   getItemList(): SpecifiedItem[] {
     return this.itemsList;
+  }
+
+  onNextPage(): void {
+    this.currentStep++;
+    if (this.currentStep > this.reachedStep) {
+      this.reachedStep = this.currentStep;
+    }
+  }
+
+  onBuy(paymentInformation: Payment): void {
+    // this.orderStore.
+    this.currentStep++;
+    if (this.currentStep > this.reachedStep) {
+      this.reachedStep = this.currentStep;
+    }
+  }
+
+  onUpdateCoupon(coupon: string): void {
+    this.coupon = coupon;
   }
 }

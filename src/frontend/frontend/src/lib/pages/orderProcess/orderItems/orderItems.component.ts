@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, EventEmitter, Input, Output} from "@angular/core";
 import {SpecifiedItem} from "../../../data-access/models/";
 import {ShoppingCartStore} from "../../../data-access/service/store/shoppingCart.store";
 
@@ -12,6 +12,11 @@ export class OrderItemsComponent {
   // @ts-ignore
   @Input() itemList: SpecifiedItem[];
 
+  @Output() onNextPageEvent: EventEmitter<any> = new EventEmitter<any>();
+  @Output() onUpdateCouponEvent: EventEmitter<string> = new EventEmitter<string>();
+
+  coupon: string = "";
+
   couponPercent: number = 0;
 
   constructor(private shoppingCartStore: ShoppingCartStore) {
@@ -23,6 +28,15 @@ export class OrderItemsComponent {
 
   onUpdateItemQuantity(itemId: number, quantity: number): void {
     this.shoppingCartStore.updateItem(itemId, quantity);
+  }
+
+  onNextPageClick(): void {
+    this.onUpdateCouponEvent.emit(this.coupon);
+    this.onNextPageEvent.emit();
+  }
+
+  onUpdateCoupon(): void {
+
   }
 
   getTotalAmount(): number {

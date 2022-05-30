@@ -3,7 +3,8 @@
 </div>
 <div class="row">
   <div class="col">
-    <div class="inputbox mt-3"><input class="form-control" name="name" required="required" type="text"> <span>Kontoinhaber</span>
+    <div class="inputbox mt-3"><input [(ngModel)]="accountHolder" class="form-control" name="name" required="required"
+                                      type="text"> <span>Kontoinhaber</span>
     </div>
     <div class="row">
       <div class="col-md-6">
@@ -16,14 +17,15 @@
       </div>
       <div class="col-md-6">
         <div class="d-flex flex-row">
-          <div class="inputbox mt-3 mr-2"><input class="form-control" name="name" required="required" type="text">
+          <div class="inputbox mt-3 mr-2"><input [(ngModel)]="bic" class="form-control" name="name" required="required"
+                                                 type="text">
             <span>BIC</span>
           </div>
         </div>
       </div>
     </div>
     <div class="mt-4 mb-4 d-flex justify-content-between">
-      <button class="btn btn-primary px-3 ms-auto">Weiter</button>
+      <button (click)="onBuy()" class="btn btn-primary px-3 ms-auto">zahlungspflichtig bestellen</button>
     </div>
   </div>
 </div>

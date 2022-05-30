@@ -15,9 +15,12 @@
 
 <div class="container">
 
-  <order-items *ngIf="currentStep == 0 && this.itemsList" [itemList]="getItemList()"></order-items>
+  <order-items (onNextPageEvent)="onNextPage()" (onUpdateCouponEvent)="onUpdateCoupon($event)"
+               *ngIf="currentStep == 0 && this.itemsList"
+               [itemList]="getItemList()"></order-items>
   <!--<addresses *ngIf="currentStep == 1 && this.addresses"></addresses>-->
-  <payment-information *ngIf="currentStep == 2 && this.itemsList"></payment-information>
+  <payment-information (onBuyEvent)="onBuy($event)"
+                       *ngIf="currentStep == 2 && this.itemsList"></payment-information>
   <confirmation *ngIf="currentStep == 3 && this.order" [order]="order"></confirmation>
 
 </div>
