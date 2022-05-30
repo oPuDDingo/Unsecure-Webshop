@@ -6,10 +6,11 @@ import {FormsModule} from "@angular/forms";
 import {TabsModule} from "ngx-bootstrap/tabs";
 import {RouterModule} from "@angular/router";
 import {OrderItemsComponent} from "./orderItems/orderItems.component";
+import {ConfirmationComponent} from "./confirmation/confirmation.component";
 
 @NgModule({
   declarations: [
-    OrderProcessComponent, PaymentInformationComponent, OrderItemsComponent
+    OrderProcessComponent, PaymentInformationComponent, OrderItemsComponent, ConfirmationComponent
   ],
     imports: [
         BrowserModule,

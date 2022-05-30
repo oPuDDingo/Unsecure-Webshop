@@ -5,6 +5,7 @@ import {Article} from "../models/article";
 import {Order} from "../models/order";
 import {Shoppingcart} from "../models/shoppingcart";
 import {ShoppingCartStore} from "./store/shoppingCart.store";
+import {Address} from "../models/address";
 
 @Injectable({
   providedIn: 'root'

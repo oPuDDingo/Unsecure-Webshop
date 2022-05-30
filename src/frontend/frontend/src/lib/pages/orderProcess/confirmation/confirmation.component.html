@@ -1,0 +1,29 @@
+<h1>Vielen Dank für Ihren Einkauf!</h1>
+
+<div>
+  <h2>Lieferadresse</h2>
+
+  <div class="row">
+    <div class="col">
+      <span class="row">{{ this.order.address.name}}</span>
+      <span class="row">{{ this.order.address.address }}</span>
+      <span class="row" *ngIf="this.order.address.address2">{{ this.order.address.address2 }}</span>
+      <span class="row">{{ this.order.address.zipCode}} {{this.order.address.city}}</span>
+      <span class="row">{{this.order.address.country}}</span>
+    </div>
+
+    <div class="col" *ngIf="this.order.address.deliveryInstructions">
+      <h3>Lieferanweisungen</h3>
+      <textarea>{{this.order.address.deliveryInstructions}}</textarea>
+    </div>
+  </div>
+
+  <h2>Zahlung</h2>
+  <div *ngIf="this.order.payment" class="col">
+    <span class="row">{{this.order.payment.iban}}</span>
+    <span class="row">{{this.order.payment.bic}}</span>
+    <span class="row">{{this.order.payment.accountholder}}</span>
+  </div>
+
+  <h2>Artikelübersicht</h2>
+</div>

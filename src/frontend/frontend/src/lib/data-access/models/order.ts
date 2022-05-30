@@ -8,7 +8,7 @@ export interface Order {
   date: string;
   specifiedItems: SpecifiedItem[];
   amount?: number;
-  address?: Address[];
-  payment?: Payment[];
+  address?: Address;
+  payment?: Payment;
   coupons?: Coupon[];
 }
