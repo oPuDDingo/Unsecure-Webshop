@@ -5,7 +5,8 @@ import {FormsModule} from "@angular/forms";
 import {RouterModule, Routes} from "@angular/router";
 import {OrderItemsComponent} from "./orderItems/orderItems.component";
 import {CommonModule} from "@angular/common";
-import {SpecifiedItemListModule} from "../specifiedItemList/specifiedItemList.module";
+import {SpecifiedItemListModule} from "../../shared/specifiedItemList/specifiedItemList.module";
+import {ConfirmationComponent} from "./confirmation/confirmation.component";
 
 const routes: Routes = [
   {path: 'orderProcess', component: OrderProcessComponent}
@@ -13,7 +14,7 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    OrderProcessComponent, PaymentInformationComponent, OrderItemsComponent
+    OrderProcessComponent, PaymentInformationComponent, OrderItemsComponent, ConfirmationComponent
   ],
   imports: [
     FormsModule,

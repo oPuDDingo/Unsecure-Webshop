@@ -1,7 +1,9 @@
 <div>
   <h1>Übersicht</h1>
 
-  <specified-item-list [itemList]="itemList"></specified-item-list>
+  <specified-item-list (onDeleteEvent)="onItemDelete($event)"
+                       (onQuantityChangeEvent)="onUpdateItemQuantity($event.itemId, $event.quantity)"
+                       [itemList]="itemList"></specified-item-list>
 
   <div>
     <h3>Gutschein</h3>
@@ -11,8 +13,22 @@
     </div>
   </div>
 
-  <div class="float-end">
-    <span></span>
+  <div class="border-top border-5 row">
+    <div class="col"></div>
+
+    <div class="col">
+      <div>
+        <div>Zwischensumme:</div>
+        <div>Ermäßigung</div>
+        <div><b>TOTAL</b></div>
+      </div>
+    </div>
+
+    <div class="col align-content-end">
+      <div>{{getTotalAmount()}}</div>
+      <div>- {{getTotalAmount() * couponPercent}}</div>
+      <div><b>{{getTotalAmount() - getTotalAmount() * couponPercent}}</b></div>
+    </div>
   </div>
 
 </div>

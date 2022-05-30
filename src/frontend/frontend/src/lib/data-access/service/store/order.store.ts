@@ -1,10 +1,14 @@
 import {Order} from "../../models/order";
-import {ReplaySubject, Subject} from "rxjs";
+import {ReplaySubject} from "rxjs";
 import {BackendService} from "../backend.service";
+import {Injectable} from "@angular/core";
 
+@Injectable({
+  providedIn: 'root'
+})
 export class OrderStore {
   // @ts-ignore
-  orders: Order[];
+  orders: Order[] = [];
   ordersSubject: ReplaySubject<Order> = new ReplaySubject<Order>(1);
 
   constructor(private backendService: BackendService) {

@@ -1,5 +1,6 @@
 import {Component, Input} from "@angular/core";
 import {OrderStore} from "../../../data-access/service/store/order.store";
+import {Order} from "../../../data-access/models";
 
 @Component({
   selector: 'confirmation',

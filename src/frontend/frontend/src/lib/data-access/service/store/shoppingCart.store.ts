@@ -1,7 +1,7 @@
-import {ReplaySubject} from "rxjs";
-import {BackendService} from "../backend.service";
-import {SpecifiedItem} from "../../models/specifiedItem";
 import {Injectable} from "@angular/core";
+import {SpecifiedItem} from "../../models";
+import {Observable, ReplaySubject} from "rxjs";
+import {BackendService} from "../backend.service";
 
 @Injectable({
   providedIn: 'root'
@@ -12,32 +12,47 @@ export class ShoppingCartStore {
   itemListSubject: ReplaySubject<SpecifiedItem[]> = new ReplaySubject<SpecifiedItem[]>(1);
 
   constructor(private backendService: BackendService) {
+
   }
 
-  getShoppingCart(): ReplaySubject<SpecifiedItem[]> {
-    if (this.itemList == undefined) {
-      this.backendService.getShoppingCart().subscribe(items => {
-        this.itemList = items;
+  loadShoppingCart(): ReplaySubject<SpecifiedItem[]> {
+    if (!this.itemList) {
+      this.backendService.loadShoppingCart().subscribe(itemList => {
+        this.itemList = itemList;
         this.itemListSubject.next(this.itemList);
       });
     } else {
-      this.itemListSubject.next(this.itemList);
+      this.itemListSubject.next(this.itemList)
     }
     return this.itemListSubject;
   }
 
-  updateItem(item: SpecifiedItem): ReplaySubject<SpecifiedItem[]> {
-    let index = this.itemList.findIndex(i => i.id === item.id);
-    this.itemList[index] = item;
+  updateItems(items: SpecifiedItem[]): ReplaySubject<SpecifiedItem[]> {
+    this.itemList = items;
     this.itemListSubject.next(this.itemList);
-    this.backendService.updateShoppingCartItem(index, item).subscribe();
+    this.backendService.updateItemList(this.itemList).subscribe();
+    return this.itemListSubject;
+  }
+
+  updateItem(itemId: number, newQuantity: number): ReplaySubject<SpecifiedItem[]> {
+    let index = this.itemList.findIndex(i => itemId == i.id);
+    this.itemList[index].quantity = newQuantity;
+    this.itemListSubject.next(this.itemList);
+    this.backendService.updateShoppingCartItem(this.itemList[index]).subscribe();
     return this.itemListSubject;
   }
 
   addItem(item: SpecifiedItem): ReplaySubject<SpecifiedItem[]> {
     this.itemList.push(item);
     this.itemListSubject.next(this.itemList);
-    this.backendService.addShoppingCartItem(item).subscribe();
+    this.backendService.updateItemList(this.itemList).subscribe();
     return this.itemListSubject;
+  }
+
+  deleteItem(itemId: number): Observable<any> {
+    let index = this.itemList.findIndex(i => itemId == i.id);
+    this.itemList.splice(index, 1);
+    this.itemListSubject.next(this.itemList);
+    return this.backendService.deleteItem(itemId);
   }
 }

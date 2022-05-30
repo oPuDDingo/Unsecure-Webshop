@@ -1,10 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Article} from "../models/article";
-import {Order} from "../models/order";
-import {Shoppingcart} from "../models/shoppingcart";
-import {ShoppingCartStore} from "./store/shoppingCart.store";
+import {Address, Article, Order, SpecifiedItem} from "../models/";
 
 @Injectable({
   providedIn: 'root'
@@ -20,20 +17,23 @@ export class BackendService {
   }
 
   getImageById(id: number): Observable<any> {
-    return this.httpClient.get(this.url + 'images/' + id, {responseType: 'text'});
+    return this.httpClient.get(this.url + 'pictures/' + id, {responseType: 'text'});
   }
 
   getOrder(id: number): Observable<Order> {
-    return this.httpClient.get<Order>(this.url + 'orders/'+id);
+    return this.httpClient.get<Order>(this.url + 'orders/' + id);
   }
 
-  getShoppingCart(): Observable<Shoppingcart> {
-    return this.httpClient.get<Shoppingcart>(this.url + 'cart');
+  getShoppingCart(): Observable<SpecifiedItem[]> {
+    return this.httpClient.get<SpecifiedItem[]>(this.url + 'cart/items/');
   }
 
-  updateShoppingCart(shoppingCart: Shoppingcart): Observable<Shoppingcart> {
-    let itemsPayload = {items: shoppingCart.itemList};
-    return this.httpClient.put<any>(this.url + 'cart/items', itemsPayload);
+  addItemToShoppingCart(item: SpecifiedItem): Observable<any> {
+    return this.httpClient.post(this.url + 'cart/items/', {...item});
+  }
+
+  updateItemOfShoppingCart(itemId: number, item: SpecifiedItem): Observable<SpecifiedItem> {
+    return this.httpClient.put<SpecifiedItem>(this.url + 'cart/items/' + itemId, {...item});
   }
 
   createAddress(address: Address): Observable<Address> {
@@ -61,5 +61,23 @@ export class BackendService {
       ...address
     };
     return this.httpClient.put(this.url + 'user/addresses/' + address.id, addressPayload);
+  }
+
+  loadShoppingCart(): Observable<SpecifiedItem[]> {
+    return this.httpClient.get<SpecifiedItem[]>(this.url + 'cart/items')
+  }
+
+  updateItemList(itemList: SpecifiedItem[]): Observable<SpecifiedItem[]> {
+    let itemsPayload = {items: itemList};
+    return this.httpClient.put<SpecifiedItem[]>(this.url + 'cart/items', itemsPayload)
+  }
+
+  updateShoppingCartItem(item: SpecifiedItem): Observable<SpecifiedItem> {
+    let itemPayload = {...item};
+    return this.httpClient.put<SpecifiedItem>(this.url + 'cart/items/' + item.id, itemPayload)
+  }
+
+  deleteItem(itemId: number): Observable<any> {
+    return this.httpClient.delete<any>(this.url + 'cart/items/' + itemId);
   }
 }
