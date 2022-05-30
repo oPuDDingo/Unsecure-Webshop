@@ -13,8 +13,7 @@ export class BackendService {
   }
 
   postNewsletter(): Observable<any> {
-    // @ts-ignore
-    return this.httpClient.post<any>(this.url + 'user/newsletter');
+    return this.httpClient.post<any>(this.url + 'user/newsletter', {});
   }
 
   loadUser(): Observable<User> {
