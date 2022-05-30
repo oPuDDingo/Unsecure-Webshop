@@ -18,20 +18,22 @@ export class OrderStore {
   }
 
   loadOrders(): ReplaySubject<Order[]> {
-    if (this.orders == []) {
+    if (this.orders) {
       this.backendService.loadOrders().subscribe(orders => {
         this.orders = orders;
         this.ordersSubject.next(this.orders);
       });
+    } else {
+      this.ordersSubject.next(this.orders);
     }
     return this.ordersSubject;
   }
 
-  loadOrderById(orderId: number): ReplaySubject<Order> {
-    const orderLocalSubject: ReplaySubject<Order> = new ReplaySubject<Order>();
-    let index = this.orderWithBody.findIndex(order => order.orderNumber === orderId);
+  loadOrderById(orderNumber: number): ReplaySubject<Order> {
+    const orderLocalSubject: ReplaySubject<Order> = new ReplaySubject<Order>(1);
+    let index = this.orderWithBody.findIndex(order => order.orderNumber === orderNumber);
     if (index == -1) {
-      this.backendService.loadOrdersWithFullBody().subscribe(order => {
+      this.backendService.loadOrdersWithFullBody(orderNumber).subscribe(order => {
         this.orderWithBody.push(order);
         orderLocalSubject.next(order);
       });

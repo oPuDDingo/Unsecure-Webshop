@@ -1,5 +1,6 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {SpecifiedItem} from "../../../data-access/models";
+import {ImageStore} from "../../../data-access/service/store/image.store";
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
@@ -7,16 +8,38 @@ import {SpecifiedItem} from "../../../data-access/models";
   templateUrl: './orderHeader.component.html',
   styleUrls: ['./orderHeader.component.scss']
 })
-export class OrderHeaderComponent {
+export class OrderHeaderComponent implements OnInit {
   // @ts-ignore
   @Input() itemList: SpecifiedItem[];
   // @ts-ignore
-  @Input() orderDate: String;
+  @Input() orderDate: string;
+
+  // @ts-ignore
+  images: Map<number, string> = new Map<number, string>();
 
   isOpen: boolean = false;
+
+  constructor(private imageStore: ImageStore) {
+  }
+
+  ngOnInit() {
+    if (this.itemList) {
+      this.itemList.forEach(item => {
+        if (item.pictureId) {
+          this.imageStore.loadImageById(item.pictureId).subscribe(image => {
+            console.log(image);
+            if (item.pictureId) {
+              this.images.set(item.pictureId, image);
+            }
+          });
+        }
+      });
+    }
+  }
 
   toggleIsOpen() {
     this.isOpen = !this.isOpen;
   }
+
 
 }

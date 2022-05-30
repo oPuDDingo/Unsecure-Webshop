@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Order} from "../models/order";
+import {Order} from "../models";
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +17,12 @@ export class BackendService {
     return this.httpClient.get<Order[]>(this.url + 'orders');
   }
 
-  loadOrdersWithFullBody(): Observable<Order> {
-    return this.httpClient.get<Order>(this.url + 'order/');
+  loadOrdersWithFullBody(orderNumber: number): Observable<Order> {
+    return this.httpClient.get<Order>(this.url + 'orders/' + orderNumber);
+  }
+
+  getImageById(id: number): Observable<any> {
+    return this.httpClient.get(this.url + 'pictures/' + id, {responseType: 'text'});
   }
 
 }
