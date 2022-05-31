@@ -1,0 +1,17 @@
+@import "node_modules/bootstrap/scss/bootstrap";
+
+.items {
+  background-color: transparent;
+  //margin-left: 3rem;
+  //margin-right: 3rem;
+  height: 4rem;
+}
+
+.items a {
+  color: #154486;
+  text-decoration: none;
+  font: {
+    size: 30px;
+    family: Dubiel;
+  }
+}
