@@ -11,6 +11,7 @@ export class ArticleStore {
   // @ts-ignore
   articles: Article[];
   articleSubject: ReplaySubject<Article[]> = new ReplaySubject<Article[]>(1);
+  articleSubjectFrontpage: ReplaySubject<Article[]> = new ReplaySubject<Article[]>(1);
 
   constructor(private backendService: BackendService) {
   }
@@ -29,6 +30,16 @@ export class ArticleStore {
 
     return this.articleSubject;
 
+  }
+
+  loadArticlesFrontpage(): ReplaySubject<Article[]> {
+    if (this.articles) {
+      this.backendService.getArticlesFrontpage().subscribe(articles => {
+        this.articles = articles;
+        this.articleSubjectFrontpage.next(articles);
+      })
+    }
+    return this.articleSubjectFrontpage;
   }
 
   loadArticleById(id: number): ReplaySubject<Article> {

@@ -1,7 +1,8 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {map, Observable} from "rxjs";
-import {Address, Article, Contact, Coupon, Order, SpecifiedItem} from "../models";
+import {map, Observable, tap} from "rxjs";
+import {Address, Article, Contact, Coupon, Order, SpecifiedItem, User} from "../models";
+import {JsonObject} from "@angular/compiler-cli/ngcc/src/packages/entry_point";
 
 
 @Injectable({
@@ -41,10 +42,6 @@ export class BackendService {
     return this.httpClient.get(this.url + 'pictures/' + id, {responseType: 'text'});
   }
 
-  getOrder(id: number): Observable<Order> {
-    return this.httpClient.get<Order>(this.url + 'orders/' + id);
-  }
-
   postOrder(order: Order): Observable<string> {
     // @ts-ignore
     return this.httpClient.post<string>(this.url + 'orders/', {...order}, {observe: "response"}).pipe(
@@ -54,16 +51,8 @@ export class BackendService {
     );
   }
 
-  getShoppingCart(): Observable<SpecifiedItem[]> {
-    return this.httpClient.get<SpecifiedItem[]>(this.url + 'cart/items/');
-  }
-
   addItemToShoppingCart(item: SpecifiedItem): Observable<any> {
     return this.httpClient.post(this.url + 'cart/items/', {...item});
-  }
-
-  updateItemOfShoppingCart(itemId: number, item: SpecifiedItem): Observable<SpecifiedItem> {
-    return this.httpClient.put<SpecifiedItem>(this.url + 'cart/items/' + itemId, {...item});
   }
 
   createAddress(address: Address): Observable<Address> {
@@ -146,4 +135,28 @@ export class BackendService {
     };
     return this.httpClient.post<Contact>(this.url + 'contact', contactPayload);
   }
+
+  updateUser(userPayload: JsonObject): Observable<any> {
+    console.log(userPayload);
+    return this.httpClient.put(this.url + 'user', userPayload, {observe: "response"})
+      .pipe(
+        tap(resp => {
+          console.log(resp);
+          if (resp.status == 400) {
+            throw new Error('Bad request!')
+          } else {
+            return resp.body;
+          }
+        })
+      );
+  }
+
+  postNewsletter(): Observable<any> {
+    return this.httpClient.post<any>(this.url + 'user/newsletter', {});
+  }
+
+  loadUser(): Observable<User> {
+    return this.httpClient.get<User>(this.url + 'user/information');
+  }
+
 }

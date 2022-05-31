@@ -25,7 +25,8 @@
         <strong>Warning!</strong> Der Rückgabezeitraum konnte nicht ermittelt werden!
       </div>
 
-      <div *ngIf="order.specifiedItems.length>1 && item!=order.specifiedItems[order.specifiedItems.length-1]">
+      <div
+        *ngIf="order.specifiedItems && order.specifiedItems.length>1 && item!=order.specifiedItems[order.specifiedItems.length-1]">
         <span><hr flex/></span>
       </div>
     </div>
