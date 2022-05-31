@@ -357,9 +357,10 @@ public class DataAccessShopDatabase {
         return payment;
     }
 
-    public void postOrder(Order order, int userId, boolean clean){
+    public int postOrder(Order order, int userId, boolean clean){
         Connection con = this.createConnection();
         Statement stmt =null;
+        int orderId=-1;
         try {
             stmt = con.createStatement();
             String sql="INSERT INTO sales_order(order_date, amount, iban, bic, account_owner, user_id, address_id) " +
@@ -368,7 +369,7 @@ public class DataAccessShopDatabase {
             String sql2="SELECT last_insert_rowid();";
             stmt.execute(sql);
             ResultSet rs = stmt.executeQuery(sql2);
-            int orderId =rs.getInt(1);
+            orderId =rs.getInt(1);
             stmt.close();
             con.close();
             for(ArticleVersion articleVersion : order.getSpecifiedItems()){
@@ -380,6 +381,21 @@ public class DataAccessShopDatabase {
         }
         if(clean){
             this.deleteShoppingCart(userId);
+        }
+        return orderId;
+    }
+
+    public void postPayment(int OrderId, Payment payment){
+        Connection con = this.createConnection();
+        Statement stmt =null;
+        try {
+            stmt = con.createStatement();
+            String sql="INSERT INTO sales_order(iban, bic, account_owner) VALUES('"+payment.getIban()+"', '"+payment.getBic()+"','"+payment.getAccountHolder()+"');";
+            stmt.execute(sql);
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
@@ -605,6 +621,28 @@ public class DataAccessShopDatabase {
         }
         return articles;
     }
+
+    public String getPicture(int id){
+        Connection con = this.createConnection();
+        Statement stmt =null;
+        String base="";
+        try {
+            stmt = con.createStatement();
+            String sql="SELECT picture FROM picture WHERE id="+id+";";
+            ResultSet rs = stmt.executeQuery(sql);
+            if(rs.next()){
+                base=rs.getString("picture");
+            }
+            rs.close();
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return base;
+    }
+
+
 
     private boolean postWishList(int userId){ //delete
         Connection con = this.createConnection();
