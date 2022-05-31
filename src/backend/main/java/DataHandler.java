@@ -95,7 +95,7 @@ public class DataHandler
 
 	public static void deleteUser(String session)
 	{
-		// Database.(Database.getUserId(session));
+		// Database.deleteUser(Database.getUserId(session));
 	}
 
 	public static Payment getUserPayment(String session)

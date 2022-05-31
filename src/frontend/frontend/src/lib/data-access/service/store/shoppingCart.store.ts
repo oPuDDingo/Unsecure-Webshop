@@ -8,7 +8,7 @@ import {BackendService} from "../backend.service";
 })
 export class ShoppingCartStore {
   // @ts-ignore
-  itemList: SpecifiedItem[];
+  itemList: SpecifiedItem[] = [];
   itemListSubject: ReplaySubject<SpecifiedItem[]> = new ReplaySubject<SpecifiedItem[]>(1);
 
   constructor(private backendService: BackendService) {
@@ -16,7 +16,7 @@ export class ShoppingCartStore {
   }
 
   loadShoppingCart(): ReplaySubject<SpecifiedItem[]> {
-    if (!this.itemList) {
+    if (this.itemList.length == 0) {
       this.backendService.loadShoppingCart().subscribe(itemList => {
         this.itemList = itemList;
         this.itemListSubject.next(this.itemList);
