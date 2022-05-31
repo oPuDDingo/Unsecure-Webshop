@@ -28,13 +28,15 @@ export class OrderBodyComponent implements OnInit {
   }
 
   updateDate() {
-    let dateArray: string[] = this.order.date.split(".");
-    let tmpDate: Date = new Date();
-    tmpDate.setFullYear(parseInt(dateArray[2]), parseInt(dateArray[1]) + 1, parseInt(dateArray[0]));
-    if (tmpDate.getMonth() != 0) {
-      this.newDate = `${tmpDate.getDate()}.${tmpDate.getMonth().toString().padStart(2, "0")}.${tmpDate.getFullYear()}`
-    } else {
-      this.newDate = `${tmpDate.getDate()}.${12}.${tmpDate.getFullYear()}`
+    if (this.order.date) {
+      let dateArray: string[] = this.order.date.split(".");
+      let tmpDate: Date = new Date();
+      tmpDate.setFullYear(parseInt(dateArray[2]), parseInt(dateArray[1]) + 1, parseInt(dateArray[0]));
+      if (tmpDate.getMonth() != 0) {
+        this.newDate = `${tmpDate.getDate()}.${tmpDate.getMonth().toString().padStart(2, "0")}.${tmpDate.getFullYear()}`
+      } else {
+        this.newDate = `${tmpDate.getDate()}.${12}.${tmpDate.getFullYear()}`
+      }
     }
   }
 

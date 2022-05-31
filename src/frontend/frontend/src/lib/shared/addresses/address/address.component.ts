@@ -27,8 +27,10 @@ export class AddressComponent {
   }
 
   onCancel(): void {
-    this.addressStore.loadAddressById(this.address.id).subscribe(address => this.address = address);
-    this.modalRef?.hide();
+    if (this.address.id) {
+      this.addressStore.loadAddressById(this.address.id).subscribe(address => this.address = address);
+      this.modalRef?.hide();
+    }
   }
 
   onSubmit(): void {
