@@ -16,7 +16,6 @@ public class DataAccessShopDatabase {
         try {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:src/backend/main/java/database/shopDatabase.db");
-            //System.out.println("Connection created!");
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             System.out.println("Can't create Connection!");
