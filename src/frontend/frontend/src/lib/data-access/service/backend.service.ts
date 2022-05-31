@@ -1,7 +1,7 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import {Observable} from "rxjs";
-import {Order, Article, SpecifiedItem, Address, Coupon, Contact, Commentary} from "../models";
+import {Injectable} from "@angular/core";
+import {HttpClient} from "@angular/common/http";
+import {map, Observable} from "rxjs";
+import {Address, Article, Contact, Coupon, Order, SpecifiedItem} from "../models";
 
 
 @Injectable({
@@ -10,7 +10,8 @@ import {Order, Article, SpecifiedItem, Address, Coupon, Contact, Commentary} fro
 export class BackendService {
   readonly url: string = 'http://localhost:4200/api/';
 
-  constructor( private httpClient: HttpClient ) { }
+  constructor(private httpClient: HttpClient) {
+  }
 
   getArtricles(): Observable<Article[]> {
     return this.httpClient.get<Article[]>(this.url + 'articles?page=8');
