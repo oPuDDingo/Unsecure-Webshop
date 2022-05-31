@@ -4,6 +4,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {AccordionModule} from 'ngx-bootstrap/accordion';
 import {WishlistComponent} from "./wishlist.component";
 import {SpecifiedItemListModule} from "../../shared/specifiedItemList/specifiedItemList.module";
+import {ColorCircleModule} from "../../shared/colorCircle/colorCircle.module";
 
 @NgModule({
   declarations: [
@@ -13,7 +14,7 @@ import {SpecifiedItemListModule} from "../../shared/specifiedItemList/specifiedI
     BrowserModule,
     AccordionModule.forRoot(),
     SpecifiedItemListModule,
-    SpecifiedItemListModule
+    ColorCircleModule
   ],
   providers: [],
   bootstrap: [],

@@ -3,19 +3,20 @@ import {BrowserModule} from '@angular/platform-browser';
 
 import {AccordionModule} from 'ngx-bootstrap/accordion';
 import {SpecifiedItemComponent} from "./specifiedItem/specifiedItem.component";
-import {ColorCircleComponent} from "../colorCircle/colorCircle.component";
 import {SpecifiedItemListComponent} from "./specifiedItemList.component";
 import {DeleteButtonComponent} from "../deleteButton/deleteButton.component";
 import {FormsModule} from "@angular/forms";
+import {ColorCircleModule} from "../colorCircle/colorCircle.module";
 
 @NgModule({
   declarations: [
-    SpecifiedItemComponent, ColorCircleComponent, SpecifiedItemListComponent, DeleteButtonComponent
+    SpecifiedItemComponent, SpecifiedItemListComponent, DeleteButtonComponent
   ],
   imports: [
     BrowserModule,
     AccordionModule.forRoot(),
-    FormsModule
+    FormsModule,
+    ColorCircleModule
   ],
   providers: [],
   bootstrap: [],
