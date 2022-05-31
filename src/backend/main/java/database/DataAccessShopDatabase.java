@@ -609,7 +609,9 @@ public class DataAccessShopDatabase {
             stmt = con.createStatement();
             String sql = "SELECT user.id FROM user INNER JOIN session ON user.id = session.user_id WHERE session.key='" + sessionKey + "';";
             ResultSet rs = stmt.executeQuery(sql);
-            userid = rs.getInt("id");
+            if(rs.next()){
+                userid = rs.getInt("id");
+            }
             rs.close();
             stmt.close();
             con.close();
