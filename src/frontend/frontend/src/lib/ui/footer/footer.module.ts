@@ -1,10 +1,9 @@
 import {NgModule} from "@angular/core";
 import {FooterComponent} from "./footer.component";
 import {RouterModule, Routes} from "@angular/router";
-import {BoardComponent} from "../../pages/board/board.component";
 
 const routes: Routes = [
-  {path: '', component: BoardComponent}
+  {path: '', component: FooterComponent}
 ]
 
 @NgModule({

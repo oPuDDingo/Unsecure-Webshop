@@ -6,10 +6,9 @@ import {WishlistComponent} from "./wishlist.component";
 import {SpecifiedItemListModule} from "../../shared/specifiedItemList/specifiedItemList.module";
 import {ColorCircleModule} from "../../shared/colorCircle/colorCircle.module";
 import {RouterModule, Routes} from "@angular/router";
-import {BoardComponent} from "../board/board.component";
 
 const routes: Routes = [
-  {path: '', component: BoardComponent}
+  {path: '', component: WishlistComponent}
 ]
 
 @NgModule({

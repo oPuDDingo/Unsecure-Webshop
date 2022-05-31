@@ -8,10 +8,9 @@ import {DeleteButtonComponent} from "../deleteButton/deleteButton.component";
 import {FormsModule} from "@angular/forms";
 import {ColorCircleModule} from "../colorCircle/colorCircle.module";
 import {RouterModule, Routes} from "@angular/router";
-import {BoardComponent} from "../../pages/board/board.component";
 
 const routes: Routes = [
-  {path: '', component: BoardComponent}
+  {path: '', component: SpecifiedItemComponent}
 ]
 
 @NgModule({

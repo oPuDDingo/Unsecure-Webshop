@@ -6,11 +6,10 @@ import {AddressListComponent} from "./addressList.component";
 import {ModalModule} from "ngx-bootstrap/modal";
 import {AddressComponent} from "./address/address.component";
 import {RouterModule, Routes} from "@angular/router";
-import {BoardComponent} from "../../pages/board/board.component";
 
 
 const routes: Routes = [
-  {path: '', component: BoardComponent}
+  {path: '', component: AddressListComponent}
 ]
 
 @NgModule({

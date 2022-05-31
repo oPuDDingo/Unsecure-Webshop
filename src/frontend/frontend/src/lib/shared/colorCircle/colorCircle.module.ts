@@ -3,10 +3,9 @@ import {ColorCircleComponent} from "./colorCircle.component";
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {RouterModule, Routes} from "@angular/router";
-import {BoardComponent} from "../../pages/board/board.component";
 
 const routes: Routes = [
-  {path: '', component: BoardComponent}
+  {path: '', component: ColorCircleComponent}
 ]
 
 @NgModule({

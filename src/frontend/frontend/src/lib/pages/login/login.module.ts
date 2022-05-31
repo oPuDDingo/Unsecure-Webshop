@@ -3,10 +3,9 @@ import {LoginComponent} from "./login.component";
 import {FormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {RouterModule, Routes} from "@angular/router";
-import {BoardComponent} from "../board/board.component";
 
 const routes: Routes = [
-  {path: '', component: BoardComponent}
+  {path: '', component: LoginComponent}
 ]
 
 @NgModule({
