@@ -3,7 +3,7 @@ export interface Address {
   name: string;
   address: string;
   address2: string;
-  zipCode: string;
+  zipCode: number;
   city: string;
   country: string;
   deliveryInstructions: string;
