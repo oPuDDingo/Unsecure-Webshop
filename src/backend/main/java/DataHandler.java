@@ -1,165 +1,124 @@
 package backend.main.java;
 
+import backend.main.java.database.DataAccessShopDatabase;
 import backend.main.java.models.*;
-
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class DataHandler
 {
-	public static List<Object> getArticles(int page, String brand, String name, boolean specifications)
+	static DataAccessShopDatabase Database = new DataAccessShopDatabase();
+	public static List<Article> getArticles(int page, String brand, String name, boolean specifications)
 	{
-		// List<Object> list = Database.getArticles(page, brand, name)
-		List<Object> list = Article.getExampleArticleList(9);
-		if (specifications) {
-			return list;
-		}
+		List<Article> list = Database.getArticles(page, brand, name); //search name also and return ArticleVersion
 		return list;
 	}
 
 	public static Article getArticle (int id) {
-		// return Database.getArticle(id)
-		return Article.getExampleArticle();
+		return Database.getArticle(id);
 	}
 
-	public static List<Object> getCartItems() {
-		return Article.getExampleArticleList(3);
+	public static List<ArticleVersion> getCartItems(String session) {
+		return Database.getShoppingCart(Database.getUserId(session));
 	}
 
-	public static int createCartItem(ArticleVersion articleVersion) {
-		// return Database.createCartItem(articleVersion)
-		return 1;
+	public static void createCartItem(ArticleVersion articleVersion, String session) {
+		Database.postShoppingCartItem(articleVersion, Database.getUserId(session));  //get user id from
 	}
 
 	public static ArticleVersion modifyCartItem(int id, ArticleVersion articleVersion) {
-		// return Database.modifyCartItem(id, articleVersion)
+		Database.putShoppingCartItem(articleVersion);
 		return articleVersion;
 	}
 
 	public static void deleteCartItem(int id) {
-		// Database.deleteCartItem(id)
+		Database.deleteShoppingCartItem(id);
 	}
 
-	public static int createContact(Contact contact) {
-		// int id = Database.createContact(contact);
-		return 1;
+	public static void createContact(Contact contact) {
+		//TODO detect attack
 	}
 
 	public static Coupon getCoupon(String name)	{
-		// return Database.getCoupon(name)
-		return Coupon.getExampleCoupon(name);
+		return Database.getCoupon(name);
 	}
 
 	public static String getPicture(int id) {
-		// return Database.getPicture(id)
-		return Logic.getByteArrayFromPictureURL("https://www.kindpng.com/picc/m/6-67785_broken-phone-png-broken-iphone-transparent-png-download.png");
+		return Database.getPicture(id);
 	}
 
-	public static List<Order> getOrders() {
-		List<Order> orders = new ArrayList<>();
-		orders.add(Order.getExampleOrder(1));
-		return orders;
+	public static List<Order> getOrders(String session) {
+		return Database.getOrders(Database.getUserId(session));
 	}
 
 	public static Order getOrder(int id) {
-		return Order.getExampleOrder(id);
+		return Database.getOrder(id);
 	}
 
-	public static int createOrder(Order order, boolean cleanup) {
-		// int id = Database.createOrder(order);
-		if (cleanup) {
-			// Database.deleteWishlist
-		}
-		// return id;
+	public static int createOrder(Order order,String session, boolean cleanup) {
+		Database.postOrder(order, Database.getUserId(session), cleanup);  //TODO return object
 		return 1;
 	}
 
 	public static User getUser(String session) {
-		// User user = Database.getUser(session);
-		return User.getExampleUser();
+		return Database.getUserInformation(Database.getUserId(session));
 	}
 
 	public static User getUserById(int id) {
-		User user = User.getExampleUser();
-		return User.getExampleElseUser();
+		return Database.getUserInformation(id);
 	}
 
 	public static int createUser(User user) {
-		// return Database.createUser(user);
+		Database.postUser(user);
 		return 1;
 	}
 
 	public static void modifyUser(String session, User user) {
-		int id = Logic.getUserIdFromSession(session);
-		// Database.modifyUser(id, user)
+		Database.putUser(user, Database.getUserId(session));
 	}
 
 	public static void deleteUser(String session) {
-		int id = Logic.getUserIdFromSession(session);
-		// Database.deleteUser(id);
+		// Database.(Database.getUserId(session));
 	}
 
 	public static Payment getUserPayment(String session) {
-		int id = Logic.getUserIdFromSession(session);
-		// return Database.getUserPayment(id);
-		return Payment.getExamplePayment();
+		return Database.getPayment(Database.getUserId(session));
 	}
 
 	public static int createUserPayment(String session, Payment payment) {
-		int id = Logic.getUserIdFromSession(session);
-		// return Database.createUserPayment(id, payment);
+		Database.postPayment(Database.getUserId(session), payment);
 		return 1;
-	}
-
-	public static void modifyUserPayment(String session, Payment payment) {
-		int id = Logic.getUserIdFromSession(session);
-		// Database.moidfyUserPayment(id, payment)
-	}
-
-	public static void deleteUserPayment(String session) {
-		int id = Logic.getUserIdFromSession(session);
-		// Database.deleteUserPayment(id);
 	}
 
 	public static Address getUserAddress(String session, int addressID) {
-		// return Database.getUserAddress(session, addressID);
-		return Address.getExampleAddress();
+		return Database.getAddress(addressID);
 	}
 
 	public static List<Address> getAllUserAddresses(String session) {
-		// return Database.getAllUserAddress(session, addressID);
-		return Collections.nCopies( 4, Address.getExampleAddress() );
+		return Database.getAddresses(Database.getUserId(session));
 	}
 
-	public static int createUserAddress(String session, Address address) {
-		int id = Logic.getUserIdFromSession(session);
-		// return Database.createUserAddress(id, address);
+	public static int createAddress(String session, Address address) {
+		// return Database.addr(id, address);
 		return 1;
 	}
 
-	public static void modifyUserAddress(String session, int addressID, Address address) {
-		int id = Logic.getUserIdFromSession(session);
-		// Database.modifyUserAddress(id, addressID, address);
+	public static void modifyAddress(String session, int addressID, Address address) {
+		// Database.putAddress(id, addressID, address);
 	}
 
-	public static void deleteUserAddress(String session, int addressID) {
-		int id = Logic.getUserIdFromSession(session);
-		// Database.deleteUserAddress(id, addressID)
+	public static void deleteAddress(String session, int addressID) {
+		//Database.deleteAddress(id, addressID);
 	}
 
 	public static String getUserMail(String session) {
-		int id = Logic.getUserIdFromSession(session);
-		// return Database.getUserMail(id);
-		return "mail@mail.com";
+		return Database.getUserInformation(Database.getUserId(session)).getMail();
 	}
 
 	public static void createUserMail(String session, String mail) {
-		int id = Logic.getUserIdFromSession(session);
 		// Database.createUserMail(id);
 	}
 
-	public static void turnOnNewsletter() {
-
+	public static void turnOnNewsletter(String session) {
+		Database.postNewsletter(Database.getUserId(session));
 	}
 }

@@ -14,6 +14,19 @@ public class User {
 
 	public User(){}
 
+	public User(int id, String mail, String firstName, String lastName, boolean newsletter, String salutation, String title, String profilePicture, String description, String password ){
+		this.id=id;
+		this.mail=mail;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.newsletter=newsletter;
+		this.salutation=salutation;
+		this.title=title;
+		this.profilePicture=profilePicture;
+		this.description=description;
+		this.password=password;
+	}
+
 	public User(int id, String mail, String firstName, String lastName, boolean newsletter, String salutation, String title, String profilePicture, String description ){
 		this.id=id;
 		this.mail=mail;

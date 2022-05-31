@@ -14,17 +14,19 @@ import java.net.URI;
 {
 	@Context protected UriInfo uriInfo;
 
-	@Path("items") @GET @Produces(MediaType.APPLICATION_JSON)  public Response getCartItems()
-	{ return Response.ok(DataHandler.getCartItems()).build(); }
+	@Path("items") @GET @Produces(MediaType.APPLICATION_JSON)  public Response getCartItems(
+		@QueryParam("id") final String session
+	)
+	{ return Response.ok(DataHandler.getCartItems(session)).build(); }
 
 	@Path("items") @POST @Consumes(MediaType.APPLICATION_JSON)  public Response createCartItem(
 		@Context final UriInfo uriInfo,
+		@CookieParam("sessionID") final String session,
 		final ArticleVersion articleVersion
 	)
 	{
-		int id = DataHandler.createCartItem(articleVersion);
-		URI location = uriInfo.getAbsolutePathBuilder().path(String.valueOf(id)).build();
-		return Response.created(location).build();
+		DataHandler.createCartItem(articleVersion, session);
+		return Response.ok().build();
 	}
 
 	@Path("items/{id}")@PUT @Consumes(MediaType.APPLICATION_JSON)  public Response modifyCartItem(

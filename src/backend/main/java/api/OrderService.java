@@ -15,9 +15,11 @@ import java.util.List;
 {
 	@Context UriInfo uriInfo;
 
-	@GET @Produces(MediaType.APPLICATION_JSON) public Response getOrders()
+	@GET @Produces(MediaType.APPLICATION_JSON) public Response getOrders(
+		@CookieParam("sessionID") final String session
+	)
 	{
-		List<Order> orders = DataHandler.getOrders();
+		List<Order> orders = DataHandler.getOrders(session);
 		return Response.ok(orders).build();
 	}
 
@@ -32,10 +34,11 @@ import java.util.List;
 	@POST@Consumes(MediaType.APPLICATION_JSON) public Response createOrder(
 		@Context UriInfo uriInfo,
 		@QueryParam("cleanUpWishlist") final boolean cleanup,
+		@CookieParam("sessionID") final String session,
 		final Order order
 	)
 	{
-		int orderNumber = DataHandler.createOrder(order, cleanup);
+		int orderNumber = DataHandler.createOrder(order, session, cleanup);
 		URI location = uriInfo.getAbsolutePathBuilder().path("id").path(String.valueOf(orderNumber)).build();
 		return Response.created(location).build();
 	}

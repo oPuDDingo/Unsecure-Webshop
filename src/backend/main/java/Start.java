@@ -1,5 +1,6 @@
 package backend.main.java;
 
+import backend.main.java.database.DataAccessShopDatabase;
 import org.apache.catalina.Context;
 import org.apache.catalina.WebResourceRoot;
 import org.apache.catalina.startup.Tomcat;
@@ -17,6 +18,10 @@ public class Start
 
 	public static void main(final String[] args) throws Exception
 	{
+		DataAccessShopDatabase db = new DataAccessShopDatabase();
+		// db.resetDatabase();
+		System.out.println("Database reset");
+
 		final Tomcat tomcat = new Tomcat();
 		tomcat.setPort(8080);
 
@@ -27,6 +32,8 @@ public class Start
 
 		resources.addPreResources(dirResourceSet);
 		context.setResources(resources);
+
+
 
 		tomcat.start();
 		tomcat.getServer().await();

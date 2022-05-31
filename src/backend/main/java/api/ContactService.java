@@ -8,7 +8,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
-import java.net.URI;
 
 @Path("contact") public class ContactService
 {
@@ -19,8 +18,7 @@ import java.net.URI;
 		final Contact contact
 	)
 	{
-		int id = DataHandler.createContact(contact);
-		URI location = uriInfo.getAbsolutePathBuilder().path(String.valueOf(id)).build();
-		return Response.created(location).build();
+		DataHandler.createContact(contact);
+		return Response.ok().build();
 	}
 }
