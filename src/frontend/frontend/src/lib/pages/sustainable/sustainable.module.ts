@@ -1,20 +1,20 @@
 import {NgModule} from "@angular/core";
-import {NachhaltigComponent} from "./nachhaltig.component";
+import {SustainableComponent} from "./sustainable.component";
 import {RouterModule, Routes} from "@angular/router";
 
 
 const routes: Routes = [
-  {path: '', component: NachhaltigComponent}
+  {path: '', component: SustainableComponent}
 ]
 
 @NgModule({
-  declarations: [NachhaltigComponent],
+  declarations: [SustainableComponent],
   imports: [RouterModule.forChild(routes)],
   providers: [],
   bootstrap: [],
-  exports: [NachhaltigComponent]
+  exports: [SustainableComponent]
 })
 
-export class NachhaltigModule {
+export class SustainableModule {
 
 }
