@@ -2,7 +2,6 @@ import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './app.component';
-import {AccordionModule} from 'ngx-bootstrap/accordion';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule} from "@angular/router";
 import {BoardModule} from "../lib/modules/board/board.module";
@@ -12,7 +11,8 @@ import {FooterModule} from "../lib/modules/footer/footer.module";
 import {NachhaltigModule} from "../lib/modules/nachhaltig/nachhaltig.module";
 import {HttpClientModule} from "@angular/common/http";
 import {AppRoutingModule} from "./app-routing.module";
-import { AlertModule } from 'ngx-bootstrap/alert';
+import {RegisterModule} from "../lib/modules/register/register.module";
+import {LoginModule} from "../lib/modules/login/login.module";
 
 
 @NgModule({
@@ -21,7 +21,6 @@ import { AlertModule } from 'ngx-bootstrap/alert';
   ],
   imports: [
     BrowserModule,
-    AccordionModule.forRoot(),
     BrowserAnimationsModule,
     RouterModule,
     BoardModule,
@@ -31,7 +30,9 @@ import { AlertModule } from 'ngx-bootstrap/alert';
     NachhaltigModule,
     HttpClientModule,
     AppRoutingModule,
-    AlertModule.forRoot()
+    RegisterModule,
+    LoginModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]
