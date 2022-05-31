@@ -9,9 +9,6 @@ import {ColorCircleModule} from "../colorCircle/colorCircle.module";
 import {RouterModule, Routes} from "@angular/router";
 import {CommonModule} from "@angular/common";
 
-const routes: Routes = [
-  {path: '', component: SpecifiedItemComponent}
-]
 
 @NgModule({
   declarations: [
@@ -21,8 +18,7 @@ const routes: Routes = [
     CommonModule,
     AccordionModule.forRoot(),
     FormsModule,
-    ColorCircleModule,
-    RouterModule.forChild(routes)
+    ColorCircleModule
   ],
   providers: [],
   bootstrap: [],
