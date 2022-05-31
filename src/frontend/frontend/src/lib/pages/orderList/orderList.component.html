@@ -1,4 +1,4 @@
-<accordion *ngIf="orderList" [isAnimated]="true">
+<accordion *ngIf="orderList.length != 0; else emptyOrderList" [isAnimated]="true">
   <accordion-group *ngFor="let order of orderList">
     <button (click)="showBody = true;" accordion-heading
             class="accordionButton" type="button">
@@ -8,3 +8,6 @@
     <order-body *ngIf="showBody && order.orderNumber" [orderNumber]="order.orderNumber"></order-body>
   </accordion-group>
 </accordion>
+<ng-template #emptyOrderList>
+  <alert type="warning">Leider konnten keine Bestellungen geladen werden!</alert>
+</ng-template>
