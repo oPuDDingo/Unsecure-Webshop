@@ -5,6 +5,8 @@ import {WishlistComponent} from "./wishlist.component";
 import {SpecifiedItemListModule} from "../../shared/specifiedItemList/specifiedItemList.module";
 import {ColorCircleModule} from "../../shared/colorCircle/colorCircle.module";
 import {RouterModule, Routes} from "@angular/router";
+import {CommonModule} from "@angular/common";
+import {AlertModule} from "ngx-bootstrap/alert";
 
 const routes: Routes = [
   {path: '', component: WishlistComponent}
@@ -18,7 +20,9 @@ const routes: Routes = [
     AccordionModule.forRoot(),
     SpecifiedItemListModule,
     ColorCircleModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    CommonModule,
+    AlertModule
   ],
   providers: [],
   bootstrap: [],
