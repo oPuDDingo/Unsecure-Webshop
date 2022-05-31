@@ -4,6 +4,9 @@ li {
   width: 5rem;
   height: 5rem;
   background-color: $secondary;
+  border-radius: 5rem;
+  alignment: center;
+  align-content: center;
 }
 
 li .active {
@@ -12,4 +15,8 @@ li .active {
 
 a {
   cursor: pointer;
+}
+
+.active {
+  background-color: $primary !important;
 }

@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {Address, Article, Order, SpecifiedItem} from "../models/";
+import {map, Observable} from "rxjs";
+import {Address, Article, Coupon, Order, SpecifiedItem} from "../models/";
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +22,15 @@ export class BackendService {
 
   getOrder(id: number): Observable<Order> {
     return this.httpClient.get<Order>(this.url + 'orders/' + id);
+  }
+
+  postOrder(order: Order): Observable<string> {
+    // @ts-ignore
+    return this.httpClient.post<string>(this.url + 'orders/', {...order}, {observe: "response"}).pipe(
+      map(resp => {
+        return resp.headers.get("Location")
+      })
+    );
   }
 
   getShoppingCart(): Observable<SpecifiedItem[]> {
@@ -79,5 +88,9 @@ export class BackendService {
 
   deleteItem(itemId: number): Observable<any> {
     return this.httpClient.delete<any>(this.url + 'cart/items/' + itemId);
+  }
+
+  postCoupon(coupon: string): Observable<Coupon> {
+    return this.httpClient.get<Coupon>(this.url + 'coupons/' + coupon, {});
   }
 }

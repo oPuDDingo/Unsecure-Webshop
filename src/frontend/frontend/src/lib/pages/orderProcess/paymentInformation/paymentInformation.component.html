@@ -24,6 +24,9 @@
         </div>
       </div>
     </div>
+    <alert *ngIf="invalidData" type="danger">
+      <strong>Daten ungültig!</strong> Die eingegebenen Daten sind unvollständig.
+    </alert>
     <div class="mt-4 mb-4 d-flex justify-content-between">
       <button (click)="onBuy()" class="btn btn-primary px-3 ms-auto">zahlungspflichtig bestellen</button>
     </div>

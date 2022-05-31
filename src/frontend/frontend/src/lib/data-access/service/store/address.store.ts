@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {BackendService} from "../backend.service";
-import {Subject} from "rxjs";
-import {Address} from "../../models/address";
+import {Address} from "../../models";
+import {ReplaySubject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -10,18 +10,17 @@ export class AddressStore {
 
   // @ts-ignore
   addresses: Address[];
-  addressesSubject: Subject<Address[]> = new Subject<Address[]>();
+  addressesSubject: ReplaySubject<Address[]> = new ReplaySubject<Address[]>(1);
 
   constructor(private backendService: BackendService) {
-
   }
 
   createAddress(address: Address): void {
     this.backendService.createAddress(address).subscribe(address => this.addresses.push(address));
   }
 
-  getAddress(id: number): Subject<Address> {
-    let addressSubject: Subject<Address> = new Subject<Address>();
+  loadAddressById(id: number): ReplaySubject<Address> {
+    let addressSubject: ReplaySubject<Address> = new ReplaySubject<Address>();
     let index = this.addresses.findIndex(address => address.id === id);
     if (index === -1) {
       this.backendService.loadAddressById(id).subscribe(address => {
@@ -33,8 +32,8 @@ export class AddressStore {
     return addressSubject;
   }
 
-  getAllAddresses(): Subject<Address[]> {
-    if (this.addresses == undefined) {
+  loadAllAddresses(): ReplaySubject<Address[]> {
+    if (!this.addresses) {
       this.backendService.loadAllAddresses().subscribe(addresses => {
         this.addresses = addresses;
         this.addressesSubject.next(this.addresses);

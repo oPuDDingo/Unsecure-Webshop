@@ -16,11 +16,18 @@ export class PaymentInformationComponent {
   bic: string = "";
   accountHolder: string = "";
 
+  invalidData: boolean = false;
+
   updateIbanValue(): void {
     this.iban = this.iban.replace(/[^\dA-Z]/g, '').replace(/(.{4})/g, '$1 ').trim();
   }
 
   onBuy(): void {
-    this.onBuyEvent.emit({iban: this.iban, bic: this.bic, accountHolder: this.accountHolder});
+    if (!this.iban || !this.bic || !this.accountHolder) {
+      this.invalidData = true;
+    } else {
+      this.onBuyEvent.emit({iban: this.iban, bic: this.bic, accountHolder: this.accountHolder});
+    }
+
   }
 }

@@ -7,6 +7,9 @@ import {OrderItemsComponent} from "./orderItems/orderItems.component";
 import {CommonModule} from "@angular/common";
 import {SpecifiedItemListModule} from "../../shared/specifiedItemList/specifiedItemList.module";
 import {ConfirmationComponent} from "./confirmation/confirmation.component";
+import {AlertModule} from "ngx-bootstrap/alert";
+import {OrderAddressComponent} from "./orderAddress/orderAddress.component";
+import {AddressListModule} from "../../shared/addresses/addressList.module";
 
 const routes: Routes = [
   {path: 'orderProcess', component: OrderProcessComponent}
@@ -14,13 +17,15 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    OrderProcessComponent, PaymentInformationComponent, OrderItemsComponent, ConfirmationComponent
+    OrderProcessComponent, PaymentInformationComponent, OrderItemsComponent, ConfirmationComponent, OrderAddressComponent
   ],
   imports: [
     FormsModule,
     RouterModule.forChild(routes),
     CommonModule,
-    SpecifiedItemListModule
+    SpecifiedItemListModule,
+    AlertModule,
+    AddressListModule
   ],
   providers: [],
   bootstrap: [],

@@ -1,4 +1,4 @@
-import {Order} from "../../models/order";
+import {Order} from "../../models";
 import {ReplaySubject} from "rxjs";
 import {BackendService} from "../backend.service";
 import {Injectable} from "@angular/core";
@@ -29,6 +29,14 @@ export class OrderStore {
     } else {
       orderSubject.next(this.orders[index]);
     }
+    return orderSubject;
+  }
+
+  postOrder(order: Order): ReplaySubject<string> {
+    const orderSubject: ReplaySubject<string> = new ReplaySubject<string>(1);
+    this.backendService.postOrder(order).subscribe(order => {
+      orderSubject.next(order);
+    })
     return orderSubject;
   }
 }

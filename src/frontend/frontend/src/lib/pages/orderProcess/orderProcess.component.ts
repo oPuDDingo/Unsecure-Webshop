@@ -38,7 +38,7 @@ export class OrderProcessComponent implements OnInit {
     this.shoppingCartStore.loadShoppingCart().subscribe(items => {
       this.itemsList = items;
     });
-    this.addressStore.getAllAddresses().subscribe(addresses => this.addresses = addresses);
+    this.addressStore.loadAllAddresses().subscribe(addresses => this.addresses = addresses);
   }
 
   changeStep(selectedStep: number): void {
@@ -57,12 +57,24 @@ export class OrderProcessComponent implements OnInit {
     }
   }
 
-  onBuy(paymentInformation: Payment): void {
-    // this.orderStore.
-    this.currentStep++;
-    if (this.currentStep > this.reachedStep) {
-      this.reachedStep = this.currentStep;
-    }
+  onBuy(): void {
+    this.orderStore.postOrder({
+      specifiedItems: this.itemsList,
+      coupon: {name: this.coupon},
+      address: this.selectedAddress,
+      payment: this.paymentInformation
+    }).subscribe(path => {
+      this.orderStore.loadOrderById(this.getIdOfPath(path)).subscribe(order => this.order = order);
+
+      this.currentStep++;
+      if (this.currentStep > this.reachedStep) {
+        this.reachedStep = this.currentStep;
+      }
+    });
+  }
+
+  getIdOfPath(path: string): number {
+    return +path.substring(path.lastIndexOf("/") + 1);
   }
 
   onUpdateCoupon(coupon: string): void {
