@@ -1,47 +1,42 @@
-import {Injectable} from '@angular/core';
 import {Order} from "../../models";
 import {ReplaySubject} from "rxjs";
 import {BackendService} from "../backend.service";
-
+import {Injectable} from "@angular/core";
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderStore {
-
+  // @ts-ignore
   orders: Order[] = [];
-  ordersSubject: ReplaySubject<Order[]> = new ReplaySubject<Order[]>(1);
-  orderWithBody: Order[] = [];
+  ordersSubject: ReplaySubject<Order> = new ReplaySubject<Order>(1);
 
   constructor(private backendService: BackendService) {
-
   }
 
-  loadOrders(): ReplaySubject<Order[]> {
-    if (this.orders) {
-      this.backendService.loadOrders().subscribe(orders => {
-        this.orders = orders;
-        this.ordersSubject.next(this.orders);
-      });
-    } else {
-      this.ordersSubject.next(this.orders);
-    }
+  getOrder(): ReplaySubject<Order> {
     return this.ordersSubject;
   }
 
-  loadOrderById(orderNumber: number): ReplaySubject<Order> {
-    const orderLocalSubject: ReplaySubject<Order> = new ReplaySubject<Order>(1);
-    let index = this.orderWithBody.findIndex(order => order.orderNumber === orderNumber);
+  loadOrderById(id: number): ReplaySubject<Order> {
+    const orderSubject: ReplaySubject<Order> = new ReplaySubject<Order>(1);
+    let index: number = this.orders.findIndex(o => o.orderNumber === id);
     if (index == -1) {
-      this.backendService.loadOrdersWithFullBody(orderNumber).subscribe(order => {
-        this.orderWithBody.push(order);
-        orderLocalSubject.next(order);
-      });
+      this.backendService.getOrder(id).subscribe(order => {
+        orderSubject.next(order);
+        this.orders.push(order);
+      })
     } else {
-      orderLocalSubject.next(this.orderWithBody[index]);
+      orderSubject.next(this.orders[index]);
     }
-    return orderLocalSubject;
+    return orderSubject;
   }
 
-
+  postOrder(order: Order): ReplaySubject<string> {
+    const orderSubject: ReplaySubject<string> = new ReplaySubject<string>(1);
+    this.backendService.postOrder(order).subscribe(order => {
+      orderSubject.next(order);
+    })
+    return orderSubject;
+  }
 }

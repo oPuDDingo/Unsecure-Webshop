@@ -1,0 +1,39 @@
+<h1>Vielen Dank für Ihren Einkauf!</h1>
+
+<div *ngIf="order" class="d-flex flex-column gap-5">
+  <div>
+    <h2>Lieferadresse</h2>
+    <div class="row">
+      <div *ngIf="order.address" class="col gap-1">
+        <span class="row">{{ this.order.address.name}}</span>
+        <span class="row">{{ this.order.address.address }}</span>
+        <span *ngIf="this.order.address.address2" class="row">{{ this.order.address.address2 }}</span>
+        <span class="row">{{ this.order.address.zipCode}} {{this.order.address.city}}</span>
+        <span class="row">{{this.order.address.country}}</span>
+      </div>
+
+      <div *ngIf="this.order.address && this.order.address.deliveryInstructions" class="col">
+        <h3>Lieferanweisungen</h3>
+        <textarea class="form-control" disabled id="comment"
+                  name="text" rows="5">{{this.order.address.deliveryInstructions}}</textarea>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <h2>Zahlung</h2>
+    <div *ngIf="this.order.payment" class="col">
+      <span class="row">{{this.order.payment.iban}}</span>
+      <span class="row">{{this.order.payment.bic}}</span>
+      <span class="row">{{this.order.payment.accountHolder}}</span>
+    </div>
+  </div>
+
+  <div>
+    <h2>Artikelübersicht</h2>
+    <specified-item-list *ngIf="order.specifiedItems"
+                         [editableQuantity]="false" [itemList]="order.specifiedItems"
+                         [showDeleteButton]="false"></specified-item-list>
+  </div>
+
+</div>

@@ -1,15 +1,14 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {LoginComponent} from "../lib/modules/login/login.component";
-import {RegisterComponent} from "../lib/modules/register/register.component";
+import {ArticleOverviewComponent} from "../lib/pages/articleOverview/articleOverview.component";
 
 const routes: Routes = [
   {
-    path: 'login', component: LoginComponent
+    path: 'orderProcess',
+    loadChildren: () => import('../lib/pages/orderProcess/orderProcess.module').then(m => m.OrderProcessModule)
   },
-  {
-    path: 'register', component: RegisterComponent
-  }
+  {path: 'articles/:id', component: ArticleOverviewComponent},
+  {path: '', redirectTo: 'orderProcess', pathMatch: 'full'},
 ];
 
 @NgModule({

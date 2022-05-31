@@ -1,0 +1,39 @@
+<div>
+  <h1>Übersicht</h1>
+
+  <specified-item-list (onDeleteEvent)="onItemDelete($event)"
+                       (onQuantityChangeEvent)="onUpdateItemQuantity($event.itemId, $event.quantity)"
+                       [itemList]="itemList"></specified-item-list>
+
+  <div>
+    <alert *ngIf="invalidCoupon" type="danger">
+      <strong>Coupon ungültig!</strong> Den eingegebenen Coupon Code gibt es nicht.
+    </alert>
+    <h3>Gutschein</h3>
+    <div class="input-group mb-3">
+      <input [(ngModel)]="coupon.name" class="form-control" placeholder="Gutscheincode" type="text">
+      <button (click)="onUpdateCoupon()" class="btn btn-primary" type="button">{{getCouponButtonText()}}</button>
+    </div>
+  </div>
+
+  <div class="border-top border-5 row">
+    <div class="col"></div>
+
+    <div class="col">
+      <div>
+        <div>Zwischensumme:</div>
+        <div *ngIf="coupon.percent">Ermäßigung</div>
+        <div><b>TOTAL</b></div>
+      </div>
+    </div>
+
+    <div class="col align-content-end">
+      <div>{{getAmount()}} €</div>
+      <div *ngIf="coupon.percent">- {{getPercentAmount()}} €</div>
+      <div><b>{{getTotalAmount() - getTotalAmount() * couponPercent / 100}} €</b></div>
+    </div>
+  </div>
+
+  <button (click)="onNextPageClick()" class="btn btn-primary float-end mt-5" type="button">Weiter</button>
+
+</div>

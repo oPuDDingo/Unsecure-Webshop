@@ -1,10 +1,12 @@
 import {NgModule} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './app.component';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {OrderListModule} from "../lib/pages/orderList/orderList.module";
+import {ArticleOverviewModule} from "../lib/pages/articleOverview/articleOverview.module";
 import {HttpClientModule} from "@angular/common/http";
+import {OrderProcessModule} from "../lib/pages/orderProcess/orderProcess.module";
+import {TabsModule} from 'ngx-bootstrap/tabs';
+import {AppRoutingModule} from "./app-routing.module";
+import {BrowserModule} from "@angular/platform-browser";
 
 @NgModule({
   declarations: [
@@ -12,9 +14,11 @@ import {HttpClientModule} from "@angular/common/http";
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,
-    OrderListModule,
-    HttpClientModule
+    HttpClientModule,
+    ArticleOverviewModule,
+    OrderProcessModule,
+    TabsModule.forRoot(),
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
