@@ -560,7 +560,9 @@ public class DataAccessShopDatabase {
             stmt = con.createStatement();
             String sql = "SELECT * FROM sales_order WHERE id=" + orderId + ";";
             ResultSet rs = stmt.executeQuery(sql);
-            order = new Order(orderId, null, this.getCoupon(rs.getString("coupon_code")), this.getAddress(rs.getInt("address_id")), this.getPayment(orderId), rs.getString("order_date"), rs.getDouble("amount"));
+            if (rs.next()) {
+                order = new Order(orderId, null, this.getCoupon(rs.getString("coupon_code")), this.getAddress(rs.getInt("address_id")), this.getPayment(orderId), rs.getString("order_date"), rs.getDouble("amount"));
+            }
             order.setSpecifiedItems(this.getOrderItems(orderId));
             rs.close();
             stmt.close();
