@@ -1,0 +1,16 @@
+@import "../../../../node_modules/bootstrap/scss/bootstrap";
+
+.footer {
+  background-color: $primary;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+.about a:hover {
+  color: #8c3d1f;
+}
