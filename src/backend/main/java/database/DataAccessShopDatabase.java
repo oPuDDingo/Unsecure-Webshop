@@ -206,10 +206,9 @@ public class DataAccessShopDatabase {
     public void deleteWishList(int userId) {
         Connection con = this.createConnection();
         Statement stmt = null;
-        int wishListId = this.findWishListId(userId);
         try {
             stmt = con.createStatement();
-            String sql = "DELETE FROM wish_list_article_version WHERE wish_list_id=" + wishListId + ";";
+            String sql = "DELETE FROM wish_list_article_version WHERE wish_list_id=" + userId + ";";
             stmt.execute(sql);
             stmt.close();
             con.close();
