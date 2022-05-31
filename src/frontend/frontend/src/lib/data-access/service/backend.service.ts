@@ -131,13 +131,7 @@ export class BackendService {
   }
 
   postContact(contact: Contact): Observable<Contact> {
-    let contactPayload = {
-      "firstName": contact.firstName,
-      "lastName": contact.lastName,
-      "mail": contact.mail,
-      "message": contact.message
-    };
-    return this.httpClient.post<Contact>(this.url + 'contact', contactPayload);
+    return this.httpClient.post<Contact>(this.url + 'contact', {...contact});
   }
 
   updateUser(userPayload: JsonObject): Observable<any> {
