@@ -1,8 +1,8 @@
 import {Component, Input} from "@angular/core";
-import {Article} from "../../../data-access/models/article";
+import {Article} from "../../../data-access/models";
 
 @Component({
-  selector: 'frontItem',
+  selector: 'front-item',
   templateUrl: './frontItem.component.html',
   styleUrls: ['./frontItem.component.scss']
 })

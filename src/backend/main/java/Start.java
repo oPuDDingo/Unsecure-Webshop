@@ -20,7 +20,7 @@ public class Start
 	{
 		DataAccessShopDatabase db = new DataAccessShopDatabase();
 		// db.resetDatabase();
-		System.out.println("Database reset");
+		System.out.println("Database reset");https://app.kosmi.io/room/xhlmbu
 
 		final Tomcat tomcat = new Tomcat();
 		tomcat.setPort(8080);
