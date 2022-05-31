@@ -103,7 +103,7 @@ public class DataAccessShopDatabase {
         return true;
     }
 
-    public boolean putAddress(Address address, int userId){
+    public void putAddress(Address address, int userId){
         Connection con = this.createConnection();
         Statement stmt =null;
         try {
@@ -116,9 +116,23 @@ public class DataAccessShopDatabase {
             con.close();
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
-        return true;
+    }
+
+    public void  postAddress(Address address, int userId){
+        Connection con = this.createConnection();
+        Statement stmt =null;
+        try {
+            stmt=con.createStatement();
+            String sql="INSERT INTO address(street_house_number, postcode, address_suplement, city, country, name, delivery_instruction, user_id)" +
+            "VALUES('"+address.getAddress()+"', '"+address.getZipCode()+"', '"+address.getAddress2()+"', '"+address.getCity()+"', '"+address.getCountry()
+                    +"', '"+address.getName()+"', '"+address.getDeliveryInstructions()+"');";
+            stmt.execute(sql);
+            stmt.close();;
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void postNewsletter(int userId){
