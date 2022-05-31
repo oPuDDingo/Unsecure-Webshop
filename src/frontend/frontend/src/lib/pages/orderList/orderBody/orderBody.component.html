@@ -9,7 +9,7 @@
       <span>{{order.orderNumber}}</span>
     </div>
   </div>
-  <span><hr flex style="border-style: solid"/></span>
+  <span><hr style="border-style: solid"/></span>
   <div>
     <div *ngFor="let item of order.specifiedItems" class="bodyArticel">
       <div class="articelName">{{item.name}} {{item.color}}<br/></div>
@@ -20,20 +20,18 @@
       </div>
       <div *ngIf="newDate != ''">Zeitraum für Rückgabe endet am {{newDate}}</div>
       <div *ngIf="newDate == ''" class="alert alert-warning alert-dismissible">
-        <!--testen ob die Warning geht-->
         <button class="btn-close" data-bs-dismiss="alert" type="button"></button>
         <strong>Warning!</strong> Der Rückgabezeitraum konnte nicht ermittelt werden!
       </div>
 
       <div
         *ngIf="order.specifiedItems && order.specifiedItems.length>1 && item!=order.specifiedItems[order.specifiedItems.length-1]">
-        <span><hr flex/></span>
+        <span><hr/></span>
       </div>
     </div>
-    <span><hr flex style="border-style: solid"/></span>
+    <span><hr style="border-style: solid"/></span>
     <div>
       <div *ngIf="!order.address; else orderBody" class="alert alert-warning alert-dismissible">
-        <!--testen ob die Warning geht-->
         <button class="btn-close" data-bs-dismiss="alert" type="button"></button>
         <strong>Warning!</strong> Die Versandadresse konnte für diese Bestellung nicht vollständig geladen werden!
       </div>
@@ -50,7 +48,6 @@
             <span class="headers">Zahlungsart</span>
             <span class="contentAdress">IBAN</span>
             <div *ngIf="!order.payment" class="alert alert-warning alert-dismissible">
-              <!--testen ob die Warning geht-->
               <button class="btn-close" data-bs-dismiss="alert" type="button"></button>
               <strong>Warning!</strong> Die Zahlungsart konnte für diese Bestellung nicht vollständig geladen werden!
             </div>
@@ -65,7 +62,6 @@
           </div>
         </div>
       </ng-template>
-
     </div>
   </div>
 </div>
