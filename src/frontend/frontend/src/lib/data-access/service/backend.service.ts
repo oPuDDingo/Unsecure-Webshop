@@ -1,7 +1,8 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import {Address, Article, Coupon, Order, SpecifiedItem} from "../models";
 import {Observable} from "rxjs";
+import {Order, Article, SpecifiedItem, Address, Coupon, Contact, Commentary} from "../models";
+
 @Injectable({
   providedIn: 'root'
 })
@@ -102,5 +103,27 @@ export class BackendService {
 
   postCoupon(coupon: string): Observable<Coupon> {
     return this.httpClient.get<Coupon>(this.url + 'coupons/' + coupon, {});
+  }
+
+  loadWishList(): Observable<SpecifiedItem[]> {
+    return this.httpClient.get<SpecifiedItem[]>(this.url + 'wishlist/items')
+  }
+
+  updateWishList(specifiedItems: SpecifiedItem[]): Observable<SpecifiedItem[]> {
+    let itemsPayload = {items: specifiedItems};
+    return this.httpClient.put<SpecifiedItem[]>(this.url + 'wishlist/items', itemsPayload)
+  }
+
+  updateWishListItem(item: SpecifiedItem): Observable<SpecifiedItem> {
+    let itemPayload = {...item};
+    return this.httpClient.put<SpecifiedItem>(this.url + 'wishlist/items/' + item.id, itemPayload)
+  }
+
+  deleteWishListItem(itemId: number): Observable<any[]> {
+    return this.httpClient.delete<any>(this.url + 'wishlist/items/' + itemId);
+  }
+
+  deleteWishList(): Observable<any> {
+    return this.httpClient.delete<any>(this.url + 'wishlist/items');
   }
 }
