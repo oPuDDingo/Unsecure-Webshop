@@ -11,11 +11,8 @@ import {OrderStore} from "../../data-access/service/store/order.store";
 })
 export class OrderProcessComponent implements OnInit {
 
-  // @ts-ignore
-  itemsList: SpecifiedItem[];
-
-  // @ts-ignore
-  addresses: Address[];
+  itemsList: SpecifiedItem[] = [];
+  addresses: Address[] = [];
 
   // @ts-ignore
   selectedAddress: Address;

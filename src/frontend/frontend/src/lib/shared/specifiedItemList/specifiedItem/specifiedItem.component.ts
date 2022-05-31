@@ -25,7 +25,10 @@ export class SpecifiedItemComponent implements OnInit {
 
   ngOnInit() {
     if (this.specifiedItem.pictureId)
-      this.imageStore.loadImageById(this.specifiedItem.pictureId).subscribe(picture => this.picture = picture);
+      this.imageStore.loadImageById(this.specifiedItem.pictureId).subscribe(picture => {
+        this.picture = picture;
+        console.log(picture)
+      });
   }
 
   onItemDelete(): void {
@@ -44,9 +47,5 @@ export class SpecifiedItemComponent implements OnInit {
 
   onMouseLeave(): void {
     this.showTrash = false;
-  }
-
-  getPictureUrl(): string {
-    return location.origin + '/images/' + this.specifiedItem.pictureId;
   }
 }

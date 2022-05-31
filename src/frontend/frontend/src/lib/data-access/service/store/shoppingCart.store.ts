@@ -45,7 +45,7 @@ export class ShoppingCartStore {
   addItem(item: SpecifiedItem): ReplaySubject<SpecifiedItem[]> {
     this.itemList.push(item);
     this.itemListSubject.next(this.itemList);
-    this.backendService.updateItemList(this.itemList).subscribe();
+    this.backendService.addItemToShoppingCart(item).subscribe();
     return this.itemListSubject;
   }
 
