@@ -1,3 +1,5 @@
+Test
+
 <ul class="nav nav-pills justify-content-center gap-5">
   <li [ngClass]="reachedStep >= 0 ? 'active' : ''" class="nav-item align-middle">
     <a (click)="changeStep(0)" class="nav-link"><img alt="shopping_cart" class="align-middle"
@@ -19,12 +21,12 @@
 <div class="container">
 
   <order-items (onNextPageEvent)="onNextPage()" (onUpdateCouponEvent)="onUpdateCoupon($event)"
-               *ngIf="currentStep == 0 && this.itemsList"
+               *ngIf="currentStep == 0 && this.itemsList.length > 0"
                [itemList]="getItemList()"></order-items>
   <order-address (onNextPageEvent)="onNextPage()" (onSelectAddressEvent)="this.selectedAddress = $event"
-                 *ngIf="currentStep == 1 && this.addresses"></order-address>
+                 *ngIf="currentStep == 1 && this.addresses.length > 0"></order-address>
   <payment-information (onBuyEvent)="this.paymentInformation=$event; onBuy()"
-                       *ngIf="currentStep == 2 && this.itemsList"></payment-information>
+                       *ngIf="currentStep == 2 && this.itemsList.length > 0"></payment-information>
   <confirmation *ngIf="currentStep == 3 && this.order" [order]="order"></confirmation>
 
 </div>

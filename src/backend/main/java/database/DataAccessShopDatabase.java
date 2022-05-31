@@ -16,7 +16,6 @@ public class DataAccessShopDatabase {
         try {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:src/backend/main/java/database/shopDatabase.db");
-            //System.out.println("Connection created!");
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             System.out.println("Can't create Connection!");
@@ -207,10 +206,9 @@ public class DataAccessShopDatabase {
     public void deleteWishList(int userId) {
         Connection con = this.createConnection();
         Statement stmt = null;
-        int wishListId = this.findWishListId(userId);
         try {
             stmt = con.createStatement();
-            String sql = "DELETE FROM wish_list_article_version WHERE wish_list_id=" + wishListId + ";";
+            String sql = "DELETE FROM wish_list WHERE wish_list_id=" + userId + ";";
             stmt.execute(sql);
             stmt.close();
             con.close();
@@ -224,7 +222,7 @@ public class DataAccessShopDatabase {
         Statement stmt = null;
         try {
             stmt = con.createStatement();
-            String sql = "DELETE FROM wish_list_article_version WHERE ID=" + wishListItemId + ";";
+            String sql = "DELETE FROM wish_list WHERE ID=" + wishListItemId + ";";
             stmt.execute(sql);
             stmt.close();
             con.close();
@@ -611,7 +609,9 @@ public class DataAccessShopDatabase {
             stmt = con.createStatement();
             String sql = "SELECT user.id FROM user INNER JOIN session ON user.id = session.user_id WHERE session.key='" + sessionKey + "';";
             ResultSet rs = stmt.executeQuery(sql);
-            userid = rs.getInt("id");
+            if(rs.next()){
+                userid = rs.getInt("id");
+            }
             rs.close();
             stmt.close();
             con.close();
@@ -746,55 +746,6 @@ public class DataAccessShopDatabase {
         }
     }
 
-    private boolean postWishList(int userId) { //delete
-        Connection con = this.createConnection();
-        Statement stmt = null;
-        try {
-            stmt = con.createStatement();
-            String sql = "INSERT INTO wish_list(user_id) VALUES(" + userId + ");";
-            stmt.execute(sql);
-            stmt.close();
-            con.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
-    }
-
-    private boolean postShoppingCart(int userId) { //delete
-        Connection con = this.createConnection();
-        Statement stmt = null;
-        try {
-            stmt = con.createStatement();
-            String sql = "INSERT INTO shopping_cart(user_id) VALUES(" + userId + ");";
-            stmt.execute(sql);
-            stmt.close();
-            con.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
-    }
-
-    private int findWishListId(int userId) { //delete
-        Connection con = this.createConnection();
-        Statement stmt = null;
-        int wishListId = -1;
-        try {
-            stmt = con.createStatement();
-            String sql = "SELECT id FROM wish_list WHERE user_id=" + userId + ";";
-            ResultSet rs = stmt.executeQuery(sql);
-            wishListId = rs.getInt("id");
-            stmt.close();
-            con.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return wishListId;
-    }
-
     private String encryptPasswordRealUser(String password) {
         String hash = Hashing.sha512().hashString(password, StandardCharsets.UTF_8).toString();
         return hash;
@@ -839,23 +790,6 @@ public class DataAccessShopDatabase {
             e.printStackTrace();
         }
         return articleVersionId;
-    }
-
-    private int findShoppingCartId(int userId) { //delete
-        Connection con = this.createConnection();
-        Statement stmt = null;
-        int shoppingCartId = -1;
-        try {
-            stmt = con.createStatement();
-            String sql = "SELECT id FROM shopping_cart WHERE user_id=" + userId + ";";
-            ResultSet rs = stmt.executeQuery(sql);
-            shoppingCartId = rs.getInt("id");
-            stmt.close();
-            con.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return shoppingCartId;
     }
 
     private void postOrderItem(ArticleVersion articleVersion, int orderId) {
@@ -942,7 +876,9 @@ public class DataAccessShopDatabase {
             String sql = "SELECT * FROM article_version WHERE id=" + articleVersionId + ";";
             ResultSet rs = stmt.executeQuery(sql);
             Article article = this.getArticle(rs.getInt("article_id"));
-            articleVersion = new ArticleVersion(-1, rs.getInt("article_id"), rs.getInt("quantity"), rs.getInt("gb_size"), rs.getString("color"), article.getModelName(), article.getAmount(), this.getPictureIds(article.getArticleNumber()).get(0));
+            if (rs.next()) {
+                articleVersion = new ArticleVersion(-1, rs.getInt("article_id"), rs.getInt("quantity"), rs.getInt("gb_size"), rs.getString("color"), article.getModelName(), article.getAmount(), this.getPictureIds(article.getArticleNumber()).get(0));
+            }
             rs.close();
             stmt.close();
             con.close();
@@ -996,8 +932,6 @@ public class DataAccessShopDatabase {
                 stmt.execute("INSERT INTO user(e_mail, firstname, lastname, password, newsletter, salutation, title, profile_picture, real_user, description) " +
                         "VALUES('" + u.getMail() + "', '" + u.getFirstName() + "', '" + u.getLastName() + "', '" + this.encryptPasswordDummyUser(u.getPassword()) + "', " + u.isNewsletter() + ",'" +
                         u.getSalutation() + "', '" + u.getTitle() + "', '" + u.getProfilePicture() + "', " + false + ",'" + u.getDescription() + "');");
-                this.postShoppingCart(u.getId());
-                this.postWishList(u.getId());
             }
             stmt.close();
             con.close();

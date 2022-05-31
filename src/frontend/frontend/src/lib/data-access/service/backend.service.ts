@@ -15,7 +15,7 @@ export class BackendService {
   }
 
   getArtricles(): Observable<Article[]> {
-    return this.httpClient.get<Article[]>(this.url + 'articles?page=8');
+    return this.httpClient.get<Article[]>(this.url + 'articles');
   }
 
   getArticlesByBrand(brand: string): Observable<Article[]> {
@@ -131,13 +131,7 @@ export class BackendService {
   }
 
   postContact(contact: Contact): Observable<Contact> {
-    let contactPayload = {
-      "firstName": contact.firstName,
-      "lastName": contact.lastName,
-      "mail": contact.mail,
-      "message": contact.message
-    };
-    return this.httpClient.post<Contact>(this.url + 'contact', contactPayload);
+    return this.httpClient.post<Contact>(this.url + 'contact', {...contact});
   }
 
   updateUser(userPayload: JsonObject): Observable<any> {
