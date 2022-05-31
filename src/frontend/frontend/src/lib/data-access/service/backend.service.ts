@@ -1,7 +1,8 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import {map, Observable} from "rxjs";
-import {Order, Article, SpecifiedItem, Address, Coupon, Contact, Commentary, User} from "../models";
+import {Observable} from "rxjs";
+import {Order, Article, SpecifiedItem, Address, Coupon, Contact, Commentary} from "../models";
+
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,14 @@ export class BackendService {
   readonly url: string = 'http://localhost:4200/api/';
 
   constructor( private httpClient: HttpClient ) { }
+
+  getArtricles(): Observable<Article[]> {
+    return this.httpClient.get<Article[]>(this.url + 'articles?page=8');
+  }
+
+  getArticlesByBrand(brand: string): Observable<Article[]> {
+    return this.httpClient.get<Article[]>(this.url + 'articles?brand=' + brand + '&page=8');
+  }
 
   getArticleById(articleNumber: number): Observable<Article> {
     return this.httpClient.get<Article>(this.url + 'articles/' + articleNumber);
@@ -127,11 +136,13 @@ export class BackendService {
     return this.httpClient.delete<any>(this.url + 'wishlist/items');
   }
 
-  postNewsletter(): Observable<any> {
-    return this.httpClient.post<any>(this.url + 'user/newsletter', {});
-  }
-
-  loadUser(): Observable<User> {
-    return this.httpClient.get<User>(this.url + 'user/information');
+  postContact(contact: Contact): Observable<Contact> {
+    let contactPayload = {
+      "firstName": contact.firstName,
+      "lastName": contact.lastName,
+      "mail": contact.mail,
+      "message": contact.message
+    };
+    return this.httpClient.post<Contact>(this.url + 'contact', contactPayload);
   }
 }

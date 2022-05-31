@@ -1,0 +1,40 @@
+<div class="container-fluid">
+  <div class="container-lg">
+    <h1>KONTAKTFORMULAR</h1>
+    <hr/>
+    <h3>NAME*</h3>
+    <div class="row">
+      <div class="col">
+        <div class="input-group">
+          <input [(ngModel)]="contact.firstName" class="form-control" placeholder="Vorname" type="text">
+        </div>
+      </div>
+      <div class="col">
+
+        <div class="input-group">
+          <input [(ngModel)]="contact.lastName" class="form-control" placeholder="Nachname" type="text">
+        </div>
+      </div>
+    </div>
+
+    <h3>EMAIL*</h3>
+    <div class="input-group">
+      <input [(ngModel)]="contact.mail" class="form-control" placeholder="Deine Email" required type="text">
+    </div>
+
+    <h3>NACHRICHT</h3>
+    <div>
+      <textarea [(ngModel)]="contact.message" class="form-control" id="comment" name="text" rows="7"></textarea>
+    </div>
+
+    <h3>DATENSCHUTZ*</h3>
+    <div class="form-check mb-3">
+      <input class="form-check-input" id="myCheck" name="remember" required type="checkbox">
+      <label class="form-check-label" for="myCheck"> Ich willige in die Datenschutzerklärung ein.</label>
+      <div class="valid-feedback">Valid.</div>
+      <div class="invalid-feedback"></div>
+    </div>
+
+    <button (click)="onSubmit()" class="btn btn-primary" type="submit">ABSENDEN</button>
+  </div>
+</div>

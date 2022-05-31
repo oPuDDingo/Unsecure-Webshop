@@ -1,0 +1,29 @@
+<div class="clickable container rounded-3 m-1" routerLink="/articles/{this.articleId}">
+  <div class="row">
+    <div class="col-sm-2 p-3 ">
+      <img *ngIf="image" [src]="image" class="rounded" width="100rem">
+    </div>
+    <div class="col-sm-8 p-3">
+      <div class="container-sm">
+        <h3>{{article.modelName}}</h3>
+        <h6>Farbe</h6>
+        <div class="row">
+          <div *ngFor="let color of ['red', 'blue', 'green', 'black', 'white']" class="col-1 mb-2">
+            <div>
+              <color-circle [clickable]="false" [color]="color"></color-circle>
+            </div>
+          </div>
+        </div>
+        <h6>Speicherplatz</h6>
+        <span class="badge bg-secondary m-1"> 64 GB</span>
+        <span class="badge bg-secondary m-1">128 GB</span>
+        <span class="badge bg-secondary m-1">256 GB</span>
+      </div>
+    </div>
+    <div class="col-sm-1 p-3">
+      <h4>{{article.amount}} €</h4>
+    </div>
+  </div>
+</div>
+
+

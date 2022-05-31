@@ -1,0 +1,31 @@
+<div class="container-fluid rounded-3">
+  <div class="row">
+    <div class="col-sm-2 p-3 bg-primary text-white">
+      <h3 class="m-5">Hersteller</h3>
+      <div class="btn-group-vertical m-5">
+        <button (click)="selectBrand('Apple')" class="btn btn-primary" type="button">Apple</button>
+        <button (click)="selectBrand('Samsung')" class="btn btn-primary" type="button">Samsung</button>
+        <button (click)="selectBrand('Xiaomi')" class="btn btn-primary" type="button">Xiaomi</button>
+        <button (click)="selectBrand('Sony')" class="btn btn-primary" type="button">Sony</button>
+      </div>
+
+    </div>
+    <div class="col-sm-8 p-3">
+      <h1>Handys & Smartphones</h1>
+      <h3>Top Angebote zu den besten Preisen</h3>
+      <div class="clearfix">
+        <span class="float-end">
+        <select class="form-select rounded-3 mb-3">
+          <!--<option>Beliebtheit</option>
+          <option>Günstig</option>
+          <option>Teuer</option>-->
+          <option>Bestseller</option>
+        </select>
+          </span>
+      </div>
+      <div *ngIf="articles">
+        <page-item *ngFor="let article of articles" [article]="article"></page-item>
+      </div>
+    </div>
+  </div>
+</div>

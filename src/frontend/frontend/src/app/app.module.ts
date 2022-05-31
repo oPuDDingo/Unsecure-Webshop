@@ -1,8 +1,8 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {AppComponent} from './app.component';
-import {NewsletterModule} from "../lib/pages/Newsletter/newsletter.module";
-import {ModalModule} from 'ngx-bootstrap/modal';
+import {ItemListModule} from "../lib/pages/ItemList/itemList.module";
+import {AppRoutingModule} from "./app-routing.module";
 import {HttpClientModule} from "@angular/common/http";
 
 
@@ -11,7 +11,7 @@ import {HttpClientModule} from "@angular/common/http";
     AppComponent
   ],
   imports: [
-    BrowserModule, NewsletterModule, ModalModule.forRoot(), HttpClientModule
+    BrowserModule, ItemListModule, AppRoutingModule, HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
