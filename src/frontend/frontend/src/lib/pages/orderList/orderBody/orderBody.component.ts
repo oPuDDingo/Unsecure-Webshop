@@ -18,46 +18,6 @@ export class OrderBodyComponent implements OnInit {
   newDate: string = '';
 
   constructor(private orderStore: OrderStore) {
-    // this.order =
-    //   {
-    //     orderNumber: 1878,
-    //     date: "12.03.2022",
-    //     specifiedItems: [{
-    //       id: 1,
-    //       articleNumber: 3215464,
-    //       name: "IPhone 12 MAX",
-    //       quantity: 1,
-    //       gbSize: 64,
-    //       color: "red",
-    //       amount: 132.45,
-    //       pictureId: 1
-    //     },
-    //       {
-    //         id: 2,
-    //         articleNumber: 564218,
-    //         name: "Samsung Galaxy S22 Ultra",
-    //         quantity: 1,
-    //         gbSize: 128,
-    //         color: "grey",
-    //         amount: 999.45,
-    //         pictureId: 2
-    //       }],
-    //     amount: 1131.9,
-    //     address: {
-    //       name: "Max Mustermann",
-    //       address: "Musterstraße 420",
-    //       zipCode: 69420,
-    //       address2: "4. OG, Wohnung 20",
-    //       city: "Musterhausen",
-    //       country: "Germany",
-    //       deliveryInstructions: ""
-    //     },
-    //     payment: {
-    //       iban: "DE458000400758",
-    //       bic: "",
-    //       accountHolder: ""
-    //     }
-    //   }
   }
 
   ngOnInit() {
