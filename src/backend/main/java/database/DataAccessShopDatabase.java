@@ -686,12 +686,13 @@ public class DataAccessShopDatabase {
         return addresses;
     }
 
-    public void postSession(String session, int userId, String ipAddress){
+    public void postSession(String session, String email , String ipAddress){
         Connection con = this.createConnection();
         Statement stmt =null;
+        int userId = this.findUserId(email);
         try {
             stmt = con.createStatement();
-            String sql="INSERT INTO session(key, ip_address, user_id) VALUES('"+session+"','"+ipAddress+"', "+userId+";";
+            String sql="INSERT INTO session(key, ip_address, user_id) VALUES('"+session+"','"+ipAddress+"', "+userId+");";
             stmt.execute(sql);
             stmt.close();
             con.close();
