@@ -942,7 +942,9 @@ public class DataAccessShopDatabase {
             String sql = "SELECT * FROM article_version WHERE id=" + articleVersionId + ";";
             ResultSet rs = stmt.executeQuery(sql);
             Article article = this.getArticle(rs.getInt("article_id"));
-            articleVersion = new ArticleVersion(-1, rs.getInt("article_id"), rs.getInt("quantity"), rs.getInt("gb_size"), rs.getString("color"), article.getModelName(), article.getAmount(), this.getPictureIds(article.getArticleNumber()).get(0));
+            if (rs.next()) {
+                articleVersion = new ArticleVersion(-1, rs.getInt("article_id"), rs.getInt("quantity"), rs.getInt("gb_size"), rs.getString("color"), article.getModelName(), article.getAmount(), this.getPictureIds(article.getArticleNumber()).get(0));
+            }
             rs.close();
             stmt.close();
             con.close();
