@@ -64,7 +64,7 @@ public class DataAccessShopDatabase {
         }
     }
 
-    public boolean postCommentary(Commentary comment, int articleId, int userId){
+    public void postCommentary(Commentary comment, int articleId, int userId){
         Connection con = this.createConnection();
         Statement stmt = null;
         try {
@@ -76,12 +76,10 @@ public class DataAccessShopDatabase {
             con.close();
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
-        return true;
     }
 
-    public boolean postUser(User user){
+    public void postUser(User user){
         Connection con = this.createConnection();
         Statement stmt =null;
         int newsletter = user.isNewsletter() ? 1 : 0;
@@ -98,25 +96,28 @@ public class DataAccessShopDatabase {
             con.close();
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
-        return true;
     }
 
-    public void putAddress(Address address, int userId){
+    public Address putAddress(Address address, int userId){
         Connection con = this.createConnection();
         Statement stmt =null;
+        Address addressRet=null;
         try {
             stmt = con.createStatement();
             String sql="UPDATE address "+
                     " SET(street_house_number='"+address.getAddress()+"', postcode= '"+address.getZipCode()+"', address=supplement='"+address.getAddress2()+"', city='"+address.getCity()+"', country='"+address.getCountry()
                     +"', name='"+address.getName()+"', delivery_instruction='"+address.getDeliveryInstructions()+"' WHERE id="+address.getId()+";";
             stmt.execute(sql);
+            addressRet=this.getAddress(address.getId());
             stmt.close();
             con.close();
+
         } catch (SQLException e) {
             e.printStackTrace();
+            return null;
         }
+        return addressRet;
     }
 
     public void  postAddress(Address address, int userId){
@@ -223,11 +224,14 @@ public class DataAccessShopDatabase {
     public void putUser(User user, int userId){
         Connection con = this.createConnection();
         Statement stmt =null;
+        User userRet=null;
         try {
             stmt = con.createStatement();
             String sql ="UPDATE user SET firstname='"+ user.getFirstName()+"', lastname='"+user.getLastName()+"', title='"+user.getTitle()+"', " +
                     "salutation='"+user.getSalutation()+"', e_mail='"+user.getMail()+"', profile_picture='"+user.getProfilePicture()+"', description='"+user.getDescription()+"' "+"WHERE id="+userId+";";
             stmt.execute(sql);
+            String sq2l="SELECT last_insert_rowid();";
+            userRet= this.getUserInformation(userId);
             stmt.close();
             con.close();
         } catch (SQLException e) {
@@ -285,7 +289,7 @@ public class DataAccessShopDatabase {
         }
     }
 
-    public void putWishListItem(ArticleVersion articleVersion){
+    public ArticleVersion putWishListItem(ArticleVersion articleVersion){
         Connection con = this.createConnection();
         Statement stmt =null;
         int articleVersionId=this.findArticleVersionId(articleVersion.getArticleNumber(), articleVersion.getGbSize(), articleVersion.getColor());
@@ -298,9 +302,10 @@ public class DataAccessShopDatabase {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return this.getArticleVersion(articleVersion.getId());
     }
 
-    public void putShoppingCartItem(ArticleVersion articleVersion){
+    public ArticleVersion putShoppingCartItem(ArticleVersion articleVersion){
         Connection con = this.createConnection();
         Statement stmt =null;
         int articleVersionId=this.findArticleVersionId(articleVersion.getArticleNumber(), articleVersion.getGbSize(), articleVersion.getColor());
@@ -313,6 +318,7 @@ public class DataAccessShopDatabase {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return this.getArticleVersion(articleVersion.getId());
     }
 
     public User getUserInformation(int userId){
