@@ -16,6 +16,7 @@ import javax.ws.rs.core.UriInfo;
 	@Path("items") @GET @Produces(MediaType.APPLICATION_JSON) public Response getCartItems(
 		@CookieParam("sessionID") final String session)
 	{
+		if (session == null) return Response.status(403).build();
 		return Response.ok(DataHandler.getCartItems(session)).build();
 	}
 
@@ -23,20 +24,25 @@ import javax.ws.rs.core.UriInfo;
 		@Context final UriInfo uriInfo, @CookieParam("sessionID") final String session,
 		final ArticleVersion articleVersion)
 	{
+		if (session == null) return Response.status(403).build();
 		DataHandler.createCartItem(articleVersion, session);
 		return Response.ok().build();
 	}
 
 	@Path("items/{id}") @PUT @Consumes(MediaType.APPLICATION_JSON) public Response modifyCartItem(
-		@PathParam("id") final int id, final ArticleVersion articleVersion)
+		@PathParam("id") final int id, final ArticleVersion articleVersion,
+		@CookieParam("sessionID") final String session)
 	{
+		if (session == null) return Response.status(403).build();
 		DataHandler.modifyCartItem(id, articleVersion);
 		return Response.ok(articleVersion).build();
 	}
 
 	@Path("items/{id}") @DELETE @Consumes(MediaType.APPLICATION_JSON) public Response deleteCartItem(
-		@PathParam("id") final int id)
+		@PathParam("id") final int id,
+		@CookieParam("sessionID") final String session)
 	{
+		if (session == null) return Response.status(403).build();
 		DataHandler.deleteCartItem(id);
 		return Response.noContent().build();
 	}
