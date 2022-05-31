@@ -3,7 +3,10 @@ import {RouterModule, Routes} from '@angular/router';
 
 
 const routes: Routes = [
-  {path: 'index', loadChildren: () => import('../lib/pages/board/board.module').then(m => m.BoardModule)},
+  {
+    path: 'index',
+    loadChildren: () => import('../lib/pages/board/board.module').then(m => m.BoardModule),
+  },
   {
     path: 'articles/:id',
     loadChildren: () => import('../lib/pages/articleOverview/articleOverview.module').then(m => m.ArticleOverviewModule)
