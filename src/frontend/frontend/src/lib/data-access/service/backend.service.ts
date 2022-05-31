@@ -1,5 +1,7 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import {Injectable} from "@angular/core";
+import {HttpClient} from "@angular/common/http";
+import {Observable} from "rxjs";
+import {Article} from "../models/article";
 
 @Injectable({
   providedIn: 'root'
@@ -7,5 +9,18 @@ import { HttpClient } from "@angular/common/http";
 export class BackendService {
   readonly url: string = 'http://localhost:4200/api/';
 
-  constructor( private httpClient: HttpClient ) { }
+  constructor(private httpClient: HttpClient) {
+  }
+
+  getImageById(id: number): Observable<any> {
+    return this.httpClient.get(this.url + 'images/' + id, {responseType: 'text'});
+  }
+
+  getArticleById(articleNumber: number): Observable<Article> {
+    return this.httpClient.get<Article>(this.url + 'articles/' + articleNumber);
+  }
+
+  getArticlesFrontpage(): Observable<Article[]> {
+    return this.httpClient.get<Article[]>(this.url + 'articles?page=1&specifications=false');
+  }
 }
