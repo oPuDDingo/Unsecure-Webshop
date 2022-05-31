@@ -642,7 +642,25 @@ public class DataAccessShopDatabase {
         return base;
     }
 
-
+    public List<Address> getAddresses(int userId){
+        Connection con = this.createConnection();
+        Statement stmt =null;
+        List<Address> addresses= new ArrayList<Address>();
+        try {
+            stmt=con.createStatement();
+            String sql="SELECT id FROM address WHERE user_id="+userId+";";
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()){
+                addresses.add(this.getAddress(rs.getInt("id")));
+            }
+            rs.close();
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return addresses;
+    }
 
     private boolean postWishList(int userId){ //delete
         Connection con = this.createConnection();
