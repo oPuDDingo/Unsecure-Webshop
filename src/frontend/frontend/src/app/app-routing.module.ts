@@ -27,6 +27,7 @@ const routes: Routes = [
     loadChildren: () => import('../lib/pages/userSettings/userSettings.module').then(m => m.UserSettingsModule)
   },
   {path: 'wishlist', loadChildren: () => import('../lib/pages/wishList/wishlist.module').then(m => m.WishlistModule)},
+  {path: 'login', loadChildren: () => import('../lib/pages/login/login.module').then(m => m.LoginModule)},
   {path: '', redirectTo: 'index', pathMatch: 'full'},
   {path: '**', redirectTo: 'index'},
 ];
