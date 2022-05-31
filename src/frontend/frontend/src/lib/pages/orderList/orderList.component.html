@@ -1,0 +1,9 @@
+<accordion *ngIf="orderList" [isAnimated]="true">
+  <accordion-group *ngFor="let order of orderList">
+    <button (click)="showBody = true;" accordion-heading
+            class="accordionButton" type="button">
+      <order-header [itemList]="order.specifiedItems" [orderDate]="order.date"></order-header>
+    </button>
+    <order-body *ngIf="showBody" [orderNumber]="order.orderNumber"></order-body>
+  </accordion-group>
+</accordion>

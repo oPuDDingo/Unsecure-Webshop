@@ -1,0 +1,70 @@
+<div *ngIf="order" class="content">
+  <div class="d-flex justify-content-between">
+    <div *ngIf="order.amount" class="d-flex flex-column">
+      <span>Summe</span>
+      <span>{{order.amount}}€</span>
+    </div>
+    <div class="d-flex flex-column">
+      <span>Bestellnummer</span>
+      <span>{{order.orderNumber}}</span>
+    </div>
+  </div>
+  <span><hr flex style="border-style: solid"/></span>
+  <div>
+    <div *ngFor="let item of order.specifiedItems" class="bodyArticel">
+      <div class="articelName">{{item.name}} {{item.color}}<br/></div>
+      <div class="row">
+        <div class="col-sm-2">Menge: {{item.quantity}}</div>
+        <div class="col-sm-2">Preis: {{item.amount}}€</div>
+        <br/>
+      </div>
+      <div *ngIf="newDate != ''">Zeitraum für Rückgabe endet am {{newDate}}</div>
+      <div *ngIf="newDate == ''" class="alert alert-warning alert-dismissible">
+        <!--testen ob die Warning geht-->
+        <button class="btn-close" data-bs-dismiss="alert" type="button"></button>
+        <strong>Warning!</strong> Der Rückgabezeitraum konnte nicht ermittelt werden!
+      </div>
+
+      <div *ngIf="order.specifiedItems.length>1 && item!=order.specifiedItems[order.specifiedItems.length-1]">
+        <span><hr flex/></span>
+      </div>
+    </div>
+    <span><hr flex style="border-style: solid"/></span>
+    <div>
+      <div *ngIf="!order.address; else orderBody" class="alert alert-warning alert-dismissible">
+        <!--testen ob die Warning geht-->
+        <button class="btn-close" data-bs-dismiss="alert" type="button"></button>
+        <strong>Warning!</strong> Die Versandadresse konnte für diese Bestellung nicht vollständig geladen werden!
+      </div>
+      <ng-template #orderBody>
+        <div *ngIf="order.address && order.payment" class="d-flex justify-content-around">
+          <div class="d-flex flex-column">
+            <span class="headers">Versandadresse</span>
+            <span class="contentAdress">Name</span>
+            <span>{{order.address.name}}</span> <br/>
+            <span class="contentAdress">Straße, Haus Nr.</span>
+            <span>{{order.address.address}}</span><br/>
+            <span class="contentAdress">PLZ, Ort</span>
+            <span>{{order.address.zipCode}}, {{order.address.city}}</span><br/>
+            <span class="headers">Zahlungsart</span>
+            <span class="contentAdress">IBAN</span>
+            <div *ngIf="!order.payment" class="alert alert-warning alert-dismissible">
+              <!--testen ob die Warning geht-->
+              <button class="btn-close" data-bs-dismiss="alert" type="button"></button>
+              <strong>Warning!</strong> Die Zahlungsart konnte für diese Bestellung nicht vollständig geladen werden!
+            </div>
+            <span *ngIf="order.payment">{{order.payment.iban}}</span>
+          </div>
+          <div class="d-flex flex-column">
+            <br/>
+            <span class="contentAdress">Country</span>
+            <span>{{order.address.country}}</span><br/>
+            <span class="contentAdress">Adresszusatz</span>
+            <span>{{order.address.address2}}</span><br/>
+          </div>
+        </div>
+      </ng-template>
+
+    </div>
+  </div>
+</div>
