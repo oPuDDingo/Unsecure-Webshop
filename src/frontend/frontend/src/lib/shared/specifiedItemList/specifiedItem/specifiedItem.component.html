@@ -1,0 +1,56 @@
+<li (mouseenter)="onMouseEnter( )"
+    (mouseleave)="onMouseLeave( )"
+    class="list-group-item specified-item mb-2 rounded-3 ps-5">
+  <div class="row">
+    <div class="col-lg-1 d-xxl-block d-none">
+      <img [src]="getPictureUrl( )" class="rounded" width="100rem">
+    </div>
+    <div class="col">
+      <div>
+        <h3>{{ specifiedItem.name }}</h3>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-2 d-md-block d-none me-1">
+          Artikelnr: {{ specifiedItem.articleNumber }}
+        </div>
+        <div class="col-md-1 float-end text-end">
+          {{ specifiedItem.amount }}€
+        </div>
+        <div class="col-1"></div> <!-- is used for space between dif before and after -->
+        <div class="col-md-2 text-center">
+          <span *ngIf="!this.editableQuantity; else editableQuantityTemplate">Menge: {{ specifiedItem.quantity }}</span>
+          <ng-template #editableQuantityTemplate>
+            <div class="form-inline">
+              <div [ngClass]="editableQuantity ? 'justify-content-between': ''" class="d-flex">
+                <label class="form-label">Menge: </label>
+                <select (change)="onItemChange($event)" *ngIf="this.editableQuantity; else quantity"
+                        [(ngModel)]="specifiedItem.quantity" class="form-select w-50">
+                  <option *ngFor="let number of [1,2,3,4,5,6,7,8,9]">{{ number }}</option>
+                </select>
+                <ng-template #quantity>
+                  <span>{{ specifiedItem.quantity }}</span>
+                </ng-template>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+        <color-circle [clickable]="false" [color]="specifiedItem.color" class="col-md-2 text-center"></color-circle>
+        <div class="col-md-2 text-center">
+          {{ specifiedItem.gbSize }} GB
+        </div>
+        <div class="col text-end">
+          <delete (onClickEvent)="onItemDelete()" *ngIf="showDeleteButton && showTrash"
+                  class=" d-none d-md-block"></delete>
+          <delete (onClickEvent)="onItemDelete()" *ngIf="showDeleteButton" class="d-md-none"></delete>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</li>
+
+
+
+
