@@ -1,0 +1,22 @@
+<button (click)="openModal(template)" class="btn btn-primary" type="button">Newsletter abnonnieren</button>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h2 class="modal-title">NEWSLETTER ABONNIEREN</h2>
+    <button (click)="modalRef?.hide()" aria-label="Close" class="btn-close close pull-right" type="button">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body d-flex flex-column">
+    <div class="form-floating mb-3 mt-3">
+      <input class="form-control" id="email" name="email" placeholder="Enter email"
+             type="text">
+      <label for="email">Email</label>
+    </div>
+    <label>
+      <p>Mit der Anmeldung akzeptieren Sie unsere AGBs.
+      <p>
+    </label>
+    <button (click)="onSubscribeToNewsletter()" class="btn btn-primary w-25" type="submit">ANMELDEN</button>
+  </div>
+</ng-template>

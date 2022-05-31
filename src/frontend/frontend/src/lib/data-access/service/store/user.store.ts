@@ -43,5 +43,17 @@ export class UserStore {
     this.backendService.updateUser(userPayload).subscribe();
   }
 
+  getUser(): ReplaySubject<User> {
+    if (this.user == undefined) {
+      this.backendService.loadUser().subscribe(user => this.user = user);
+      this.userSubject.next(this.user);
+    } else {
+      this.userSubject.next(this.user);
+    }
+    return this.userSubject;
+  }
 
+  subscribeNewsletter(): void {
+    this.backendService.postNewsletter();
+  }
 }

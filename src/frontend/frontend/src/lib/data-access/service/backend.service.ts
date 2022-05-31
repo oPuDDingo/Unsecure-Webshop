@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import {Observable} from "rxjs";
-import {Order, Article, SpecifiedItem, Address, Coupon, Contact, Commentary} from "../models";
+import {map, Observable} from "rxjs";
+import {Order, Article, SpecifiedItem, Address, Coupon, Contact, Commentary, User} from "../models";
 
 @Injectable({
   providedIn: 'root'
@@ -125,5 +125,13 @@ export class BackendService {
 
   deleteWishList(): Observable<any> {
     return this.httpClient.delete<any>(this.url + 'wishlist/items');
+  }
+
+  postNewsletter(): Observable<any> {
+    return this.httpClient.post<any>(this.url + 'user/newsletter', {});
+  }
+
+  loadUser(): Observable<User> {
+    return this.httpClient.get<User>(this.url + 'user/information');
   }
 }
