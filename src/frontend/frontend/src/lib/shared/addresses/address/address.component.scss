@@ -1,0 +1,21 @@
+@import "node_modules/bootstrap/scss/bootstrap";
+
+.border {
+  border-radius: 2rem;
+}
+
+.content {
+  margin-top: 2rem;
+  text-align: center;
+  justify-self: center;
+  align-content: center;
+}
+
+.shadow-primary {
+  box-shadow: 0 0 0.75rem 0 $primary;
+}
+
+button {
+  left: 20px;
+  margin: 20px;
+}
