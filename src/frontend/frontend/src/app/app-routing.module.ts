@@ -8,11 +8,11 @@ const routes: Routes = [
     path: 'articles/:id',
     loadChildren: () => import('../lib/pages/articleOverview/articleOverview.module').then(m => m.ArticleOverviewModule)
   },
+  {path: 'articles', loadChildren: () => import('../lib/pages/ItemList/itemList.module').then(m => m.ItemListModule)},
   {
     path: 'contact',
     loadChildren: () => import('../lib/pages/contactform/contactform.module').then(m => m.ContactformModule)
   },
-  {path: 'articles', loadChildren: () => import('../lib/pages/ItemList/itemList.module').then(m => m.ItemListModule)},
   {path: 'orders', loadChildren: () => import('../lib/pages/orderList/orderList.module').then(m => m.OrderListModule)},
   {
     path: 'checkout',

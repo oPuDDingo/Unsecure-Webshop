@@ -8,17 +8,12 @@ import {RouterModule, Routes} from "@angular/router";
 import {CommonModule} from "@angular/common";
 
 
-const routes: Routes = [
-  {path: '', component: AddressListComponent}
-]
-
 @NgModule({
   declarations: [AddressListComponent, AddressComponent],
   imports: [
     CommonModule,
     FormsModule,
-    ModalModule.forRoot(),
-    RouterModule.forChild(routes)
+    ModalModule.forRoot()
   ],
   providers: [],
   bootstrap: [],
