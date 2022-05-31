@@ -14,6 +14,6 @@ import {CommonModule} from "@angular/common";
   exports: [LoginComponent]
 })
 
-export class NavbarItemsModule {
+export class LoginModule {
 
 }
