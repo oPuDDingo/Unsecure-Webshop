@@ -1,0 +1,22 @@
+@import "node_modules/bootstrap/scss/bootstrap";
+
+li {
+  width: 5rem;
+  height: 5rem;
+  background-color: $secondary;
+  border-radius: 5rem;
+  alignment: center;
+  align-content: center;
+}
+
+li .active {
+  background-color: $primary;
+}
+
+a {
+  cursor: pointer;
+}
+
+.active {
+  background-color: $primary !important;
+}
