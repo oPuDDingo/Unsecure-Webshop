@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Order, Article, SpecifiedItem, Address, Coupon, Contact, Commentary} from "../models";
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -125,5 +126,15 @@ export class BackendService {
 
   deleteWishList(): Observable<any> {
     return this.httpClient.delete<any>(this.url + 'wishlist/items');
+  }
+
+  postContact(contact: Contact): Observable<Contact> {
+    let contactPayload = {
+      "firstName": contact.firstName,
+      "lastName": contact.lastName,
+      "mail": contact.mail,
+      "message": contact.message
+    };
+    return this.httpClient.post<Contact>(this.url + 'contact', contactPayload);
   }
 }
