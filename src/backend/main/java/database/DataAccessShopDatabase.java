@@ -662,6 +662,20 @@ public class DataAccessShopDatabase {
         return addresses;
     }
 
+    public void postSession(String session, int userId, String ipAddress){
+        Connection con = this.createConnection();
+        Statement stmt =null;
+        try {
+            stmt = con.createStatement();
+            String sql="INSERT INTO session(key, ip_address, user_id) VALUES('"+session+"','"+ipAddress+"', "+userId+";";
+            stmt.execute(sql);
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
     private boolean postWishList(int userId){ //delete
         Connection con = this.createConnection();
         Statement stmt =null;
