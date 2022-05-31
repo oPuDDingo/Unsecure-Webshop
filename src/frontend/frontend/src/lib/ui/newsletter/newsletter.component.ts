@@ -32,4 +32,3 @@ export class NewsletterComponent {
 }
 
 
-//http://localhost:4200/
