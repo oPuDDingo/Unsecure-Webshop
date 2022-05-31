@@ -1,3 +1,7 @@
-<frontItemGroup [name]="'Apple Iphone 13'" [price]="1099.97"></frontItemGroup>
-<frontItemGroup [name]="'Samsung Galaxy 13'" [price]="800.97"></frontItemGroup>
-<frontItemGroup [name]="'Huawei Y5'" [price]="659.97"></frontItemGroup>
+<div class="container d-flex justify-content-center ">
+  <div class="row">
+    <div *ngFor="let article of articles" class="col-4 col-sm-4 col-md-4 col-lg-4">
+      <frontItem [article]="article"></frontItem>
+    </div>
+  </div>
+</div>

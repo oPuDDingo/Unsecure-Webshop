@@ -1,4 +1,5 @@
-import {Component} from "@angular/core";
+import {Component, Input} from "@angular/core";
+import {Article} from "../../../data-access/models/article";
 
 @Component({
   selector: 'frontItem',
@@ -7,5 +8,6 @@ import {Component} from "@angular/core";
 })
 
 export class FrontItemComponent {
-
+  // @ts-ignore
+  @Input() article: Article;
 }
