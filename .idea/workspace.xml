@@ -1,25 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e5c73af0-3f66-469e-b560-2e2dc5946d9c" name="Changes" comment="added first step for routing into modules">
+    <list default="true" id="e5c73af0-3f66-469e-b560-2e2dc5946d9c" name="Changes" comment="working on routing">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontend/frontend/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/frontend/src/app/app-routing.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontend/frontend/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/frontend/src/app/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontend/frontend/src/lib/pages/ItemList/itemList.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/frontend/src/lib/pages/ItemList/itemList.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontend/frontend/src/lib/pages/contactform/contactform.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/frontend/src/lib/pages/contactform/contactform.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontend/frontend/src/lib/pages/login/login.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/frontend/src/lib/pages/login/login.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontend/frontend/src/lib/pages/nachhaltig/nachhaltig.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/frontend/src/lib/pages/nachhaltig/nachhaltig.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontend/frontend/src/lib/pages/register/register.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/frontend/src/lib/pages/register/register.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/frontend/src/lib/pages/orderList/orderList.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/frontend/src/lib/pages/orderList/orderList.module.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/frontend/frontend/src/lib/pages/shoppingCart/shoppingCart.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/frontend/src/lib/pages/shoppingCart/shoppingCart.module.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/frontend/frontend/src/lib/pages/userSettings/userSettings.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/frontend/src/lib/pages/userSettings/userSettings.module.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/frontend/frontend/src/lib/pages/wishList/wishlist.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/frontend/src/lib/pages/wishList/wishlist.module.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/frontend/frontend/src/lib/shared/addresses/addressList.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/frontend/src/lib/shared/addresses/addressList.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontend/frontend/src/lib/shared/colorCircle/colorCircle.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/frontend/src/lib/shared/colorCircle/colorCircle.module.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/frontend/frontend/src/lib/shared/specifiedItemList/specifiedItemList.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/frontend/src/lib/shared/specifiedItemList/specifiedItemList.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontend/frontend/src/lib/ui/footer/footer.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/frontend/src/lib/ui/footer/footer.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontend/frontend/src/lib/ui/navbar/navbar.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/frontend/src/lib/ui/navbar/navbar.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontend/frontend/src/lib/ui/navbarItems/navbarItems.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/frontend/src/lib/ui/navbarItems/navbarItems.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontend/frontend/src/lib/ui/newsletter/newsletter.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/frontend/src/lib/ui/newsletter/newsletter.module.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,6 +42,7 @@
     <option name="myRunOnSave" value="true" />
   </component>
   <component name="ProjectId" id="28NkHL5zr4SPDE9Ib4ny0m1NhMS" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -71,7 +61,7 @@
     "nodejs_package_manager_path": "npm",
     "rearrange.code.on.save": "true",
     "settings.editor.selected.configurable": "preferences.general",
-    "ts.external.directory.path": "C:\\Users\\Franzi\\Studium\\Informatik SS 4\\Programmierprojekt\\unsicherer-web-shop-fuer-die-lehre3\\src\\frontend\\frontend\\node_modules\\typescript\\lib",
+    "ts.external.directory.path": "C:\\Users\\Jakob\\WebstormProjects\\unsicherer-web-shop-fuer-die-lehre\\src\\frontend\\frontend\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>

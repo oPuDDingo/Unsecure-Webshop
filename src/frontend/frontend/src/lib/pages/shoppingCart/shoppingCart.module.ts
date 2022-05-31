@@ -1,5 +1,4 @@
 import {NgModule} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
 
 import {AccordionModule} from 'ngx-bootstrap/accordion';
 import {ShoppingCartComponent} from "./shoppingCart.component";
@@ -16,7 +15,6 @@ const routes: Routes = [
     ShoppingCartComponent
   ],
   imports: [
-    BrowserModule,
     AccordionModule.forRoot(),
     SpecifiedItemListModule,
     RouterModule.forChild(routes)
