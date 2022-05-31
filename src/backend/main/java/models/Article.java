@@ -1,9 +1,8 @@
 package backend.main.java.models;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class Article { //erledigt
+public class Article {
 
 	private int articleNumber;
 	private String modelName;
@@ -41,24 +40,6 @@ public class Article { //erledigt
 		this.articleNumber = articleNumber;
 		this.modelName = modelName;
 		this.amount = amount;
-	}
-
-	public static Article getExampleArticle()
-	{
-		List<Integer> images = new ArrayList<>();
-		images.add( 0 );
-		images.add( 1 );
-		images.add( 2 );
-		return new Article(12345, "iPhone 12", 1, 5, "iOS", "2018", "AMOLED", "720x350", "Apple", null, images);
-	}
-
-	public static List<Object> getExampleArticleList(int amount) {
-		List<Object> list = new ArrayList<>();
-		for (int i = 0; i < amount; i++)
-		{
-			list.add(getExampleArticle());
-		}
-		return list;
 	}
 
 	public int getArticleNumber() {

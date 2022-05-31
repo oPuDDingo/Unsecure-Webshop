@@ -1,6 +1,6 @@
 package backend.main.java.models;
 
-public class ArticleVersion { //Specifyed Item		//erledigt
+public class ArticleVersion { //Specifyed Item
 
 	private int id; //Aus m zu n Table
 	private int articleNumber; //ID des article
@@ -23,10 +23,6 @@ public class ArticleVersion { //Specifyed Item		//erledigt
 		this.name=name;
 		this.amount=amount;
 		this.pictureId=pictureId;
-	}
-
-	public static ArticleVersion getRandomArticleVersion() {
-		return new ArticleVersion(24, 2846, 1, 64, "Red","Iphone", 4.0, 1);
 	}
 
 	public int getId() {

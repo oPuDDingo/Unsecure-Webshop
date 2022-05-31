@@ -1,6 +1,6 @@
 package backend.main.java.models;
 
-public class Coupon {	//erledigt
+public class Coupon {
 
 	private String name;
 	private double percent;
@@ -13,16 +13,6 @@ public class Coupon {	//erledigt
 		this.name = name;
 		this.percent = percent;
 		this.active = active;
-	}
-
-	public static Coupon getExampleCoupon()
-	{
-		return getExampleCoupon("DISCOUNT15");
-	}
-
-	public static Coupon getExampleCoupon(final String name)
-	{
-		return new Coupon(name, 15, true);
 	}
 
 	public String getName() {

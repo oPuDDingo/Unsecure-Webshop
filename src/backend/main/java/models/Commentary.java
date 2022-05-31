@@ -1,6 +1,6 @@
 package backend.main.java.models;
 
-public class Commentary {	//erledigt
+public class Commentary {
 
 	private int id;
 	private String commentText;
