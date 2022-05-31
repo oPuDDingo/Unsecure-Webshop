@@ -9,27 +9,36 @@ import {Injectable} from "@angular/core";
 export class OrderStore {
   // @ts-ignore
   orders: Order[] = [];
-  ordersSubject: ReplaySubject<Order> = new ReplaySubject<Order>(1);
+  ordersSubject: ReplaySubject<Order[]> = new ReplaySubject<Order[]>(1);
+  orderWithBody: Order[] = [];
 
   constructor(private backendService: BackendService) {
   }
 
-  getOrder(): ReplaySubject<Order> {
+  loadOrders(): ReplaySubject<Order[]> {
+    if (this.orders) {
+      this.backendService.loadOrders().subscribe(orders => {
+        this.orders = orders;
+        this.ordersSubject.next(this.orders);
+      });
+    } else {
+      this.ordersSubject.next(this.orders);
+    }
     return this.ordersSubject;
   }
 
-  loadOrderById(id: number): ReplaySubject<Order> {
-    const orderSubject: ReplaySubject<Order> = new ReplaySubject<Order>(1);
-    let index: number = this.orders.findIndex(o => o.orderNumber === id);
+  loadOrderById(orderNumber: number): ReplaySubject<Order> {
+    const orderLocalSubject: ReplaySubject<Order> = new ReplaySubject<Order>(1);
+    let index = this.orderWithBody.findIndex(order => order.orderNumber === orderNumber);
     if (index == -1) {
-      this.backendService.getOrder(id).subscribe(order => {
-        orderSubject.next(order);
-        this.orders.push(order);
-      })
+      this.backendService.loadOrdersWithFullBody(orderNumber).subscribe(order => {
+        this.orderWithBody.push(order);
+        orderLocalSubject.next(order);
+      });
     } else {
-      orderSubject.next(this.orders[index]);
+      orderLocalSubject.next(this.orderWithBody[index]);
     }
-    return orderSubject;
+    return orderLocalSubject;
   }
 
   postOrder(order: Order): ReplaySubject<string> {

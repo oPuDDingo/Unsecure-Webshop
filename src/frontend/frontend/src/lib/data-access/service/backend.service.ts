@@ -42,10 +42,6 @@ export class BackendService {
     return this.httpClient.get(this.url + 'pictures/' + id, {responseType: 'text'});
   }
 
-  getOrder(id: number): Observable<Order> {
-    return this.httpClient.get<Order>(this.url + 'orders/' + id);
-  }
-
   postOrder(order: Order): Observable<string> {
     // @ts-ignore
     return this.httpClient.post<string>(this.url + 'orders/', {...order}, {observe: "response"}).pipe(
@@ -57,10 +53,6 @@ export class BackendService {
 
   addItemToShoppingCart(item: SpecifiedItem): Observable<any> {
     return this.httpClient.post(this.url + 'cart/items/', {...item});
-  }
-
-  updateItemOfShoppingCart(itemId: number, item: SpecifiedItem): Observable<SpecifiedItem> {
-    return this.httpClient.put<SpecifiedItem>(this.url + 'cart/items/' + itemId, {...item});
   }
 
   createAddress(address: Address): Observable<Address> {
