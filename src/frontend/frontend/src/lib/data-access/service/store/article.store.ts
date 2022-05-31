@@ -10,6 +10,8 @@ import {Article} from "../../models";
 export class ArticleStore {
   // @ts-ignore
   articles: Article[] = [];
+  // @ts-ignore
+  smallArticles: Article[];
   articleSubject: ReplaySubject<Article[]> = new ReplaySubject<Article[]>(1);
   articleSubjectFrontpage: ReplaySubject<Article[]> = new ReplaySubject<Article[]>(1);
 
@@ -32,14 +34,13 @@ export class ArticleStore {
   }
 
   loadArticlesFrontpage(): ReplaySubject<Article[]> {
-    if (!this.articles) {
+    if (!this.smallArticles) {
       this.backendService.getArticlesFrontpage().subscribe(articles => {
-        console.log(articles);
-        this.articles = articles;
+        this.smallArticles = articles;
         this.articleSubjectFrontpage.next(articles);
       })
     } else {
-      this.articleSubjectFrontpage.next(this.articles);
+      this.articleSubjectFrontpage.next(this.smallArticles);
     }
     return this.articleSubjectFrontpage;
   }
