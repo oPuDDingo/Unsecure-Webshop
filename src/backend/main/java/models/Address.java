@@ -7,13 +7,13 @@ public class Address { //erledigt
 	private String country;
 	private String address;
 	private String address2;
-	private int zipCode;
+	private String zipCode;
 	private String city;
 	private String deliveryInstructions;
 
 	public Address() {}
 
-	public Address(int id, String name, String country, String address, String address2, int zipCode, String city,
+	public Address(int id, String name, String country, String address, String address2, String zipCode, String city,
 		String deliveryInstructions)
 	{
 		this.id = id;
@@ -27,7 +27,7 @@ public class Address { //erledigt
 	}
 
 	public static Address getExampleAddress() {
-		return new Address(1, "Example", "Example Land", "Example Street", "Example House", 12345, "Example City", "Example Instructions");
+		return new Address(1, "Example", "Example Land", "Example Street", "Example House", "12345", "Example City", "Example Instructions");
 	}
 
 	public int getId() {
@@ -70,11 +70,11 @@ public class Address { //erledigt
 		this.address2 = address2;
 	}
 
-	public int getZipCode() {
+	public String getZipCode() {
 		return zipCode;
 	}
 
-	public void setZipCode(int zipCode) {
+	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
 	}
 
