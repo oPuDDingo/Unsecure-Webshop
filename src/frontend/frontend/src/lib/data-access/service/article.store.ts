@@ -8,6 +8,7 @@ import {Article} from "../models/article";
 })
 export class ArticleStore {
   articles: Article[] = [];
+  articlesSubject: ReplaySubject<Article[]> = new ReplaySubject<Article[]>(1);
 
   constructor(private backendService: BackendService) {
   }
@@ -27,13 +28,12 @@ export class ArticleStore {
   }
 
   loadArticles(): ReplaySubject<Article[]> {
-    const articlesSubject: ReplaySubject<Article[]> = new ReplaySubject<Article[]>();
-    if (this.articles == []) {
-      this.backendService.getArticles().subscribe(articles => {
+    if (this.articles) {
+      this.backendService.getArticlesFrontpage().subscribe(articles => {
         this.articles = articles;
-        articlesSubject.next(articles);
+        this.articlesSubject.next(articles);
       })
     }
-    return articlesSubject;
+    return this.articlesSubject;
   }
 }

@@ -1,3 +1,5 @@
+import {Commentary} from "./commentary";
+
 export interface Article {
   articleNumber: number;
   modelName: string;
@@ -8,6 +10,6 @@ export interface Article {
   releaseDate?: string;
   screen?: string;
   resolution?: string;
-  pictures?: number[];
-  // comments?: Commentary[];
+  pictureIds?: number[];
+  comments?: Commentary[];
 }

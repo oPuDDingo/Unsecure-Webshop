@@ -20,7 +20,7 @@ export class BackendService {
     return this.httpClient.get<Article>(this.url + 'articles/' + articleNumber);
   }
 
-  getArticles(): Observable<Article[]> {
-    return this.httpClient.get<Article[]>(this.url + 'articles');
+  getArticlesFrontpage(): Observable<Article[]> {
+    return this.httpClient.get<Article[]>(this.url + 'articles?page=1&specifications=false');
   }
 }

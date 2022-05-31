@@ -15,37 +15,42 @@
 
                 <form>
                   <div class="form-outline mb-4">
-                    <input class="form-control" id="form2Example11" placeholder="Vorname"
-                           type="email"/>
+                    <input [(ngModel)]="firstName" class="form-control" id="form2Example11"
+                           placeholder="Vorname" type="firstname"/>
                     <label class="form-label" for="form2Example11">Vorname</label>
                   </div>
 
                   <div class="form-outline mb-4">
-                    <input class="form-control" id="form2Example12" placeholder="Nachname"
-                           type="email"/>
+                    <input [(ngModel)]="lastName" class="form-control" id="form2Example12"
+                           placeholder="Nachname" type="email"/>
                     <label class="form-label" for="form2Example12">Nachname</label>
                   </div>
 
                   <div class="form-outline mb-4">
-                    <input class="form-control" id="form2Example13" placeholder="E-Mail Adresse"
-                           type="email"/>
+                    <input [(ngModel)]="mail" class="form-control" id="form2Example13"
+                           placeholder="E-Mail Adresse" type="email"/>
                     <label class="form-label" for="form2Example13">E-Mail Adresse</label>
                   </div>
 
                   <div class="form-outline mb-4">
-                    <input class="form-control" id="form2Example22" placeholder="Dein Geheimnis"
-                           type="password"/>
+                    <input [(ngModel)]="password" class="form-control" id="form2Example22"
+                           placeholder="Dein Geheimnis" type="password"/>
                     <label class="form-label" for="form2Example22">Passwort</label>
                   </div>
 
                   <div class="form-outline mb-4">
-                    <input class="form-control" id="form2Example23" placeholder="Dein Geheimnis wiederholt"
-                           type="password"/>
+                    <input [(ngModel)]="passwordWdh" class="form-control" id="form2Example23"
+                           placeholder="Dein Geheimnis wiederholt" type="password"/>
                     <label class="form-label" for="form2Example23">Passwort wiederholen</label>
                   </div>
 
+                  <alert *ngIf="invalidData" type="danger">
+                    <strong>Oh snap!</strong> Dein Passwort stimmt net überein.
+                  </alert>
+
                   <div class="text-center pt-1 mb-1 pb-1">
-                    <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="button">Registrieren
+                    <button (click)="onRegister()" class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"
+                            type="button">Registrieren
                     </button>
                   </div>
 

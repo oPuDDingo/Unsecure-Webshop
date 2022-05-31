@@ -7,7 +7,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule} from "@angular/router";
 import {BoardModule} from "../lib/modules/board/board.module";
 import {NavbarModule} from "../lib/modules/navbar/navbar.module";
-import {NavbarItemsModule} from "../lib/modules/navbar.items/navbar.items.module";
+import {NavbarItemsModule} from "../lib/modules/navbarItems/navbarItems.module";
 import {FooterModule} from "../lib/modules/footer/footer.module";
 import {NachhaltigModule} from "../lib/modules/nachhaltig/nachhaltig.module";
 import {HttpClientModule} from "@angular/common/http";

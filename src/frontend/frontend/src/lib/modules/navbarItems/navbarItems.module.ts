@@ -1,5 +1,5 @@
 import {NgModule} from "@angular/core";
-import {NavbarItemsComponent} from "./navbar.items.component";
+import {NavbarItemsComponent} from "./navbarItems.component";
 
 @NgModule({
   declarations: [NavbarItemsComponent],
