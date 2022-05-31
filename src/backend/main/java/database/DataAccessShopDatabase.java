@@ -108,9 +108,9 @@ public class DataAccessShopDatabase {
         Statement stmt =null;
         try {
             stmt = con.createStatement();
-            String sql="INSERT INTO address(street_house_number, postcode, address_suplement, city, country, name, delivery_instruction, user_id)" +
-                    "VALUES('"+address.getAddress()+"', '"+address.getZipCode()+"', '"+address.getAddress2()+"', '"+address.getCity()+"', '"+address.getCountry()
-                    +"', '"+address.getName()+"', '"+address.getDeliveryInstructions()+"', "+userId+");";
+            String sql="UPDATE address "+
+                    " SET(street_house_number='"+address.getAddress()+"', postcode= '"+address.getZipCode()+"', address=supplement='"+address.getAddress2()+"', city='"+address.getCity()+"', country='"+address.getCountry()
+                    +"', name='"+address.getName()+"', delivery_instruction='"+address.getDeliveryInstructions()+"' WHERE id="+address.getId()+";";
             stmt.execute(sql);
             stmt.close();
             con.close();
