@@ -1,9 +1,11 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {AppComponent} from './app.component';
-import {ModalModule} from 'ngx-bootstrap/modal';
-import {HttpClientModule} from "@angular/common/http";
+import {ItemListModule} from "../lib/pages/ItemList/itemList.module";
 import {AppRoutingModule} from "./app-routing.module";
+import {HttpClientModule} from "@angular/common/http";
+import { ModalModule } from 'ngx-bootstrap/modal';
+
 
 
 @NgModule({
@@ -11,7 +13,7 @@ import {AppRoutingModule} from "./app-routing.module";
     AppComponent
   ],
   imports: [
-    BrowserModule, ModalModule.forRoot(), HttpClientModule, AppRoutingModule
+    BrowserModule, ItemListModule, AppRoutingModule, HttpClientModule, ModalModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

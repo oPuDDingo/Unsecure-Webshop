@@ -6,6 +6,12 @@ import {ModalModule} from "ngx-bootstrap/modal";
 import {UserSettingsComponent} from "./userSettings.component";
 import {AlertModule} from "ngx-bootstrap/alert";
 import {AddressListModule} from "../../shared/addresses/addressList.module";
+import {RouterModule, Routes} from "@angular/router";
+import {BoardComponent} from "../board/board.component";
+
+const routes: Routes = [
+  {path: '', component: BoardComponent}
+]
 
 @NgModule({
   declarations: [UserSettingsComponent],
@@ -14,7 +20,8 @@ import {AddressListModule} from "../../shared/addresses/addressList.module";
     FormsModule,
     ModalModule.forRoot(),
     AlertModule.forRoot(),
-    AddressListModule
+    AddressListModule,
+    RouterModule.forChild(routes)
   ],
   providers: [],
   bootstrap: [],

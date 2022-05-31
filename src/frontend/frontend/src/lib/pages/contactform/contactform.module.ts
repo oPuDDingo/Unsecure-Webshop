@@ -2,6 +2,12 @@ import {ContactformComponent} from "./contactform.component.";
 import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
+import {RouterModule, Routes} from "@angular/router";
+import {BoardComponent} from "../board/board.component";
+
+const routes: Routes = [
+  {path: '', component: BoardComponent}
+]
 
 @NgModule({
   declarations: [
@@ -9,7 +15,8 @@ import {FormsModule} from "@angular/forms";
   ],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    RouterModule.forChild(routes)
   ],
   providers: [],
   bootstrap: [],

@@ -7,6 +7,12 @@ import {SpecifiedItemListComponent} from "./specifiedItemList.component";
 import {DeleteButtonComponent} from "../deleteButton/deleteButton.component";
 import {FormsModule} from "@angular/forms";
 import {ColorCircleModule} from "../colorCircle/colorCircle.module";
+import {RouterModule, Routes} from "@angular/router";
+import {BoardComponent} from "../../pages/board/board.component";
+
+const routes: Routes = [
+  {path: '', component: BoardComponent}
+]
 
 @NgModule({
   declarations: [
@@ -16,7 +22,8 @@ import {ColorCircleModule} from "../colorCircle/colorCircle.module";
     BrowserModule,
     AccordionModule.forRoot(),
     FormsModule,
-    ColorCircleModule
+    ColorCircleModule,
+    RouterModule.forChild(routes)
   ],
   providers: [],
   bootstrap: [],

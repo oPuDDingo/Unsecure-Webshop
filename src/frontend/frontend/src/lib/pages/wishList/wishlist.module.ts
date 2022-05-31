@@ -5,6 +5,12 @@ import {AccordionModule} from 'ngx-bootstrap/accordion';
 import {WishlistComponent} from "./wishlist.component";
 import {SpecifiedItemListModule} from "../../shared/specifiedItemList/specifiedItemList.module";
 import {ColorCircleModule} from "../../shared/colorCircle/colorCircle.module";
+import {RouterModule, Routes} from "@angular/router";
+import {BoardComponent} from "../board/board.component";
+
+const routes: Routes = [
+  {path: '', component: BoardComponent}
+]
 
 @NgModule({
   declarations: [
@@ -14,7 +20,8 @@ import {ColorCircleModule} from "../../shared/colorCircle/colorCircle.module";
     BrowserModule,
     AccordionModule.forRoot(),
     SpecifiedItemListModule,
-    ColorCircleModule
+    ColorCircleModule,
+    RouterModule.forChild(routes)
   ],
   providers: [],
   bootstrap: [],
