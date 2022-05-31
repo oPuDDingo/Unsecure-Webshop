@@ -18,6 +18,10 @@ export class BoardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.articleStore.loadArticlesFrontpage().subscribe(articles => this.articles = articles);
+    console.log("test");
+    this.articleStore.loadArticlesFrontpage().subscribe(articles => {
+      this.articles = articles;
+      console.log(articles);
+    });
   }
 }

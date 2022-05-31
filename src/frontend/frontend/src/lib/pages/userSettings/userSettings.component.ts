@@ -38,16 +38,11 @@ export class UserSettingsComponent implements OnInit {
     });
   }
 
-  printTest(): void {
-    console.log(this.user.lastName);
-  }
-
   getUserName(): string {
     return this.user.firstName + " " + this.user.lastName;
   }
 
   getProfileImage(): string {
-    console.log(this.user.profilePicture);
     return `data:image/jpeg;base64,` + this.user.profilePicture;
   }
 

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from "@angular/core";
-import {Article} from "../../../data-access/models/article";
+import {Article} from "../../../data-access/models";
 import {ImageStore} from "../../../data-access/service/store/image.store";
 import {DomSanitizer} from "@angular/platform-browser";
 

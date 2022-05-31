@@ -17,7 +17,7 @@ export class ImageStore {
     let image = this.images.get(id);
     if (image == undefined) {
       this.backendService.getImageById(id).subscribe(imageString => {
-        let base64Str: string = `data:image/jpeg;base64,` + imageString;
+        let base64Str: string = imageString;
         this.images.set(id, base64Str);
         imageSubject.next(base64Str);
       })

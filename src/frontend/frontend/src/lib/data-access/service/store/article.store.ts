@@ -9,7 +9,7 @@ import {Article} from "../../models/article";
 
 export class ArticleStore {
   // @ts-ignore
-  articles: Article[];
+  articles: Article[] = [];
   articleSubject: ReplaySubject<Article[]> = new ReplaySubject<Article[]>(1);
   articleSubjectFrontpage: ReplaySubject<Article[]> = new ReplaySubject<Article[]>(1);
 
@@ -17,7 +17,6 @@ export class ArticleStore {
   }
 
   loadArticles(): ReplaySubject<Article[]> {
-
     if (!this.articles) {
       this.backendService.getArtricles().subscribe(articles => {
         this.articles = articles;
@@ -33,11 +32,14 @@ export class ArticleStore {
   }
 
   loadArticlesFrontpage(): ReplaySubject<Article[]> {
-    if (this.articles) {
+    if (!this.articles) {
       this.backendService.getArticlesFrontpage().subscribe(articles => {
+        console.log(articles);
         this.articles = articles;
         this.articleSubjectFrontpage.next(articles);
       })
+    } else {
+      this.articleSubjectFrontpage.next(this.articles);
     }
     return this.articleSubjectFrontpage;
   }
@@ -47,7 +49,6 @@ export class ArticleStore {
     let index: number = this.articles.findIndex(a => a.articleNumber === id);
     if (index === -1) {
       this.backendService.getArticleById(id).subscribe(article => {
-        this.articles.push(article);
         articleSubject.next(article);
       })
     } else {

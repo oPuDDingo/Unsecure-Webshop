@@ -27,7 +27,6 @@ export class OrderHeaderComponent implements OnInit {
       this.itemList.forEach(item => {
         if (item.pictureId) {
           this.imageStore.loadImageById(item.pictureId).subscribe(image => {
-            console.log(image);
             if (item.pictureId) {
               this.images.set(item.pictureId, image);
             }
