@@ -12,6 +12,7 @@ import {FooterModule} from "../lib/modules/footer/footer.module";
 import {NachhaltigModule} from "../lib/modules/nachhaltig/nachhaltig.module";
 import {HttpClientModule} from "@angular/common/http";
 import {AppRoutingModule} from "./app-routing.module";
+import { AlertModule } from 'ngx-bootstrap/alert';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import {AppRoutingModule} from "./app-routing.module";
     FooterModule,
     NachhaltigModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AlertModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
