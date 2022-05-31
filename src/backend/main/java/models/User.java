@@ -14,19 +14,6 @@ public class User {
 
 	public User(){}
 
-	public User(int id, String mail, String firstName, String lastName, boolean newsletter, String salutation, String title, String profilePicture, String description, String password ){
-		this.id=id;
-		this.mail=mail;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.newsletter=newsletter;
-		this.salutation=salutation;
-		this.title=title;
-		this.profilePicture=profilePicture;
-		this.description=description;
-		this.password=password;
-	}
-
 	public User(int id, String mail, String firstName, String lastName, boolean newsletter, String salutation, String title, String profilePicture, String description ){
 		this.id=id;
 		this.mail=mail;
@@ -39,21 +26,21 @@ public class User {
 		this.description=description;
 	}
 
-	public User(int id, String firstName, String lastName, String title, String profilePicture, String description ){
+	public User(int id, String mail, String firstName, String lastName, boolean newsletter, String salutation, String title, String profilePicture, String description, String password){
 		this.id=id;
+		this.mail=mail;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.newsletter=newsletter;
+		this.salutation=salutation;
 		this.title=title;
 		this.profilePicture=profilePicture;
 		this.description=description;
+		this.password=password;
 	}
 
-	public static User getExampleUser() {
-		return new User(1, "mail@mail.com", "Max", "Mustermann", true, "Hi, my name is Max", "Dr.", "this is my picture in bit64", "description" );
-	}
-
-	public static User getExampleElseUser() {
-		return new User(1, "Max", "Mustermann", "Dr.", "this is my picture in 64 bits", "description" );
+	public static User getRandomUser() {
+		return new User(1, "mail@mail.com", "Max", "Mustermann", true, "Hi, my name is Max", "Dr.", "/picture", "description" );
 	}
 
 	public int getId() {

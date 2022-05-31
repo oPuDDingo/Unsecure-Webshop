@@ -1,9 +1,8 @@
 package backend.main.java.models;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class Order {	//erledigt
+public class Order {
 
 	private int orderNumber;
 	private List<ArticleVersion> specifiedItems;
@@ -16,7 +15,7 @@ public class Order {	//erledigt
 	public Order(){}
 
 	public Order(int orderNumber, List<ArticleVersion> specifiedItems, Coupon coupon, Address address, Payment payment,
-		String date, double amount)
+				 String date, double amount)
 	{
 		this.orderNumber = orderNumber;
 		this.specifiedItems = specifiedItems;
@@ -25,16 +24,6 @@ public class Order {	//erledigt
 		this.payment = payment;
 		this.date = date;
 		this.amount = amount;
-	}
-
-	public static Order getExampleOrder(int number) {
-		List<ArticleVersion> articles = new ArrayList<>();
-		for (int i = 0; i < 3; i++)
-		{
-			articles.add(ArticleVersion.getRandomArticleVersion());
-		}
-
-		return new Order(number, articles, Coupon.getExampleCoupon(), Address.getExampleAddress(), Payment.getExamplePayment(), "2018", 1);
 	}
 
 	public int getOrderNumber() {
