@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {ArticleStore} from "../../data-access/service/store/article.store";
 import {Article} from "../../data-access/models";
 
@@ -12,16 +12,14 @@ import {Article} from "../../data-access/models";
 export class BoardComponent implements OnInit {
 
   // @ts-ignore
-  @Input() articles: Article[];
+  articles: Article[];
 
   constructor(private articleStore: ArticleStore) {
   }
 
   ngOnInit() {
-    console.log("test");
     this.articleStore.loadArticlesFrontpage().subscribe(articles => {
       this.articles = articles;
-      console.log(articles);
     });
   }
 }

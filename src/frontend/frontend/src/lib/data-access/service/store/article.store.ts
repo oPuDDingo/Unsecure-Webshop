@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {BackendService} from "../backend.service";
 import {ReplaySubject} from "rxjs";
-import {Article} from "../../models/article";
+import {Article} from "../../models";
 
 @Injectable({
   providedIn: 'root'
