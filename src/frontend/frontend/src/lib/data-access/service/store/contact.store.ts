@@ -1,7 +1,7 @@
 import {Contact} from "../../models";
-import {ReplaySubject} from "rxjs";
 import {BackendService} from "../backend.service";
 import {Injectable} from "@angular/core";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -10,16 +10,13 @@ import {Injectable} from "@angular/core";
 export class ContactStore {
   // @ts-ignore
   contact: Contact;
-  contactSubject: ReplaySubject<Contact> = new ReplaySubject<Contact>(1);
 
-  constructor(private backendService: BackendService) {
+  constructor(private backendService: BackendService, private router: Router) {
   }
 
   createContact(contact: Contact): void {
-    this.contact = contact;
-    this.contactSubject.next(this.contact);
-    let contactPayload: any = {...contact}
-    this.backendService.postContact(contactPayload).subscribe();
+    this.router.navigateByUrl('/index');
+    this.backendService.postContact(contact).subscribe();
   }
 
 }

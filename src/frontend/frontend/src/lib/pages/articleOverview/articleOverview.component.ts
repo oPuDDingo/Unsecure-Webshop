@@ -1,8 +1,9 @@
 import {Component, OnInit} from "@angular/core";
 import {ArticleStore} from "../../data-access/service/store/article.store";
-import {SpecifiedItem} from "../../data-access/models/specifiedItem";
-import {ActivatedRoute} from "@angular/router";
-import {Article} from "../../data-access/models/article";
+import {Article, SpecifiedItem} from "../../data-access/models";
+import {ActivatedRoute, Router} from "@angular/router";
+import {ShoppingCartStore} from "../../data-access/service/store/shoppingCart.store";
+import {WishlistStore} from "../../data-access/service/store/wishlist.store";
 
 @Component({
   selector: 'article-overview',
@@ -16,7 +17,7 @@ export class ArticleOverviewComponent implements OnInit {
   // @ts-ignore
   specifiedItem: SpecifiedItem;
 
-  constructor(private articleStore: ArticleStore, private route: ActivatedRoute) {
+  constructor(private articleStore: ArticleStore, private route: ActivatedRoute, private routing: Router, private cartStore: ShoppingCartStore, private wishListStore: WishlistStore) {
   }
 
   ngOnInit() {
@@ -40,15 +41,13 @@ export class ArticleOverviewComponent implements OnInit {
   }
 
   onAddToShoppingCart(): void {
-    //toDo: add to cart Service
-    //toDo: redirect to /shoppingCart
-    // this.router.navigate(['/shoppingCart']);
+    this.cartStore.addItem(this.specifiedItem).subscribe();
+    this.routing.navigateByUrl('/cart');
   }
 
   onAddToWishList(): void {
-    //toDo: add to wish list Service
-    //toDo: redirect to /wishList
-    // this.router.navigate(['/wishList']);
+    this.wishListStore.addItem(this.specifiedItem).subscribe();
+    this.routing.navigateByUrl('/wishlist');
   }
 
 }

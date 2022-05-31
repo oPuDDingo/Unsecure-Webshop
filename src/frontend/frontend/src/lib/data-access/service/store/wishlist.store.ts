@@ -7,8 +7,7 @@ import {SpecifiedItem} from "../../models";
   providedIn: 'root'
 })
 export class WishlistStore {
-  // @ts-ignore
-  specifiedItems: SpecifiedItem[];
+  specifiedItems: SpecifiedItem[] = [];
   wishListSubject: ReplaySubject<SpecifiedItem[]> = new ReplaySubject<SpecifiedItem[]>(1);
 
   constructor(private backendService: BackendService) {
@@ -16,7 +15,7 @@ export class WishlistStore {
   }
 
   loadWishList(): ReplaySubject<SpecifiedItem[]> {
-    if (this.specifiedItems == undefined) {
+    if (this.specifiedItems.length == 0) {
       this.backendService.loadWishList().subscribe(specifiedItems => {
         this.specifiedItems = specifiedItems;
         this.wishListSubject.next(this.specifiedItems);
@@ -45,7 +44,7 @@ export class WishlistStore {
   addItem(item: SpecifiedItem): ReplaySubject<SpecifiedItem[]> {
     this.specifiedItems.push(item);
     this.wishListSubject.next(this.specifiedItems);
-    this.backendService.updateWishList(this.specifiedItems).subscribe();
+    this.backendService.addItemToWishList(item).subscribe();
     return this.wishListSubject;
   }
 
