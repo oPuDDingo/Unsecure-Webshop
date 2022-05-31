@@ -108,9 +108,13 @@ export class BackendService {
     return this.httpClient.get<SpecifiedItem[]>(this.url + 'wishlist/items')
   }
 
-  updateWishList(specifiedItems: SpecifiedItem[]): Observable<SpecifiedItem[]> {
-    let itemsPayload = {items: specifiedItems};
-    return this.httpClient.put<SpecifiedItem[]>(this.url + 'wishlist/items', itemsPayload)
+  // updateWishList(specifiedItems: SpecifiedItem[]): Observable<SpecifiedItem[]> {
+  //   let itemsPayload = {items: specifiedItems};
+  //   return this.httpClient.put<SpecifiedItem[]>(this.url + 'wishlist/items', itemsPayload)
+  // }
+
+  addItemToWishList(item: SpecifiedItem): Observable<any> {
+    return this.httpClient.post<any>(this.url + 'wishlist/items', {...item});
   }
 
   updateWishListItem(item: SpecifiedItem): Observable<SpecifiedItem> {
@@ -137,11 +141,9 @@ export class BackendService {
   }
 
   updateUser(userPayload: JsonObject): Observable<any> {
-    console.log(userPayload);
     return this.httpClient.put(this.url + 'user', userPayload, {observe: "response"})
       .pipe(
         tap(resp => {
-          console.log(resp);
           if (resp.status == 400) {
             throw new Error('Bad request!')
           } else {
