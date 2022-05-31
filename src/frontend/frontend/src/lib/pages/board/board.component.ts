@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from "@angular/core";
-import {Article} from "../../data-access/models/article";
-import {ArticleStore} from "../../data-access/service/article.store";
+import {ArticleStore} from "../../data-access/service/store/article.store";
+import {Article} from "../../data-access/models";
+
 
 @Component({
   selector: 'board',

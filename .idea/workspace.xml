@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e5c73af0-3f66-469e-b560-2e2dc5946d9c" name="Changes" comment="fix bugs" />
+    <list default="true" id="e5c73af0-3f66-469e-b560-2e2dc5946d9c" name="Changes" comment="modules directory split in other directorys">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backend/main/java/Start.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/main/java/Start.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/frontend/src/lib/pages/board/board.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/frontend/src/lib/pages/board/board.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/frontend/src/lib/pages/board/board.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/frontend/src/lib/pages/board/board.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/frontend/src/lib/pages/board/frontItem/frontItem.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/frontend/src/lib/pages/board/frontItem/frontItem.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/frontend/src/lib/pages/board/frontItemGroup/frontItemGroup.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/frontend/src/lib/pages/board/frontItemGroup/frontItemGroup.component.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/frontend/src/lib/pages/board/frontItemGroup/frontItemGroup.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/frontend/src/lib/ui/footer/footer.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/frontend/src/lib/ui/footer/footer.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/frontend/src/lib/ui/navbar/navbar.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/frontend/src/lib/ui/navbar/navbar.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/frontend/src/lib/ui/navbarItems/navbarItems.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/frontend/src/lib/ui/navbarItems/navbarItems.component.scss" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -38,25 +50,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;code.cleanup.on.save&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/PuDDing/WebstormProjects/unsicherer-web-shop-fuer-die-lehre/src/frontend/frontend/src/lib/data-access/models&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;SCSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;rearrange.code.on.save&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.general&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\PuDDing\\AppData\\Local\\JetBrains\\Toolbox\\apps\\WebStorm\\ch-0\\221.5080.193\\plugins\\JavaScriptLanguage\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "code.cleanup.on.save": "true",
+    "last_opened_file_path": "C:/Users/PuDDing/WebstormProjects/unsicherer-web-shop-fuer-die-lehre/src/frontend/frontend/src/lib/data-access/models",
+    "list.type.of.created.stylesheet": "SCSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "rearrange.code.on.save": "true",
+    "settings.editor.selected.configurable": "preferences.general",
+    "ts.external.directory.path": "C:\\Users\\PuDDing\\WebstormProjects\\unsicherer-web-shop-fuer-die-lehre\\src\\frontend\\frontend\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\PuDDing\WebstormProjects\unsicherer-web-shop-fuer-die-lehre\src\frontend\frontend\src\lib\data-access\models" />
@@ -65,6 +76,8 @@
       <recent name="C:\Users\PuDDing\WebstormProjects\unsicherer-web-shop-fuer-die-lehre\src\frontend\frontend\src\assets\icons" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\PuDDing\WebstormProjects\unsicherer-web-shop-fuer-die-lehre\src\frontend\frontend\src\lib\pages" />
+      <recent name="C:\Users\PuDDing\WebstormProjects\unsicherer-web-shop-fuer-die-lehre\src\frontend\frontend\src\lib\ui" />
       <recent name="C:\Users\PuDDing\WebstormProjects\unsicherer-web-shop-fuer-die-lehre\src\frontend\frontend\src\lib\modules\board" />
       <recent name="C:\Users\PuDDing\WebstormProjects\unsicherer-web-shop-fuer-die-lehre\src\frontend\frontend\src\assets\icons" />
       <recent name="C:\Users\PuDDing\WebstormProjects\unsicherer-web-shop-fuer-die-lehre\src\frontend\frontend\src\assets\fonts" />
@@ -123,7 +136,7 @@
       <workItem from="1653995950973" duration="6973000" />
       <workItem from="1654003576128" duration="3421000" />
       <workItem from="1654007705140" duration="611000" />
-      <workItem from="1654008326249" duration="678000" />
+      <workItem from="1654008326249" duration="2038000" />
     </task>
     <task id="LOCAL-00001" summary="first idea">
       <created>1651087612819</created>
@@ -244,7 +257,14 @@
       <option name="project" value="LOCAL" />
       <updated>1654006494303</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="modules directory split in other directorys">
+      <created>1654010889363</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1654010889363</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -292,6 +312,7 @@
     <MESSAGE value="register, login, and models" />
     <MESSAGE value="try irgendwas but dont work" />
     <MESSAGE value="fix bugs" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix bugs" />
+    <MESSAGE value="modules directory split in other directorys" />
+    <option name="LAST_COMMIT_MESSAGE" value="modules directory split in other directorys" />
   </component>
 </project>
