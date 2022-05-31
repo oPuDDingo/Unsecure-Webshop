@@ -2,36 +2,19 @@ import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './app.component';
-import {AccordionModule} from 'ngx-bootstrap/accordion';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {RouterModule} from "@angular/router";
-import {BoardModule} from "../lib/modules/board/board.module";
-import {NavbarModule} from "../lib/modules/navbar/navbar.module";
-import {NavbarItemsModule} from "../lib/modules/navbarItems/navbarItems.module";
-import {FooterModule} from "../lib/modules/footer/footer.module";
-import {NachhaltigModule} from "../lib/modules/nachhaltig/nachhaltig.module";
+import {OrderListModule} from "../lib/pages/orderList/orderList.module";
 import {HttpClientModule} from "@angular/common/http";
-import {AppRoutingModule} from "./app-routing.module";
-import { AlertModule } from 'ngx-bootstrap/alert';
-
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
-    AccordionModule.forRoot(),
     BrowserAnimationsModule,
-    RouterModule,
-    BoardModule,
-    NavbarModule,
-    NavbarItemsModule,
-    FooterModule,
-    NachhaltigModule,
-    HttpClientModule,
-    AppRoutingModule,
-    AlertModule.forRoot()
+    OrderListModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
