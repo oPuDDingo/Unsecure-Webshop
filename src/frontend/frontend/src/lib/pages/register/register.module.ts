@@ -3,13 +3,20 @@ import {RegisterComponent} from "./register.component";
 import {FormsModule} from "@angular/forms";
 import {AlertModule} from "ngx-bootstrap/alert";
 import {CommonModule} from "@angular/common";
+import {RouterModule, Routes} from "@angular/router";
+
+const routes: Routes = [
+  {path: '', component: RegisterComponent}
+]
+
 
 @NgModule({
   declarations: [RegisterComponent],
   imports: [
     FormsModule,
     AlertModule,
-    CommonModule
+    CommonModule,
+    RouterModule.forChild(routes)
   ],
   providers: [],
   bootstrap: [],

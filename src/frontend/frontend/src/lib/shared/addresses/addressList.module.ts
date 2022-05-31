@@ -1,17 +1,19 @@
 import {NgModule} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
 
 import {FormsModule} from "@angular/forms";
 import {AddressListComponent} from "./addressList.component";
 import {ModalModule} from "ngx-bootstrap/modal";
 import {AddressComponent} from "./address/address.component";
+import {RouterModule, Routes} from "@angular/router";
+import {CommonModule} from "@angular/common";
+
 
 @NgModule({
   declarations: [AddressListComponent, AddressComponent],
   imports: [
-    BrowserModule,
+    CommonModule,
     FormsModule,
-    ModalModule.forRoot(),
+    ModalModule.forRoot()
   ],
   providers: [],
   bootstrap: [],

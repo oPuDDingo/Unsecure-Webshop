@@ -1,8 +1,6 @@
 import {NgModule} from "@angular/core";
 import {OrderListComponent} from "./orderList.component";
-import {BrowserModule} from "@angular/platform-browser";
 import {AccordionModule} from "ngx-bootstrap/accordion";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {OrderHeaderComponent} from "./orderHeader/orderHeader.component";
 import {OrderBodyComponent} from "./orderBody/orderBody.component";
 import {RouterModule, Routes} from "@angular/router";
@@ -17,9 +15,7 @@ const routes: Routes = [
     OrderListComponent, OrderHeaderComponent, OrderBodyComponent
   ],
   imports: [
-    BrowserModule,
     AccordionModule.forRoot(),
-    BrowserAnimationsModule,
     RouterModule.forChild(routes),
     CommonModule
   ],

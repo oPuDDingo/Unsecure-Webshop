@@ -1,5 +1,4 @@
 import {NgModule} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
 
 import {AccordionModule} from 'ngx-bootstrap/accordion';
 import {SpecifiedItemComponent} from "./specifiedItem/specifiedItem.component";
@@ -7,13 +6,16 @@ import {SpecifiedItemListComponent} from "./specifiedItemList.component";
 import {DeleteButtonComponent} from "../deleteButton/deleteButton.component";
 import {FormsModule} from "@angular/forms";
 import {ColorCircleModule} from "../colorCircle/colorCircle.module";
+import {RouterModule, Routes} from "@angular/router";
+import {CommonModule} from "@angular/common";
+
 
 @NgModule({
   declarations: [
     SpecifiedItemComponent, SpecifiedItemListComponent, DeleteButtonComponent
   ],
   imports: [
-    BrowserModule,
+    CommonModule,
     AccordionModule.forRoot(),
     FormsModule,
     ColorCircleModule

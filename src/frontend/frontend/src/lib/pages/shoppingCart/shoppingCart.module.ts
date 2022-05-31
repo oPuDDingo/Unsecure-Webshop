@@ -1,18 +1,23 @@
 import {NgModule} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
 
 import {AccordionModule} from 'ngx-bootstrap/accordion';
 import {ShoppingCartComponent} from "./shoppingCart.component";
 import {SpecifiedItemListModule} from "../../shared/specifiedItemList/specifiedItemList.module";
+import {RouterModule, Routes} from "@angular/router";
+
+
+const routes: Routes = [
+  {path: '', component: ShoppingCartComponent}
+]
 
 @NgModule({
   declarations: [
     ShoppingCartComponent
   ],
   imports: [
-    BrowserModule,
     AccordionModule.forRoot(),
-    SpecifiedItemListModule
+    SpecifiedItemListModule,
+    RouterModule.forChild(routes)
   ],
   providers: [],
   bootstrap: [],
