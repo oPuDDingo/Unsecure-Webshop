@@ -208,7 +208,7 @@ public class DataAccessShopDatabase {
         Statement stmt = null;
         try {
             stmt = con.createStatement();
-            String sql = "DELETE FROM wish_list_article_version WHERE wish_list_id=" + userId + ";";
+            String sql = "DELETE FROM wish_list WHERE wish_list_id=" + userId + ";";
             stmt.execute(sql);
             stmt.close();
             con.close();
@@ -222,7 +222,7 @@ public class DataAccessShopDatabase {
         Statement stmt = null;
         try {
             stmt = con.createStatement();
-            String sql = "DELETE FROM wish_list_article_version WHERE ID=" + wishListItemId + ";";
+            String sql = "DELETE FROM wish_list WHERE ID=" + wishListItemId + ";";
             stmt.execute(sql);
             stmt.close();
             con.close();
