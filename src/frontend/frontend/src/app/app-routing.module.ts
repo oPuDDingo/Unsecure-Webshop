@@ -11,6 +11,7 @@ const routes: Routes = [
     path: 'articles/:id',
     loadChildren: () => import('../lib/pages/articleOverview/articleOverview.module').then(m => m.ArticleOverviewModule)
   },
+
   {path: 'articles', loadChildren: () => import('../lib/pages/ItemList/itemList.module').then(m => m.ItemListModule)},
   {
     path: 'contact',
@@ -31,6 +32,7 @@ const routes: Routes = [
   },
   {path: 'wishlist', loadChildren: () => import('../lib/pages/wishList/wishlist.module').then(m => m.WishlistModule)},
   {path: 'login', loadChildren: () => import('../lib/pages/login/login.module').then(m => m.LoginModule)},
+  {path: 'register', loadChildren: () => import('../lib/pages/register/register.module').then(m => m.RegisterModule)},
   {path: '', redirectTo: 'index', pathMatch: 'full'},
   {path: '**', redirectTo: 'index'},
 ];

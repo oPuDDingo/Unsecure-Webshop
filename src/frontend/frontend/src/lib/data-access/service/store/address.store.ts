@@ -9,7 +9,7 @@ import {ReplaySubject} from "rxjs";
 export class AddressStore {
 
   // @ts-ignore
-  addresses: Address[];
+  addresses: Address[] = [];
   addressesSubject: ReplaySubject<Address[]> = new ReplaySubject<Address[]>(1);
 
   constructor(private backendService: BackendService) {
@@ -33,7 +33,7 @@ export class AddressStore {
   }
 
   loadAllAddresses(): ReplaySubject<Address[]> {
-    if (!this.addresses) {
+    if (this.addresses.length == 0) {
       this.backendService.loadAllAddresses().subscribe(addresses => {
         this.addresses = addresses;
         this.addressesSubject.next(this.addresses);
