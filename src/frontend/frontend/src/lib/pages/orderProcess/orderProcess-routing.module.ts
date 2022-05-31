@@ -5,7 +5,7 @@ import {OrderProcessComponent} from "./orderProcess.component";
 
 const routes: Routes = [
   {
-    path: '', component: OrderProcessComponent, children: []
+    path: '', component: OrderProcessComponent
   },
   {}
 ];

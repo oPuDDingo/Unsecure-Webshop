@@ -27,8 +27,8 @@ const routes: Routes = [
     loadChildren: () => import('../lib/pages/userSettings/userSettings.module').then(m => m.UserSettingsModule)
   },
   {path: 'wishlist', loadChildren: () => import('../lib/pages/wishList/wishlist.module').then(m => m.WishlistModule)},
-  {path: '', redirectTo: 'articles', pathMatch: 'full'},
-  {path: '**', redirectTo: 'articles'},
+  {path: '', redirectTo: 'index', pathMatch: 'full'},
+  {path: '**', redirectTo: 'index'},
 ];
 
 @NgModule({
