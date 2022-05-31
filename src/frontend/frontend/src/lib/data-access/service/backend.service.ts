@@ -12,6 +12,14 @@ export class BackendService {
 
   constructor( private httpClient: HttpClient ) { }
 
+  getArtricles(): Observable<Article[]> {
+    return this.httpClient.get<Article[]>(this.url + 'articles?page=8');
+  }
+
+  getArticlesByBrand(brand: string): Observable<Article[]> {
+    return this.httpClient.get<Article[]>(this.url + 'articles?brand=' + brand + '&page=8');
+  }
+
   getArticleById(articleNumber: number): Observable<Article> {
     return this.httpClient.get<Article>(this.url + 'articles/' + articleNumber);
   }

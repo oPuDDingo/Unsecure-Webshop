@@ -1,28 +1,64 @@
-import {Article} from "../../models/article";
+import {Injectable} from "@angular/core";
 import {BackendService} from "../backend.service";
 import {ReplaySubject} from "rxjs";
-import {Injectable} from "@angular/core";
+import {Article} from "../../models";
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class ArticleStore {
-  articles: Article[] = [];
+  // @ts-ignore
+  articles: Article[];
+  articleSubject: ReplaySubject<Article[]> = new ReplaySubject<Article[]>(1);
 
   constructor(private backendService: BackendService) {
   }
 
-  loadArticleById(articleNumber: number): ReplaySubject<Article> {
+  loadArticles(): ReplaySubject<Article[]> {
+
+    if (!this.articles) {
+      this.backendService.getArtricles().subscribe(articles => {
+        this.articles = articles;
+        this.articleSubject.next(articles);
+      });
+
+    } else {
+      this.articleSubject.next(this.articles);
+    }
+
+    return this.articleSubject;
+
+  }
+
+  loadArticleById(id: number): ReplaySubject<Article> {
     const articleSubject: ReplaySubject<Article> = new ReplaySubject<Article>(1);
-    let index = this.articles.findIndex(article => article.articleNumber === articleNumber);
-    if (index == -1) {
-      this.backendService.getArticleById(articleNumber).subscribe(article => {
+    let index: number = this.articles.findIndex(a => a.articleNumber === id);
+    if (index === -1) {
+      this.backendService.getArticleById(id).subscribe(article => {
         this.articles.push(article);
         articleSubject.next(article);
-      });
+      })
     } else {
       articleSubject.next(this.articles[index]);
     }
     return articleSubject;
   }
+
+  loadArticlesByBrand(brand: string): ReplaySubject<Article[]> {
+    if (!this.articles) {
+      this.backendService.getArticlesByBrand(brand).subscribe(articles => {
+        this.articles = articles;
+        this.articleSubject.next(articles);
+      });
+
+    } else {
+      this.articleSubject.next(this.articles);
+    }
+
+    return this.articleSubject;
+
+  }
+
+
 }
