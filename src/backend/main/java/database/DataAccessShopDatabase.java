@@ -537,9 +537,11 @@ public class DataAccessShopDatabase {
         }
         try {
             stmt = con.createStatement();
-            String sql = "SELECT password FROM user WHERE e_mail="+email+";";
+            String sql = "SELECT password FROM user WHERE e_mail='"+email+"';";
             ResultSet rs = stmt.executeQuery(sql);
-            rightPassword = rs.getString("password");
+            if(rs.next()){
+                rightPassword = rs.getString("password");
+            }
             stmt.close();
             con.close();
         } catch (SQLException e) {
