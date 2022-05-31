@@ -12,7 +12,7 @@
     <label class="form-label" for="sel1">Menge:</label>
   </div>
 
-  <button class="btn btn-primary" type="button">In den Einkaufswagen</button>
+  <button (click)="onAddToShoppingCart()" class="btn btn-primary" type="button">In den Einkaufswagen</button>
 
   <div *ngIf="article.stars" class="d-flex justify-content-between align-items-center ps-4 pe-4">
     <img *ngFor="let item of [].constructor(article.stars)" alt="star"
@@ -29,6 +29,6 @@
     </span>
   </div>
 
-  <button class="btn btn-primary" type="button">Auf die Wunschliste</button>
+  <button (click)="onAddToWishList()" class="btn btn-primary" type="button">Auf die Wunschliste</button>
 
 </div>

@@ -10,7 +10,6 @@ import {ArticleStore} from "../../data-access/service/store/article.store";
 export class ItemListComponent implements OnInit {
 
   //@Input articleNumber: number;
-  // @ts-ignore
   articles: Article[] = [];
 
 
@@ -18,8 +17,9 @@ export class ItemListComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('init ')
-    this.articleStore.loadArticles().subscribe(articles => this.articles = articles);
+    this.articleStore.loadArticles().subscribe(articles => {
+      this.articles = articles;
+    });
   }
 
   selectBrand(brand: string) {

@@ -5,20 +5,22 @@ import {OrderHeaderComponent} from "./orderHeader/orderHeader.component";
 import {OrderBodyComponent} from "./orderBody/orderBody.component";
 import {RouterModule, Routes} from "@angular/router";
 import {CommonModule} from "@angular/common";
+import {AlertModule} from "ngx-bootstrap/alert";
 
 const routes: Routes = [
-  {path: 'orderList', component: OrderListComponent}
+  {path: '', component: OrderListComponent}
 ]
 
 @NgModule({
   declarations: [
     OrderListComponent, OrderHeaderComponent, OrderBodyComponent
   ],
-  imports: [
-    AccordionModule.forRoot(),
-    RouterModule.forChild(routes),
-    CommonModule
-  ],
+    imports: [
+        AccordionModule.forRoot(),
+        RouterModule.forChild(routes),
+        CommonModule,
+        AlertModule
+    ],
   providers: [],
   exports: [OrderListComponent]
 })

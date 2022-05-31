@@ -14,8 +14,13 @@
     </button>
   </div>
 </div>
-<specified-item-list
-  (onDeleteEvent)="onItemDelete($event)"
-  (onQuantityChangeEvent)="onItemChange($event)"
-  [itemList]="itemList">
-</specified-item-list>
+<div *ngIf="itemList.length != 0; else emptyWishlist">
+  <specified-item-list
+    (onDeleteEvent)="onItemDelete($event)"
+    (onQuantityChangeEvent)="onItemChange($event)"
+    [itemList]="itemList">
+  </specified-item-list>
+</div>
+<ng-template #emptyWishlist>
+  <alert type="warning">Die Wunschliste scheint leer zu sein!</alert>
+</ng-template>
