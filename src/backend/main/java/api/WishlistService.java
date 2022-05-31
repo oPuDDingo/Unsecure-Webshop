@@ -1,5 +1,6 @@
 package backend.main.java.api;
 
+import backend.main.java.DataHandler;
 import backend.main.java.models.ArticleVersion;
 
 import javax.ws.rs.*;
@@ -7,46 +8,41 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Path("wishlist") public class WishlistService
 {
-	@GET @Path("items") public Response getWishlist() {
-		List<ArticleVersion> articles = new ArrayList<>();
-		for (int i = 0; i < 3; i++)
-		{
-			articles.add(ArticleVersion.getRandomArticleVersion());
-		}
+	@GET @Path("items") public Response getWishlist(@CookieParam("sessionID") final String session)
+	{
+		List<ArticleVersion> articles = DataHandler.getWishlist(session);
 		return Response.ok(articles).build();
 	}
 
 	@POST @Consumes(MediaType.APPLICATION_JSON) @Path("items") public Response createWishlistItem(
-		final ArticleVersion articleVersion
-	) throws URISyntaxException
+		final ArticleVersion articleVersion, @CookieParam("sessionID") final String session) throws URISyntaxException
 	{
-		// create article in database
+		DataHandler.createWishlistItem(articleVersion, session);
 		return Response.created(new URI("placeholder-article-number")).build();
 	}
 
 	@PUT @Consumes(MediaType.APPLICATION_JSON) @Path("items/{id}") public Response modifyWishlistItem(
-		@PathParam("id") final int id,
-		final ArticleVersion articleVersion
-	)
+		@PathParam("id") final int id, final ArticleVersion articleVersion,
+		@CookieParam("sessionID") final String session)
 	{
-		// modify article in database
+		DataHandler.modifyWhishlistItem(articleVersion, session, id);
 		return Response.ok(articleVersion).build();
 	}
 
-	@Path("items") @DELETE public Response deleteAllItems() {
-		// delete all items
+	@Path("items") @DELETE public Response deleteAllItems(@CookieParam("sessionID") final String session)
+	{
+		DataHandler.deleteWishlist(session);
 		return Response.noContent().build();
 	}
 
-	@DELETE @Path("items/{id}") public Response deleteWishlistItem(
-		@PathParam("id") final int id
-	) {
-		// get specific item and delete it
+	@DELETE @Path("items/{id}") public Response deleteWishlistItem(@PathParam("id") final int id,
+		@CookieParam("sessionID") final String session)
+	{
+		DataHandler.deleteWishlistItem(id);
 		return Response.noContent().build();
 	}
 }
