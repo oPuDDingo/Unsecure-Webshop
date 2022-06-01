@@ -236,7 +236,7 @@ public class DataAccessShopDatabase {
         Statement stmt = null;
         try {
             stmt = con.createStatement();
-            String sql = "DELETE FROM shopping_cart_article_version WHERE ID=" + shoppingCartItemId + ";";
+            String sql = "DELETE FROM shopping_cart WHERE ID=" + shoppingCartItemId + ";";
             stmt.execute(sql);
             stmt.close();
             con.close();
@@ -339,7 +339,7 @@ public class DataAccessShopDatabase {
         int articleVersionId = this.findArticleVersionId(articleVersion.getArticleNumber(), articleVersion.getGbSize(), articleVersion.getColor());
         try {
             stmt = con.createStatement();
-            String sql = "UPDATE shopping_cart_article_version SET quantity=" + articleVersion.getQuantity() + ", article_version_id=" + articleVersionId + " WHERE id=" + articleVersion.getId() + ";";
+            String sql = "UPDATE shopping_cart SET quantity=" + articleVersion.getQuantity() + ", article_version_id=" + articleVersionId + " WHERE id=" + articleVersion.getId() + ";";
             stmt.execute(sql);
             stmt.close();
             con.close();
