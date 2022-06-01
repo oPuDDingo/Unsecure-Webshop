@@ -14,10 +14,10 @@ export class BackendService {
   header: HttpHeaders = new HttpHeaders();
 
   constructor(private httpClient: HttpClient) {
-    if (sessionStorage.getItem('sessionKey') != null) {
-      // @ts-ignore
-      this.header.set('sessionID', sessionStorage.getItem('sessionKey'))
+    let key = sessionStorage.getItem('sessionKey');
+    if (key != null) {
     }
+
   }
 
   getArtricles(): Observable<Article[]> {
@@ -61,6 +61,7 @@ export class BackendService {
   }
 
   addItemToShoppingCart(item: SpecifiedItem): Observable<any> {
+    console.log(this.header)
     return this.httpClient.post(this.url + 'cart/items/', {...item}, {headers: this.header});
   }
 
@@ -92,6 +93,7 @@ export class BackendService {
   }
 
   loadShoppingCart(): Observable<SpecifiedItem[]> {
+    console.log(this.header)
     return this.httpClient.get<SpecifiedItem[]>(this.url + 'cart/items', {headers: this.header})
   }
 
@@ -114,6 +116,7 @@ export class BackendService {
   }
 
   loadWishList(): Observable<SpecifiedItem[]> {
+    console.log(this.header);
     return this.httpClient.get<SpecifiedItem[]>(this.url + 'wishlist/items', {headers: this.header})
   }
 
@@ -198,7 +201,9 @@ export class BackendService {
     }, {observe: "body", responseType: "text"}).pipe(
       map(sessionKey => {
         sessionStorage.setItem('sessionKey', sessionKey)
-        this.header.set('sessionID', sessionKey);
+        console.log("vor Registrierung: " + this.header.keys());
+        this.header.append('sessionID', sessionKey);
+        console.log("nach Registrierung: " + this.header.get("sessionID"));
         return sessionKey;
       })
     );
