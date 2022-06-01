@@ -36,6 +36,7 @@ const routes: Routes = [
   {path: 'sustainable', loadChildren: () => import('../lib/pages/sustainable/sustainable.module').then(m => m.SustainableModule)},
   {path: 'impressum', loadChildren: () => import('../lib/pages/impressum/impressum.module').then(m => m.ImpressumModule)},
   {path: 'aboutUs', loadChildren: () => import('../lib/pages/aboutUs/aboutUs.module').then(m => m.AboutUsModule)},
+  {path: 'paymentMethods', loadChildren: () => import('../lib/pages/paymentMethods/paymentMethods.module').then(m => m.PaymentMethodsModule)},
   {path: '', redirectTo: 'index', pathMatch: 'full'},
   {path: '**', redirectTo: 'index'},
 ];
