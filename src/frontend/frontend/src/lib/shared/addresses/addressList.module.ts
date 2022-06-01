@@ -4,7 +4,6 @@ import {FormsModule} from "@angular/forms";
 import {AddressListComponent} from "./addressList.component";
 import {ModalModule} from "ngx-bootstrap/modal";
 import {AddressComponent} from "./address/address.component";
-import {RouterModule, Routes} from "@angular/router";
 import {CommonModule} from "@angular/common";
 
 
