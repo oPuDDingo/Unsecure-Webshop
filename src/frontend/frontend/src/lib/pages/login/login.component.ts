@@ -1,5 +1,6 @@
 import {Component} from "@angular/core";
-import {AuthenticationService} from "../../data-access/service/authentication.service";
+import {BackendService} from "../../data-access/service/backend.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'login',
@@ -11,10 +12,10 @@ export class LoginComponent {
   mail: string = "";
   password: string = "";
 
-  constructor(private authenticationService: AuthenticationService) {
+  constructor(private backendService: BackendService, private router: Router) {
   }
 
   onLogin() {
-    this.authenticationService.login(this.mail, this.password);
+    this.backendService.login(this.mail, this.password).subscribe(() => this.router.navigateByUrl('/user'));
   }
 }
