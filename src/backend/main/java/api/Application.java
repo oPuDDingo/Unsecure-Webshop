@@ -23,7 +23,6 @@ import java.util.Set;
 		services.add(ContactService.class);
 		services.add(CouponService.class);
 		services.add(PictureService.class);
-		services.add(LoginService.class);
 		services.add(OrderService.class);
 		services.add(UserService.class);
 		services.add(WishlistService.class);

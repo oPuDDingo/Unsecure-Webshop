@@ -33,6 +33,7 @@ const routes: Routes = [
   {path: 'wishlist', loadChildren: () => import('../lib/pages/wishList/wishlist.module').then(m => m.WishlistModule)},
   {path: 'login', loadChildren: () => import('../lib/pages/login/login.module').then(m => m.LoginModule)},
   {path: 'register', loadChildren: () => import('../lib/pages/register/register.module').then(m => m.RegisterModule)},
+  {path: 'sustainable', loadChildren: () => import('../lib/pages/sustainable/sustainable.module').then(m => m.SustainableModule)},
   {path: '', redirectTo: 'index', pathMatch: 'full'},
   {path: '**', redirectTo: 'index'},
 ];

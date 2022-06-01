@@ -1,6 +1,7 @@
 package backend.main.java.api;
 
 import backend.main.java.DataHandler;
+import backend.main.java.Logic;
 import backend.main.java.models.User;
 import backend.main.java.models.Address;
 import backend.main.java.models.Payment;
@@ -29,13 +30,19 @@ import java.util.List;
 		return Response.ok(user).build();
 	}
 
-	@POST @Consumes(MediaType.APPLICATION_JSON) public Response createUser(
+	@POST @Path("register") @Consumes(MediaType.APPLICATION_JSON) public Response createUser(
 		@Context UriInfo uriInfo,
 		final User user)
 	{
-		int id = DataHandler.createUser(user);
-		URI location = uriInfo.getAbsolutePathBuilder().path(String.valueOf(id)).build();
-		return Response.created(location).build();
+		DataHandler.createUser(user);
+		return Logic.login(user.getMail(), user.getPassword());
+	}
+
+	@GET @Path("login") @Produces(MediaType.TEXT_PLAIN) public Response checkLogin(
+		@DefaultValue("") @QueryParam("mail") String mail,
+		@DefaultValue("") @QueryParam("password") String password
+	) {
+		return Logic.login(mail, password);
 	}
 
 	@PUT @Consumes(MediaType.APPLICATION_JSON) public Response modifyUser(
