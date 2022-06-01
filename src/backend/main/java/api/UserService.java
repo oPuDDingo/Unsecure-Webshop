@@ -29,7 +29,7 @@ import java.util.List;
 		return Response.ok(user).build();
 	}
 
-	@POST @Consumes(MediaType.APPLICATION_JSON) public Response createUser(
+	@POST @Path("register") @Consumes(MediaType.APPLICATION_JSON) public Response createUser(
 		@Context UriInfo uriInfo,
 		final User user)
 	{
