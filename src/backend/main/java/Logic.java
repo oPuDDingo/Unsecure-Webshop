@@ -5,6 +5,7 @@ import backend.main.java.models.Article;
 
 import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
+import javax.xml.crypto.Data;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.net.URL;
@@ -26,6 +27,11 @@ public class Logic
 		return Response.ok(sessionID).cookie(new NewCookie("sessionID", sessionID)).build();
 	}
 
+	public static Response logout(String session) {
+		// Database.deleteSession(session);
+		return Response.ok().build();
+	}
+
 	private static String createSessionId()
 	{
 		SecureRandom GENERATOR = new SecureRandom();
@@ -34,30 +40,6 @@ public class Logic
 		return Base64.getEncoder().encodeToString(token);
 	}
 
-	protected static String getByteArrayFromPictureURL(String url)
-	{ // temp function
-
-		try
-		{
-			URL pictureUrl = new URL(url);
-			URLConnection ucon = pictureUrl.openConnection();
-			InputStream is = ucon.getInputStream();
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			byte[] buffer = new byte[1024];
-			int read = 0;
-			while ((read = is.read(buffer, 0, buffer.length)) != -1)
-			{
-				baos.write(buffer, 0, read);
-			}
-			baos.flush();
-			return Base64.getEncoder().encodeToString(baos.toByteArray());
-		}
-		catch (Exception e)
-		{
-			System.out.println(e);
-		}
-		return null;
-	}
 
 	public static double computePrice(List<Article> articles)
 	{
@@ -94,4 +76,6 @@ public class Logic
 		}
 		return request;
 	}
+
+
 }
