@@ -34,6 +34,8 @@ const routes: Routes = [
   {path: 'login', loadChildren: () => import('../lib/pages/login/login.module').then(m => m.LoginModule)},
   {path: 'register', loadChildren: () => import('../lib/pages/register/register.module').then(m => m.RegisterModule)},
   {path: 'sustainable', loadChildren: () => import('../lib/pages/sustainable/sustainable.module').then(m => m.SustainableModule)},
+  {path: 'impressum', loadChildren: () => import('../lib/pages/impressum/impressum.module').then(m => m.ImpressumModule)},
+  {path: 'aboutUs', loadChildren: () => import('../lib/pages/aboutUs/aboutUs.module').then(m => m.AboutUsModule)},
   {path: '', redirectTo: 'index', pathMatch: 'full'},
   {path: '**', redirectTo: 'index'},
 ];

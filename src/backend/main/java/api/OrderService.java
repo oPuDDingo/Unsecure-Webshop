@@ -17,6 +17,7 @@ import java.util.List;
 
 	@GET @Produces(MediaType.APPLICATION_JSON) public Response getOrders(@CookieParam("sessionID") final String session)
 	{
+		if (session == null) return Response.status(403).build();
 		List<Order> orders = DataHandler.getOrders(session);
 		return Response.ok(orders).build();
 	}
@@ -31,6 +32,7 @@ import java.util.List;
 		@QueryParam("cleanUpWishlist") final boolean cleanup, @CookieParam("sessionID") final String session,
 		final Order order)
 	{
+		if (session == null) return Response.status(403).build();
 		System.out.println(order.getAmount());
 		int orderNumber = DataHandler.createOrder(order, session, cleanup);
 		URI location = uriInfo.getAbsolutePathBuilder().path("id").path(String.valueOf(orderNumber)).build();
