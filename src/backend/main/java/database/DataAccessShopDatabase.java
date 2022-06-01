@@ -752,6 +752,7 @@ public class DataAccessShopDatabase {
         try {
             stmt = con.createStatement();
             String sql="DELETE FROM session WHERE key='"+session+"';";
+            stmt.execute(sql);
             stmt.close();
             con.close();
         } catch (SQLException e) {
