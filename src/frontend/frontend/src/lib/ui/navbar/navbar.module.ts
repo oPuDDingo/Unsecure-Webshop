@@ -1,17 +1,13 @@
 import {NgModule} from "@angular/core";
 import {NavbarComponent} from "./navbar.component";
 import {AppRoutingModule} from "../../../app/app-routing.module";
-import {RouterModule, Routes} from "@angular/router";
+import {CommonModule} from "@angular/common";
 
-const routes: Routes = [
-  {path: '', component: NavbarComponent}
-]
 
 @NgModule({
   declarations: [NavbarComponent],
   imports: [
-    AppRoutingModule,
-    RouterModule.forChild(routes)
+    AppRoutingModule, CommonModule
   ],
   providers: [],
   bootstrap: [],

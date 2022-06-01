@@ -6,7 +6,6 @@ import {SpecifiedItemListComponent} from "./specifiedItemList.component";
 import {DeleteButtonComponent} from "../deleteButton/deleteButton.component";
 import {FormsModule} from "@angular/forms";
 import {ColorCircleModule} from "../colorCircle/colorCircle.module";
-import {RouterModule, Routes} from "@angular/router";
 import {CommonModule} from "@angular/common";
 
 
