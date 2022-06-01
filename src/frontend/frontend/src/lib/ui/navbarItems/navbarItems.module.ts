@@ -1,14 +1,9 @@
 import {NgModule} from "@angular/core";
 import {NavbarItemsComponent} from "./navbarItems.component";
-import {RouterModule, Routes} from "@angular/router";
-
-const routes: Routes = [
-  {path: '', component: NavbarItemsComponent}
-]
 
 @NgModule({
   declarations: [NavbarItemsComponent],
-  imports: [RouterModule.forChild(routes)],
+  imports: [],
   providers: [],
   bootstrap: [],
   exports: [NavbarItemsComponent]

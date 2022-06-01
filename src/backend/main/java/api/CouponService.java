@@ -14,6 +14,8 @@ import javax.ws.rs.core.Response;
 	)
 	{
 		Coupon coupon = DataHandler.getCoupon(name);
+		if (coupon == null) return Response.status(404).build();
 		return Response.ok(coupon).build();
+
 	}
 }
