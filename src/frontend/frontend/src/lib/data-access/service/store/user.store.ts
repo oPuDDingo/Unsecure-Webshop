@@ -54,6 +54,6 @@ export class UserStore {
   }
 
   subscribeNewsletter(): void {
-    this.backendService.postNewsletter();
+    this.backendService.postNewsletter().subscribe();
   }
 }

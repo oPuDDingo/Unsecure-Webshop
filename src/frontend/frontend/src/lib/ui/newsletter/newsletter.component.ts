@@ -1,4 +1,4 @@
-import {Component, TemplateRef} from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
 import {UserStore} from "../../data-access/service/store/user.store";
 
@@ -7,14 +7,20 @@ import {UserStore} from "../../data-access/service/store/user.store";
   templateUrl: './newsletter.component.html',
   styleUrls: ['./newsletter.component.css']
 })
-export class NewsletterComponent {
+export class NewsletterComponent{// implements OnInit{
   modalRef?: BsModalRef;
+
+  // @ts-ignore
+  //@ViewChild('newsletter') newsletterModal: TemplateRef<any>;
 
   constructor(private modalService: BsModalService, private userStore: UserStore) {
   }
 
-  openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template, {animated: true, keyboard: true});
+  /*ngOnInit(): void {
+    this.openModal(this.newsletterModal)
+  }*/
+  openModal(newsletter: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(newsletter, {animated: true, keyboard: true});
 
   }
 
@@ -27,6 +33,8 @@ export class NewsletterComponent {
     this.modalRef?.hide();
     this.userStore.subscribeNewsletter();
   }
+
+
 
 
 }

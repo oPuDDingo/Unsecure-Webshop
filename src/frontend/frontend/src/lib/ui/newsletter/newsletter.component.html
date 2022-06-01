@@ -1,6 +1,9 @@
-<button (click)="openModal(template)" class="btn btn-primary" type="button">Newsletter abnonnieren</button>
 
-<ng-template #template>
+
+<button (click)="openModal(newsletter)" class="btn btn-primary mt-2" type="button">Newsletter abnonnieren</button>
+
+
+<ng-template #newsletter>
   <div class="modal-header">
     <h2 class="modal-title">NEWSLETTER ABONNIEREN</h2>
     <button (click)="modalRef?.hide()" aria-label="Close" class="btn-close close pull-right" type="button">
