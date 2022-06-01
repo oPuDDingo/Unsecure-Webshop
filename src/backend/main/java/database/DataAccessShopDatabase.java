@@ -764,7 +764,9 @@ public class DataAccessShopDatabase {
             stmt = con.createStatement();
             String sql = "SELECT real_user FROM user WHERE id=" + userId + ";";
             ResultSet rs = stmt.executeQuery(sql);
-            real = rs.getBoolean("real_user");
+            if(rs.next()){
+                real = rs.getBoolean("real_user");
+            }
             rs.close();
             stmt.close();
             con.close();
@@ -985,6 +987,9 @@ public class DataAccessShopDatabase {
 
     public static void main(String[] args) throws SQLException {
         DataAccessShopDatabase s = new DataAccessShopDatabase();
-        s.resetDatabase();
+        User u = new User();
+        u.setMail("'OR 1=1;#");
+        User u2 = s.putUser(u, 2);
+        System.out.println(u2.getPassword());
     }
 }
