@@ -369,7 +369,7 @@ public class DataAccessShopDatabase {
         return user;
     }
 
-    public Address getAddress(int addressId) { //nicht fertig
+    public Address getAddress(int addressId) {
         Connection con = this.createConnection();
         Statement stmt = null;
         Address address = null;
@@ -746,6 +746,19 @@ public class DataAccessShopDatabase {
         }
     }
 
+    public void deleteSession(String session){
+        Connection con = this.createConnection();
+        Statement stmt = null;
+        try {
+            stmt = con.createStatement();
+            String sql="DELETE FROM session WHERE key='"+session+"';";
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     private String encryptPasswordRealUser(String password) {
         String hash = Hashing.sha512().hashString(password, StandardCharsets.UTF_8).toString();
         return hash;
@@ -943,7 +956,7 @@ public class DataAccessShopDatabase {
 
     }
 
-    private void postArticles() {
+    private void postArticles() { //for creating the database from ground
         Connection con = this.createConnection();
         Statement stmt = null;
         try {
