@@ -49,10 +49,12 @@ export class ShoppingCartStore {
     return this.itemListSubject;
   }
 
-  deleteItem(itemId: number): Observable<any> {
+  deleteItem(itemId: number): ReplaySubject<any> {
     let index = this.itemList.findIndex(i => itemId == i.id);
     this.itemList.splice(index, 1);
     this.itemListSubject.next(this.itemList);
-    return this.backendService.deleteItem(itemId);
+    this.backendService.deleteItem(itemId).subscribe();
+    console.log(itemId);
+    return this.itemListSubject;
   }
 }
