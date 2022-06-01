@@ -28,7 +28,7 @@ public class Logic
 	}
 
 	public static Response logout(String session) {
-		Database.deleteSession(session);
+		// Database.deleteSession(session);
 		return Response.ok().build();
 	}
 
