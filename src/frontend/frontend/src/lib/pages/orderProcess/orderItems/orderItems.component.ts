@@ -39,7 +39,7 @@ export class OrderItemsComponent {
   }
 
   onUpdateCoupon(): void {
-    this.backendService.postCoupon(this.coupon.name).subscribe(coupon => {
+    this.backendService.getCoupon(this.coupon.name).subscribe(coupon => {
       this.coupon = coupon;
       this.invalidCoupon = false;
     }, (error) => {
