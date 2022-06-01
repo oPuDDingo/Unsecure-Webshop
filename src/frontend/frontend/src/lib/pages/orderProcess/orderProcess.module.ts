@@ -12,7 +12,7 @@ import {OrderAddressComponent} from "./orderAddress/orderAddress.component";
 import {AddressListModule} from "../../shared/addresses/addressList.module";
 
 const routes: Routes = [
-  {path: 'orderProcess', component: OrderProcessComponent}
+  {path: '', component: OrderProcessComponent}
 ]
 
 @NgModule({

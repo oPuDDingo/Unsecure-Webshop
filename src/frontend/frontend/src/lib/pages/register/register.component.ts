@@ -1,5 +1,6 @@
 import {Component} from "@angular/core";
-import {AuthenticationService} from "../../data-access/service/authentication.service";
+import {BackendService} from "../../data-access/service/backend.service";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -15,14 +16,15 @@ export class RegisterComponent {
   passwordWdh: string = "";
   invalidData: boolean = false;
 
-  constructor(private authenticationService: AuthenticationService) {
+  constructor(private backendService: BackendService, private router: Router) {
   }
 
   onRegister() {
     if (this.password != this.passwordWdh) {
       this.invalidData = true;
     } else {
-      this.authenticationService.register(this.firstName, this.lastName, this.mail, this.password);
+      this.backendService.register(this.firstName, this.lastName, this.mail, this.password).subscribe(() => this.router.navigateByUrl('/user'));
     }
+
   }
 }
