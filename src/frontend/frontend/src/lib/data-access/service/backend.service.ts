@@ -11,13 +11,16 @@ import {JsonObject} from "@angular/compiler-cli/ngcc/src/packages/entry_point";
 export class BackendService {
   readonly url: string = 'http://localhost:4200/api/';
 
-  header: HttpHeaders = new HttpHeaders();
+  header: HttpHeaders;
 
   constructor(private httpClient: HttpClient) {
     let key = sessionStorage.getItem('sessionKey');
     if (key != null) {
+      this.header = new HttpHeaders({"sessionID": key});
+    } else {
+      this.header = new HttpHeaders({});
     }
-
+    console.log("Header on INIT: " + this.header.get("sessionID"))
   }
 
   getArtricles(): Observable<Article[]> {
@@ -169,41 +172,42 @@ export class BackendService {
   }
 
   login(mail: string, password: string): Observable<any> {
-    return this.httpClient.get<any>(this.url + 'user/login?mail=' + mail + '&password=' + password, {
-      observe: "body"
+    return this.httpClient.get(this.url + 'user/login?mail=' + mail + '&password=' + password, {
+      observe: "body", responseType: "text"
     }).pipe(
       map(sessionKey => {
         sessionStorage.setItem('sessionKey', sessionKey);
-        this.header.set('sessionID', sessionKey);
+        this.header = new HttpHeaders({'sessionID': sessionKey});
       })
     );
   }
 
   logout(): Observable<any> {
     let sessionKey = sessionStorage.getItem('sessionKey');
-    return this.httpClient.post<any>(this.url + 'user/logout', {sessionKey}, {
+    return this.httpClient.post(this.url + 'user/logout', {sessionKey}, {
       headers: this.header,
       observe: "response"
     }).pipe(
       map(response => {
         sessionStorage.removeItem('sessionKey');
-        this.header.delete('sessionID');
+        this.header = new HttpHeaders({});
       })
     );
   }
 
   register(firstname: string, lastname: string, mail: string, password: string): Observable<any> {
     return this.httpClient.post(this.url + 'user/register', {
-      firstname,
-      lastname,
-      mail,
-      password
+      "firstName": firstname,
+      "lastName": lastname,
+      "mail": mail,
+      "password": password
     }, {observe: "body", responseType: "text"}).pipe(
       map(sessionKey => {
         sessionStorage.setItem('sessionKey', sessionKey)
-        console.log("vor Registrierung: " + this.header.keys());
-        this.header.append('sessionID', sessionKey);
-        console.log("nach Registrierung: " + this.header.get("sessionID"));
+        console.log("SessionKey: " + sessionKey);
+        console.log("Header vor Registrierung: " + this.header.get("sessionID"));
+        this.header = new HttpHeaders({"sessionID": sessionKey});
+        console.log("Header nach Registrierung: " + this.header.get("sessionID"));
         return sessionKey;
       })
     );
