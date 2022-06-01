@@ -60,11 +60,6 @@ export class BackendService {
     );
   }
 
-  addItemToShoppingCart(item: SpecifiedItem): Observable<any> {
-    console.log(this.header)
-    return this.httpClient.post(this.url + 'cart/items/', {...item}, {headers: this.header});
-  }
-
   createAddress(address: Address): Observable<Address> {
     let addressPayload = {
       "name": address.name,
@@ -109,6 +104,11 @@ export class BackendService {
 
   deleteItem(itemId: number): Observable<any> {
     return this.httpClient.delete<any>(this.url + 'cart/items/' + itemId, {headers: this.header});
+  }
+
+  addItemToShoppingCart(item: SpecifiedItem): Observable<any> {
+    console.log(this.header)
+    return this.httpClient.post(this.url + 'cart/items/', {...item}, {headers: this.header});
   }
 
   getCoupon(coupon: string): Observable<Coupon> {

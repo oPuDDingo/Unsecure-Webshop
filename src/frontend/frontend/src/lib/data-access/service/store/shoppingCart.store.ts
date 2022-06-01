@@ -37,15 +37,21 @@ export class ShoppingCartStore {
   updateItem(itemId: number, newQuantity: number): ReplaySubject<SpecifiedItem[]> {
     let index = this.itemList.findIndex(i => itemId == i.id);
     this.itemList[index].quantity = newQuantity;
-    this.itemListSubject.next(this.itemList);
-    this.backendService.updateShoppingCartItem(this.itemList[index]).subscribe();
+    this.backendService.updateShoppingCartItem(this.itemList[index]).subscribe( () =>
+      this.backendService.loadShoppingCart().subscribe(items => {
+        this.itemList = items;
+        this.itemListSubject.next(this.itemList);
+      }));
     return this.itemListSubject;
   }
 
   addItem(item: SpecifiedItem): ReplaySubject<SpecifiedItem[]> {
-    this.itemList.push(item);
-    this.itemListSubject.next(this.itemList);
-    this.backendService.addItemToShoppingCart(item).subscribe();
+    this.backendService.addItemToShoppingCart(item).subscribe(() =>
+      this.backendService.loadShoppingCart().subscribe(items => {
+        this.itemList = items;
+        this.itemListSubject.next(this.itemList);
+      })
+    );
     return this.itemListSubject;
   }
 
