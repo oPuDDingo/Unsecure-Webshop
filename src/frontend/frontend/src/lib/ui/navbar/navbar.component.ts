@@ -1,4 +1,6 @@
 import {Component, Input} from "@angular/core";
+import {BackendService} from "../../data-access/service/backend.service";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -9,5 +11,13 @@ import {Component, Input} from "@angular/core";
 export class NavbarComponent {
   @Input()
   title?: String;
+
+  constructor(private backendService: BackendService, private router: Router) {
+  }
+
+  onLogOut(): void {
+    this.backendService.logout().subscribe();
+    this.router.navigateByUrl('/index');
+  }
 
 }
