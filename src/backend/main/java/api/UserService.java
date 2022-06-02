@@ -107,16 +107,15 @@ import java.util.List;
 	@GET @Path("addresses") @Produces(MediaType.APPLICATION_JSON) public Response getAllUserAddresses(
 		@CookieParam("sessionID") String session)
 	{
-		// List<Address> userAddresses = DataHandler.getAllUserAddresses(session);
-		return Response.ok("404").build();
+		List<Address> userAddresses = DataHandler.getAllUserAddresses(session);
+		return Response.ok(userAddresses).build();
 	}
 
 	@GET @Path("/addresses/{id}") @Produces(MediaType.APPLICATION_JSON) public Response getUserAddress(
 		@CookieParam("sessionID") String session,
 		@PathParam("id") final int id)
 	{
-		// Address userAddress = DataHandler.getUserAddress(session, id);
-		return Response.ok("404").build();
+		return Response.ok(DataHandler.getUserAddress(session, id)).build();
 	}
 
 	@Path("addresses") @POST @Produces(MediaType.APPLICATION_JSON) public Response createUserAddress(
@@ -124,25 +123,22 @@ import java.util.List;
 		@Context UriInfo uriInfo,
 		final Address address)
 	{
-		// int id = DataHandler.createUserAddress(session, address);
-		return Response.ok("404").build();
+		return Response.ok(DataHandler.createAddress(session, address)).build();
 	}
 
-	@Path("addresses/{id}") @PUT @Consumes(MediaType.APPLICATION_JSON) public Response modifyUserAddress(
+	@Path("addresses") @PUT @Consumes(MediaType.APPLICATION_JSON) public Response modifyUserAddress(
 		@CookieParam("sessionID") final String session,
-		@PathParam("id") final int id,
 		final Address address)
 	{
-		// DataHandler.modifyUserAddress(session, id, address);
-		return Response.ok("404").build();
+		return Response.ok(DataHandler.modifyAddress(address, session)).build();
 	}
 
 	@Path("addresses/{id}") @DELETE public Response deleteUserAddress(
 		@CookieParam("sessionID") String session,
 		@PathParam("id") final int id)
 	{
-		// DataHandler.deleteUserAddress(session, id);
-		return Response.ok("404").build();
+		DataHandler.deleteAddress(session, id);
+		return Response.noContent().build();
 	}
 
 	@Path("mail") @GET @Produces(MediaType.APPLICATION_JSON) public Response getUserMail(
