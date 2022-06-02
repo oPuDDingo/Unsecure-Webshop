@@ -128,7 +128,7 @@ public class DataAccessShopDatabase {
             stmt = con.createStatement();
             String sql = "UPDATE address " +
                     " SET(street_house_number='" + address.getAddress() + "', postcode= '" + address.getZipCode() + "', address=supplement='" + address.getAddress2() + "', city='" + address.getCity() + "', country='" + address.getCountry()
-                    + "', name='" + address.getName() + "', delivery_instruction='" + address.getDeliveryInstructions() + "' WHERE id=" + address.getId() + ";";
+                    + "', name='" + address.getName() + "', delivery_instruction='" + address.getDeliveryInstructions() + "' WHERE id=" + address.getId() +"AND"+"user_id="+userId+";";
             stmt.execute(sql);
             addressRet = this.getAddress(address.getId());
             stmt.close();
@@ -189,12 +189,12 @@ public class DataAccessShopDatabase {
         }
     }
 
-    public void deleteAddress(int addressId) {
+    public void deleteAddress(int addressId, int userId) {
         Connection con = this.createConnection();
         Statement stmt = null;
         try {
             stmt = con.createStatement();
-            String sql = "UPDATE address SET user_id=-1 WHERE id=" + addressId + ";";
+            String sql = "UPDATE address SET user_id=-1 WHERE id=" + addressId + "AND"+"user_id="+userId+";";
             stmt.execute(sql);
             stmt.close();
             con.close();
@@ -358,8 +358,10 @@ public class DataAccessShopDatabase {
             String sql = "SELECT id, e_mail, firstname, lastname, newsletter, salutation, title, profile_picture, description FROM user WHERE id=" + userId + ";";
             System.out.println(sql);
             ResultSet rs = stmt.executeQuery(sql);
-            user = new User(rs.getInt("id"), rs.getString("e_mail"), rs.getString("firstname"), rs.getString("lastname"), rs.getBoolean("newsletter"), rs.getString("salutation"),
-                    rs.getString("title"), rs.getString("profile_picture"), rs.getString("description"));
+            if(rs.next()){
+                user = new User(rs.getInt("id"), rs.getString("e_mail"), rs.getString("firstname"), rs.getString("lastname"), rs.getBoolean("newsletter"), rs.getString("salutation"),
+                        rs.getString("title"), rs.getString("profile_picture"), rs.getString("description"));
+            }
             rs.close();
             stmt.close();
             con.close();

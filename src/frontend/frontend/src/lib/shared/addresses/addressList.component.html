@@ -1,8 +1,22 @@
-<div class="row">
-  <address *ngFor="let item of addresses" [addressList]="this"
-           [address]="item" [selectable]="selectable"
-           class="col-md-5 col-lg-5 col-xl-4 col-xxl-3">
-  </address>
+<div *ngIf="addresses.length > 0; else noAddresses">
+  <div class="row">
+    <address *ngFor="let item of addresses" [addressList]="this"
+             [address]="item" [selectable]="selectable"
+             class="col-md-5 col-lg-5 col-xl-4 col-xxl-3">
+    </address>
+  </div>
+
+  <button (click)="onAddAddress()" class="row btn btn-info float-end" type="button">Adresse hinzufügen</button>
 </div>
 
-<button (click)="onAddAddress()" class="row btn btn-info float-end" type="button">Adresse hinzufügen</button>
+<ng-template #noAddresses>
+  <alert type="warning">
+    <strong>Du hast noch keine Adressen eingerichtet!</strong>
+    <button
+      (click)="onAddAddress()"
+      class="btn btn-warning"
+      type="button">
+      Richte jetzt deine erste ein
+    </button>
+  </alert>
+</ng-template>

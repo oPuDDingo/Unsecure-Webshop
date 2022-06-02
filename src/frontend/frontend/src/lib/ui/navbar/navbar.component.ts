@@ -1,6 +1,6 @@
 import {Component, Input} from "@angular/core";
-import {BackendService} from "../../data-access/service/backend.service";
 import {Router} from "@angular/router";
+import {AuthenticationService} from "../../data-access/service/authentication.service";
 
 
 @Component({
@@ -12,11 +12,11 @@ export class NavbarComponent {
   @Input()
   title?: String;
 
-  constructor(private backendService: BackendService, private router: Router) {
+  constructor(private authenticationService: AuthenticationService, private router: Router) {
   }
 
   onLogOut(): void {
-    this.backendService.logout().subscribe();
+    this.authenticationService.logout().subscribe();
     this.router.navigateByUrl('/index');
   }
 

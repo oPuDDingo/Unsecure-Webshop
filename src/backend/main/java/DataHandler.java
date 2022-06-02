@@ -119,20 +119,19 @@ public class DataHandler
 		return Database.getAddresses(Database.getUserId(session));
 	}
 
-	public static int createAddress(String session, Address address)
+	public static Address createAddress(String session, Address address)
 	{
-		// return Database.addr(id, address);
-		return 1;
+		return Database.postAddress(address, Database.getUserId(session));
 	}
 
-	public static void modifyAddress(String session, int addressID, Address address)
+	public static Address modifyAddress(Address address, String session)
 	{
-		// Database.putAddress(id, addressID, address);
+		return Database.putAddress(address, Database.getUserId(session));
 	}
 
 	public static void deleteAddress(String session, int addressID)
 	{
-		//Database.deleteAddress(id, addressID);
+		Database.deleteAddress(addressID, Database.getUserId(session));
 	}
 
 	public static String getUserMail(String session)

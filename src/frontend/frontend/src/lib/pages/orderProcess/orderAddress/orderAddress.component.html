@@ -1,11 +1,6 @@
 <h1>Adresse</h1>
 
-
-<addresses (addAddressEvent)="onAddAddress($event)" (onSelectAddressEvent)="this.onSelectAddressEvent.emit($event)"
-           *ngIf="addresses.length > 0; else noAddresses" [addresses]="addresses" [selectable]="true"></addresses>
-
-<ng-template #noAddresses>
-  <alert type="warning">Scheinbar hast du noch keine Adressen eingerichtet.</alert>
-</ng-template>
+<addresses (addAddressEvent)="onAddAddress()" (onSelectAddressEvent)="this.onSelectAddressEvent.emit($event)"
+           [addresses]="addresses" [selectable]="true"></addresses>
 
 <button (click)="onNextPageEvent.emit()" class="btn btn-primary float-end mt-5" type="button">Weiter</button>
