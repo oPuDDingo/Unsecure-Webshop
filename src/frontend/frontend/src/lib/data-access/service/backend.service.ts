@@ -109,7 +109,6 @@ export class BackendService {
   }
 
   addItemToShoppingCart(item: SpecifiedItem): Observable<any> {
-    console.log(this.header)
     return this.httpClient.post(this.url + 'cart/items/', {...item}, {headers: this.header});
   }
 
