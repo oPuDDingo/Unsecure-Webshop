@@ -6,7 +6,12 @@
         <div class="account-settings">
           <div class="user-profile">
             <div class="user-avatar">
-              <img [alt]="getUserName()" [src]="getProfileImage()" class="rounded">
+              <img *ngIf="user.profilePicture; else defaultPicture" [alt]="getUserName()"
+                   [src]="user.profilePicture"
+                   class="rounded w-100">
+              <ng-template #defaultPicture>
+                <img alt="default user" class="rounded w-100" src="assets/user.svg">
+              </ng-template>
               <br>
               <label class="btn btn-primary w-100">
                 <input (change)="onUpdateProfilePicture($event)" accept=".png, .jpeg" type="file"/>
@@ -17,7 +22,7 @@
             <h5 class="user-name">{{ getUserName() }}</h5>
             <h6 class="user-email">{{ this.user.mail }}</h6>
           </div>
-          <div class="about">
+          <div *ngIf="user.description" class="about">
             <h5 *ngIf="user.description != ''" class="mb-2 text-primary">About</h5>
             <p #descriptionField [innerHTML]="getDescription()"></p>
           </div>

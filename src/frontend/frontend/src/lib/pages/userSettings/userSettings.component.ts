@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
+import {Component, ElementRef, OnInit, SecurityContext, ViewChild} from "@angular/core";
 import {Address, User} from "../../data-access/models";
 import {UserStore} from "../../data-access/service/store/user.store";
 import {AddressStore} from "../../data-access/service/store/address.store";
@@ -33,6 +33,7 @@ export class UserSettingsComponent implements OnInit {
     this.userStore.loadUser().subscribe(user => {
       if (user)
         this.user = user;
+      console.log(this.user.profilePicture)
     });
     this.addressStore.loadAllAddresses().subscribe(addresses => {
       this.addresses = addresses
@@ -41,10 +42,6 @@ export class UserSettingsComponent implements OnInit {
 
   getUserName(): string {
     return this.user.firstName + " " + this.user.lastName;
-  }
-
-  getProfileImage(): string {
-    return `data:image/jpeg;base64,` + this.user.profilePicture;
   }
 
   getDescription(): SafeHtml {
@@ -84,7 +81,12 @@ export class UserSettingsComponent implements OnInit {
     fileReader.readAsDataURL(event.target.files[0]);
     fileReader.onloadend = () => {
       if (fileReader.result) {
-        this.user.profilePicture = fileReader.result.toString();
+        let sanitizedImage = this.sanitizer.sanitize(SecurityContext.URL, fileReader.result.toString());
+        if (sanitizedImage) {
+          this.user.profilePicture = sanitizedImage.toString();
+          console.log(sanitizedImage.toString())
+
+        }
         this.userStore.updateUser(this.user);
       }
     }
