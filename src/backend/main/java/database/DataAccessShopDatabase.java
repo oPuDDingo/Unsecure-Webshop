@@ -149,7 +149,7 @@ public class DataAccessShopDatabase {
             stmt = con.createStatement();
             String sql = "INSERT INTO address(street_house_number, postcode, address_suplement, city, country, name, delivery_instruction, user_id)" +
                     "VALUES('" + address.getAddress() + "', '" + address.getZipCode() + "', '" + address.getAddress2() + "', '" + address.getCity() + "', '" + address.getCountry()
-                    + "', '" + address.getName() + "', '" + address.getDeliveryInstructions() + "');";
+                    + "', '" + address.getName() + "', '" + address.getDeliveryInstructions() + "', '" + userId+ "');";
             stmt.execute(sql);
             int addressId = stmt.getGeneratedKeys().getInt(1);
             addressRet = this.getAddress(addressId);
@@ -377,7 +377,7 @@ public class DataAccessShopDatabase {
         Address address = null;
         try {
             stmt = con.createStatement();
-            String sql = "SELECT name, street_house_number, address_suplement, postcode, city, country, delivery_instruction FROM address WHERE id=" + addressId;
+            String sql = "SELECT id, name, street_house_number, address_suplement, postcode, city, country, delivery_instruction FROM address WHERE id=" + addressId;
             ResultSet rs = stmt.executeQuery(sql);
             address = new Address(addressId, rs.getString("name"), rs.getString("country"), rs.getString("street_house_number"), rs.getString("address_suplement"), rs.getString("postcode"), rs.getString("city"), rs.getString("delivery_instruction"));
             rs.close();
