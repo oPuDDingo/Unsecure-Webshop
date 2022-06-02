@@ -20,7 +20,7 @@ export class ArticleStore {
 
   loadArticles(): ReplaySubject<Article[]> {
     if (this.articles.length == 0) {
-      this.backendService.getArtricles().subscribe(articles => {
+      this.backendService.getArticles().subscribe(articles => {
         this.articles = articles;
         this.articleSubject.next(articles);
       });
@@ -70,8 +70,6 @@ export class ArticleStore {
     }
 
     return this.articleSubject;
-
   }
-
 
 }

@@ -11,16 +11,19 @@ import {JsonObject} from "@angular/compiler-cli/ngcc/src/packages/entry_point";
 export class BackendService {
   readonly url: string = 'http://localhost:4200/api/';
 
-  header: HttpHeaders = new HttpHeaders();
+  header: HttpHeaders;
 
   constructor(private httpClient: HttpClient) {
     let key = sessionStorage.getItem('sessionKey');
     if (key != null) {
+      this.header = new HttpHeaders({"sessionID": key});
+    } else {
+      this.header = new HttpHeaders({});
     }
-
+    console.log("Header on INIT: " + this.header.get("sessionID"))
   }
 
-  getArtricles(): Observable<Article[]> {
+  getArticles(): Observable<Article[]> {
     return this.httpClient.get<Article[]>(this.url + 'articles', {headers: this.header});
   }
 
@@ -60,11 +63,6 @@ export class BackendService {
     );
   }
 
-  addItemToShoppingCart(item: SpecifiedItem): Observable<any> {
-    console.log(this.header)
-    return this.httpClient.post(this.url + 'cart/items/', {...item}, {headers: this.header});
-  }
-
   createAddress(address: Address): Observable<Address> {
     let addressPayload = {
       "name": address.name,
@@ -93,7 +91,6 @@ export class BackendService {
   }
 
   loadShoppingCart(): Observable<SpecifiedItem[]> {
-    console.log(this.header)
     return this.httpClient.get<SpecifiedItem[]>(this.url + 'cart/items', {headers: this.header})
   }
 
@@ -109,6 +106,11 @@ export class BackendService {
 
   deleteItem(itemId: number): Observable<any> {
     return this.httpClient.delete<any>(this.url + 'cart/items/' + itemId, {headers: this.header});
+  }
+
+  addItemToShoppingCart(item: SpecifiedItem): Observable<any> {
+    console.log(this.header)
+    return this.httpClient.post(this.url + 'cart/items/', {...item}, {headers: this.header});
   }
 
   getCoupon(coupon: string): Observable<Coupon> {
@@ -166,47 +168,6 @@ export class BackendService {
   loadUser(): Observable<User> {
     console.log(this.header);
     return this.httpClient.get<User>(this.url + 'user', {headers: this.header});
-  }
-
-  login(mail: string, password: string): Observable<any> {
-    return this.httpClient.get<any>(this.url + 'user/login?mail=' + mail + '&password=' + password, {
-      observe: "body"
-    }).pipe(
-      map(sessionKey => {
-        sessionStorage.setItem('sessionKey', sessionKey);
-        this.header.set('sessionID', sessionKey);
-      })
-    );
-  }
-
-  logout(): Observable<any> {
-    let sessionKey = sessionStorage.getItem('sessionKey');
-    return this.httpClient.post<any>(this.url + 'user/logout', {sessionKey}, {
-      headers: this.header,
-      observe: "response"
-    }).pipe(
-      map(response => {
-        sessionStorage.removeItem('sessionKey');
-        this.header.delete('sessionID');
-      })
-    );
-  }
-
-  register(firstname: string, lastname: string, mail: string, password: string): Observable<any> {
-    return this.httpClient.post(this.url + 'user/register', {
-      firstname,
-      lastname,
-      mail,
-      password
-    }, {observe: "body", responseType: "text"}).pipe(
-      map(sessionKey => {
-        sessionStorage.setItem('sessionKey', sessionKey)
-        console.log("vor Registrierung: " + this.header.keys());
-        this.header.append('sessionID', sessionKey);
-        console.log("nach Registrierung: " + this.header.get("sessionID"));
-        return sessionKey;
-      })
-    );
   }
 
 }

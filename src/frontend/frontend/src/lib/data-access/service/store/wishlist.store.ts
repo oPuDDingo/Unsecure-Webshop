@@ -7,7 +7,7 @@ import {SpecifiedItem} from "../../models";
   providedIn: 'root'
 })
 export class WishlistStore {
-  specifiedItems: SpecifiedItem[] = [];
+  itemList: SpecifiedItem[] = [];
   wishListSubject: ReplaySubject<SpecifiedItem[]> = new ReplaySubject<SpecifiedItem[]>(1);
 
   constructor(private backendService: BackendService) {
@@ -15,13 +15,13 @@ export class WishlistStore {
   }
 
   loadWishList(): ReplaySubject<SpecifiedItem[]> {
-    if (this.specifiedItems.length == 0) {
+    if (this.itemList.length == 0) {
       this.backendService.loadWishList().subscribe(specifiedItems => {
-        this.specifiedItems = specifiedItems;
-        this.wishListSubject.next(this.specifiedItems);
+        this.itemList = specifiedItems;
+        this.wishListSubject.next(this.itemList);
       });
     } else {
-      this.wishListSubject.next(this.specifiedItems)
+      this.wishListSubject.next(this.itemList)
     }
     return this.wishListSubject;
   }
@@ -34,33 +34,38 @@ export class WishlistStore {
   // }
 
   updateItem(itemId: number, newQuantity: number): ReplaySubject<SpecifiedItem[]> {
-    let index = this.specifiedItems.findIndex(i => itemId == i.id);
-    this.specifiedItems[index].quantity = newQuantity;
-    this.wishListSubject.next(this.specifiedItems);
-    this.backendService.updateWishListItem(this.specifiedItems[index]).subscribe();
+    let index = this.itemList.findIndex(i => itemId == i.id);
+    this.itemList[index].quantity = newQuantity;
+    this.wishListSubject.next(this.itemList);
+    this.backendService.updateWishListItem(this.itemList[index]).subscribe();
     return this.wishListSubject;
   }
 
   addItem(item: SpecifiedItem): ReplaySubject<SpecifiedItem[]> {
-    this.specifiedItems.push(item);
-    this.wishListSubject.next(this.specifiedItems);
+    this.itemList.push(item);
+    this.wishListSubject.next(this.itemList);
     this.backendService.addItemToWishList(item).subscribe();
     return this.wishListSubject;
   }
 
   deleteItem(itemId: number): ReplaySubject<any> {
-    let index = this.specifiedItems.findIndex(i => itemId == i.id);
-    this.specifiedItems.splice(index, 1);
-    this.wishListSubject.next(this.specifiedItems);
+    let index = this.itemList.findIndex(i => itemId == i.id);
+    this.itemList.splice(index, 1);
+    this.wishListSubject.next(this.itemList);
     this.backendService.deleteWishListItem(itemId).subscribe();
     return this.wishListSubject;
   }
 
   deleteWishlist(): ReplaySubject<any> {
-    this.specifiedItems = [];
-    this.wishListSubject.next(this.specifiedItems);
+    this.itemList = [];
+    this.wishListSubject.next(this.itemList);
     this.backendService.deleteWishList().subscribe();
     return this.wishListSubject;
+  }
+
+  cleaningUp(): void {
+    this.itemList = [];
+    this.wishListSubject.next([]);
   }
 
 }

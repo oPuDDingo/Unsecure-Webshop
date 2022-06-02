@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {SpecifiedItem} from "../../models";
-import {Observable, ReplaySubject} from "rxjs";
+import {ReplaySubject} from "rxjs";
 import {BackendService} from "../backend.service";
 
 @Injectable({
@@ -37,15 +37,22 @@ export class ShoppingCartStore {
   updateItem(itemId: number, newQuantity: number): ReplaySubject<SpecifiedItem[]> {
     let index = this.itemList.findIndex(i => itemId == i.id);
     this.itemList[index].quantity = newQuantity;
-    this.itemListSubject.next(this.itemList);
-    this.backendService.updateShoppingCartItem(this.itemList[index]).subscribe();
+    this.backendService.updateShoppingCartItem(this.itemList[index]).subscribe(() =>
+      this.backendService.loadShoppingCart().subscribe(items => {
+        this.itemList = items;
+        this.itemListSubject.next(this.itemList);
+      })
+    );
     return this.itemListSubject;
   }
 
   addItem(item: SpecifiedItem): ReplaySubject<SpecifiedItem[]> {
-    this.itemList.push(item);
-    this.itemListSubject.next(this.itemList);
-    this.backendService.addItemToShoppingCart(item).subscribe();
+    this.backendService.addItemToShoppingCart(item).subscribe(() =>
+      this.backendService.loadShoppingCart().subscribe(items => {
+        this.itemList = items;
+        this.itemListSubject.next(this.itemList);
+      })
+    );
     return this.itemListSubject;
   }
 
@@ -56,5 +63,10 @@ export class ShoppingCartStore {
     this.backendService.deleteItem(itemId).subscribe();
     console.log(itemId);
     return this.itemListSubject;
+  }
+
+  cleaningUp(): void {
+    this.itemList = [];
+    this.itemListSubject.next([]);
   }
 }

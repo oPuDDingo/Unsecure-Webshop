@@ -22,7 +22,7 @@
                *ngIf="currentStep == 0 && this.itemsList.length > 0"
                [itemList]="getItemList()"></order-items>
   <order-address (onNextPageEvent)="onNextPage()" (onSelectAddressEvent)="this.selectedAddress = $event"
-                 *ngIf="currentStep == 1 && this.addresses.length > 0"></order-address>
+                 *ngIf="currentStep == 1"></order-address>
   <payment-information (onBuyEvent)="this.paymentInformation=$event; onBuy()"
                        *ngIf="currentStep == 2 && this.itemsList.length > 0"></payment-information>
   <confirmation *ngIf="currentStep == 3 && this.order" [order]="order"></confirmation>
