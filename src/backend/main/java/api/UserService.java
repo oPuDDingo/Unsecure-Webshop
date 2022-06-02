@@ -46,6 +46,13 @@ import java.util.List;
 		return Logic.login(mail, password);
 	}
 
+	@POST @Path("logout") public Response logout(
+		@CookieParam("sessionID") final String session
+	) {
+		if (session == null) return Response.status(401).build();
+		return Logic.logout(session);
+	}
+
 	@PUT @Consumes(MediaType.APPLICATION_JSON) public Response modifyUser(
 		@CookieParam("sessionID") String session,
 		final User user)

@@ -16,7 +16,7 @@ export class UserStore {
   }
 
   loadUser(): ReplaySubject<User> {
-    if (!this.user) {
+    if (!this.user || sessionStorage.getItem('sessionKey') == null) {
       this.backendService.loadUser().subscribe(user => {
         this.user = user;
         this.userSubject.next(this.user);

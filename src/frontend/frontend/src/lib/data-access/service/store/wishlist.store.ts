@@ -35,16 +35,20 @@ export class WishlistStore {
 
   updateItem(itemId: number, newQuantity: number): ReplaySubject<SpecifiedItem[]> {
     let index = this.specifiedItems.findIndex(i => itemId == i.id);
-    this.specifiedItems[index].quantity = newQuantity;
-    this.wishListSubject.next(this.specifiedItems);
-    this.backendService.updateWishListItem(this.specifiedItems[index]).subscribe();
+    this.backendService.updateWishListItem(this.specifiedItems[index]).subscribe(() =>
+      this.backendService.loadWishList().subscribe(items => {
+        this.specifiedItems = items;
+        this.wishListSubject.next(this.specifiedItems);
+      }));
     return this.wishListSubject;
   }
 
   addItem(item: SpecifiedItem): ReplaySubject<SpecifiedItem[]> {
-    this.specifiedItems.push(item);
-    this.wishListSubject.next(this.specifiedItems);
-    this.backendService.addItemToWishList(item).subscribe();
+    this.backendService.addItemToWishList(item).subscribe( () =>
+      this.backendService.loadWishList().subscribe(items => {
+        this.specifiedItems = items;
+        this.wishListSubject.next(this.specifiedItems);
+      }));
     return this.wishListSubject;
   }
 
