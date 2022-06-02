@@ -51,4 +51,10 @@ export class OrderStore {
     })
     return orderSubject;
   }
+
+  cleaningUp(): void {
+    this.orders = [];
+    this.ordersSubject.next([]);
+    this.orderWithBody = [];
+  }
 }

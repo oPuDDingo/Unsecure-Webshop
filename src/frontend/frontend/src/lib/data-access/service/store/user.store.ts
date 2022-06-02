@@ -9,13 +9,13 @@ import {ReplaySubject} from "rxjs";
 export class UserStore {
 
   // @ts-ignore
-  user: User;
-  userSubject: ReplaySubject<User> = new ReplaySubject<User>(1);
+  user: User | undefined;
+  userSubject: ReplaySubject<User | undefined> = new ReplaySubject<User | undefined>(1);
 
   constructor(private backendService: BackendService) {
   }
 
-  loadUser(): ReplaySubject<User> {
+  loadUser(): ReplaySubject<User | undefined> {
     if (!this.user || sessionStorage.getItem('sessionKey') == null) {
       this.backendService.loadUser().subscribe(user => {
         this.user = user;
@@ -43,7 +43,7 @@ export class UserStore {
     this.backendService.updateUser(userPayload).subscribe();
   }
 
-  getUser(): ReplaySubject<User> {
+  getUser(): ReplaySubject<User | undefined> {
     if (this.user == undefined) {
       this.backendService.loadUser().subscribe(user => this.user = user);
       this.userSubject.next(this.user);
@@ -55,5 +55,11 @@ export class UserStore {
 
   subscribeNewsletter(): void {
     this.backendService.postNewsletter();
+  }
+
+  cleaningUp(): void {
+    // @ts-ignore
+    this.user = undefined;
+    this.userSubject.next(undefined);
   }
 }

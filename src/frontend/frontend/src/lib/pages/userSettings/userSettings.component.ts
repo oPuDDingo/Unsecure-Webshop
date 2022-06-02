@@ -31,7 +31,8 @@ export class UserSettingsComponent implements OnInit {
 
   ngOnInit() {
     this.userStore.loadUser().subscribe(user => {
-      this.user = user;
+      if (user)
+        this.user = user;
     });
     this.addressStore.loadAllAddresses().subscribe(addresses => {
       this.addresses = addresses

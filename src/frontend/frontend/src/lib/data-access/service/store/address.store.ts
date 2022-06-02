@@ -8,15 +8,18 @@ import {ReplaySubject} from "rxjs";
 })
 export class AddressStore {
 
-  // @ts-ignore
   addresses: Address[] = [];
   addressesSubject: ReplaySubject<Address[]> = new ReplaySubject<Address[]>(1);
 
   constructor(private backendService: BackendService) {
   }
 
-  createAddress(address: Address): void {
-    this.backendService.createAddress(address).subscribe(address => this.addresses.push(address));
+  createAddress(address: Address): ReplaySubject<Address[]> {
+    this.backendService.createAddress(address).subscribe(address => {
+      this.addresses.push(address);
+      this.addressesSubject.next(this.addresses);
+    });
+    return this.addressesSubject;
   }
 
   loadAddressById(id: number): ReplaySubject<Address> {
@@ -50,5 +53,9 @@ export class AddressStore {
     this.backendService.updateAddress(address).subscribe();
   }
 
+  cleaningUp(): void {
+    this.addresses = [];
+    this.addressesSubject.next([]);
+  }
 
 }

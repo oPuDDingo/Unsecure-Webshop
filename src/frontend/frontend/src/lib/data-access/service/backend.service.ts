@@ -23,7 +23,7 @@ export class BackendService {
     console.log("Header on INIT: " + this.header.get("sessionID"))
   }
 
-  getArtricles(): Observable<Article[]> {
+  getArticles(): Observable<Article[]> {
     return this.httpClient.get<Article[]>(this.url + 'articles', {headers: this.header});
   }
 
@@ -91,7 +91,6 @@ export class BackendService {
   }
 
   loadShoppingCart(): Observable<SpecifiedItem[]> {
-    console.log(this.header)
     return this.httpClient.get<SpecifiedItem[]>(this.url + 'cart/items', {headers: this.header})
   }
 
@@ -169,48 +168,6 @@ export class BackendService {
   loadUser(): Observable<User> {
     console.log(this.header);
     return this.httpClient.get<User>(this.url + 'user', {headers: this.header});
-  }
-
-  login(mail: string, password: string): Observable<any> {
-    return this.httpClient.get(this.url + 'user/login?mail=' + mail + '&password=' + password, {
-      observe: "body", responseType: "text"
-    }).pipe(
-      map(sessionKey => {
-        sessionStorage.setItem('sessionKey', sessionKey);
-        this.header = new HttpHeaders({'sessionID': sessionKey});
-      })
-    );
-  }
-
-  logout(): Observable<any> {
-    let sessionKey = sessionStorage.getItem('sessionKey');
-    return this.httpClient.post(this.url + 'user/logout', {sessionKey}, {
-      headers: this.header,
-      observe: "response"
-    }).pipe(
-      map(response => {
-        sessionStorage.removeItem('sessionKey');
-        this.header = new HttpHeaders({});
-      })
-    );
-  }
-
-  register(firstname: string, lastname: string, mail: string, password: string): Observable<any> {
-    return this.httpClient.post(this.url + 'user/register', {
-      "firstName": firstname,
-      "lastName": lastname,
-      "mail": mail,
-      "password": password
-    }, {observe: "body", responseType: "text"}).pipe(
-      map(sessionKey => {
-        sessionStorage.setItem('sessionKey', sessionKey)
-        console.log("SessionKey: " + sessionKey);
-        console.log("Header vor Registrierung: " + this.header.get("sessionID"));
-        this.header = new HttpHeaders({"sessionID": sessionKey});
-        console.log("Header nach Registrierung: " + this.header.get("sessionID"));
-        return sessionKey;
-      })
-    );
   }
 
 }

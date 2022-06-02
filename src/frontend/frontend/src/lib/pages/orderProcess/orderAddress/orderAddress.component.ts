@@ -25,8 +25,9 @@ export class OrderAddressComponent implements OnInit {
     this.onSelectAddressEvent.emit(this.addresses.find(a => a.id === addressId));
   }
 
-  onAddAddress(address: Address): void {
-    this.addressStore.createAddress(address);
+  onAddAddress(): void {
+    let address = {name: "", address: "", address2: "", zipCode: -1, city: "", country: "", deliveryInstructions: ""}
+    this.addressStore.createAddress(address).subscribe(addresses => this.addresses = addresses);
   }
 
 }
