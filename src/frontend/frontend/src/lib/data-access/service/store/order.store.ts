@@ -17,14 +17,11 @@ export class OrderStore {
 
   loadOrders(): ReplaySubject<Order[]> {
     if (this.orders.length == 0) {
-      console.log("if");
       this.backendService.loadOrders().subscribe(orders => {
         this.orders = orders;
         this.ordersSubject.next(this.orders);
       });
     } else {
-      console.log("else");
-      console.log(this.orders)
       this.ordersSubject.next(this.orders);
     }
     return this.ordersSubject;

@@ -117,7 +117,6 @@ export class BackendService {
   }
 
   loadWishList(): Observable<SpecifiedItem[]> {
-    console.log(this.header);
     return this.httpClient.get<SpecifiedItem[]>(this.url + 'wishlist/items', {headers: this.header})
   }
 
@@ -165,7 +164,6 @@ export class BackendService {
   }
 
   loadUser(): Observable<User> {
-    console.log(this.header);
     return this.httpClient.get<User>(this.url + 'user', {headers: this.header});
   }
 

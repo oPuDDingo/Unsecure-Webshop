@@ -61,7 +61,6 @@ export class ShoppingCartStore {
     this.itemList.splice(index, 1);
     this.itemListSubject.next(this.itemList);
     this.backendService.deleteItem(itemId).subscribe();
-    console.log(itemId);
     return this.itemListSubject;
   }
 

@@ -27,7 +27,6 @@ export class SpecifiedItemComponent implements OnInit {
     if (this.specifiedItem.pictureId)
       this.imageStore.loadImageById(this.specifiedItem.pictureId).subscribe(picture => {
         this.picture = picture;
-        console.log(picture)
       });
   }
 
