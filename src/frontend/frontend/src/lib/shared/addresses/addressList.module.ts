@@ -5,6 +5,7 @@ import {AddressListComponent} from "./addressList.component";
 import {ModalModule} from "ngx-bootstrap/modal";
 import {AddressComponent} from "./address/address.component";
 import {CommonModule} from "@angular/common";
+import {AlertModule} from "ngx-bootstrap/alert";
 
 
 @NgModule({
@@ -12,7 +13,8 @@ import {CommonModule} from "@angular/common";
   imports: [
     CommonModule,
     FormsModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    AlertModule
   ],
   providers: [],
   bootstrap: [],
