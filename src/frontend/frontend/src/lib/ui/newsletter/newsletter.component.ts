@@ -16,18 +16,11 @@ export class NewsletterComponent{// implements OnInit{
   constructor(private modalService: BsModalService, private userStore: UserStore) {
   }
 
-  /*ngOnInit(): void {
-    this.openModal(this.newsletterModal)
-  }*/
   openModal(newsletter: TemplateRef<any>) {
     this.modalRef = this.modalService.show(newsletter, {animated: true, keyboard: true});
 
   }
 
-  /*validMail(): boolean {
-    let regex = /@/;
-    return regex.test(this.mail);
-  }*/
 
   onSubscribeToNewsletter(): void {
     this.modalRef?.hide();
