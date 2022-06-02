@@ -6,6 +6,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {NavbarModule} from "../lib/ui/navbar/navbar.module";
 import {FooterModule} from "../lib/ui/footer/footer.module";
 import {NavbarItemsModule} from "../lib/ui/navbarItems/navbarItems.module";
+import {MessageAlertsModule} from "../lib/ui/messageAlerts/messageAlerts.module";
 
 
 @NgModule({
@@ -13,7 +14,7 @@ import {NavbarItemsModule} from "../lib/ui/navbarItems/navbarItems.module";
     AppComponent
   ],
   imports: [
-    BrowserModule, AppRoutingModule, HttpClientModule, NavbarModule, FooterModule, NavbarItemsModule
+    BrowserModule, AppRoutingModule, HttpClientModule, NavbarModule, FooterModule, NavbarItemsModule, MessageAlertsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
