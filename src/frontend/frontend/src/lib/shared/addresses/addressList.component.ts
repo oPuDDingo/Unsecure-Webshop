@@ -29,7 +29,15 @@ export class AddressListComponent implements OnInit {
   }
 
   onAddAddress(): void {
-    this.addAddressEvent.emit();
+    this.addressStore.createAddress({
+      name: "",
+      address: "",
+      address2: "",
+      zipCode: -1,
+      city: "",
+      country: "",
+      deliveryInstructions: ""
+    }).subscribe()
   }
 
   onSelectAddress(address: Address): void {

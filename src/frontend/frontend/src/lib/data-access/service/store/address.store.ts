@@ -48,6 +48,7 @@ export class AddressStore {
   }
 
   updateAddress(address: Address): void {
+    console.log("update address" + address)
     let index = this.addresses.findIndex(item => item.id === address.id);
     this.addresses[index] = address;
     this.backendService.updateAddress(address).subscribe();
