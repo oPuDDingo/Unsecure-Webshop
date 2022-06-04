@@ -1,6 +1,10 @@
 package backend.main.java.database;
 
+import backend.main.java.models.RankingRow;
+
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DataAccessAdminPanel {
 
@@ -22,6 +26,25 @@ public class DataAccessAdminPanel {
         if(this.checkClientExist(ipAddess)){
             this.postClient(ipAddess);
         }
+    }
+
+    public List<RankingRow> getRanking(){
+        Connection con = this.createConnection();
+        Statement stmt = null;
+        List<RankingRow> ranking = new ArrayList<>();
+        try {
+            stmt = con.createStatement();
+            String sql="SELECT *, SUM(sql_injection+blind_sql_injection+email_without_at+xss+profile_picture+html_comment_user+price_order_bug+guess_user_login+guess_coupon+delete_user+comment_xss+look_for_email_address+hash_user) as sum FROM ranking GROUP BY ip_address ORDER BY sum DESC;;";
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()){
+                ranking.add( new RankingRow(rs.getString("ip_address"), rs.getBoolean("sql_injection"), rs.getBoolean("blind_sql_injection"), rs.getBoolean("email_without_at"), rs.getBoolean("xss"), rs.getBoolean("profile_picture"),
+                        rs.getBoolean("html_comment_user"), rs.getBoolean("price_order_bug"), rs.getBoolean("guess_user_login"), rs.getBoolean("guess_coupon"),
+                        rs.getBoolean("delete_user"), rs.getBoolean("comment_xss"), rs.getBoolean("look_for_email_address"), rs.getBoolean("hash_user")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ranking;
     }
 
     private void postClient(String ipAddress){
@@ -57,8 +80,12 @@ public class DataAccessAdminPanel {
         return false;
     }
 
+
     public static void main (String[] args){
         DataAccessAdminPanel a = new DataAccessAdminPanel();
-        System.out.println(a.checkClientExist("127.0.0.1"));
+        List<RankingRow> l= a.getRanking();
+        System.out.println(l.size());
+        System.out.println(l.get(0).getIpAddress());
+        System.out.println(l.get(1).getIpAddress());
     }
 }
