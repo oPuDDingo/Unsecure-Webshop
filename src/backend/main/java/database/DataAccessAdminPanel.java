@@ -41,10 +41,34 @@ public class DataAccessAdminPanel {
                         rs.getBoolean("html_comment_user"), rs.getBoolean("price_order_bug"), rs.getBoolean("guess_user_login"), rs.getBoolean("guess_coupon"),
                         rs.getBoolean("delete_user"), rs.getBoolean("comment_xss"), rs.getBoolean("look_for_email_address"), rs.getBoolean("hash_user")));
             }
+            rs.close();;
+            stmt.close();
+            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return ranking;
+    }
+
+    public boolean login(String username, String password){
+        Connection con = this.createConnection();
+        Statement stmt = null;
+        try {
+            stmt = con.createStatement();
+            String sql="SELECT password FROM admin WHERE username='"+username+"';";
+            ResultSet rs = stmt.executeQuery(sql);
+            if(rs.next()){
+                DataAccessShopDatabase dasd = new DataAccessShopDatabase();
+                if(dasd.encryptPasswordRealUser(password).equals(rs.getString("password"))){
+                    return true;
+                }
+            }
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     private void postClient(String ipAddress){
@@ -83,9 +107,7 @@ public class DataAccessAdminPanel {
 
     public static void main (String[] args){
         DataAccessAdminPanel a = new DataAccessAdminPanel();
-        List<RankingRow> l= a.getRanking();
-        System.out.println(l.size());
-        System.out.println(l.get(0).getIpAddress());
-        System.out.println(l.get(1).getIpAddress());
+        DataAccessShopDatabase dasd = new DataAccessShopDatabase();
+        System.out.println(a.login("i", "c"));
     }
 }

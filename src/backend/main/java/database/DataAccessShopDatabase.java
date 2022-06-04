@@ -759,7 +759,7 @@ public class DataAccessShopDatabase {
         }
     }
 
-    private String encryptPasswordRealUser(String password) {
+    public String encryptPasswordRealUser(String password) {
         String hash = Hashing.sha512().hashString(password, StandardCharsets.UTF_8).toString();
         return hash;
     }
