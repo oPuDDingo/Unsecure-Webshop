@@ -129,10 +129,14 @@ import java.util.List;
 		return Response.ok(DataHandler.createAddress(session, address)).build();
 	}
 
-	@Path("addresses") @PUT @Consumes(MediaType.APPLICATION_JSON) public Response modifyUserAddress(
+	@Path("addresses/{id}") @PUT @Consumes(MediaType.APPLICATION_JSON) public Response modifyUserAddress(
 		@CookieParam("sessionID") final String session,
+		@PathParam("id") final int id,
 		final Address address)
 	{
+		if (id != address.getId()){
+			return Response.status( 422 ).build();
+		}
 		return Response.ok(DataHandler.modifyAddress(address, session)).build();
 	}
 
