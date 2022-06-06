@@ -11,6 +11,7 @@ public class AdminService {
 
     LogicAdminPanel lap = new LogicAdminPanel();
 
+
     @GET
     @Path("login")
     @Produces(MediaType.TEXT_PLAIN)
@@ -32,5 +33,12 @@ public class AdminService {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response resetDatabaseShop(@CookieParam("sessionID") String session){
         return lap.resetDatabaseShop(session);
+    }
+
+    @POST
+    @Path("interface")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response setLevel(@CookieParam("sessionID") String session, @DefaultValue("1") @QueryParam("level") int level){
+        return lap.setLevel(session, level);
     }
 }
