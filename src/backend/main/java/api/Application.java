@@ -26,6 +26,7 @@ import java.util.Set;
 		services.add(OrderService.class);
 		services.add(UserService.class);
 		services.add(WishlistService.class);
+		services.add(AdminService.class);
 
 		return services;
 	}
