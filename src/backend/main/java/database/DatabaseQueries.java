@@ -147,8 +147,8 @@ public class DatabaseQueries {
             "CREATE TABLE session(\n" +
                     "    id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                     "    key TEXT,\n" +
-                    "    admin_id INTEGER,\n" +
-                    "    FOREIGN KEY (admin_id) REFERENCES admin(id)\n" +
+                    "    admin_username TEXT,\n" +
+                    "    FOREIGN KEY (admin_username) REFERENCES admin(username)\n" +
                     ");"
     };
 }

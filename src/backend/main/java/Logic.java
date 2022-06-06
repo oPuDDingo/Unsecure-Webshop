@@ -26,7 +26,7 @@ public class Logic
 		return Response.ok(sessionID).cookie(new NewCookie("sessionID", sessionID)).build();
 	}
 
-	private static String createSessionId()
+	public static String createSessionId()
 	{
 		SecureRandom GENERATOR = new SecureRandom();
 		byte[] token = new byte[32];

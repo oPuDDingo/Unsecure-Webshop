@@ -258,6 +258,19 @@ public class DataAccessAdminPanel {
         }
     }
 
+    public void postSession(String session, String username){
+        Connection con = this.createConnection();
+        Statement stmt = null;
+        try {
+            stmt = con.createStatement();
+            String sql="INSERT INTO session(ley, admin_username) VALUES('"+session+"','"+username+"';";
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void postClient(String ipAddress){
         Connection con = this.createConnection();
         Statement stmt = null;
