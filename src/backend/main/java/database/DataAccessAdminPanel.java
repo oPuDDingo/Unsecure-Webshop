@@ -22,9 +22,9 @@ public class DataAccessAdminPanel {
         return c;
     }
 
-    public void lookForCLient(String ipAddess){
-        if(this.checkClientExist(ipAddess)){
-            this.postClient(ipAddess);
+    public void lookForClient(String ipAddress){
+        if(this.checkClientExist(ipAddress)){
+            this.postClient(ipAddress);
         }
     }
 
@@ -71,6 +71,188 @@ public class DataAccessAdminPanel {
         return false;
     }
 
+    public void putSqlInjection(String ipAddress){
+        Connection con = this.createConnection();
+        Statement stmt = null;
+        try {
+            stmt = con.createStatement();
+            String sql="UPDATE ranking SET sql_injection=1 WHERE ip_address='"+ipAddress+"';";
+            stmt.execute(sql);
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void putBlindSqlInjection(String ipAddress){
+        Connection con = this.createConnection();
+        Statement stmt = null;
+        try {
+            stmt = con.createStatement();
+            String sql="UPDATE ranking SET blind_sql_injection=1 WHERE ip_address='"+ipAddress+"';";
+            stmt.execute(sql);
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void emailWithoutAt(String ipAddress){
+        Connection con = this.createConnection();
+        Statement stmt = null;
+        try {
+            stmt = con.createStatement();
+            String sql="UPDATE ranking SET email_without_at=1 WHERE ip_address='"+ipAddress+"';";
+            stmt.execute(sql);
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void putXss(String ipAddress){
+        Connection con = this.createConnection();
+        Statement stmt = null;
+        try {
+            stmt = con.createStatement();
+            String sql="UPDATE ranking SET xss=1 WHERE ip_address='"+ipAddress+"';";
+            stmt.execute(sql);
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void putProfilePicture(String ipAddress){
+        Connection con = this.createConnection();
+        Statement stmt = null;
+        try {
+            stmt = con.createStatement();
+            String sql="UPDATE ranking SET profile_picture=1 WHERE ip_address='"+ipAddress+"';";
+            stmt.execute(sql);
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void putHtmlCommentUser(String ipAddress){
+        Connection con = this.createConnection();
+        Statement stmt = null;
+        try {
+            stmt = con.createStatement();
+            String sql="UPDATE ranking SET html_comment_user=1 WHERE ip_address='"+ipAddress+"';";
+            stmt.execute(sql);
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void putPriceOrderBug(String ipAddress){
+        Connection con = this.createConnection();
+        Statement stmt = null;
+        try {
+            stmt = con.createStatement();
+            String sql="UPDATE ranking SET price_order_bug=1 WHERE ip_address='"+ipAddress+"';";
+            stmt.execute(sql);
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void putGuessUSerLogin(String ipAddress){
+        Connection con = this.createConnection();
+        Statement stmt = null;
+        try {
+            stmt = con.createStatement();
+            String sql="UPDATE ranking SET guess_user_login=1 WHERE ip_address='"+ipAddress+"';";
+            stmt.execute(sql);
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void putGuessCoupon(String ipAddress){
+        Connection con = this.createConnection();
+        Statement stmt = null;
+        try {
+            stmt = con.createStatement();
+            String sql="UPDATE ranking SET guess_coupon=1 WHERE ip_address='"+ipAddress+"';";
+            stmt.execute(sql);
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void putDeleteUSer(String ipAddress){
+        Connection con = this.createConnection();
+        Statement stmt = null;
+        try {
+            stmt = con.createStatement();
+            String sql="UPDATE ranking SET delete_user=1 WHERE ip_address='"+ipAddress+"';";
+            stmt.execute(sql);
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void putCommentXss(String ipAddress){
+        Connection con = this.createConnection();
+        Statement stmt = null;
+        try {
+            stmt = con.createStatement();
+            String sql="UPDATE ranking SET comment_xss=1 WHERE ip_address='"+ipAddress+"';";
+            stmt.execute(sql);
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void putLookForEmail(String ipAddress){
+        Connection con = this.createConnection();
+        Statement stmt = null;
+        try {
+            stmt = con.createStatement();
+            String sql="UPDATE ranking SET look_for_email_address=1 WHERE ip_address='"+ipAddress+"';";
+            stmt.execute(sql);
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void putHashUser(String ipAddress){
+        Connection con = this.createConnection();
+        Statement stmt = null;
+        try {
+            stmt = con.createStatement();
+            String sql="UPDATE ranking SET hash_user=1 WHERE ip_address='"+ipAddress+"';";
+            stmt.execute(sql);
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void postClient(String ipAddress){
         Connection con = this.createConnection();
         Statement stmt = null;
@@ -107,7 +289,6 @@ public class DataAccessAdminPanel {
 
     public static void main (String[] args){
         DataAccessAdminPanel a = new DataAccessAdminPanel();
-        DataAccessShopDatabase dasd = new DataAccessShopDatabase();
-        System.out.println(a.login("i", "c"));
+        a.putSqlInjection("128.0.0.1");
     }
 }
