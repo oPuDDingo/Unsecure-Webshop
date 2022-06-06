@@ -28,6 +28,11 @@ public class DataAccessAdminPanel {
         }
     }
 
+    public void resetDatabase(){
+        this.deleteDatabase();;
+        this.createDatabase();
+    }
+
     public List<RankingRow> getRanking(){
         Connection con = this.createConnection();
         Statement stmt = null;
@@ -286,9 +291,39 @@ public class DataAccessAdminPanel {
         return false;
     }
 
+    private void deleteDatabase(){
+        Connection con = this.createConnection();
+        Statement stmt = null;
+        try {
+            stmt = con.createStatement();
+            for (String sql : DatabaseQueries.deleteDatabaseAdminPanel) {
+                stmt.execute(sql);
+            }
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void createDatabase(){
+        Connection con = this.createConnection();
+        Statement stmt = null;
+        try {
+            stmt = con.createStatement();
+            for (String sql : DatabaseQueries.createDatabaseAdminPanel) {
+                stmt.execute(sql);
+            }
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public static void main (String[] args){
         DataAccessAdminPanel a = new DataAccessAdminPanel();
-        a.putSqlInjection("128.0.0.1");
+        a.resetDatabase();
     }
 }

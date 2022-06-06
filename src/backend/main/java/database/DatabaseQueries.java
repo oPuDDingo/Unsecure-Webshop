@@ -125,5 +125,31 @@ public class DatabaseQueries {
     public static String[] colors = new String[]{"red", "blue", "green", "black", "white"};
 
     public static String[] gbSizes = new String[]{"128", "256", "512"};
+
+    public static String[] deleteDatabaseAdminPanel = new String[]{"DROP TABLE ranking;","DROP TABLE session"};
+
+    public static String[] createDatabaseAdminPanel = new String[]{"CREATE TABLE ranking(\n" +
+            "    ip_address TEXT PRIMARY KEY,\n" +
+            "    sql_injection INTEGER DEFAULT 0,\n" +
+            "    blind_sql_injection INTEGER DEFAULT 0,\n" +
+            "    email_without_at INTEGER DEFAULT 0,\n" +
+            "    xss INTEGER DEFAULT 0,\n" +
+            "    profile_picture INTEGER DEFAULT 0,\n" +
+            "    html_comment_user INTEGER DEFAULT 0,\n" +
+            "    price_order_bug INTEGER DEFAULT 0,\n" +
+            "    guess_user_login INTEGER DEFAULT 0,\n" +
+            "    guess_coupon INTEGER DEFAULT 0,\n" +
+            "    delete_user INTEGER DEFAULT 0,\n" +
+            "    comment_xss INTEGER DEFAULT 0,\n" +
+            "    look_for_email_address INTEGER DEFAULT 0,\n" +
+            "    hash_user INTEGER DEFAULT 0\n" +
+            ");\n",
+            "CREATE TABLE session(\n" +
+                    "    id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                    "    key TEXT,\n" +
+                    "    admin_id INTEGER,\n" +
+                    "    FOREIGN KEY (admin_id) REFERENCES admin(id)\n" +
+                    ");"
+    };
 }
 
