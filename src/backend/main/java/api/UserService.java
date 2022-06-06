@@ -6,6 +6,7 @@ import backend.main.java.models.User;
 import backend.main.java.models.Address;
 import backend.main.java.models.Payment;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -33,17 +34,19 @@ import java.util.List;
 
 	@POST @Path("register") @Consumes(MediaType.APPLICATION_JSON) public Response createUser(
 		@Context UriInfo uriInfo,
-		final User user)
+		final User user,
+		@Context HttpServletRequest request)
 	{
 		DataHandler.createUser(user);
-		return Logic.login(user.getMail(), user.getPassword());
+		return Logic.login(user.getMail(), user.getPassword(), request.getRemoteAddr());
 	}
 
 	@GET @Path("login") @Produces(MediaType.TEXT_PLAIN) public Response checkLogin(
 		@DefaultValue("") @QueryParam("mail") String mail,
-		@DefaultValue("") @QueryParam("password") String password
+		@DefaultValue("") @QueryParam("password") String password,
+		@Context HttpServletRequest request
 	) {
-		return Logic.login(mail, password);
+		return Logic.login(mail, password, request.getRemoteAddr());
 	}
 
 	@POST @Path("logout") public Response logout(
@@ -174,7 +177,7 @@ import java.util.List;
 	)
 	{
 		if (session == null) session = "ge/P6tR72CaQ9R8OgNr+P1APqNOUQ6wZYkSx0JUyCco=";
-		// turn off newsletter
+		DataHandler.turnOffNewsletter(session);
 		return Response.ok("cancelled newsletter subscription").build();
 	}
 
@@ -185,7 +188,6 @@ import java.util.List;
 		if (session == null) session = "ge/P6tR72CaQ9R8OgNr+P1APqNOUQ6wZYkSx0JUyCco=";
 		// get user with sessionID
 		// modify in database
-
 		return Response.ok(password).build();
 	}
 
