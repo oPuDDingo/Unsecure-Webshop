@@ -271,6 +271,22 @@ public class DataAccessAdminPanel {
         }
     }
 
+    public boolean checkSession(String session){
+        Connection con = this.createConnection();
+        Statement stmt = null;
+        try {
+            stmt = con.createStatement();
+            String sql="SELECT key FROM session WHERE key='"+session+"';";
+            ResultSet rs = stmt.executeQuery(sql);
+            if(rs.next() && rs.getString("key").equals(session)){
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     private void postClient(String ipAddress){
         Connection con = this.createConnection();
         Statement stmt = null;

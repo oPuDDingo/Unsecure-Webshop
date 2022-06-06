@@ -1,7 +1,6 @@
 package backend.main.java.api;
 
-import backend.main.java.database.DataAccessAdminPanel;
-import backend.main.java.models.LogicAdminPanel;
+import backend.main.java.LogicAdminPanel;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -19,5 +18,19 @@ public class AdminService {
                                @DefaultValue("") @QueryParam("password") String password){
 
         return lap.login(username, password);
+    }
+
+    @GET
+    @Path("interface")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getRanking(@CookieParam("sessionID") String session){
+        return lap.getRanking(session);
+    }
+
+    @PUT
+    @Path("interface")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response resetDatabaseShop(@CookieParam("sessionID") String session){
+        return lap.resetDatabaseShop(session);
     }
 }
