@@ -18,12 +18,12 @@ public class Logic
 {
 	static DataAccessShopDatabase Database = new DataAccessShopDatabase();
 
-	public static Response login(final String mail, final String password)
+	public static Response login(final String mail, final String password, String ip)
 	{
 		boolean session = Database.checkAuthData(mail, password);
 		if (!session) return null;
 		String sessionID = createSessionId();
-		Database.postSession(sessionID, mail, "127.0.0.1");
+		Database.postSession(sessionID, mail, ip);
 		return Response.ok(sessionID).cookie(new NewCookie("sessionID", sessionID)).build();
 	}
 
@@ -44,9 +44,9 @@ public class Logic
 	public static double computePrice(List<Article> articles)
 	{
 		double sum = 0;
-		for (int i = 0; i < articles.size(); i++)
+		for (Article article : articles)
 		{
-			sum += articles.get(i).getAmount();
+			sum += article.getAmount();
 		}
 		return sum;
 	}

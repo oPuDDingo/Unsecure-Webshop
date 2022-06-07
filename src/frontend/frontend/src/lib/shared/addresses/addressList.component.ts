@@ -37,7 +37,7 @@ export class AddressListComponent implements OnInit {
       city: "",
       country: "",
       deliveryInstructions: ""
-    }).subscribe()
+    }).subscribe(() => console.log(this.addresses))
   }
 
   onSelectAddress(address: Address): void {
