@@ -875,7 +875,9 @@ public class DataAccessShopDatabase {
             stmt = con.createStatement();
             String sql = "SELECT id FROM user WHERE e_mail='" + email + "';";
             ResultSet rs = stmt.executeQuery(sql);
-            userId = rs.getInt("id");
+            if(rs.next()){
+                userId = rs.getInt("id");
+            }
             rs.close();
             stmt.close();
             con.close();
