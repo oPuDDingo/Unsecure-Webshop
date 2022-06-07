@@ -9,36 +9,40 @@ import javax.ws.rs.core.Response;
 @Path("admin")
 public class AdminService {
 
-    LogicAdminPanel lap = new LogicAdminPanel();
-
-
     @GET
     @Path("login")
     @Produces(MediaType.TEXT_PLAIN)
     public Response checkLogin(@DefaultValue("") @QueryParam("username") String username,
                                @DefaultValue("") @QueryParam("password") String password){
 
-        return lap.login(username, password);
+        return LogicAdminPanel.login(username, password);
     }
 
     @GET
     @Path("interface")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getRanking(@CookieParam("sessionID") String session){
-        return lap.getRanking(session);
+        return LogicAdminPanel.getRanking(session);
     }
 
     @PUT
     @Path("interface")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response resetDatabaseShop(@CookieParam("sessionID") String session){
-        return lap.resetDatabaseShop(session);
+        return LogicAdminPanel.resetDatabaseShop(session);
     }
 
     @POST
     @Path("interface")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response setLevel(@CookieParam("sessionID") String session, @DefaultValue("1") @QueryParam("level") int level){
-        return lap.setLevel(session, level);
+        return LogicAdminPanel.setLevel(session, level);
+    }
+
+    @DELETE
+    @Path("interface")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response resetDatabaseRanking(@CookieParam("sessionID") String session){
+        return LogicAdminPanel.resetDatabaseRanking(session);
     }
 }
