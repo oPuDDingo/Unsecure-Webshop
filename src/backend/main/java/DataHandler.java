@@ -149,6 +149,11 @@ public class DataHandler
 		Database.postNewsletter(Database.getUserId(session));
 	}
 
+	public static void turnOffNewsletter(String session)
+	{
+		Database.deleteNewsletter(Database.getUserId(session));
+	}
+
 	public static List<ArticleVersion> getWishlist(String session)
 	{
 		return Database.getWishlist(Database.getUserId(session));
@@ -173,4 +178,5 @@ public class DataHandler
 	{
 		Database.deleteWishListItem(id);
 	}
+
 }
