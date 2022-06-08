@@ -10,7 +10,7 @@ import javax.ws.rs.core.Response;
 public class LogicAdminPanel {
     private static DataAccessAdminPanel daap = new DataAccessAdminPanel();
     private static DataAccessShopDatabase dasd = new DataAccessShopDatabase();
-    private static int level =1;
+    public static int level =1;
 
     public static Response login(final String username,final String password){
         if(daap.login(username, password)){
