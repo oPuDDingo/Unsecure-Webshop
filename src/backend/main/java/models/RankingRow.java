@@ -1,6 +1,8 @@
 package backend.main.java.models;
 
-public class RankingRow {
+import java.io.Serializable;
+
+public class RankingRow implements Serializable {
 
     private String ipAddress;
     private boolean sqlInjection;
