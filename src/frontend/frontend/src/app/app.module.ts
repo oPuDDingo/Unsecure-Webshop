@@ -7,6 +7,7 @@ import {NavbarModule} from "../lib/ui/navbar/navbar.module";
 import {FooterModule} from "../lib/ui/footer/footer.module";
 import {NavbarItemsModule} from "../lib/ui/navbarItems/navbarItems.module";
 import {MessageAlertsModule} from "../lib/ui/messageAlerts/messageAlerts.module";
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 
 @NgModule({
@@ -14,7 +15,7 @@ import {MessageAlertsModule} from "../lib/ui/messageAlerts/messageAlerts.module"
     AppComponent
   ],
   imports: [
-    BrowserModule, AppRoutingModule, HttpClientModule, NavbarModule, FooterModule, NavbarItemsModule, MessageAlertsModule
+    BrowserModule, AppRoutingModule, HttpClientModule, NavbarModule, FooterModule, NavbarItemsModule, MessageAlertsModule, PaginationModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

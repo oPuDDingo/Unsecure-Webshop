@@ -4,6 +4,7 @@ import {PageItemComponent} from "./pageItem/pageItem.component";
 import {CommonModule} from "@angular/common";
 import {RouterModule, Routes} from "@angular/router";
 import {ColorCircleModule} from "../../shared/colorCircle/colorCircle.module";
+import {PaginationComponent, PaginationModule} from "ngx-bootstrap/pagination";
 
 
 const routes: Routes = [
@@ -12,9 +13,9 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [ItemListComponent, PageItemComponent],
-  imports: [CommonModule, RouterModule, ColorCircleModule, RouterModule.forChild(routes)],
+  imports: [CommonModule, RouterModule, ColorCircleModule, RouterModule.forChild(routes), PaginationModule],
   providers: [],
-  bootstrap: [],
+  bootstrap: [PaginationComponent],
   exports: [ItemListComponent]
 })
 export class ItemListModule {
