@@ -1,6 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {ArticleStore} from "../../data-access/service/store/article.store";
 import {Article} from "../../data-access/models";
+import {NewsletterComponent} from "../../ui/newsletter/newsletter.component";
 
 
 @Component({
@@ -21,5 +22,6 @@ export class BoardComponent implements OnInit {
     this.articleStore.loadArticlesFrontpage().subscribe(articles => {
       this.articles = articles;
     });
+
   }
 }
