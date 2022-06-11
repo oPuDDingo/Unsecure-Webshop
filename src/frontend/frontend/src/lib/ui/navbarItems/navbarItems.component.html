@@ -1,8 +1,8 @@
 <div class="items d-flex justify-content-between w-50 mx-auto flex-wrap">
-  <a routerLink="/articles?brand=apple">Apple</a>
-  <a routerLink="/articles?brand=samsung">Samsung</a>
-  <a routerLink="/articles?brand=xiaomi">Xiaomi</a>
-  <a routerLink="/articles?brand=sony">Sony</a>
+  <a class="clickable" (click)="selectBrand('Apple')"  routerLink="/articles">Apple</a>
+  <a class="clickable" (click)="selectBrand('Samsung')" routerLink="/articles">Samsung</a>
+  <a class="clickable" (click)="selectBrand('Xiaomi')" routerLink="/articles">Xiaomi</a>
+  <a class="clickable" (click)="selectBrand('Sony')" routerLink="/articles">Sony</a>
 </div>
 
 

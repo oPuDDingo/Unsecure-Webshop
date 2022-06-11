@@ -1,4 +1,6 @@
 import {Component} from "@angular/core";
+import {ArticleStore} from "../../data-access/service/store/article.store";
+import {Article} from "../../data-access/models";
 
 @Component({
   selector: 'navbar-items',
@@ -8,4 +10,13 @@ import {Component} from "@angular/core";
 
 export class NavbarItemsComponent {
 
+  articles: Article[] = [];
+
+
+  constructor(private articleStore: ArticleStore) {
+  }
+
+  selectBrand(brand: string) {
+    this.articleStore.loadArticlesByBrand(brand).subscribe(articles => this.articles = articles);
+  }
 }
