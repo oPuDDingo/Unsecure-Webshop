@@ -128,7 +128,7 @@ public class DataAccessShopDatabase {
             stmt = con.createStatement();
             String sql = "UPDATE address " +
                     " SET(street_house_number='" + address.getAddress() + "', postcode= '" + address.getZipCode() + "', address=supplement='" + address.getAddress2() + "', city='" + address.getCity() + "', country='" + address.getCountry()
-                    + "', name='" + address.getName() + "', delivery_instruction='" + address.getDeliveryInstructions() + "' WHERE id=" + address.getId() + ";";
+                    + "', name='" + address.getName() + "', delivery_instruction='" + address.getDeliveryInstructions() + "' WHERE id=" + address.getId() +"AND"+"user_id="+userId+";";
             stmt.execute(sql);
             addressRet = this.getAddress(address.getId());
             stmt.close();
@@ -149,7 +149,7 @@ public class DataAccessShopDatabase {
             stmt = con.createStatement();
             String sql = "INSERT INTO address(street_house_number, postcode, address_suplement, city, country, name, delivery_instruction, user_id)" +
                     "VALUES('" + address.getAddress() + "', '" + address.getZipCode() + "', '" + address.getAddress2() + "', '" + address.getCity() + "', '" + address.getCountry()
-                    + "', '" + address.getName() + "', '" + address.getDeliveryInstructions() + "');";
+                    + "', '" + address.getName() + "', '" + address.getDeliveryInstructions() + "', '" + userId+ "');";
             stmt.execute(sql);
             int addressId = stmt.getGeneratedKeys().getInt(1);
             addressRet = this.getAddress(addressId);
@@ -189,12 +189,12 @@ public class DataAccessShopDatabase {
         }
     }
 
-    public void deleteAddress(int addressId) {
+    public void deleteAddress(int addressId, int userId) {
         Connection con = this.createConnection();
         Statement stmt = null;
         try {
             stmt = con.createStatement();
-            String sql = "UPDATE address SET user_id=-1 WHERE id=" + addressId + ";";
+            String sql = "UPDATE address SET user_id=-1 WHERE id=" + addressId + "AND"+"user_id="+userId+";";
             stmt.execute(sql);
             stmt.close();
             con.close();
@@ -358,8 +358,10 @@ public class DataAccessShopDatabase {
             String sql = "SELECT id, e_mail, firstname, lastname, newsletter, salutation, title, profile_picture, description FROM user WHERE id=" + userId + ";";
             System.out.println(sql);
             ResultSet rs = stmt.executeQuery(sql);
-            user = new User(rs.getInt("id"), rs.getString("e_mail"), rs.getString("firstname"), rs.getString("lastname"), rs.getBoolean("newsletter"), rs.getString("salutation"),
-                    rs.getString("title"), rs.getString("profile_picture"), rs.getString("description"));
+            if(rs.next()){
+                user = new User(rs.getInt("id"), rs.getString("e_mail"), rs.getString("firstname"), rs.getString("lastname"), rs.getBoolean("newsletter"), rs.getString("salutation"),
+                        rs.getString("title"), rs.getString("profile_picture"), rs.getString("description"));
+            }
             rs.close();
             stmt.close();
             con.close();
@@ -369,13 +371,13 @@ public class DataAccessShopDatabase {
         return user;
     }
 
-    public Address getAddress(int addressId) {
+    public Address getAddress(int addressId) { //nicht fertig
         Connection con = this.createConnection();
         Statement stmt = null;
         Address address = null;
         try {
             stmt = con.createStatement();
-            String sql = "SELECT name, street_house_number, address_suplement, postcode, city, country, delivery_instruction FROM address WHERE id=" + addressId;
+            String sql = "SELECT id, name, street_house_number, address_suplement, postcode, city, country, delivery_instruction FROM address WHERE id=" + addressId;
             ResultSet rs = stmt.executeQuery(sql);
             address = new Address(addressId, rs.getString("name"), rs.getString("country"), rs.getString("street_house_number"), rs.getString("address_suplement"), rs.getString("postcode"), rs.getString("city"), rs.getString("delivery_instruction"));
             rs.close();
@@ -752,6 +754,7 @@ public class DataAccessShopDatabase {
         try {
             stmt = con.createStatement();
             String sql="DELETE FROM session WHERE key='"+session+"';";
+            stmt.execute(sql);
             stmt.close();
             con.close();
         } catch (SQLException e) {
@@ -759,7 +762,7 @@ public class DataAccessShopDatabase {
         }
     }
 
-    public String encryptPasswordRealUser(String password) {
+    private String encryptPasswordRealUser(String password) {
         String hash = Hashing.sha512().hashString(password, StandardCharsets.UTF_8).toString();
         return hash;
     }
@@ -872,7 +875,9 @@ public class DataAccessShopDatabase {
             stmt = con.createStatement();
             String sql = "SELECT id FROM user WHERE e_mail='" + email + "';";
             ResultSet rs = stmt.executeQuery(sql);
-            userId = rs.getInt("id");
+            if(rs.next()){
+                userId = rs.getInt("id");
+            }
             rs.close();
             stmt.close();
             con.close();
@@ -956,7 +961,7 @@ public class DataAccessShopDatabase {
 
     }
 
-    private void postArticles() { //for creating the database from ground
+    private void postArticles() {
         Connection con = this.createConnection();
         Statement stmt = null;
         try {
