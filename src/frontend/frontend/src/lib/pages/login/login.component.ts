@@ -12,6 +12,7 @@ export class LoginComponent {
   mail: string = "";
   password: string = "";
 
+
   invalidData: boolean = false;
 
   constructor(private authenticationService: AuthenticationService, private router: Router) {
