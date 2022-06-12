@@ -1,8 +1,7 @@
 import {Component, OnInit, TemplateRef} from "@angular/core";
 import {BackendService} from "../../data-access/service/backend.service";
-import {RankingStudent} from "../../data-access/models";
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
-import {UserStore} from "../../data-access/service/store/user.store";
+import {RankingStudent} from "../../data-access/models/rankingStudent";
 
 @Component({
   selector: 'biedis-page',

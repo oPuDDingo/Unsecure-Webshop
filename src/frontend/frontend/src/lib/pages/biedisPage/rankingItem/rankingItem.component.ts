@@ -1,7 +1,4 @@
-import {Component, Input, OnInit} from "@angular/core";
-import {Article, RankingStudent} from "../../../data-access/models";
-import {ImageStore} from "../../../data-access/service/store/image.store";
-import {BackendService} from "../../../data-access/service/backend.service";
+import {Component, Input} from "@angular/core";
 
 @Component({
   selector: 'front-item',
