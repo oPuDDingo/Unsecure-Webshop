@@ -33,6 +33,41 @@ public class DataAccessAdminPanel {
         this.createDatabase();
     }
 
+    public List<String> checkForNewFindings(String ipAddress){
+        Connection con = this.createConnection();
+        Statement stmt = null;
+        ArrayList<String> findings = new ArrayList<>();
+        try {
+            stmt=con.createStatement();
+            String sql="SELECT sql_injection, blind_sql_injection, email_without_at, xss, profile_picture, html_comment_user, price_order_bug, " +
+                    "guess_user_login, guess_coupon, delete_user, comment_xss, look_for_email_address, hash_user FROM ranking WHERE ip_address='"+ipAddress+"';";
+            ResultSet rs = stmt.executeQuery(sql);
+            if(rs.next()){
+                ResultSetMetaData rsmd = rs.getMetaData();
+                for(int i=1; i<=13;i++){
+                    if(rs.getInt(i)==1){
+                        findings.add(rsmd.getColumnName(i));
+                    }
+                }
+            }
+            if(findings.size()!=0){
+                String sql2="UPDATE ranking SET ";
+                for(int j=0; j<findings.size();j++){
+                    sql2 = sql2+findings.get(j)+"=2, ";
+                }
+                sql2=sql2.substring(0, sql2.length()-2);
+                sql2=sql2+" WHERE ip_address='"+ipAddress+"';";
+                stmt.execute(sql2);
+            }
+            rs.close();
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return findings;
+    }
+
     public List<RankingRow> getRanking(){
         Connection con = this.createConnection();
         Statement stmt = null;
@@ -353,6 +388,7 @@ public class DataAccessAdminPanel {
 
     public static void main (String[] args){
         DataAccessAdminPanel a = new DataAccessAdminPanel();
-        a.resetDatabase();
+        List<String> x =a.checkForNewFindings("111");
+        System.out.println(x.size());
     }
 }
