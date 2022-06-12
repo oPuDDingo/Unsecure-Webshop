@@ -1,3 +1,4 @@
+<!--<form #loginForm="ngForm" (ngSubmit)="onFormSubmit(loginForm)">-->
 <section class="h-100 gradient-form" style="background-color: #eee;">
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
@@ -15,9 +16,9 @@
 
                 <div>
                   <div class="form-outline mb-4">
-                    <input [(ngModel)]="mail" class="form-control" id="form2Example11"
-                           placeholder="E-Mail Adresse" type="text"/>
-                    <label class="form-label" for="form2Example11">Username/E-Mail</label>
+                    <input [(ngModel)]="username" class="form-control" id="form2Example11"
+                           placeholder="Username" type="text"/>
+                    <label class="form-label" for="form2Example11">Username</label>
                   </div>
 
                   <div class="form-outline mb-4">
@@ -34,14 +35,8 @@
                   </div>
 
                   <div class="d-flex align-items-center justify-content-center pb-4">
-                    <p class="mb-0 me-2">Du hast noch keinen Account?</p>
-                    <button class="btn btn-outline-primary" routerLink="/register" type="button">Registrieren
-                    </button>
-                  </div>
-
-                  <div class="d-flex align-items-center justify-content-center pb-4">
-                    <p class="mb-0 me-2">Du bist ein toller Admin?</p>
-                    <button class="btn btn-outline-primary" routerLink="/adminLogin" type="button">Admin
+                    <p class="mb-0 me-2">Du bist kein Admin?</p>
+                    <button class="btn btn-outline-primary" routerLink="/login" type="button">Login
                     </button>
                   </div>
 
@@ -51,11 +46,8 @@
             </div>
             <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
               <div class="text-white px-3 py-4 p-md-5 mx-md-4">
-                <h4 class="mb-4">Suche jetzt nach den Schwachstellen und werde der Allerbeste!</h4>
-                <p class="small mb-0">Willst du der Allerbeste sein, wie keiner vor dir war? <br>
-                  Ganz allein fängst du sie dir, du kennst die Gefahr.<br>
-                  Du streifst durch das ganze Land, du suchst weit und breit. <br>
-                  Die Schwachstelle, um zu verstehen, was ihr diese Macht verleiht.</p>
+                <h4 class="mb-4">Hallöchen toller Admin,</h4>
+                <p class="small mb-0">das Wissenwerte über den Allerbesten, <br> befindet sich hinter dieser Tür.</p>
               </div>
             </div>
           </div>
