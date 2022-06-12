@@ -762,6 +762,26 @@ public class DataAccessShopDatabase {
         }
     }
 
+    public String getPassword(int userId){
+        Connection con = this.createConnection();
+        Statement stmt = null;
+        String password="";
+        try {
+            stmt=con.createStatement();
+            String sql="SELECT password FROM user WHERE id="+userId;
+            ResultSet rs = stmt.executeQuery(sql);
+            if(rs.next()){
+                password=rs.getString(password);
+            }
+            rs.close();
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return password;
+    }
+
     private String encryptPasswordRealUser(String password) {
         String hash = Hashing.sha512().hashString(password, StandardCharsets.UTF_8).toString();
         return hash;

@@ -102,8 +102,9 @@ public class DatabaseQueries {
 
     public static String[] brands = new String[]{"Samsung", "Apple", "Xiaomi","Sony"};
 
-    public static User[] users = new User[]{new User(1, "Admin@Admin.de", "admin", "admin", false, "", "", "", "Admin User", "123456789"),
-    new User(2, "Test@test.de", "test", "test", false, "", "", "", "Test User", "test123456789")};
+    public static User[] users = new User[]{new User(1, "Test@test.de", "test", "test", false, "", "", "", "Test User", "123456789"),
+    new User(2, "Test@User.de", "test", "test", false, "", "", "", "Test User", "test123456789"),
+            new User(3, "Test@User.de", "test", "test", false, "", "", "", "Test User", "12345testUser6789")};
 
     public static ArticleDB[] articles = new ArticleDB[]{new ArticleDB("Galaxy Z Fold3", 1393.00, "Android 11.0, ONE UI 3.1.1, KNOX 3.7", "01.01.2022", "Dynamic AMOLED", "2.208x1.768", 100, 25, 1),
     new ArticleDB("Galaxy S22 Ultra", 1449.00, "Android 12, One UI 4.1, Knox 3.8", "05.12.2021", "Dynamic AMOLED, Quad HD+", "3.088x1.440", 90, 30, 1),
