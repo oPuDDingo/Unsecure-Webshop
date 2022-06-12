@@ -42,9 +42,9 @@ public class DataAccessAdminPanel {
             String sql="SELECT *, SUM(sql_injection+blind_sql_injection+email_without_at+xss+profile_picture+html_comment_user+price_order_bug+guess_user_login+guess_coupon+delete_user+comment_xss+look_for_email_address+hash_user) as sum FROM ranking GROUP BY ip_address ORDER BY sum DESC;;";
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next()){
-                ranking.add( new RankingRow(rs.getString("ip_address"), rs.getBoolean("sql_injection"), rs.getBoolean("blind_sql_injection"), rs.getBoolean("email_without_at"), rs.getBoolean("xss"), rs.getBoolean("profile_picture"),
-                        rs.getBoolean("html_comment_user"), rs.getBoolean("price_order_bug"), rs.getBoolean("guess_user_login"), rs.getBoolean("guess_coupon"),
-                        rs.getBoolean("delete_user"), rs.getBoolean("comment_xss"), rs.getBoolean("look_for_email_address"), rs.getBoolean("hash_user")));
+                ranking.add( new RankingRow(rs.getString("ip_address"), rs.getInt("sql_injection"), rs.getInt("blind_sql_injection"), rs.getInt("email_without_at"), rs.getInt("xss"), rs.getInt("profile_picture"),
+                        rs.getInt("html_comment_user"), rs.getInt("price_order_bug"), rs.getInt("guess_user_login"), rs.getInt("guess_coupon"),
+                        rs.getInt("delete_user"), rs.getInt("comment_xss"), rs.getInt("look_for_email_address"), rs.getInt("hash_user"), rs.getInt("sum")));
             }
             rs.close();;
             stmt.close();

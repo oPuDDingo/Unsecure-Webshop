@@ -18,25 +18,29 @@ public class RankingRow implements Serializable {
     private boolean commentXss;
     private boolean lookForEmailAddress;
     private boolean hashUser;
+    private int points;
 
     public RankingRow() {
     }
 
-    public RankingRow(String ipAddress, boolean sqlInjection, boolean blindSqlInjection, boolean emailWithoutAt, boolean xss, boolean profile_picture, boolean htmlCommentUser, boolean priceOrderBug, boolean guessUserLogin, boolean guessCoupon, boolean deleteUser, boolean commentXss, boolean lookForEmailAddress, boolean hashUser) {
-        this.ipAddress = ipAddress;
-        this.sqlInjection = sqlInjection;
-        this.blindSqlInjection = blindSqlInjection;
-        this.emailWithoutAt = emailWithoutAt;
-        this.xss = xss;
-        this.profile_picture = profile_picture;
-        this.htmlCommentUser = htmlCommentUser;
-        this.priceOrderBug = priceOrderBug;
-        this.guessUserLogin = guessUserLogin;
-        this.guessCoupon = guessCoupon;
-        this.deleteUser = deleteUser;
-        this.commentXss = commentXss;
-        this.lookForEmailAddress = lookForEmailAddress;
-        this.hashUser = hashUser;
+    public RankingRow(String ipAddress, int sqlInjection, int blindSqlInjection, int emailWithoutAt, int xss, int profile_picture,
+                      int htmlCommentUser, int priceOrderBug, int guessUserLogin, int guessCoupon, int deleteUser, int commentXss,
+                      int lookForEmailAddress, int hashUser, int points) {
+        this.ipAddress=ipAddress;
+        this.points=points;
+        this.sqlInjection= sqlInjection==0 ? false : true;
+        this.blindSqlInjection = blindSqlInjection==0? false:true;
+        this.emailWithoutAt = emailWithoutAt==0? false:true;
+        this.xss = xss==0?false:true;
+        this.profile_picture=profile_picture==0?false:true;
+        this.htmlCommentUser = htmlCommentUser==0? false:true;
+        this.priceOrderBug=priceOrderBug==0?false:true;
+        this.guessUserLogin = guessUserLogin==0?false:true;
+        this.guessCoupon =guessCoupon==0?false:true;
+        this.deleteUser = deleteUser==0?false:true;
+        this.commentXss=commentXss==0?false:true;
+        this.lookForEmailAddress = lookForEmailAddress==0?false:true;
+        this.hashUser = hashUser==0?false:true;
     }
 
     public String getIpAddress() {
@@ -149,5 +153,13 @@ public class RankingRow implements Serializable {
 
     public void setHashUser(boolean hashUser) {
         this.hashUser = hashUser;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
     }
 }
