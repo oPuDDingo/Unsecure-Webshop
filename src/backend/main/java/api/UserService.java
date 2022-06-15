@@ -68,8 +68,21 @@ import java.util.List;
 	@DELETE public Response deleteUser(
 		@CookieParam("sessionID") String session)
 	{
-		if (session == null) session = "ge/P6tR72CaQ9R8OgNr+P1APqNOUQ6wZYkSx0JUyCco=";
 		DataHandler.deleteUser(session);
+		return Response.noContent().build();
+	}
+
+	@Path( "{id:\\d+}" )
+	@DELETE public Response deleteUserById(
+		@DefaultValue( "" ) @CookieParam("sessionID") String session,
+		@PathParam( "id" ) final long id,
+		@Context HttpServletRequest req
+	)
+	{
+		if (session == null)
+			throw new BadRequestException( "Missing session key!" );
+
+		DataHandler.deleteUserById(session, id, req.getRemoteAddr());
 		return Response.noContent().build();
 	}
 
