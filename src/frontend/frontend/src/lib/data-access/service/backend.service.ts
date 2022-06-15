@@ -168,4 +168,8 @@ export class BackendService {
     return this.httpClient.get<User>(this.url + 'user', {headers: this.header});
   }
 
+  loadUserById(id: number): Observable<User> {
+    return this.httpClient.get<User>(this.url + 'user/' + id);
+  }
+
 }

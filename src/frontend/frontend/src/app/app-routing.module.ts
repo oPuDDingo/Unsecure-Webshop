@@ -43,7 +43,6 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {path: 'login', loadChildren: () => import('../lib/pages/login/login.module').then(m => m.LoginModule)},
-  {path: 'adminLogin', loadChildren: () => import('../lib/pages/adminLogin/adminLogin.module').then(m => m.AdminLoginModule)},
   {path: 'register', loadChildren: () => import('../lib/pages/register/register.module').then(m => m.RegisterModule)},
   {
     path: 'sustainable',
@@ -57,6 +56,10 @@ const routes: Routes = [
   {
     path: 'paymentMethods',
     loadChildren: () => import('../lib/pages/paymentMethods/paymentMethods.module').then(m => m.PaymentMethodsModule)
+  },
+  {
+    path: 'user/:id',
+    loadChildren: () => import('../lib/pages/foreignUser/foreignUser.module').then(m => m.ForeignUserModule)
   },
   {path: '', redirectTo: 'index', pathMatch: 'full'},
   {path: '**', redirectTo: 'index'},
