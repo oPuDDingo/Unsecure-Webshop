@@ -10,8 +10,6 @@ import {ToastrService} from "ngx-toastr";
 
 export class MessageAlertsComponent implements OnInit {
 
-  alerts: string[] = [];
-
   // @ts-ignore
   @ViewChild("alertSection") alertSectionRef: ElementRef;
 

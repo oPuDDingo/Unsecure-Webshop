@@ -1,20 +1,21 @@
-import {Component, Input, OnInit} from "@angular/core";
-import {Article} from "../../../data-access/models/article";
-import {ImageStore} from "../../../data-access/service/store/image.store";
+import {Component, Input} from "@angular/core";
 
 @Component({
   selector: 'article-overview-comment',
   templateUrl: './comment.component.html',
   styleUrls: ['./comment.component.scss']
 })
-export class CommentComponent implements OnInit {
+export class CommentComponent {
   // @ts-ignore
-  @Input article: Article;
+  @Input comment: Commentary;
 
-  constructor(private imageStore: ImageStore) {
+  getUserName(): string {
+    if (this.comment.firstName && this.comment.lastName) {
+      return `${this.comment.firstName} ${this.comment.lastName}`;
+    } else {
+      return "Unbekannter Nutzer";
+    }
   }
 
-  ngOnInit() {
-  }
 
 }
