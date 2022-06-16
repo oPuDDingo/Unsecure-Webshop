@@ -41,4 +41,10 @@ public class FlawHandler
 		daap.lookForClient(ip);
 		daap.putGuessUserLogin(ip);
 	}
+
+	public static void commentXSS(String ip)
+	{
+		daap.lookForClient(ip);
+		daap.putCommentXss(ip);
+	}
 }

@@ -42,7 +42,7 @@ public class Logic
 		return Response.ok().build();
 	}
 
-	private static String createSessionId()
+	static String createSessionId()
 	{
 		SecureRandom GENERATOR = new SecureRandom();
 		byte[] token = new byte[32];
@@ -61,35 +61,23 @@ public class Logic
 		return sum;
 	}
 
-	public static String preventSQL(int level, String request)
+	public static boolean preventCheckXSS(int level, String request)
 	{
 		if (level == 1)
 		{
-			return request.replace("SELECT", "");
+			request = request.replace("script", "");
+			return request.contains("<script>");
 		}
 		else if (level == 2)
 		{
-			return request.replace("'", "");
+			request = request.replace("<script>", "");
+			return request.contains("<script>");
+		} else if (level == 3) {
+			return request.contains("'UNION UPDATE user SET description=");
 		}
-		return request;
+		return false;
 	}
 
-	public static String preventXSS(int level, String request)
-	{
-		if (level == 1)
-		{
-			return request.replace("script", "");
-		}
-		else if (level == 2)
-		{
-			return request.replace("<script>", "");
-		}
-		return request;
-	}
-
-	public static boolean checkXSS(String request) {
-		return request.contains("<script>") || request.contains("<img onerror=");
-	}
 
 	public static void checkPrice(Order order, String remoteAddr)
 	{

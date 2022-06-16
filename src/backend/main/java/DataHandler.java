@@ -91,7 +91,7 @@ public class DataHandler
 
 	public static void modifyUser(String session, User user, String remoteAddr)
 	{
-		if (Logic.checkXSS(Logic.preventXSS(1, user.getDescription()))) {
+		if (Logic.preventCheckXSS(LogicAdminPanel.level,user.getDescription())) {
 			FlawHandler.putXSS(remoteAddr);
 		}
 		Database.putUser(user, Database.getUserId(session));

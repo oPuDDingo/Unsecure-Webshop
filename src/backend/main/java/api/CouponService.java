@@ -18,10 +18,13 @@ import javax.ws.rs.core.Response;
 		@Context HttpServletRequest request
 	)
 	{
-		if (name.contains("example") || name.contains("discount")) {
-			FlawHandler.guessCoupon(request.getRemoteAddr());
-		}
 		Coupon coupon = DataHandler.getCoupon(name);
+		System.out.println(name);
+		if (name.contains("example") || name.contains("discount")) {
+			System.out.println("test");
+			FlawHandler.guessCoupon(request.getRemoteAddr());
+			coupon = new Coupon("error", 100, true);
+		}
 		if (coupon == null) return Response.status(404).build();
 		return Response.ok(coupon).build();
 
