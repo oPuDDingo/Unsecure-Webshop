@@ -210,7 +210,7 @@ public class DataAccessAdminPanel {
 		}
 	}
 
-	public void putGuessUSerLogin(String ipAddress){
+	public void putGuessUserLogin(String ipAddress){
 		Connection con = this.createConnection();
 		Statement stmt = null;
 		try {
@@ -238,7 +238,7 @@ public class DataAccessAdminPanel {
 		}
 	}
 
-	public void putDeleteUSer(String ipAddress){
+	public void putDeleteUser(String ipAddress){
 		Connection con = this.createConnection();
 		Statement stmt = null;
 		try {

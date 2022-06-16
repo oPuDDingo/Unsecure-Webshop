@@ -24,9 +24,11 @@ public class Logic
 
 	public static Response login(final String mail, final String password, String ip)
 	{
-		System.out.println("comment");
 		if (mail.equals("secretUser") && password.equals("secretPassword")) {
 			FlawHandler.htmlCommentUser(ip);
+		}
+		if (mail.equals("admin") && password.equals("admin")) {
+			FlawHandler.guessUserLogin(ip);
 		}
 		boolean session = Database.checkAuthData(mail, password);
 		if (!session) return null;

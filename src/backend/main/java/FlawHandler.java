@@ -5,26 +5,40 @@ import backend.main.java.database.DataAccessAdminPanel;
 public class FlawHandler
 {
 	static DataAccessAdminPanel daap = new DataAccessAdminPanel();
-	public static void emailWithoutAt(String remoteAddr)
+
+	public static void emailWithoutAt(String ip)
 	{
-		daap.lookForClient(remoteAddr);
-		daap.emailWithoutAt(remoteAddr);
+		daap.lookForClient(ip);
+		daap.emailWithoutAt(ip);
 	}
 
-	public static void htmlCommentUser(String remoteAddr) {
-		daap.lookForClient(remoteAddr);
-		daap.putHtmlCommentUser(remoteAddr);
+	public static void htmlCommentUser(String ip)
+	{
+		daap.lookForClient(ip);
+		daap.putHtmlCommentUser(ip);
 	}
 
-	public static void putXSS(String remoteAddr)
+	public static void putXSS(String ip)
 	{
-		daap.lookForClient(remoteAddr);
-		daap.putXss(remoteAddr);
+		daap.lookForClient(ip);
+		daap.putXss(ip);
 	}
 
-	public static void priceOrder(String remoteAddr)
+	public static void priceOrder(String ip)
 	{
-		daap.lookForClient(remoteAddr);
-		daap.putPriceOrderBug(remoteAddr);
+		daap.lookForClient(ip);
+		daap.putPriceOrderBug(ip);
+	}
+
+	public static void guessCoupon(String ip)
+	{
+		daap.lookForClient(ip);
+		daap.putGuessCoupon(ip);
+	}
+
+	public static void guessUserLogin(String ip)
+	{
+		daap.lookForClient(ip);
+		daap.putGuessUserLogin(ip);
 	}
 }
