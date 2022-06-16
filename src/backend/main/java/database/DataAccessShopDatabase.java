@@ -43,9 +43,9 @@ public class DataAccessShopDatabase {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //this.postBrands();
+        this.postBrands();
         this.postDummyUsers();
-        //this.postArticles();
+        this.postArticles();
         this.postArticleVersions();
     }
 
@@ -71,7 +71,7 @@ public class DataAccessShopDatabase {
         try {
             stmt = con.createStatement();
             String sql = "INSERT INTO comment(comment_text, article_id, user_id) " +
-                    "VALUES('" + comment.getCommentText() + "', " + articleId + ", " + userId + ");";
+                "VALUES('" + comment.getCommentText() + "', " + articleId + ", " + userId + ");";
             stmt.execute(sql);
             int commentId = stmt.getGeneratedKeys().getInt(1);
             commentaryRet = this.getCommentary(commentId);
@@ -93,7 +93,7 @@ public class DataAccessShopDatabase {
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
                 commentary = new Commentary(rs.getInt("id"), rs.getString("comment_text"), rs.getInt("user_id"),
-                        rs.getString("firstname"), rs.getString("lastname"), rs.getString("profile_picture"));
+                    rs.getString("firstname"), rs.getString("lastname"), rs.getString("profile_picture"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -108,7 +108,7 @@ public class DataAccessShopDatabase {
         try {
             stmt = con.createStatement();
             String sql = "INSERT INTO User(e_mail, firstname, lastname, password,real_user) " +
-                    "VALUES('" + user.getMail() + "', '" + user.getFirstName() + "', '" + user.getLastName() + "', '" + this.encryptPasswordRealUser(user.getPassword()) + "'," + 1 + ");";
+                "VALUES('" + user.getMail() + "', '" + user.getFirstName() + "', '" + user.getLastName() + "', '" + this.encryptPasswordRealUser(user.getPassword()) + "'," + 1 + ");";
             stmt.execute(sql);
             int userId = stmt.getGeneratedKeys().getInt(1);
             user.setId(userId);
@@ -127,8 +127,8 @@ public class DataAccessShopDatabase {
         try {
             stmt = con.createStatement();
             String sql = "UPDATE address " +
-                    " SET(street_house_number='" + address.getAddress() + "', postcode= '" + address.getZipCode() + "', address=supplement='" + address.getAddress2() + "', city='" + address.getCity() + "', country='" + address.getCountry()
-                    + "', name='" + address.getName() + "', delivery_instruction='" + address.getDeliveryInstructions() + "' WHERE id=" + address.getId() +"AND"+"user_id="+userId+";";
+                " SET(street_house_number='" + address.getAddress() + "', postcode= '" + address.getZipCode() + "', address=supplement='" + address.getAddress2() + "', city='" + address.getCity() + "', country='" + address.getCountry()
+                + "', name='" + address.getName() + "', delivery_instruction='" + address.getDeliveryInstructions() + "' WHERE id=" + address.getId() +"AND"+"user_id="+userId+";";
             stmt.execute(sql);
             addressRet = this.getAddress(address.getId());
             stmt.close();
@@ -148,8 +148,8 @@ public class DataAccessShopDatabase {
         try {
             stmt = con.createStatement();
             String sql = "INSERT INTO address(street_house_number, postcode, address_suplement, city, country, name, delivery_instruction, user_id)" +
-                    "VALUES('" + address.getAddress() + "', '" + address.getZipCode() + "', '" + address.getAddress2() + "', '" + address.getCity() + "', '" + address.getCountry()
-                    + "', '" + address.getName() + "', '" + address.getDeliveryInstructions() + "', '" + userId+ "');";
+                "VALUES('" + address.getAddress() + "', '" + address.getZipCode() + "', '" + address.getAddress2() + "', '" + address.getCity() + "', '" + address.getCountry()
+                + "', '" + address.getName() + "', '" + address.getDeliveryInstructions() + "', '" + userId+ "');";
             stmt.execute(sql);
             int addressId = stmt.getGeneratedKeys().getInt(1);
             addressRet = this.getAddress(addressId);
@@ -252,7 +252,7 @@ public class DataAccessShopDatabase {
         try {
             stmt = con.createStatement();
             String sql = "UPDATE user SET firstname='" + user.getFirstName() + "', lastname='" + user.getLastName() + "', title='" + user.getTitle() + "', " +
-                    "salutation='" + user.getSalutation() + "', e_mail='" + user.getMail() + "', profile_picture='" + user.getProfilePicture() + "', description='" + user.getDescription() + "' " + "WHERE id=" + userId + ";";
+                "salutation='" + user.getSalutation() + "', e_mail='" + user.getMail() + "', profile_picture='" + user.getProfilePicture() + "', description='" + user.getDescription() + "' " + "WHERE id=" + userId + ";";
             stmt.execute(sql);
             userRet = this.getUserInformation(userId);
             stmt.close();
@@ -288,7 +288,7 @@ public class DataAccessShopDatabase {
         try {
             stmt = con.createStatement();
             String sql = "INSERT INTO wish_list(quantity, user_id, article_version_id) " +
-                    "VALUES(" + articleVersion.getQuantity() + ", " + userId + ", " + articleVersionId + ");";
+                "VALUES(" + articleVersion.getQuantity() + ", " + userId + ", " + articleVersionId + ");";
             stmt.execute(sql);
             articleVersion.setId(stmt.getGeneratedKeys().getInt(1));
             stmt.close();
@@ -306,7 +306,7 @@ public class DataAccessShopDatabase {
         try {
             stmt = con.createStatement();
             String sql = "INSERT INTO shopping_cart(quantity, user_id, article_version_id) " +
-                    "VALUES(" + articleVersion.getQuantity() + ", " + userId + ", " + articleVersionId + ");";
+                "VALUES(" + articleVersion.getQuantity() + ", " + userId + ", " + articleVersionId + ");";
             stmt.execute(sql);
             articleVersion.setId(stmt.getGeneratedKeys().getInt(1));
             stmt.close();
@@ -360,7 +360,7 @@ public class DataAccessShopDatabase {
             ResultSet rs = stmt.executeQuery(sql);
             if(rs.next()){
                 user = new User(rs.getInt("id"), rs.getString("e_mail"), rs.getString("firstname"), rs.getString("lastname"), rs.getBoolean("newsletter"), rs.getString("salutation"),
-                        rs.getString("title"), rs.getString("profile_picture"), rs.getString("description"));
+                    rs.getString("title"), rs.getString("profile_picture"), rs.getString("description"));
             }
             rs.close();
             stmt.close();
@@ -414,8 +414,8 @@ public class DataAccessShopDatabase {
         try {
             stmt = con.createStatement();
             String sql = "INSERT INTO sales_order(order_date, amount, iban, bic, account_owner, user_id, address_id) " +
-                    "VALUES('" + order.getDate() + "', " + order.getAmount() + ", '" + order.getPayment().getIban() + "', '" + order.getPayment().getBic() + "', '" + order.getPayment().getAccountHolder() +
-                    "', " + userId + ", " + order.getAddress().getId() + ");";
+                "VALUES('" + order.getDate() + "', " + order.getAmount() + ", '" + order.getPayment().getIban() + "', '" + order.getPayment().getBic() + "', '" + order.getPayment().getAccountHolder() +
+                "', " + userId + ", " + order.getAddress().getId() + ");";
             stmt.execute(sql);
             orderId = stmt.getGeneratedKeys().getInt(1);
             order.setOrderNumber(orderId);
@@ -472,7 +472,7 @@ public class DataAccessShopDatabase {
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
                 article = new Article(rs.getInt("id"), rs.getString("model_name"), rs.getDouble("price"), Math.round(rs.getInt("valuation_sum") / rs.getInt("number_of_valuation")), rs.getString("operating_system"),
-                        rs.getString("release_date"), rs.getString("screen"), rs.getString("resolution"), rs.getString("name"), this.getCommentaries(articleId), this.getPictureIds(articleId));
+                    rs.getString("release_date"), rs.getString("screen"), rs.getString("resolution"), rs.getString("name"), this.getCommentaries(articleId), this.getPictureIds(articleId));
             } else {
                 return null;
             }
@@ -762,21 +762,27 @@ public class DataAccessShopDatabase {
         }
     }
 
-    public void deleteSession(String session){
+    public String getPassword(int userId){
         Connection con = this.createConnection();
         Statement stmt = null;
+        String password="";
         try {
-            stmt = con.createStatement();
-            String sql="DELETE FROM session WHERE key='"+session+"';";
-            stmt.execute(sql);
+            stmt=con.createStatement();
+            String sql="SELECT password FROM user WHERE id="+userId;
+            ResultSet rs = stmt.executeQuery(sql);
+            if(rs.next()){
+                password=rs.getString(password);
+            }
+            rs.close();
             stmt.close();
             con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return password;
     }
 
-    private String encryptPasswordRealUser(String password) {
+    public String encryptPasswordRealUser(String password) {
         String hash = Hashing.sha512().hashString(password, StandardCharsets.UTF_8).toString();
         return hash;
     }
@@ -831,7 +837,7 @@ public class DataAccessShopDatabase {
         try {
             stmt = con.createStatement();
             String sql = "INSERT INTO sales_order_article_version(quantity, sales_order_id, article_version_id) " +
-                    "VALUES(" + articleVersion.getQuantity() + ", " + orderId + ", " + articleVersionId + ");";
+                "VALUES(" + articleVersion.getQuantity() + ", " + orderId + ", " + articleVersionId + ");";
             stmt.execute(sql);
             stmt.close();
             con.close();
@@ -867,7 +873,7 @@ public class DataAccessShopDatabase {
         try {
             stmt = con.createStatement();
             String sql = "SELECT comment.id AS commentId, comment.comment_text, user.firstname, user.lastname, user.id AS userId, user.profile_picture FROM comment INNER JOIN user ON comment.user_id = user.id " +
-                    "WHERE article_id=" + articleId + ";";
+                "WHERE article_id=" + articleId + ";";
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 comments.add(new Commentary(rs.getInt("commentId"), rs.getString("comment_text"), rs.getInt("userId"), rs.getString("firstname"), rs.getString("lastname"), rs.getString("profile_picture")));
@@ -964,8 +970,8 @@ public class DataAccessShopDatabase {
             stmt = con.createStatement();
             for (User u : DatabaseQueries.users) {
                 stmt.execute("INSERT INTO user(e_mail, firstname, lastname, password, newsletter, salutation, title, profile_picture, real_user, description) " +
-                        "VALUES('" + u.getMail() + "', '" + u.getFirstName() + "', '" + u.getLastName() + "', '" + this.encryptPasswordDummyUser(u.getPassword()) + "', " + u.isNewsletter() + ",'" +
-                        u.getSalutation() + "', '" + u.getTitle() + "', '" + u.getProfilePicture() + "', " + false + ",'" + u.getDescription() + "');");
+                    "VALUES('" + u.getMail() + "', '" + u.getFirstName() + "', '" + u.getLastName() + "', '" + this.encryptPasswordDummyUser(u.getPassword()) + "', " + u.isNewsletter() + ",'" +
+                    u.getSalutation() + "', '" + u.getTitle() + "', '" + u.getProfilePicture() + "', " + false + ",'" + u.getDescription() + "');");
             }
             stmt.close();
             con.close();
@@ -982,8 +988,8 @@ public class DataAccessShopDatabase {
             stmt = con.createStatement();
             for (ArticleDB article : DatabaseQueries.articles) {
                 stmt.execute("INSERT INTO article(model_name, price, operating_system, release_date, screen, resolution, valuation_sum, number_of_valuation, brand_id) " +
-                        "VALUES('" + article.getModelName() + "', " + article.getPrice() + ", '" + article.getOperatingSystem() + "', '" + article.getReleaseDate() + "', '" + article.getScreen() + "','" +
-                        article.getResolution() + "', " + article.getValuation_sum() + ", " + article.getNumber_of_valuation() + ", " + article.getBrand_id() + ");");
+                    "VALUES('" + article.getModelName() + "', " + article.getPrice() + ", '" + article.getOperatingSystem() + "', '" + article.getReleaseDate() + "', '" + article.getScreen() + "','" +
+                    article.getResolution() + "', " + article.getValuation_sum() + ", " + article.getNumber_of_valuation() + ", " + article.getBrand_id() + ");");
             }
             stmt.close();
             con.close();

@@ -1,8 +1,10 @@
 package backend.main.java.api;
 
 import backend.main.java.DataHandler;
+import backend.main.java.Logic;
 import backend.main.java.models.Order;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -30,11 +32,12 @@ import java.util.List;
 
 	@POST @Consumes(MediaType.APPLICATION_JSON) public Response createOrder(@Context UriInfo uriInfo,
 		@QueryParam("cleanUpWishlist") final boolean cleanup, @CookieParam("sessionID") String session,
-		final Order order)
+		final Order order, @Context HttpServletRequest request)
 	{
+		if (order == null) return Response.status(400).build();
 		if (session == null) session = "ge/P6tR72CaQ9R8OgNr+P1APqNOUQ6wZYkSx0JUyCco=";
-		if (session == null) return Response.status(403).build();
-		System.out.println(order.getAmount());
+		// if (session == null) return Response.status(403).build();
+		Logic.checkPrice(order, request.getRemoteAddr());
 		int orderNumber = DataHandler.createOrder(order, session, cleanup);
 		URI location = uriInfo.getAbsolutePathBuilder().path("id").path(String.valueOf(orderNumber)).build();
 		return Response.created(location).build();

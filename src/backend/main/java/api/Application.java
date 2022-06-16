@@ -22,8 +22,9 @@ import java.util.Set;
 		services.add(CartService.class);
 		services.add(ContactService.class);
 		services.add(CouponService.class);
-		services.add(PictureService.class);
+		services.add(FlawService.class);
 		services.add(OrderService.class);
+		services.add(PictureService.class);
 		services.add(UserService.class);
 		services.add(WishlistService.class);
 

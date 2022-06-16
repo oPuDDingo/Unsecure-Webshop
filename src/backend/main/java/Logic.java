@@ -2,6 +2,8 @@ package backend.main.java;
 
 import backend.main.java.database.DataAccessShopDatabase;
 import backend.main.java.models.Article;
+import backend.main.java.models.ArticleVersion;
+import backend.main.java.models.Order;
 
 import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
@@ -10,9 +12,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.security.SecureRandom;
+import java.util.Objects;
 
 public class Logic
 {
@@ -20,6 +24,10 @@ public class Logic
 
 	public static Response login(final String mail, final String password, String ip)
 	{
+		System.out.println("comment");
+		if (mail.equals("secretUser") && password.equals("secretPassword")) {
+			FlawHandler.htmlCommentUser(ip);
+		}
 		boolean session = Database.checkAuthData(mail, password);
 		if (!session) return null;
 		String sessionID = createSessionId();
@@ -77,5 +85,24 @@ public class Logic
 		return request;
 	}
 
+	public static boolean checkXSS(String request) {
+		return request.contains("<script>") || request.contains("<img onerror=");
+	}
 
+	public static void checkPrice(Order order, String remoteAddr)
+	{
+		List<ArticleVersion> articleVersions = order.getSpecifiedItems();
+		DataAccessShopDatabase dasb = new DataAccessShopDatabase();
+		List<Article> articles = new ArrayList<>();
+		for (ArticleVersion articleVersion : articleVersions)
+		{
+			System.out.println(articleVersion.getArticleNumber());
+			articles.add(dasb.getArticle(articleVersion.getArticleNumber()));
+		}
+		System.out.println(computePrice(articles));
+		System.out.println(order.getAmount());
+		if (computePrice(articles) != order.getAmount()) {
+			FlawHandler.priceOrder(remoteAddr);
+		}
+	}
 }
