@@ -3,7 +3,6 @@ import {BiedisPageComponent} from "./biedisPage.component";
 import {RouterModule, Routes} from "@angular/router";
 import {BsDropdownModule} from "ngx-bootstrap/dropdown";
 import {CommonModule} from "@angular/common";
-import {RankingItemComponent} from "./rankingItem/rankingItem.component";
 import {AccordionModule} from "ngx-bootstrap/accordion";
 import {FormsModule} from "@angular/forms";
 
@@ -13,7 +12,7 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  declarations: [BiedisPageComponent, RankingItemComponent],
+  declarations: [BiedisPageComponent],
     imports: [RouterModule.forChild(routes), BsDropdownModule, CommonModule, AccordionModule, FormsModule],
   providers: [],
   bootstrap: [],
