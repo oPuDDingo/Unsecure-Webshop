@@ -8,6 +8,7 @@ import {FooterModule} from "../lib/ui/footer/footer.module";
 import {NavbarItemsModule} from "../lib/ui/navbarItems/navbarItems.module";
 import {MessageAlertsModule} from "../lib/ui/messageAlerts/messageAlerts.module";
 import {BiedisPageModule} from "../lib/pages/biedisPage/biedisPage.module";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 
 @NgModule({
@@ -15,7 +16,7 @@ import {BiedisPageModule} from "../lib/pages/biedisPage/biedisPage.module";
     AppComponent
   ],
     imports: [
-        BrowserModule, AppRoutingModule, HttpClientModule, NavbarModule, FooterModule, NavbarItemsModule, MessageAlertsModule, BiedisPageModule
+        BrowserModule, AppRoutingModule, HttpClientModule, NavbarModule, FooterModule, NavbarItemsModule, MessageAlertsModule, BiedisPageModule, BrowserAnimationsModule
     ],
   providers: [],
   bootstrap: [AppComponent]
