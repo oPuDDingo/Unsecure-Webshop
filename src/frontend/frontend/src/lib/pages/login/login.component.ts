@@ -17,6 +17,12 @@ export class LoginComponent {
   }
 
   onLogin() {
-    this.authenticationService.login(this.mail, this.password).subscribe(() => this.router.navigateByUrl('/user'), (error) => this.invalidData = true);
+    this.authenticationService.login(this.mail, this.password).subscribe(
+      () => {
+        this.router.navigateByUrl('/user');
+      },
+      error => {
+        this.invalidData = true;
+      });
   }
 }

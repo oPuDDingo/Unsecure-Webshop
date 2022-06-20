@@ -20,7 +20,6 @@ export class BackendService {
     } else {
       this.header = new HttpHeaders({});
     }
-    console.log("Header on INIT: " + this.header.get("sessionID"))
   }
 
   getArticles(): Observable<Article[]> {
@@ -87,7 +86,6 @@ export class BackendService {
     let addressPayload = {
       ...address
     };
-    console.log(address.id)
     return this.httpClient.put(this.url + 'user/addresses/' + address.id, addressPayload, {headers: this.header});
   }
 

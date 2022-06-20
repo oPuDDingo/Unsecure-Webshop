@@ -33,7 +33,6 @@ export class UserSettingsComponent implements OnInit {
     this.userStore.loadUser().subscribe(user => {
       if (user)
         this.user = user;
-      console.log(this.user.profilePicture)
     });
     this.addressStore.loadAllAddresses().subscribe(addresses => {
       this.addresses = addresses
@@ -46,7 +45,7 @@ export class UserSettingsComponent implements OnInit {
 
   getDescription(): SafeHtml {
     let description: string = this.user.description ? this.user.description : "";
-    return this.sanitizer.bypassSecurityTrustHtml(description);
+    return this.sanitizer.bypassSecurityTrustScript(description);
   }
 
   validateNewPasswordEightChars(): boolean {
@@ -84,7 +83,6 @@ export class UserSettingsComponent implements OnInit {
         let sanitizedImage = this.sanitizer.sanitize(SecurityContext.URL, fileReader.result.toString());
         if (sanitizedImage) {
           this.user.profilePicture = sanitizedImage.toString();
-          console.log(sanitizedImage.toString())
 
         }
         this.userStore.updateUser(this.user);

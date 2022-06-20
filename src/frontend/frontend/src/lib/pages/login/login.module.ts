@@ -3,6 +3,7 @@ import {LoginComponent} from "./login.component";
 import {FormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {RouterModule, Routes} from "@angular/router";
+import {AlertModule} from "ngx-bootstrap/alert";
 
 const routes: Routes = [
   {path: '', component: LoginComponent}
@@ -13,7 +14,8 @@ const routes: Routes = [
   imports: [
     FormsModule,
     CommonModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    AlertModule
   ],
   providers: [],
   bootstrap: [],
