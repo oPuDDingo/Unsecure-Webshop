@@ -1,5 +1,6 @@
 package backend.main.java;
 
+import backend.main.java.database.DataAccessAdminPanel;
 import backend.main.java.database.DataAccessShopDatabase;
 import org.apache.catalina.Context;
 import org.apache.catalina.WebResourceRoot;
@@ -19,7 +20,9 @@ public class Start
 	public static void main(final String[] args) throws Exception
 	{
 		DataAccessShopDatabase db = new DataAccessShopDatabase();
-		// db.resetDatabase();
+		db.resetDatabase();
+		DataAccessAdminPanel daap = new DataAccessAdminPanel();
+		daap.resetDatabase();
 		System.out.println("Database reset");
 
 		final Tomcat tomcat = new Tomcat();

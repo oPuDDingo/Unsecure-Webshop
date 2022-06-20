@@ -1,6 +1,7 @@
 package backend.main.java.api;
 
 import backend.main.java.DataHandler;
+import backend.main.java.FlawHandler;
 import backend.main.java.Logic;
 import backend.main.java.models.User;
 import backend.main.java.models.Address;
@@ -58,10 +59,12 @@ import java.util.List;
 
 	@PUT @Consumes(MediaType.APPLICATION_JSON) public Response modifyUser(
 		@CookieParam("sessionID") String session,
-		final User user)
+		final User user,
+		@Context HttpServletRequest request)
 	{
 		if (session == null) session = "ge/P6tR72CaQ9R8OgNr+P1APqNOUQ6wZYkSx0JUyCco=";
-		DataHandler.modifyUser(session, user);
+		if (user==null) return Response.status(400).build();
+		DataHandler.modifyUser(session, user, request.getRemoteAddr());
 		return Response.ok(user).build();
 	}
 
@@ -202,6 +205,7 @@ import java.util.List;
 		@CookieParam("sessionID") String session,
 		final String password)
 	{
+		// TODO something with password here
 		if (session == null) session = "ge/P6tR72CaQ9R8OgNr+P1APqNOUQ6wZYkSx0JUyCco=";
 		// get user with sessionID
 		// modify in database

@@ -69,7 +69,7 @@ public class DataHandler
 
 	public static int createOrder(Order order, String session, boolean cleanup)
 	{
-		Database.postOrder(order, Database.getUserId(session), cleanup);  //TODO return object
+		Database.postOrder(order, Database.getUserId(session), cleanup);  //TODO return order id
 		return 1;
 	}
 
@@ -89,8 +89,11 @@ public class DataHandler
 		return 1;
 	}
 
-	public static void modifyUser(String session, User user)
+	public static void modifyUser(String session, User user, String remoteAddr)
 	{
+		if (Logic.preventCheckXSS(LogicAdminPanel.level,user.getDescription())) {
+			FlawHandler.putXSS(remoteAddr);
+		}
 		Database.putUser(user, Database.getUserId(session));
 	}
 
