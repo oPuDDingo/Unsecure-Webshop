@@ -298,7 +298,7 @@ public class DataAccessAdminPanel {
         Statement stmt = null;
         try {
             stmt = con.createStatement();
-            String sql="INSERT INTO session(ley, admin_username) VALUES('"+session+"','"+username+"';";
+            String sql="INSERT INTO session(key, admin_username) VALUES('"+session+"','"+username+"';";
             stmt.close();
             con.close();
         } catch (SQLException e) {
