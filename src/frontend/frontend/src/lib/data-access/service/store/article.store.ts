@@ -11,7 +11,7 @@ export class ArticleStore {
   // @ts-ignore
   articles: Article[] = [];
   // @ts-ignore
-  smallArticles: Article[];
+  smallArticles: Article[] = [];
   articleSubject: ReplaySubject<Article[]> = new ReplaySubject<Article[]>(1);
   articleSubjectFrontpage: ReplaySubject<Article[]> = new ReplaySubject<Article[]>(1);
 
@@ -59,11 +59,14 @@ export class ArticleStore {
   }
 
   loadArticlesByBrand(brand: string): ReplaySubject<Article[]> {
+    if (this.articles == []) {
       this.backendService.getArticlesByBrand(brand).subscribe(articles => {
         this.articles = articles;
         this.articleSubject.next(articles);
       });
-
+    } else {
+      this.articleSubject.next(this.articles);
+    }
 
     return this.articleSubject;
   }
