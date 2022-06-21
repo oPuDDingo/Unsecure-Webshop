@@ -10,9 +10,9 @@ public class DataHandler
 {
 	static DataAccessShopDatabase Database = new DataAccessShopDatabase();
 
-	public static List<Article> getArticles(int page, String brand, String name, boolean specifications)
+	public static List<Article> getArticles(int page, String search, boolean specifications)
 	{
-		List<Article> list = Database.getArticles(page, brand, name); //search name also and return ArticleVersion
+		List<Article> list = Database.getArticles(page, search); //search name also and return ArticleVersion
 		return list;
 	}
 

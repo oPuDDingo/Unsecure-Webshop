@@ -642,7 +642,7 @@ public class DataAccessShopDatabase {
         return orders;
     }
 
-    public List<Article> getArticles(int page, String brand, String model) {
+    public List<Article> getArticles(int page, String search) {
         Connection con = this.createConnection();
         Statement stmt = null;
         List<Article> articles = new ArrayList<>();
@@ -650,7 +650,7 @@ public class DataAccessShopDatabase {
         int fromId = toId - 8;
         try {
             stmt = con.createStatement();
-            if (brand.equals("") && model.equals("")) {
+            if (search.equals("")) {
                 while (fromId <= toId) {
                     Article article = this.getArticle(fromId);
                     if (article != null) {
@@ -658,28 +658,9 @@ public class DataAccessShopDatabase {
                     }
                     fromId++;
                 }
-            } else if (model.equals("")) {
-                String sql = "Select article.id AS articleId FROM article INNER JOIN brand on article.brand_id = brand.id WHERE brand.name='" + brand + "';";
-                ResultSet rs = stmt.executeQuery(sql);
-                for (int i = 1; i < (page - 1) * 9; i++) {
-                    rs.next();
-                }
-                while (rs.next() && fromId < toId) {
-                    articles.add(this.getArticle(rs.getInt("articleId")));
-                    fromId++;
-                }
-            } else if (brand.equals("")) {
-                String sql = "Select article.id AS articleId FROM article INNER JOIN brand on article.brand_id = brand.id WHERE article.model_name='" + model + "';";
-                ResultSet rs = stmt.executeQuery(sql);
-                for (int i = 1; i < (page - 1) * 9; i++) {
-                    rs.next();
-                }
-                while (rs.next() && fromId < toId) {
-                    articles.add(this.getArticle(rs.getInt("articleId")));
-                    fromId++;
-                }
-            } else {
-                String sql = "Select article.id AS articleId FROM article INNER JOIN brand on article.brand_id = brand.id WHERE brand.name='" + brand + "' AND article.model_name=+'" + model + "';";
+            }
+            else{
+                String sql = "Select article.id AS articleId FROM article INNER JOIN brand on article.brand_id = brand.id WHERE brand.name LIKE'%" + search + "%' OR article.model_name LIKE '%"+search+"%';";
                 ResultSet rs = stmt.executeQuery(sql);
                 for (int i = 1; i < (page - 1) * 9; i++) {
                     rs.next();
@@ -1029,6 +1010,6 @@ public class DataAccessShopDatabase {
 
     public static void main(String[] args) throws SQLException {
         DataAccessShopDatabase s = new DataAccessShopDatabase();
-        System.out.println(s.encryptPasswordRealUser("admin"));
+        System.out.println(s.getArticles(1, "Samsung").size());
     }
 }
