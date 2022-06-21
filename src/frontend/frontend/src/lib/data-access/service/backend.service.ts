@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {map, ObjectUnsubscribedError, Observable, tap} from "rxjs";
+import {map, Observable} from "rxjs";
 import {Address, Article, Contact, Coupon, Order, SpecifiedItem, User} from "../models";
 import {JsonObject} from "@angular/compiler-cli/ngcc/src/packages/entry_point";
 import {RankingStudent} from "../models/rankingStudent";
@@ -21,6 +21,10 @@ export class BackendService {
     } else {
       this.header = new HttpHeaders({});
     }
+  }
+
+  getAlerts(): Observable<string[]> {
+    return this.httpClient.get<string[]>(this.url + 'flaws');
   }
 
   getArticles(): Observable<Article[]> {
@@ -146,17 +150,8 @@ export class BackendService {
     return this.httpClient.post<Contact>(this.url + 'contact', {...contact}, {headers: this.header});
   }
 
-  updateUser(userPayload: JsonObject): Observable<any> {
-    return this.httpClient.put(this.url + 'user', userPayload, {observe: "response", headers: this.header})
-      .pipe(
-        tap(resp => {
-          if (resp.status == 400) {
-            throw new Error('Bad request!')
-          } else {
-            return resp.body;
-          }
-        })
-      );
+  updateUser(userPayload: JsonObject): Observable<User> {
+    return this.httpClient.put<User>(this.url + 'user', userPayload, {headers: this.header});
   }
 
   postNewsletter(): Observable<any> {
@@ -175,19 +170,19 @@ export class BackendService {
     return this.httpClient.get<Article[]>(this.url + "articles?search=" + searchInput);
   }
 
-  setLevel(level: number): Observable<any>{
+  setLevel(level: number): Observable<any> {
     return this.httpClient.post<any>(this.url + 'admin/interface?level=' + level, {}, {headers: this.header});
   }
 
-  loadRankingStudents(): Observable<RankingStudent[]>{
+  loadRankingStudents(): Observable<RankingStudent[]> {
     return this.httpClient.get<RankingStudent[]>(this.url + 'admin/interface', {headers: this.header});
   }
 
-  shopReset(): Observable<any>{
+  shopReset(): Observable<any> {
     return this.httpClient.put(this.url + 'admin/interface', {}, {headers: this.header});
   }
 
-  rankingReset(): Observable<any>{
+  rankingReset(): Observable<any> {
     return this.httpClient.delete(this.url + 'admin/interface', {headers: this.header});
   }
 
