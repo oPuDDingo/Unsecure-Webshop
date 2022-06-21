@@ -13,6 +13,7 @@ export class NavbarComponent implements OnInit {
   @Input()
   title?: String;
   login: boolean = false;
+  searchInput: string = "";
 
   constructor(private authenticationService: AuthenticationService, private router: Router, private backendService: BackendService) {
   }
@@ -27,4 +28,11 @@ export class NavbarComponent implements OnInit {
     this.authenticationService.logout().subscribe();
     this.router.navigateByUrl('/index');
   }
+
+  onSearchClick() {
+    if(this.searchInput != "") {
+      this.router.navigateByUrl('/articles?search=' + this.searchInput);
+    }
+  }
+
 }

@@ -170,4 +170,7 @@ export class BackendService {
     return this.httpClient.get<User>(this.url + 'user/' + id);
   }
 
+  searchArticles(searchInput: string): Observable<Article[]> {
+    return this.httpClient.get<Article[]>(this.url + "articles?search=" + searchInput);
+  }
 }
