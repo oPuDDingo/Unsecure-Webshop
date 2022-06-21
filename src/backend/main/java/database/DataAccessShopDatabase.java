@@ -958,6 +958,8 @@ public class DataAccessShopDatabase {
             for (String sql : DatabaseQueries.brands) {
                 stmt.execute("INSERT INTO brand(name) VALUES('" + sql + "');");
             }
+            stmt.close();
+            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -1011,6 +1013,7 @@ public class DataAccessShopDatabase {
             for (int id : articleIds) {
                 for (String color : DatabaseQueries.colors) {
                     for (String gb : DatabaseQueries.gbSizes) {
+                        System.out.println("Test");
                         stmt.execute("INSERT INTO article_version(quantity, gb_size, color, article_id) VALUES(999, '" + gb + "', '" + color + "', " + id + ");");
                     }
                 }
