@@ -44,8 +44,9 @@ export class UserSettingsComponent implements OnInit {
   }
 
   getDescription(): SafeHtml {
-    let description: string = this.user.description ? this.user.description : "";
-    return this.sanitizer.bypassSecurityTrustScript(description);
+    //let description: string = this.user.description ? this.user.description : "";
+    //return this.sanitizer.bypassSecurityTrustScript(description);
+    return this.user.description ? this.user.description : "";
   }
 
   validateNewPasswordEightChars(): boolean {
