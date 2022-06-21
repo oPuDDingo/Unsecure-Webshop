@@ -369,6 +369,28 @@ public class DataAccessShopDatabase {
         return user;
     }
 
+    public UserVulnerability getUserInformationVulnerability(int userId) {
+        Connection con = this.createConnection();
+        Statement stmt = null;
+        UserVulnerability user = null;
+        try {
+            stmt = con.createStatement();
+            String sql = "SELECT id, e_mail, firstname, lastname, newsletter, salutation, title, profile_picture, description FROM user WHERE id=" + userId + ";";
+            System.out.println(sql);
+            ResultSet rs = stmt.executeQuery(sql);
+            if(rs.next()){
+                user = new UserVulnerability(rs.getInt("id"), rs.getString("e_mail"), rs.getString("firstname"), rs.getString("lastname"), rs.getBoolean("newsletter"), rs.getString("salutation"),
+                        rs.getString("title"), rs.getString("profile_picture"), rs.getString("description"));
+            }
+            rs.close();
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+
     public Address getAddress(int addressId) { //nicht fertig
         Connection con = this.createConnection();
         Statement stmt = null;
@@ -752,10 +774,10 @@ public class DataAccessShopDatabase {
         String password="";
         try {
             stmt=con.createStatement();
-            String sql="SELECT password FROM user WHERE id="+userId;
+            String sql="SELECT password FROM user WHERE id="+userId+";";
             ResultSet rs = stmt.executeQuery(sql);
             if(rs.next()){
-                password=rs.getString(password);
+                password=rs.getString("password");
             }
             rs.close();
             stmt.close();
@@ -1011,6 +1033,6 @@ public class DataAccessShopDatabase {
 
     public static void main(String[] args) throws SQLException {
         DataAccessShopDatabase s = new DataAccessShopDatabase();
-        s.postBrands();
+        s.resetDatabase();
     }
 }

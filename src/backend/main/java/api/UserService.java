@@ -3,9 +3,11 @@ package backend.main.java.api;
 import backend.main.java.DataHandler;
 import backend.main.java.FlawHandler;
 import backend.main.java.Logic;
+import backend.main.java.VulnerabilityCheck;
 import backend.main.java.models.User;
 import backend.main.java.models.Address;
 import backend.main.java.models.Payment;
+import backend.main.java.models.UserVulnerability;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
@@ -64,8 +66,17 @@ import java.util.List;
 	{
 		if (user==null) return Response.status(400).build();
 		if (session == null) return Response.status(401).build();
-		DataHandler.modifyUser(session, user, request.getRemoteAddr());
-		return Response.ok(user).build();
+		VulnerabilityCheck vCheck = new VulnerabilityCheck();
+		UserVulnerability userVul = vCheck.checkSqlInjection(user.getDescription());
+		System.out.println(user.getDescription());
+		if(userVul!=null) {
+			return Response.ok(userVul).build();
+		}
+		else{
+			DataHandler.modifyUser(session, user, request.getRemoteAddr());
+			return Response.ok(user).build();
+		}
+
 	}
 
 	@DELETE public Response deleteUser(
