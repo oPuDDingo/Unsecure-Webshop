@@ -1013,7 +1013,6 @@ public class DataAccessShopDatabase {
             for (int id : articleIds) {
                 for (String color : DatabaseQueries.colors) {
                     for (String gb : DatabaseQueries.gbSizes) {
-                        System.out.println("Test");
                         stmt.execute("INSERT INTO article_version(quantity, gb_size, color, article_id) VALUES(999, '" + gb + "', '" + color + "', " + id + ");");
                     }
                 }
