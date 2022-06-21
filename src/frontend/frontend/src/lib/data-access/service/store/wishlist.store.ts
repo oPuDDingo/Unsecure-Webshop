@@ -37,14 +37,23 @@ export class WishlistStore {
     let index = this.itemList.findIndex(i => itemId == i.id);
     this.itemList[index].quantity = newQuantity;
     this.wishListSubject.next(this.itemList);
-    this.backendService.updateWishListItem(this.itemList[index]).subscribe();
+    this.backendService.updateWishListItem(this.itemList[index]).subscribe( () =>
+      this.backendService.loadWishList().subscribe( items => {
+        this.itemList = items;
+        this.wishListSubject.next(this.itemList)
+      })
+    );
     return this.wishListSubject;
   }
 
   addItem(item: SpecifiedItem): ReplaySubject<SpecifiedItem[]> {
     this.itemList.push(item);
-    this.wishListSubject.next(this.itemList);
-    this.backendService.addItemToWishList(item).subscribe();
+    this.backendService.addItemToWishList(item).subscribe( () =>
+      this.backendService.loadWishList().subscribe( items => {
+        this.itemList = items;
+        this.wishListSubject.next(this.itemList);
+      })
+    );
     return this.wishListSubject;
   }
 
