@@ -14,7 +14,7 @@
                 </div>
 
                 <alert *ngIf="invalidData" type="danger">
-                  <strong>Nutzername oder Passwort falsch!</strong> Versuche es erneut.
+                  {{errorMessage}}
                 </alert>
 
                 <div>
