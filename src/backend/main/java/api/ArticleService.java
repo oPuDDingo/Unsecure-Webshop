@@ -11,10 +11,10 @@ import javax.ws.rs.core.Response;
 	@GET @Produces(MediaType.APPLICATION_JSON) public Response getArticles(
 		@DefaultValue("1") @QueryParam("page") final int page,
 		@DefaultValue("false") @QueryParam("specifications") final boolean specifications,
-		@DefaultValue("") @QueryParam("brand") final String brand,
-		@DefaultValue("") @QueryParam("name") final String name
+		@DefaultValue("") @QueryParam("search") final String search
+
 	)
-	{ return Response.ok(DataHandler.getArticles(page, brand, name, specifications)).build(); }
+	{ return Response.ok(DataHandler.getArticles(page, search, specifications)).build(); }
 
 
 	@GET @Path("{id}") @Produces(MediaType.APPLICATION_JSON) public Response getArticleByID(
