@@ -19,7 +19,7 @@ public class LogicAdminPanel {
             return Response.ok(sessionId).cookie(new NewCookie("sessionID", sessionId)).build();
         }
         else{
-            return null;
+            return Response.status(401).build();
         }
     }
 

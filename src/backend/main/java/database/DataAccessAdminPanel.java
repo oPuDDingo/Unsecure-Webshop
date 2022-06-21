@@ -1,5 +1,6 @@
 package backend.main.java.database;
 
+import backend.main.java.LogicAdminPanel;
 import backend.main.java.models.RankingRow;
 
 import java.sql.*;
@@ -388,7 +389,7 @@ public class DataAccessAdminPanel {
 
     public static void main (String[] args){
         DataAccessAdminPanel a = new DataAccessAdminPanel();
-        List<String> x =a.checkForNewFindings("111");
-        System.out.println(x.size());
+        //System.out.println(a.login("admin","v"));
+        System.out.println(LogicAdminPanel.login("d","admin"));
     }
 }
