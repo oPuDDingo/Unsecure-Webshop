@@ -17,7 +17,7 @@ export class BiedisPageComponent implements OnInit{
   // @ts-ignore
   actualStudent: RankingStudent;
   modalRef?: BsModalRef;
-  level: string = "Levels";
+  level: string = "Beginner";
 
   constructor(private backendService: BackendService, private modalService: BsModalService) {
     this.rankingStudents = [{
@@ -37,18 +37,17 @@ export class BiedisPageComponent implements OnInit{
         this.level = "Endboss";
         break;
     }
-
     this.backendService.setLevel(level);
   }
 
   ngOnInit() {
+    this.backendService.setLevel(1);
     this.backendService.loadRankingStudents().subscribe(rankingStudents => this.rankingStudents = rankingStudents);
     this.reloadRanking();
   }
 
   reloadRanking() {
       setInterval(function(){
-        console.log("Ranking läuft");
       }, 10000);
       this.backendService.loadRankingStudents().subscribe(rankingStudents => this.rankingStudents = rankingStudents);
   }
