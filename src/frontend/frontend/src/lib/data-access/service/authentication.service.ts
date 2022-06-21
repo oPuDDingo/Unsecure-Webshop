@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {map, Observable} from "rxjs";
+import {map, Observable, ReplaySubject} from "rxjs";
 import {BackendService} from "./backend.service";
 import {AddressStore} from "./store/address.store";
 import {OrderStore} from "./store/order.store";
@@ -12,6 +12,7 @@ import {WishlistStore} from "./store/wishlist.store";
 export class AuthenticationService {
 
   readonly url: string = 'http://localhost:4200/api/';
+  statusSubject: ReplaySubject<boolean> = new ReplaySubject<boolean>(1);
 
   constructor(
     private httpClient: HttpClient,
@@ -22,15 +23,24 @@ export class AuthenticationService {
     private userStore: UserStore,
     private wishlistStore: WishlistStore
   ) {
+
+    if (sessionStorage.getItem("sessionKey") != null) {
+      this.statusSubject.next(true);
+    } else {
+      this.statusSubject.next(false);
+    }
+
   }
 
-  login(mail: string, password: string): Observable<any> {
+  login(mail: string, password: string): Observable<boolean> {
     return this.httpClient.get(this.url + 'user/login?mail=' + mail + '&password=' + password, {
       observe: "body", responseType: "text"
     }).pipe(
       map(sessionKey => {
         sessionStorage.setItem('sessionKey', sessionKey);
         this.backendService.header = new HttpHeaders({'sessionID': sessionKey});
+        this.statusSubject.next(true);
+        return true;
       })
     );
   }
@@ -44,6 +54,7 @@ export class AuthenticationService {
       map(response => {
         sessionStorage.removeItem('sessionKey');
         this.backendService.header = new HttpHeaders({});
+        this.statusSubject.next(false);
         this.cleanupStores();
       })
     );
@@ -62,6 +73,10 @@ export class AuthenticationService {
         return sessionKey;
       })
     );
+  }
+
+  getStatus(): ReplaySubject<boolean> {
+    return this.statusSubject;
   }
 
   cleanupStores(): void {

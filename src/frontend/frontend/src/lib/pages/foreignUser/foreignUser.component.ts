@@ -20,7 +20,6 @@ export class ForeignUserComponent implements OnInit {
   ngOnInit() {
     let userId: number = this.route.snapshot.params['id'];
     this.foreignUserStore.loadUserById(userId).subscribe(user => {
-      console.log(user);
       this.user = user;
     })
   }

@@ -64,7 +64,6 @@ export class ArticleStore {
         this.articleSubject.next(articles);
       });
 
-
     return this.articleSubject;
   }
 

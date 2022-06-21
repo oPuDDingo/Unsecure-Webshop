@@ -16,7 +16,6 @@ export class AddressStore {
 
   createAddress(address: Address): ReplaySubject<Address[]> {
     this.backendService.createAddress(address).subscribe(address => {
-      console.log(address)
       this.addresses.push(address);
       this.addressesSubject.next(this.addresses);
     });
@@ -49,7 +48,6 @@ export class AddressStore {
   }
 
   updateAddress(address: Address): void {
-    console.log("update address " + address.id)
     let index = this.addresses.findIndex(item => item.id === address.id);
     this.addresses[index] = address;
     this.backendService.updateAddress(address).subscribe(newAddress => this.addresses[index] = newAddress);

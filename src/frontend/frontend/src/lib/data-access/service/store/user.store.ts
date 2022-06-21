@@ -58,7 +58,6 @@ export class UserStore {
   }
 
   cleaningUp(): void {
-    // @ts-ignore
     this.user = undefined;
     this.userSubject.next(undefined);
   }
