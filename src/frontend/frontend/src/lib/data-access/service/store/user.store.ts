@@ -40,7 +40,7 @@ export class UserStore {
         "newPassword": newPassword
       }
     }
-    this.backendService.updateUser(userPayload).subscribe();
+    this.backendService.updateUser(userPayload).subscribe(user => this.user = user);
   }
 
   getUser(): ReplaySubject<User | undefined> {
