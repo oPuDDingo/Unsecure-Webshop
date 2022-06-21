@@ -1027,6 +1027,6 @@ public class DataAccessShopDatabase {
 
     public static void main(String[] args) throws SQLException {
         DataAccessShopDatabase s = new DataAccessShopDatabase();
-        s.resetDatabase();
+        System.out.println(s.encryptPasswordRealUser("admin"));
     }
 }
