@@ -17,7 +17,7 @@ export class BackendService {
   constructor(private httpClient: HttpClient) {
     let key = sessionStorage.getItem('sessionKey');
     if (key != null) {
-      this.header = new HttpHeaders({"sessionID": key});
+      this.header = new HttpHeaders({"sessionid": key});
     } else {
       this.header = new HttpHeaders({});
     }

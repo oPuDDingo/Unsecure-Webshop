@@ -17,7 +17,7 @@ import java.util.List;
 {
 	@Context UriInfo uriInfo;
 
-	@GET @Produces(MediaType.APPLICATION_JSON) public Response getOrders(@CookieParam("sessionID") String session)
+	@GET @Produces(MediaType.APPLICATION_JSON) public Response getOrders(@HeaderParam("sessionid") String session)
 	{
 		if (session == null) return Response.status(401).build();
 		List<Order> orders = DataHandler.getOrders(session);
@@ -31,7 +31,7 @@ import java.util.List;
 	}
 
 	@POST @Consumes(MediaType.APPLICATION_JSON) public Response createOrder(@Context UriInfo uriInfo,
-		@QueryParam("cleanUpWishlist") final boolean cleanup, @CookieParam("sessionID") String session,
+		@QueryParam("cleanUpWishlist") final boolean cleanup, @HeaderParam("sessionid") String session,
 		final Order order, @Context HttpServletRequest request)
 	{
 		if (order == null) return Response.status(400).build();
