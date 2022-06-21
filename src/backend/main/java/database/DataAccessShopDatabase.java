@@ -1027,9 +1027,6 @@ public class DataAccessShopDatabase {
 
     public static void main(String[] args) throws SQLException {
         DataAccessShopDatabase s = new DataAccessShopDatabase();
-        User u = new User();
-        u.setMail("'OR 1=1;#");
-        User u2 = s.putUser(u, 2);
-        System.out.println(u2.getPassword());
+        s.resetDatabase();
     }
 }
