@@ -7,12 +7,15 @@ import {OrderStore} from "./store/order.store";
 import {ShoppingCartStore} from "./store/shoppingCart.store";
 import {UserStore} from "./store/user.store";
 import {WishlistStore} from "./store/wishlist.store";
+import {UserTypes} from "../enums/userTypes";
 
 @Injectable({providedIn: "root"})
 export class AuthenticationService {
 
   readonly url: string = 'http://localhost:4200/api/';
   statusSubject: ReplaySubject<boolean> = new ReplaySubject<boolean>(1);
+  userType: UserTypes = UserTypes.User;
+
 
   constructor(
     private httpClient: HttpClient,
@@ -40,6 +43,7 @@ export class AuthenticationService {
         sessionStorage.setItem('sessionKey', sessionKey);
         this.backendService.header = new HttpHeaders({'sessionID': sessionKey});
         this.statusSubject.next(true);
+        this.userType = UserTypes.User;
         return true;
       })
     );
@@ -55,6 +59,36 @@ export class AuthenticationService {
         sessionStorage.removeItem('sessionKey');
         this.backendService.header = new HttpHeaders({});
         this.statusSubject.next(false);
+        this.userType = UserTypes.User;
+        this.cleanupStores();
+      })
+    );
+  }
+
+  adminLogin(username: string, password: string): Observable<any> {
+    return this.httpClient.get(this.url + 'admin/login?username=' + username + '&password=' + password, {
+      observe: "body", responseType: "text"
+    }).pipe(
+      map(sessionKey => {
+        sessionStorage.setItem('sessionKey', sessionKey);
+        this.backendService.header = new HttpHeaders({'sessionID': sessionKey});
+        this.statusSubject.next(true);
+        this.userType = UserTypes.Admin;
+      })
+    );
+  }
+
+  adminLogout(): Observable<any> {
+    let sessionKey = sessionStorage.getItem('sessionKey');
+    return this.httpClient.post(this.url + 'admin/logout', {sessionKey}, {
+      headers: this.backendService.header,
+      observe: "response"
+    }).pipe(
+      map(response => {
+        sessionStorage.removeItem('sessionKey');
+        this.backendService.header = new HttpHeaders({});
+        this.statusSubject.next(false);
+        this.userType = UserTypes.User;
         this.cleanupStores();
       })
     );

@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {AuthenticationService} from "../../data-access/service/authentication.service";
 import {BackendService} from "../../data-access/service/backend.service";
-
+import {UserTypes} from "../../data-access/enums/userTypes";
 
 @Component({
   selector: 'navbar',
@@ -25,7 +25,11 @@ export class NavbarComponent implements OnInit {
   }
 
   onLogOut(): void {
-    this.authenticationService.logout().subscribe();
+    if(this.authenticationService.userType == UserTypes.User) {
+      this.authenticationService.logout().subscribe();
+    } else {
+      this.authenticationService.adminLogout().subscribe();
+    }
     this.router.navigateByUrl('/index');
   }
 
@@ -34,5 +38,4 @@ export class NavbarComponent implements OnInit {
       this.router.navigateByUrl('/articles?search=' + this.searchInput);
     }
   }
-
 }
