@@ -1,12 +1,13 @@
 <html>
 <body>
 <!--body-->
+<div class="top-spacer fixed-top"></div>
 <navbar></navbar>
 <div class="container-fluid">
   <alert-messages></alert-messages>
   <navbar-items *ngIf="showNavbarItems()"></navbar-items>
   <router-outlet class="container"></router-outlet>
-<!--  <biedis-page class="container"></biedis-page>-->
+  <!--  <biedis-page class="container"></biedis-page>-->
   <footer></footer>
 </div>
 
