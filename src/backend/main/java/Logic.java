@@ -1,10 +1,12 @@
 package backend.main.java;
 
+import backend.main.java.database.AuthorizationType;
 import backend.main.java.database.DataAccessShopDatabase;
 import backend.main.java.models.Article;
 import backend.main.java.models.ArticleVersion;
 import backend.main.java.models.Order;
 
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
 import javax.xml.crypto.Data;
@@ -30,8 +32,22 @@ public class Logic
 		if (mail.equals("admin") && password.equals("admin")) {
 			FlawHandler.guessUserLogin(ip);
 		}
-		boolean session = Database.checkAuthData(mail, password);
-		if (!session) return null;
+		AuthorizationType session = Database.checkAuthData(mail, password);
+		if ( session == AuthorizationType.FALSEPASSWORD || session == AuthorizationType.FALSEUSER)
+		{
+			if ( LogicAdminPanel.level < 2 )
+			{
+				if ( session == AuthorizationType.FALSEPASSWORD )
+					throw new WebApplicationException( Response.status( Response.Status.BAD_REQUEST ).entity( "Das " +
+						"Passwort stimmt nicht mit dem Benutzer überein! Versuche es erneut." ).build() );
+				else
+					throw new WebApplicationException( Response.status( Response.Status.BAD_REQUEST ).entity( "Der " +
+						"Benutzer existiert nicht! Versuche es erneut." ).build() );
+			}
+			else
+				throw new WebApplicationException( Response.status( Response.Status.BAD_REQUEST ).entity( "Benutzer" +
+					" oder Passwort falsch! Versuche es erneut." ).build() );
+		}
 		String sessionID = createSessionId();
 		Database.postSession(sessionID, mail, ip);
 		return Response.ok(sessionID).cookie(new NewCookie("sessionID", sessionID)).build();

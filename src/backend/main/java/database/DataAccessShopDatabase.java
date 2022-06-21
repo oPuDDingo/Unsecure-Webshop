@@ -573,12 +573,13 @@ public class DataAccessShopDatabase {
         return order;
     }
 
-    public boolean checkAuthData(String email, String password) {
+    public AuthorizationType checkAuthData(String email, String password) {
         Connection con = this.createConnection();
         Statement stmt = null;
         String hash = "";
         String rightPassword = "";
         int userId;
+        AuthorizationType auth = AuthorizationType.FALSEUSER;
         if (this.isRealUser(this.findUserId(email))) {
             hash = this.encryptPasswordRealUser(password);
         } else {
@@ -590,6 +591,7 @@ public class DataAccessShopDatabase {
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
                 rightPassword = rs.getString("password");
+                auth = AuthorizationType.FALSEPASSWORD;
             }
             stmt.close();
             con.close();
@@ -597,9 +599,9 @@ public class DataAccessShopDatabase {
             e.printStackTrace();
         }
         if (hash.equals(rightPassword)) {
-            return true;
+            return AuthorizationType.AUTHORIZED;
         } else {
-            return false;
+            return auth;
         }
     }
 
