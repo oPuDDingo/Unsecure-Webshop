@@ -11,7 +11,7 @@ export class ArticleStore {
   // @ts-ignore
   articles: Article[] = [];
   // @ts-ignore
-  smallArticles: Article[] = [];
+  smallArticles: Article[];
   articleSubject: ReplaySubject<Article[]> = new ReplaySubject<Article[]>(1);
   articleSubjectFrontpage: ReplaySubject<Article[]> = new ReplaySubject<Article[]>(1);
 
