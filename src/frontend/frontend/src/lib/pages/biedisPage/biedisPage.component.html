@@ -1,0 +1,83 @@
+<div class="row justify-content-center">
+  <div class="w-50 m-5 p-5 shadow bg-white">
+    <header>
+      <h1 class="header mb-5 d-flex justify-content-center">RANKING</h1>
+    </header>
+    <div class="d-flex align-items-center justify-content-around pb-4">
+      <button class="btn btn-outline-primary" type="button" (click)="onShopReset()">Reset Shop
+      </button>
+      <button class="btn btn-outline-primary" (click)="onRankingReset()" type="button">Reset Ranking
+      </button>
+    </div>
+    <div class="d-flex align-items-center justify-content-center pb-4">
+      <p class="mb-0 me-2">Mit welchem Level wollen Sie Ihre Studenten quälen?</p>
+      <div class="btn-group" dropdown>
+        <button id="button-animated" dropdownToggle type="button" class="btn btn-outline-primary dropdown-toggle"
+                aria-controls="dropdown-animated">{{level}}<span class="caret"></span>
+        </button>
+        <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu"
+            role="menu" aria-labelledby="button-animated">
+          <li role="menuitem"><a class="dropdown-item" (click)="onLevelChange(1)">Beginner</a></li>
+          <li role="menuitem"><a class="dropdown-item" (click)="onLevelChange(2)">Tutor</a>
+          </li>
+          <li role="menuitem"><a class="dropdown-item" (click)="onLevelChange(3)">Endboss</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="container mt-3 d-flex justify-content-center">
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th>IP-Adresse</th>
+          <th>Punktzahl</th>
+          <th>Gefundene Sicherheitslücken</th>
+        </tr>
+        </thead>
+          <tbody *ngFor="let rankingStudent of rankingStudents">
+            <tr>
+              <td>{{rankingStudent.ipAddress}}</td>
+              <td>{{rankingStudent.points}}</td>
+              <td>{{getSecurityBreaches(rankingStudent)}}/13</td>
+              <td><button (click)="openModal(securityBreaches, rankingStudent)" class="btn" type="button"><i class='fas fa-plus-circle'></i>
+              </button></td>
+            </tr>
+          </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<ng-template #securityBreaches>
+  <div class="modal-header">
+    <h2 class="modal-title">Gefundene Sicherheitslücken von {{actualStudent.ipAddress}}</h2>
+    <button (click)="modalRef?.hide()" aria-label="Close" class="btn-close close pull-right" type="button">
+    </button>
+  </div>
+  <div class="modal-body d-flex flex-column">
+      <div [ngClass]="actualStudent.sqlInjection ? 'text-success' : 'text-secondary'">sqlInjection</div>
+      <span><hr style="border-style: solid"/></span>
+      <div [ngClass]="actualStudent.blindSqlInjection ? 'text-success' : 'text-secondary'">blindSqlInjection</div>
+      <span><hr style="border-style: solid"/></span>
+      <div [ngClass]="actualStudent.emailWithoutAt ? 'text-success' : 'text-secondary'">emailWithoutAt </div>
+      <span><hr style="border-style: solid"/></span>
+      <div [ngClass]="actualStudent.xss ? 'text-success' : 'text-secondary'">xss </div>
+      <span><hr style="border-style: solid"/></span>
+      <div [ngClass]="actualStudent.priceOrderBug ? 'text-success' : 'text-secondary'">profile_picture </div>
+      <span><hr style="border-style: solid"/></span>
+      <div [ngClass]="actualStudent.htmlCommentUser ? 'text-success' : 'text-secondary'">htmlCommentUser </div>
+      <span><hr style="border-style: solid"/></span>
+      <div [ngClass]="actualStudent.priceOrderBug ? 'text-success' : 'text-secondary'">priceOrderBug </div>
+      <span><hr style="border-style: solid"/></span>
+      <div [ngClass]="actualStudent.guessUserLogin ? 'text-success' : 'text-secondary'">guessUserLogin </div>
+      <span><hr style="border-style: solid"/></span>
+      <div [ngClass]="actualStudent.guessCoupon ? 'text-success' : 'text-secondary'">guessCoupon </div>
+      <span><hr style="border-style: solid"/></span>
+      <div [ngClass]="actualStudent.deleteUser ? 'text-success' : 'text-secondary'">deleteUser </div>
+      <span><hr style="border-style: solid"/></span>
+      <div [ngClass]="actualStudent.commentXss ? 'text-success' : 'text-secondary'">commentXss </div>
+      <span><hr style="border-style: solid"/></span>
+      <div [ngClass]="actualStudent.lookForEmailAddress ? 'text-success' : 'text-secondary'">lookForEmailAddress </div>
+      <span><hr style="border-style: solid"/></span>
+      <div [ngClass]="actualStudent.hashUser ? 'text-success' : 'text-secondary'">hashUser </div>
+  </div>
+</ng-template>

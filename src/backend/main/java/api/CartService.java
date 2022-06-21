@@ -16,7 +16,7 @@ import javax.ws.rs.core.UriInfo;
 	@Path("items") @GET @Produces(MediaType.APPLICATION_JSON) public Response getCartItems(
 		@CookieParam("sessionID") String session)
 	{
-		if (session == null) session = "ge/P6tR72CaQ9R8OgNr+P1APqNOUQ6wZYkSx0JUyCco=";
+		if (session == null) return Response.status(401).build();
 		return Response.ok(DataHandler.getCartItems(session)).build();
 	}
 
@@ -24,7 +24,7 @@ import javax.ws.rs.core.UriInfo;
 		@Context final UriInfo uriInfo, @CookieParam("sessionID") String session,
 		final ArticleVersion articleVersion)
 	{
-		if (session == null) session = "ge/P6tR72CaQ9R8OgNr+P1APqNOUQ6wZYkSx0JUyCco=";
+		if (session == null) return Response.status(401).build();
 		DataHandler.createCartItem(articleVersion, session);
 		return Response.ok().build();
 	}
@@ -33,7 +33,7 @@ import javax.ws.rs.core.UriInfo;
 		@PathParam("id") final int id, final ArticleVersion articleVersion,
 		@CookieParam("sessionID") String session)
 	{
-		if (session == null) session = "ge/P6tR72CaQ9R8OgNr+P1APqNOUQ6wZYkSx0JUyCco=";
+		if (session == null) return Response.status(401).build();
 		DataHandler.modifyCartItem(id, articleVersion);
 		return Response.ok(articleVersion).build();
 	}
@@ -42,7 +42,7 @@ import javax.ws.rs.core.UriInfo;
 		@PathParam("id") final int id,
 		@CookieParam("sessionID") String session)
 	{
-		if (session == null) session = "ge/P6tR72CaQ9R8OgNr+P1APqNOUQ6wZYkSx0JUyCco=";
+		if (session == null) return Response.status(401).build();
 		DataHandler.deleteCartItem(id);
 		return Response.noContent().build();
 	}
