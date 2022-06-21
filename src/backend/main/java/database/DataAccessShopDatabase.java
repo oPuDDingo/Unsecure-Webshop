@@ -43,7 +43,6 @@ public class DataAccessShopDatabase {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        this.postBrands();
         this.postDummyUsers();
         this.postArticleVersions();
     }
