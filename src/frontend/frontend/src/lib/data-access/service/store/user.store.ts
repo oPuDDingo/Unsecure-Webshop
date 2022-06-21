@@ -59,6 +59,6 @@ export class UserStore {
 
   cleaningUp(): void {
     this.user = undefined;
-    this.userSubject.next(undefined);
+    this.userSubject.next(this.user);
   }
 }

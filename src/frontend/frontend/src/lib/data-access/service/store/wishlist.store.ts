@@ -65,7 +65,7 @@ export class WishlistStore {
 
   cleaningUp(): void {
     this.itemList = [];
-    this.wishListSubject.next([]);
+    this.wishListSubject.next(this.itemList);
   }
 
 }
