@@ -41,7 +41,7 @@ export class AuthenticationService {
     }).pipe(
       map(sessionKey => {
         sessionStorage.setItem('sessionKey', sessionKey);
-        this.backendService.header = new HttpHeaders({'sessionID': sessionKey});
+        this.backendService.header = new HttpHeaders({'sessionid': sessionKey});
         this.statusSubject.next(true);
         this.userType = UserTypes.User;
         return true;
@@ -71,7 +71,7 @@ export class AuthenticationService {
     }).pipe(
       map(sessionKey => {
         sessionStorage.setItem('sessionKey', sessionKey);
-        this.backendService.header = new HttpHeaders({'sessionID': sessionKey});
+        this.backendService.header = new HttpHeaders({'sessionid': sessionKey});
         this.statusSubject.next(true);
         this.userType = UserTypes.Admin;
       })
@@ -103,7 +103,7 @@ export class AuthenticationService {
     }, {observe: "body", responseType: "text"}).pipe(
       map(sessionKey => {
         sessionStorage.setItem('sessionKey', sessionKey)
-        this.backendService.header = new HttpHeaders({"sessionID": sessionKey});
+        this.backendService.header = new HttpHeaders({"sessionid": sessionKey});
         return sessionKey;
       })
     );

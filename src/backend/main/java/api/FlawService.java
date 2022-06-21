@@ -12,7 +12,7 @@ import java.util.List;
 @Path("flaws") public class FlawService
 {
 	@GET @Produces(MediaType.APPLICATION_JSON) public Response checkFlaws(
-		@CookieParam("sessionID") final String session, @Context HttpServletRequest request)
+		@HeaderParam("sessionid") final String session, @Context HttpServletRequest request)
 	{
 		DataAccessAdminPanel daap = new DataAccessAdminPanel();
 		List<String> findings = daap.checkForNewFindings(request.getRemoteAddr());

@@ -21,28 +21,28 @@ public class AdminService {
     @GET
     @Path("interface")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getRanking(@CookieParam("sessionID") String session){
+    public Response getRanking(@HeaderParam("sessionid") String session){
         return LogicAdminPanel.getRanking(session);
     }
 
     @PUT
     @Path("interface")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response resetDatabaseShop(@CookieParam("sessionID") String session){
+    public Response resetDatabaseShop(@HeaderParam("sessionid") String session){
         return LogicAdminPanel.resetDatabaseShop(session);
     }
 
     @POST
     @Path("interface")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response setLevel(@CookieParam("sessionID") String session, @DefaultValue("1") @QueryParam("level") int level){
+    public Response setLevel(@HeaderParam("sessionid") String session, @DefaultValue("1") @QueryParam("level") int level){
         return LogicAdminPanel.setLevel(session, level);
     }
 
     @DELETE
     @Path("interface")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response resetDatabaseRanking(@CookieParam("sessionID") String session){
+    public Response resetDatabaseRanking(@HeaderParam("sessionid") String session){
         return LogicAdminPanel.resetDatabaseRanking(session);
     }
 }

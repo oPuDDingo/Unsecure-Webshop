@@ -19,7 +19,7 @@ import java.util.List;
 @Path("user") public class UserService
 {
 	@GET @Produces(MediaType.APPLICATION_JSON) public Response getUser(
-		@CookieParam("sessionID") String session)
+		@HeaderParam("sessionid") String session)
 	{
 		if (session == null) return Response.status(401).build();
 		User user = DataHandler.getUser(session);
@@ -51,14 +51,14 @@ import java.util.List;
 	}
 
 	@POST @Path("logout") public Response logout(
-		@CookieParam("sessionID") final String session
+		@HeaderParam("sessionid") final String session
 	) {
 		if (session == null) return Response.status(401).build();
 		return Logic.logout(session);
 	}
 
 	@PUT @Consumes(MediaType.APPLICATION_JSON) public Response modifyUser(
-		@CookieParam("sessionID") String session,
+		@HeaderParam("sessionid") String session,
 		final User user,
 		@Context HttpServletRequest request)
 	{
@@ -69,7 +69,7 @@ import java.util.List;
 	}
 
 	@DELETE public Response deleteUser(
-		@CookieParam("sessionID") String session)
+		@HeaderParam("sessionid") String session)
 	{
 		DataHandler.deleteUser(session);
 		return Response.noContent().build();
@@ -77,7 +77,7 @@ import java.util.List;
 
 	@Path( "{id:\\d+}" )
 	@DELETE public Response deleteUserById(
-		@DefaultValue( "" ) @CookieParam("sessionID") String session,
+		@DefaultValue( "" ) @HeaderParam("sessionid") String session,
 		@PathParam( "id" ) final long id,
 		@Context HttpServletRequest req
 	)
@@ -90,7 +90,7 @@ import java.util.List;
 	}
 
 	@Path("payment") @GET @Produces(MediaType.APPLICATION_JSON) public Response getUserPayment(
-		@CookieParam("sessionID") String session)
+		@HeaderParam("sessionid") String session)
 	{
 		if (session == null) return Response.status(401).build();
 		Payment payment = DataHandler.getUserPayment(session);
@@ -98,7 +98,7 @@ import java.util.List;
 	}
 
 	@Path("payment") @POST @Consumes(MediaType.APPLICATION_JSON) public Response createUserPayment(
-		@CookieParam("sessionID") String session,
+		@HeaderParam("sessionid") String session,
 		@Context UriInfo uriInfo,
 		final Payment payment)
 	{
@@ -109,7 +109,7 @@ import java.util.List;
 	}
 
 	@Path("payment") @PUT @Consumes(MediaType.APPLICATION_JSON) public Response modifyUserPayment(
-		@CookieParam("sessionID") String session,
+		@HeaderParam("sessionid") String session,
 		final Payment payment)
 	{
 		// DataHandler.modifyUserPayment(session, payment);
@@ -117,28 +117,28 @@ import java.util.List;
 	}
 
 	@Path("payment") @DELETE public Response deleteUserPayment(
-		@CookieParam("sessionID") String session)
+		@HeaderParam("sessionid") String session)
 	{
 		// DataHandler.deleteUserPayment(session);
 		return Response.ok("momentan deaktiviert").build();
 	}
 
 	@GET @Path("addresses") @Produces(MediaType.APPLICATION_JSON) public Response getAllUserAddresses(
-		@CookieParam("sessionID") String session)
+		@HeaderParam("sessionid") String session)
 	{
 		List<Address> userAddresses = DataHandler.getAllUserAddresses(session);
 		return Response.ok(userAddresses).build();
 	}
 
 	@GET @Path("/addresses/{id}") @Produces(MediaType.APPLICATION_JSON) public Response getUserAddress(
-		@CookieParam("sessionID") String session,
+		@HeaderParam("sessionid") String session,
 		@PathParam("id") final int id)
 	{
 		return Response.ok(DataHandler.getUserAddress(session, id)).build();
 	}
 
 	@Path("addresses") @POST @Produces(MediaType.APPLICATION_JSON) public Response createUserAddress(
-		@CookieParam("sessionID") String session,
+		@HeaderParam("sessionid") String session,
 		@Context UriInfo uriInfo,
 		final Address address)
 	{
@@ -146,7 +146,7 @@ import java.util.List;
 	}
 
 	@Path("addresses/{id}") @PUT @Consumes(MediaType.APPLICATION_JSON) public Response modifyUserAddress(
-		@CookieParam("sessionID") final String session,
+		@HeaderParam("sessionid") final String session,
 		@PathParam("id") final int id,
 		final Address address)
 	{
@@ -157,7 +157,7 @@ import java.util.List;
 	}
 
 	@Path("addresses/{id}") @DELETE public Response deleteUserAddress(
-		@CookieParam("sessionID") String session,
+		@HeaderParam("sessionid") String session,
 		@PathParam("id") final int id)
 	{
 		DataHandler.deleteAddress(session, id);
@@ -165,7 +165,7 @@ import java.util.List;
 	}
 
 	@Path("mail") @GET @Produces(MediaType.APPLICATION_JSON) public Response getUserMail(
-		@CookieParam("sessionID") String session)
+		@HeaderParam("sessionid") String session)
 	{
 		if (session == null) return Response.status(401).build();
 		String mail = DataHandler.getUserMail(session);
@@ -173,7 +173,7 @@ import java.util.List;
 	}
 
 	@Path("mail") @POST @Consumes(MediaType.APPLICATION_JSON) public Response createUserMail(
-		@CookieParam("sessionID") String session,
+		@HeaderParam("sessionid") String session,
 		@Context UriInfo uriInfo,
 		final String mail)
 	{
@@ -184,7 +184,7 @@ import java.util.List;
 	}
 
 	@Path("newsletter") @POST public Response turnOnNewsletter(
-		@CookieParam("sessionID") String session
+		@HeaderParam("sessionid") String session
 	)
 	{
 		if (session == null) return Response.status(401).build();
@@ -193,7 +193,7 @@ import java.util.List;
 	}
 
 	@Path("newsletter") @DELETE public Response turnOffNewsletter(
-		@CookieParam("sessionID") String session
+		@HeaderParam("sessionid") String session
 	)
 	{
 		if (session == null) return Response.status(401).build();
@@ -202,12 +202,12 @@ import java.util.List;
 	}
 
 	@Path("password") @Consumes(MediaType.TEXT_PLAIN) @PUT public Response modifyPassword(
-		@CookieParam("sessionID") String session,
+		@HeaderParam("sessionid") String session,
 		final String password)
 	{
 		// TODO something with password here
 		if (session == null) return Response.status(401).build();
-		//toDO get user with sessionID
+		//toDO get user with sessionid
 		// modify in database
 		return Response.ok(password).build();
 	}
