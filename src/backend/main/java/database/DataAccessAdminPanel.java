@@ -209,7 +209,7 @@ public class DataAccessAdminPanel {
         }
     }
 
-    public void putGuessUSerLogin(String ipAddress){
+    public void putGuessUserLogin(String ipAddress){
         Connection con = this.createConnection();
         Statement stmt = null;
         try {
