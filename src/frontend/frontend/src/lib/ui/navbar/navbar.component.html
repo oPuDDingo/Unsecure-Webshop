@@ -38,7 +38,9 @@
         </ul>
 
         <li class="nav-item">
-          <button (click)="onLogOut()" class="btn btn-primary" type="button">logout</button>
+          <div *ngIf="login">
+            <a (click)="onLogOut()" type="button"><i class='fas fa-sign-out'></i></a>
+          </div>
         </li>
       </ul>
     </div>
