@@ -1,8 +1,9 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {map, Observable, tap} from "rxjs";
+import {map, ObjectUnsubscribedError, Observable, tap} from "rxjs";
 import {Address, Article, Contact, Coupon, Order, SpecifiedItem, User} from "../models";
 import {JsonObject} from "@angular/compiler-cli/ngcc/src/packages/entry_point";
+import {RankingStudent} from "../models/rankingStudent";
 
 
 @Injectable({
@@ -168,6 +169,26 @@ export class BackendService {
 
   loadUserById(id: number): Observable<User> {
     return this.httpClient.get<User>(this.url + 'user/' + id);
+  }
+
+  searchArticles(searchInput: string): Observable<Article[]> {
+    return this.httpClient.get<Article[]>(this.url + "articles?search=" + searchInput);
+  }
+
+  setLevel(level: number): Observable<any>{
+    return this.httpClient.post<any>(this.url + 'admin/interface?level=' + level, {}, {headers: this.header});
+  }
+
+  loadRankingStudents(): Observable<RankingStudent[]>{
+    return this.httpClient.get<RankingStudent[]>(this.url + 'admin/interface', {headers: this.header});
+  }
+
+  shopReset(): Observable<any>{
+    return this.httpClient.put(this.url + 'admin/interface', {}, {headers: this.header});
+  }
+
+  rankingReset(): Observable<any>{
+    return this.httpClient.delete(this.url + 'admin/interface', {headers: this.header});
   }
 
 }

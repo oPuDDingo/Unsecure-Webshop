@@ -12,6 +12,7 @@ export class LoginComponent {
   mail: string = "";
   password: string = "";
   invalidData: boolean = false;
+  errorMessage = "Error message couldn´t be loaded!";
 
   constructor(private authenticationService: AuthenticationService, private router: Router) {
   }
@@ -22,6 +23,7 @@ export class LoginComponent {
         this.router.navigateByUrl('/user');
       },
       error => {
+        this.errorMessage = error.error;
         this.invalidData = true;
       });
   }

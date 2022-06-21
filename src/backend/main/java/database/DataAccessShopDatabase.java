@@ -960,6 +960,8 @@ public class DataAccessShopDatabase {
             for (String sql : DatabaseQueries.brands) {
                 stmt.execute("INSERT INTO brand(name) VALUES('" + sql + "');");
             }
+            stmt.close();
+            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -1027,9 +1029,6 @@ public class DataAccessShopDatabase {
 
     public static void main(String[] args) throws SQLException {
         DataAccessShopDatabase s = new DataAccessShopDatabase();
-        User u = new User();
-        u.setMail("'OR 1=1;#");
-        User u2 = s.putUser(u, 2);
-        System.out.println(u2.getPassword());
+        System.out.println(s.encryptPasswordRealUser("admin"));
     }
 }

@@ -21,7 +21,7 @@ import java.util.List;
 	@GET @Produces(MediaType.APPLICATION_JSON) public Response getUser(
 		@CookieParam("sessionID") String session)
 	{
-		if (session == null) session = "ge/P6tR72CaQ9R8OgNr+P1APqNOUQ6wZYkSx0JUyCco=";
+		if (session == null) return Response.status(401).build();
 		User user = DataHandler.getUser(session);
 		return Response.ok(user).build();
 	}
@@ -62,8 +62,8 @@ import java.util.List;
 		final User user,
 		@Context HttpServletRequest request)
 	{
-		if (session == null) session = "ge/P6tR72CaQ9R8OgNr+P1APqNOUQ6wZYkSx0JUyCco=";
 		if (user==null) return Response.status(400).build();
+		if (session == null) return Response.status(401).build();
 		DataHandler.modifyUser(session, user, request.getRemoteAddr());
 		return Response.ok(user).build();
 	}
@@ -92,7 +92,7 @@ import java.util.List;
 	@Path("payment") @GET @Produces(MediaType.APPLICATION_JSON) public Response getUserPayment(
 		@CookieParam("sessionID") String session)
 	{
-		if (session == null) session = "ge/P6tR72CaQ9R8OgNr+P1APqNOUQ6wZYkSx0JUyCco=";
+		if (session == null) return Response.status(401).build();
 		Payment payment = DataHandler.getUserPayment(session);
 		return Response.ok(payment).build();
 	}
@@ -102,7 +102,7 @@ import java.util.List;
 		@Context UriInfo uriInfo,
 		final Payment payment)
 	{
-		if (session == null) session = "ge/P6tR72CaQ9R8OgNr+P1APqNOUQ6wZYkSx0JUyCco=";
+		if (session == null) return Response.status(401).build();
 		DataHandler.createUserPayment(session, payment);
 		final URI locationURI = uriInfo.getAbsolutePathBuilder().build();
 		return Response.created(locationURI).build();
@@ -167,7 +167,7 @@ import java.util.List;
 	@Path("mail") @GET @Produces(MediaType.APPLICATION_JSON) public Response getUserMail(
 		@CookieParam("sessionID") String session)
 	{
-		if (session == null) session = "ge/P6tR72CaQ9R8OgNr+P1APqNOUQ6wZYkSx0JUyCco=";
+		if (session == null) return Response.status(401).build();
 		String mail = DataHandler.getUserMail(session);
 		return Response.ok(mail).build();
 	}
@@ -177,7 +177,7 @@ import java.util.List;
 		@Context UriInfo uriInfo,
 		final String mail)
 	{
-		if (session == null) session = "ge/P6tR72CaQ9R8OgNr+P1APqNOUQ6wZYkSx0JUyCco=";
+		if (session == null) return Response.status(401).build();
 		DataHandler.createUserMail(session, mail);
 		final URI locationURI = uriInfo.getAbsolutePathBuilder().build();
 		return Response.created(locationURI).build();
@@ -187,7 +187,7 @@ import java.util.List;
 		@CookieParam("sessionID") String session
 	)
 	{
-		if (session == null) session = "ge/P6tR72CaQ9R8OgNr+P1APqNOUQ6wZYkSx0JUyCco=";
+		if (session == null) return Response.status(401).build();
 		DataHandler.turnOnNewsletter(session);
 		return Response.ok("signed up for newsletter").build();
 	}
@@ -196,7 +196,7 @@ import java.util.List;
 		@CookieParam("sessionID") String session
 	)
 	{
-		if (session == null) session = "ge/P6tR72CaQ9R8OgNr+P1APqNOUQ6wZYkSx0JUyCco=";
+		if (session == null) return Response.status(401).build();
 		DataHandler.turnOffNewsletter(session);
 		return Response.ok("cancelled newsletter subscription").build();
 	}
@@ -206,8 +206,8 @@ import java.util.List;
 		final String password)
 	{
 		// TODO something with password here
-		if (session == null) session = "ge/P6tR72CaQ9R8OgNr+P1APqNOUQ6wZYkSx0JUyCco=";
-		// get user with sessionID
+		if (session == null) return Response.status(401).build();
+		//toDO get user with sessionID
 		// modify in database
 		return Response.ok(password).build();
 	}

@@ -9,16 +9,10 @@ import backend.main.java.models.Order;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
-import javax.xml.crypto.Data;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.security.SecureRandom;
-import java.util.Objects;
 
 public class Logic
 {

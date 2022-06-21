@@ -19,7 +19,7 @@ import java.util.List;
 
 	@GET @Produces(MediaType.APPLICATION_JSON) public Response getOrders(@CookieParam("sessionID") String session)
 	{
-		if (session == null) session = "ge/P6tR72CaQ9R8OgNr+P1APqNOUQ6wZYkSx0JUyCco=";
+		if (session == null) return Response.status(401).build();
 		List<Order> orders = DataHandler.getOrders(session);
 		return Response.ok(orders).build();
 	}
@@ -35,8 +35,7 @@ import java.util.List;
 		final Order order, @Context HttpServletRequest request)
 	{
 		if (order == null) return Response.status(400).build();
-		if (session == null) session = "ge/P6tR72CaQ9R8OgNr+P1APqNOUQ6wZYkSx0JUyCco=";
-		// if (session == null) return Response.status(403).build();
+		if (session == null) return Response.status(401).build();
 		Logic.checkPrice(order, request.getRemoteAddr());
 		int orderNumber = DataHandler.createOrder(order, session, cleanup);
 		URI location = uriInfo.getAbsolutePathBuilder().path("id").path(String.valueOf(orderNumber)).build();
