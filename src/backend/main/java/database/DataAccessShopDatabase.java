@@ -958,6 +958,8 @@ public class DataAccessShopDatabase {
             for (String sql : DatabaseQueries.brands) {
                 stmt.execute("INSERT INTO brand(name) VALUES('" + sql + "');");
             }
+            stmt.close();
+            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
