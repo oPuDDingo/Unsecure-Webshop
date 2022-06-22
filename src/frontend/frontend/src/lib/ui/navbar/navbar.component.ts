@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {AuthenticationService} from "../../data-access/service/authentication.service";
-import {BackendService} from "../../data-access/service/backend.service";
 import {UserTypes} from "../../data-access/enums/userTypes";
 
 @Component({
@@ -15,7 +14,7 @@ export class NavbarComponent implements OnInit {
   login: boolean = false;
   searchInput: string = "";
 
-  constructor(private authenticationService: AuthenticationService, private router: Router, private backendService: BackendService) {
+  constructor(private authenticationService: AuthenticationService, private router: Router) {
   }
 
   ngOnInit() {
@@ -25,7 +24,7 @@ export class NavbarComponent implements OnInit {
   }
 
   onLogOut(): void {
-    if(this.authenticationService.userType == UserTypes.User) {
+    if (this.authenticationService.userType == UserTypes.User) {
       this.authenticationService.logout().subscribe();
     } else {
       this.authenticationService.adminLogout().subscribe();
@@ -34,7 +33,7 @@ export class NavbarComponent implements OnInit {
   }
 
   onSearchClick() {
-    if(this.searchInput != "") {
+    if (this.searchInput != "") {
       this.router.navigateByUrl('/articles?search=' + this.searchInput);
     }
   }

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, TemplateRef} from "@angular/core";
+import {Component, Input, TemplateRef} from "@angular/core";
 import {Address} from "../../../data-access/models";
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {AddressStore} from "../../../data-access/service/store/address.store";
@@ -9,7 +9,7 @@ import {AddressListComponent} from "../addressList.component";
   templateUrl: './address.component.html',
   styleUrls: ['./address.component.scss']
 })
-export class AddressComponent implements OnInit{
+export class AddressComponent {
   // @ts-ignore
   @Input() address: Address;
   @Input() selectable: boolean = false;
@@ -44,9 +44,5 @@ export class AddressComponent implements OnInit{
 
   onSelect(): void {
     this.addressList.selectedAddress = this.address;
-  }
-
-  ngOnInit(): void {
-    console.log("New Address with id " + this.address.id)
   }
 }

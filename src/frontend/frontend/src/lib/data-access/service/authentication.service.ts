@@ -12,7 +12,7 @@ import {UserTypes} from "../enums/userTypes";
 @Injectable({providedIn: "root"})
 export class AuthenticationService {
 
-  readonly url: string = 'http://localhost:4200/api/';
+  readonly url: string = 'http://192.168.178.24:4200/api/';
   statusSubject: ReplaySubject<boolean> = new ReplaySubject<boolean>(1);
   userType: UserTypes = UserTypes.User;
 
