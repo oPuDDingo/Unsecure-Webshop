@@ -61,12 +61,12 @@ public class Logic
 	}
 
 
-	public static double computePrice(List<Article> articles)
+	public static double computePrice(List<ArticleVersion> articles)
 	{
 		double sum = 0;
-		for (Article article : articles)
+		for (ArticleVersion article : articles)
 		{
-			sum += article.getAmount();
+			sum += article.getAmount() * article.getQuantity();
 		}
 		return sum;
 	}
@@ -91,14 +91,7 @@ public class Logic
 
 	public static void checkPrice(Order order, String remoteAddr)
 	{
-		List<ArticleVersion> articleVersions = order.getSpecifiedItems();
-		DataAccessShopDatabase dasb = new DataAccessShopDatabase();
-		List<Article> articles = new ArrayList<>();
-		for (ArticleVersion articleVersion : articleVersions)
-		{
-			System.out.println(articleVersion.getArticleNumber());
-			articles.add(dasb.getArticle(articleVersion.getArticleNumber()));
-		}
+		List<ArticleVersion> articles = order.getSpecifiedItems();
 		System.out.println(computePrice(articles));
 		System.out.println(order.getAmount());
 		if (computePrice(articles) != order.getAmount()) {
