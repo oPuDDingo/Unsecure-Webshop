@@ -51,7 +51,7 @@ export class OrderStore {
 
   cleaningUp(): void {
     this.orders = [];
-    this.ordersSubject.next([]);
+    this.ordersSubject.next(this.orders);
     this.orderWithBody = [];
   }
 }

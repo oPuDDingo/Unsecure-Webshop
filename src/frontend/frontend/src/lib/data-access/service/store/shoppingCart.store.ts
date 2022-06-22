@@ -66,6 +66,6 @@ export class ShoppingCartStore {
 
   cleaningUp(): void {
     this.itemList = [];
-    this.itemListSubject.next([]);
+    this.itemListSubject.next(this.itemList);
   }
 }
