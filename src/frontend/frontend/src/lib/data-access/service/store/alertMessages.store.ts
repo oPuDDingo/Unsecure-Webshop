@@ -1,5 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Subject} from "rxjs";
+import {BackendService} from "../backend.service";
 
 @Injectable({
   providedIn: 'root'
@@ -8,11 +9,18 @@ import {Subject} from "rxjs";
 export class AlertMessagesStore {
   alertSubject: Subject<string> = new Subject<string>();
 
-  constructor() {
+  constructor(private backendService: BackendService) {
+    setInterval(() => this.updateAlerts(), 4000);
   }
 
   addAlertMessage(message: string): void {
     this.alertSubject.next(message);
+  }
+
+  updateAlerts() {
+    this.backendService.getAlerts().subscribe(alerts => {
+      alerts.forEach(alert => this.addAlertMessage(alert))
+    });
   }
 
 

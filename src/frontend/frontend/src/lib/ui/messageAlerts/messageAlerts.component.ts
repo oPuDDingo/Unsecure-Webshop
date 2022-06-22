@@ -13,12 +13,12 @@ export class MessageAlertsComponent implements OnInit {
   // @ts-ignore
   @ViewChild("alertSection") alertSectionRef: ElementRef;
 
-  constructor(private alertStore: AlertMessagesStore, private toastr: ToastrService) {
+  constructor(private alertStore: AlertMessagesStore, private toast: ToastrService) {
   }
 
   ngOnInit(): void {
     this.alertStore.alertSubject.subscribe(alert => {
-      this.toastr.success(alert, "Schwachstelle gefunden!")
+      this.toast.success(alert, "Schwachstelle gefunden!")
     });
   }
 
