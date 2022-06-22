@@ -55,7 +55,7 @@ export class AddressStore {
 
   cleaningUp(): void {
     this.addresses = [];
-    this.addressesSubject.next([]);
+    this.addressesSubject.next(this.addresses);
   }
 
 }
