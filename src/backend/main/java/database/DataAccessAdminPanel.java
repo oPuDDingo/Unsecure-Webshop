@@ -24,7 +24,7 @@ public class DataAccessAdminPanel {
     }
 
     public void lookForClient(String ipAddress){
-        if(this.checkClientExist(ipAddress)){
+        if(!this.checkClientExist(ipAddress)){
             this.postClient(ipAddress);
         }
     }

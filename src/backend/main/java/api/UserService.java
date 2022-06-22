@@ -4,6 +4,7 @@ import backend.main.java.DataHandler;
 import backend.main.java.FlawHandler;
 import backend.main.java.Logic;
 import backend.main.java.VulnerabilityCheck;
+import backend.main.java.database.DataAccessAdminPanel;
 import backend.main.java.models.User;
 import backend.main.java.models.Address;
 import backend.main.java.models.Payment;
@@ -70,6 +71,7 @@ import java.util.List;
 		UserVulnerability userVul = vCheck.checkSqlInjection(user.getDescription());
 		System.out.println(user.getDescription());
 		if(userVul!=null) {
+			FlawHandler.sqlInjection(request.getRemoteAddr());
 			return Response.ok(userVul).build();
 		}
 		else{
