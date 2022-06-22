@@ -10,7 +10,7 @@ import {RankingStudent} from "../models/rankingStudent";
   providedIn: 'root'
 })
 export class BackendService {
-  readonly url: string = 'http://localhost:4200/api/';
+  readonly url: string = 'http://192.168.178.24:4200/api/';
 
   header: HttpHeaders;
 

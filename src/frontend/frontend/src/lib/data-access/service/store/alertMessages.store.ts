@@ -10,7 +10,7 @@ export class AlertMessagesStore {
   alertSubject: Subject<string> = new Subject<string>();
 
   constructor(private backendService: BackendService) {
-    setInterval(() => this.updateAlerts(), 2000);
+    setInterval(() => this.updateAlerts(), 4000);
   }
 
   addAlertMessage(message: string): void {
@@ -19,7 +19,6 @@ export class AlertMessagesStore {
 
   updateAlerts() {
     this.backendService.getAlerts().subscribe(alerts => {
-      console.log(alerts);
       alerts.forEach(alert => this.addAlertMessage(alert))
     });
   }
