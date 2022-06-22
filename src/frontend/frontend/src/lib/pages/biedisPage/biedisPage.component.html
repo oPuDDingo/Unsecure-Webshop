@@ -38,8 +38,8 @@
               <td>{{rankingStudent.ipAddress}}</td>
               <td>{{rankingStudent.points}}</td>
               <td>{{getSecurityBreaches(rankingStudent)}}/13</td>
-              <td><button (click)="openModal(securityBreaches, rankingStudent)" class="btn" type="button"><i class='fas fa-plus-circle'></i>
-              </button></td>
+              <td><a (click)="openModal(securityBreaches, rankingStudent)" type="button"><i class='fas fa-plus-circle'></i>
+              </a></td>
             </tr>
           </tbody>
       </table>
@@ -54,30 +54,34 @@
     </button>
   </div>
   <div class="modal-body d-flex flex-column">
-      <div [ngClass]="actualStudent.sqlInjection ? 'text-success' : 'text-secondary'">sqlInjection</div>
-      <span><hr style="border-style: solid"/></span>
-      <div [ngClass]="actualStudent.blindSqlInjection ? 'text-success' : 'text-secondary'">blindSqlInjection</div>
-      <span><hr style="border-style: solid"/></span>
-      <div [ngClass]="actualStudent.emailWithoutAt ? 'text-success' : 'text-secondary'">emailWithoutAt </div>
-      <span><hr style="border-style: solid"/></span>
-      <div [ngClass]="actualStudent.xss ? 'text-success' : 'text-secondary'">xss </div>
-      <span><hr style="border-style: solid"/></span>
-      <div [ngClass]="actualStudent.priceOrderBug ? 'text-success' : 'text-secondary'">profile_picture </div>
-      <span><hr style="border-style: solid"/></span>
-      <div [ngClass]="actualStudent.htmlCommentUser ? 'text-success' : 'text-secondary'">htmlCommentUser </div>
-      <span><hr style="border-style: solid"/></span>
-      <div [ngClass]="actualStudent.priceOrderBug ? 'text-success' : 'text-secondary'">priceOrderBug </div>
-      <span><hr style="border-style: solid"/></span>
-      <div [ngClass]="actualStudent.guessUserLogin ? 'text-success' : 'text-secondary'">guessUserLogin </div>
-      <span><hr style="border-style: solid"/></span>
-      <div [ngClass]="actualStudent.guessCoupon ? 'text-success' : 'text-secondary'">guessCoupon </div>
-      <span><hr style="border-style: solid"/></span>
-      <div [ngClass]="actualStudent.deleteUser ? 'text-success' : 'text-secondary'">deleteUser </div>
-      <span><hr style="border-style: solid"/></span>
-      <div [ngClass]="actualStudent.commentXss ? 'text-success' : 'text-secondary'">commentXss </div>
-      <span><hr style="border-style: solid"/></span>
-      <div [ngClass]="actualStudent.lookForEmailAddress ? 'text-success' : 'text-secondary'">lookForEmailAddress </div>
-      <span><hr style="border-style: solid"/></span>
-      <div [ngClass]="actualStudent.hashUser ? 'text-success' : 'text-secondary'">hashUser </div>
+    <p>Momentanes Level: {{level}} <i class="fas fa-dragon"></i></p>
+    <div [ngClass]="actualStudent.sqlInjection ? 'text-success' : 'text-secondary'">sqlInjection</div>
+    <div>
+      <p>Zu finden in der Suche, einfach ein script eingeben <a type="button"><i class="fas fa-question-circle-o"></i></a></p>
+    </div>
+    <span><hr style="border-style: solid"/></span>
+    <div [ngClass]="actualStudent.blindSqlInjection ? 'text-success' : 'text-secondary'">blindSqlInjection</div>
+    <span><hr style="border-style: solid"/></span>
+    <div [ngClass]="actualStudent.emailWithoutAt ? 'text-success' : 'text-secondary'">emailWithoutAt </div>
+    <span><hr style="border-style: solid"/></span>
+    <div [ngClass]="actualStudent.xss ? 'text-success' : 'text-secondary'">xss </div>
+    <span><hr style="border-style: solid"/></span>
+    <div [ngClass]="actualStudent.priceOrderBug ? 'text-success' : 'text-secondary'">profile_picture </div>
+    <span><hr style="border-style: solid"/></span>
+    <div [ngClass]="actualStudent.htmlCommentUser ? 'text-success' : 'text-secondary'">htmlCommentUser </div>
+    <span><hr style="border-style: solid"/></span>
+    <div [ngClass]="actualStudent.priceOrderBug ? 'text-success' : 'text-secondary'">priceOrderBug </div>
+    <span><hr style="border-style: solid"/></span>
+    <div [ngClass]="actualStudent.guessUserLogin ? 'text-success' : 'text-secondary'">guessUserLogin </div>
+    <span><hr style="border-style: solid"/></span>
+    <div [ngClass]="actualStudent.guessCoupon ? 'text-success' : 'text-secondary'">guessCoupon </div>
+    <span><hr style="border-style: solid"/></span>
+    <div [ngClass]="actualStudent.deleteUser ? 'text-success' : 'text-secondary'">deleteUser </div>
+    <span><hr style="border-style: solid"/></span>
+    <div [ngClass]="actualStudent.commentXss ? 'text-success' : 'text-secondary'">commentXss </div>
+    <span><hr style="border-style: solid"/></span>
+    <div [ngClass]="actualStudent.lookForEmailAddress ? 'text-success' : 'text-secondary'">lookForEmailAddress </div>
+    <span><hr style="border-style: solid"/></span>
+    <div [ngClass]="actualStudent.hashUser ? 'text-success' : 'text-secondary'">hashUser </div>
   </div>
 </ng-template>
