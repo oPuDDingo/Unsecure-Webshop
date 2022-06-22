@@ -24,7 +24,7 @@ public class DataAccessAdminPanel {
     }
 
     public void lookForClient(String ipAddress){
-        if(this.checkClientExist(ipAddress)){
+        if(!this.checkClientExist(ipAddress)){
             this.postClient(ipAddress);
         }
     }
@@ -317,6 +317,8 @@ public class DataAccessAdminPanel {
             if(rs.next() && rs.getString("key").equals(session)){
                 return true;
             }
+            stmt.close();
+            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -389,7 +391,20 @@ public class DataAccessAdminPanel {
 
     public static void main (String[] args){
         DataAccessAdminPanel a = new DataAccessAdminPanel();
-        //System.out.println(a.login("admin","v"));
-        System.out.println(LogicAdminPanel.login("d","admin"));
+        a.emailWithoutAt("xx");
+        a.emailWithoutAt("xx");
+        a.emailWithoutAt("xx");
+        a.emailWithoutAt("xx");
+        a.emailWithoutAt("xx");
+        a.emailWithoutAt("xx");
+        a.emailWithoutAt("xx");
+        a.emailWithoutAt("xx");
+        a.emailWithoutAt("xx");
+        a.emailWithoutAt("xx");
+        a.emailWithoutAt("xx");
+        a.emailWithoutAt("xx");
+        a.emailWithoutAt("xx");
+
+
     }
 }

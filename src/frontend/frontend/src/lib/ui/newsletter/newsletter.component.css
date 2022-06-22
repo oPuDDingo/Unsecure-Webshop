@@ -8,6 +8,15 @@ form {
   color: grey;
 }
 
+a {
+  text-decoration: none;
+  color: white;
+}
+
+a:hover {
+  color: #154486;
+}
+
 
 input[type=text] {
   width: 100%;

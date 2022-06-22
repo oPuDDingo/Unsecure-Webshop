@@ -47,4 +47,9 @@ public class FlawHandler
 		daap.lookForClient(ip);
 		daap.putCommentXss(ip);
 	}
+
+	public static void sqlInjection(String ip){
+		daap.lookForClient(ip);
+		daap.putSqlInjection(ip);
+	}
 }
