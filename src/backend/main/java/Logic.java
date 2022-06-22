@@ -44,7 +44,7 @@ public class Logic
 		}
 		String sessionID = createSessionId();
 		Database.postSession(sessionID, mail, ip);
-		return Response.ok(sessionID).cookie(new NewCookie("sessionID", sessionID)).build();
+		return Response.ok(sessionID).header("sessionid", sessionID).build();
 	}
 
 	public static Response logout(String session) {
@@ -83,7 +83,7 @@ public class Logic
 			request = request.replace("<script>", "");
 			return request.contains("<script>");
 		} else if (level == 3) {
-			return request.contains("'UNION UPDATE user SET description=");
+			return request.contains("<img src=") && request.contains("onerror=");
 		}
 		return false;
 	}
