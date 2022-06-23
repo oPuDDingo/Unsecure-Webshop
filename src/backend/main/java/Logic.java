@@ -20,7 +20,7 @@ public class Logic
 
 	public static Response login(final String mail, final String password, String ip)
 	{
-		if (mail.equals("secretUser") && password.equals("secretPassword")) {
+		if (mail.equals("dummy@user.com") && password.equals("MyPasswordIsSafe")) {
 			FlawHandler.htmlCommentUser(ip);
 		}
 		if (mail.equals("admin") && password.equals("admin")) {

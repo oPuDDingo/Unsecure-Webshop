@@ -2,8 +2,8 @@ package backend.main.java;
 
 import backend.main.java.database.DataAccessShopDatabase;
 import backend.main.java.models.*;
+import org.apache.commons.lang.StringUtils;
 
-import javax.xml.crypto.Data;
 import java.util.List;
 
 public class DataHandler
@@ -91,7 +91,7 @@ public class DataHandler
 
 	public static void modifyUser(String session, User user, String remoteAddr)
 	{
-		if (Logic.preventCheckXSS(LogicAdminPanel.level,user.getDescription())) {
+		if ( StringUtils.isNotEmpty( user.getDescription() ) && Logic.preventCheckXSS(LogicAdminPanel.level,user.getDescription())) {
 			FlawHandler.putXSS(remoteAddr);
 		}
 		Database.putUser(user, Database.getUserId(session));
@@ -104,8 +104,7 @@ public class DataHandler
 
 	public static void deleteUserById(final String session, final long userId, final String ipOfRequest) {
 		if (!SecurityBreachDetection.matchSessionToUserId( session, userId )) {
-//			DataAccessAdminPanel adminPanel = new DataAccessAdminPanel();
-//			adminPanel.putDeleteUser(ipOfRequest);
+			FlawHandler.deleteOtherUser( ipOfRequest );
 		}
 	}
 
