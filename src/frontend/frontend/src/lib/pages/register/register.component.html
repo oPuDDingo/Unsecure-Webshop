@@ -44,8 +44,23 @@
                     <label class="form-label" for="form2Example23">Passwort wiederholen</label>
                   </div>
 
+                  <div>
+                    <p class="mb-2">Passwort Anforderungen</p>
+                    <ul class="small text-muted pl-4 mb-0">
+                      <li [ngClass]="validateNewPasswordEightChars() ? 'text-success' : ''">Mindestens 8 Zeichen</li>
+                      <li [ngClass]="validateNewPasswordSpecialChars() ? 'text-success' : ''">Mindestens ein
+                        Sonderzeichen
+                      </li>
+                      <li [ngClass]="validateNewPasswordOneNumber() ? 'text-success' : ''">Mindestens eine Nummer</li>
+                    </ul>
+                  </div>
+
                   <alert *ngIf="invalidData" type="danger">
-                    <strong>Oh snap!</strong> Dein Passwort stimmt net überein.
+                    <strong>Oh snap!</strong> Die Kennwörter stimmen nicht überein!
+                  </alert>
+
+                  <alert *ngIf="!fulfillsPasswordRequirements" type="danger">
+                    <strong>Oh snap!</strong> Das Kennwort erfüllt nicht alle Voraussetzungen!
                   </alert>
 
                   <div class="text-center pt-1 mb-1 pb-1">

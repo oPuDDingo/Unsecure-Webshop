@@ -15,16 +15,29 @@ export class RegisterComponent {
   password: string = "";
   passwordWdh: string = "";
   invalidData: boolean = false;
+  fulfillsPasswordRequirements: boolean = true;
 
   constructor(private authenticationService: AuthenticationService, private router: Router) {
   }
 
   onRegister() {
-    if (this.password != this.passwordWdh) {
-      this.invalidData = true;
-    } else {
+    this.invalidData = this.password != this.passwordWdh;
+    this.fulfillsPasswordRequirements = this.validateNewPasswordEightChars() && this.validateNewPasswordSpecialChars() && this.validateNewPasswordOneNumber();
+    if (!this.invalidData && this.fulfillsPasswordRequirements)
       this.authenticationService.register(this.firstName, this.lastName, this.mail, this.password).subscribe(() => this.router.navigateByUrl('/user'));
-    }
+  }
 
+  validateNewPasswordEightChars(): boolean {
+    return this.password.length >= 8;
+  }
+
+  validateNewPasswordSpecialChars(): boolean {
+    let regex = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/g;
+    return regex.test(this.password);
+  }
+
+  validateNewPasswordOneNumber(): boolean {
+    let regex = /\d+/g;
+    return regex.test(this.password);
   }
 }

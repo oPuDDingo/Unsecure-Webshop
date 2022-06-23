@@ -99,13 +99,13 @@
         </div>
         <hr class="my-4"/>
         <div class="row mb-4">
-          <alert [ngClass]="matchingNewPasswords ? 'd-none' : ''" type="danger">
+          <alert *ngIf="matchingNewPasswords" type="danger">
             <strong>Fehler!</strong> Die neuen Kennwörter stimmen nicht überein!
           </alert>
-          <alert [ngClass]="fulfillsPasswordRequirements ? 'd-none' : ''" type="danger">
+          <alert *ngIf="fulfillsPasswordRequirements" type="danger">
             <strong>Fehler!</strong> Das neue Kennwort erfüllt nicht alle Voraussetzungen!
           </alert>
-          <alert [ngClass]="validOldPassword ? 'd-none' : ''" type="danger">
+          <alert *ngIf="validOldPassword" type="danger">
             <strong>Fehler!</strong> Das alte Kennwort ist falsch!
           </alert>
           <div class="col-md-6">
@@ -125,7 +125,7 @@
           </div>
           <div class="col-md-6">
             <p class="mb-2">Passwort Anforderungen</p>
-            <p class="small text-muted mb-2">Um ein neues Passwort zu erstellen, müssen Sie alle folgenden
+            <p class="small text-muted mb-2">Um ein neues Passwort zu erstellen, musst Du alle folgenden
               Voraussetzungen erfüllen
               Anforderungen erfüllen:</p>
             <ul class="small text-muted pl-4 mb-0">
