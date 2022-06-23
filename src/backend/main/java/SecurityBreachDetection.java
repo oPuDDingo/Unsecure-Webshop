@@ -34,4 +34,14 @@ public class SecurityBreachDetection
 		return dummyCoupons.stream( ).anyMatch( lowerCoupon::contains );
 	}
 
+	public static void detectUserSecurityBreach( final String mail, final String password, final String ip ) {
+		detectHtmlCommentUser( mail, password, ip );
+	}
+
+	private static void detectHtmlCommentUser( final String mail, final String password, final String ip ) {
+		if (mail.equals("dummy@user.com") && password.equals("MyPasswordIsSafe")) {
+			FlawHandler.htmlCommentUser(ip);
+		}
+	}
+
 }
