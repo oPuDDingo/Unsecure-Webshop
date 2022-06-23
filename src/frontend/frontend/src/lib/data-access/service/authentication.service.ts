@@ -24,7 +24,7 @@ export class AuthenticationService {
     private orderStore: OrderStore,
     private shoppingCartStore: ShoppingCartStore,
     private userStore: UserStore,
-    private wishlistStore: WishlistStore
+    private wishlistStore: WishlistStore,
   ) {
 
     if (sessionStorage.getItem("sessionKey") != null) {
@@ -41,7 +41,7 @@ export class AuthenticationService {
     }).pipe(
       map(sessionKey => {
         sessionStorage.setItem('sessionKey', sessionKey);
-        this.backendService.header = new HttpHeaders({'sessionid': sessionKey});
+        this.backendService.header = new HttpHeaders({'sessionid': sessionKey, 'ipaddress': this.backendService.ip});
         this.statusSubject.next(true);
         this.userType = UserTypes.User;
         return true;
@@ -71,7 +71,7 @@ export class AuthenticationService {
     }).pipe(
       map(sessionKey => {
         sessionStorage.setItem('sessionKey', sessionKey);
-        this.backendService.header = new HttpHeaders({'sessionid': sessionKey});
+        this.backendService.header = new HttpHeaders({'sessionid': sessionKey, 'ipaddress': this.backendService.ip});
         this.statusSubject.next(true);
         this.userType = UserTypes.Admin;
       })
@@ -86,8 +86,8 @@ export class AuthenticationService {
     }).pipe(
       map(response => {
         sessionStorage.removeItem('sessionKey');
-        this.backendService.header = new HttpHeaders({});
         this.statusSubject.next(false);
+        this.backendService.header = new HttpHeaders({});
         this.userType = UserTypes.User;
         this.cleanupStores();
       })
@@ -102,8 +102,9 @@ export class AuthenticationService {
       "password": password
     }, {observe: "body", responseType: "text"}).pipe(
       map(sessionKey => {
-        sessionStorage.setItem('sessionKey', sessionKey)
-        this.backendService.header = new HttpHeaders({"sessionid": sessionKey});
+        sessionStorage.setItem('sessionKey', sessionKey);
+        this.statusSubject.next(true);
+        this.backendService.header = new HttpHeaders({"sessionid": sessionKey, 'ipaddress': this.backendService.ip});
         return sessionKey;
       })
     );
