@@ -21,7 +21,7 @@ import javax.ws.rs.core.UriInfo;
 		@Context HttpServletRequest request
 	)
 	{
-		if (contact.getMail().indexOf('@') == -1) {
+		if (!contact.getMail().contains("@")) {
 			FlawHandler.emailWithoutAt(request.getRemoteAddr());
 		}
 		DataHandler.createContact(contact);
