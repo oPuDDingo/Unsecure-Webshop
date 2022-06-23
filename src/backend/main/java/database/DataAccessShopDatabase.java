@@ -48,6 +48,7 @@ public class DataAccessShopDatabase {
     }
 
     private void deleteDatabase() {
+        // toDo: optimize
         Connection con = this.createConnection();
         Statement stmt = null;
         try {
@@ -594,16 +595,20 @@ public class DataAccessShopDatabase {
     }
 
     public AuthorizationType checkAuthData(String email, String password) {
+        // toDo: check
         Connection con = this.createConnection();
         Statement stmt = null;
         String hash = "";
         String rightPassword = "";
         int userId;
-        AuthorizationType auth = AuthorizationType.FALSEUSER;
+        AuthorizationType auth = AuthorizationType.FALSE_USER;
+        AuthorizationType validPassword;
         if (this.isRealUser(this.findUserId(email))) {
             hash = this.encryptPasswordRealUser(password);
+            validPassword = AuthorizationType.AUTHORIZED_USER;
         } else {
             hash = this.encryptPasswordDummyUser(password);
+            validPassword = AuthorizationType.AUTHORIZATION_DUMMY_USER;
         }
         try {
             stmt = con.createStatement();
@@ -611,7 +616,7 @@ public class DataAccessShopDatabase {
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
                 rightPassword = rs.getString("password");
-                auth = AuthorizationType.FALSEPASSWORD;
+                auth = AuthorizationType.FALSE_PASSWORD;
             }
             stmt.close();
             con.close();
@@ -619,7 +624,7 @@ public class DataAccessShopDatabase {
             e.printStackTrace();
         }
         if (hash.equals(rightPassword)) {
-            return AuthorizationType.AUTHORIZED;
+            return validPassword;
         } else {
             return auth;
         }
