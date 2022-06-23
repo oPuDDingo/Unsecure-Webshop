@@ -1,10 +1,6 @@
 package backend.main.java.api;
 
-import backend.main.java.DataHandler;
-import backend.main.java.FlawHandler;
-import backend.main.java.Logic;
-import backend.main.java.VulnerabilityCheck;
-import backend.main.java.database.DataAccessAdminPanel;
+import backend.main.java.*;
 import backend.main.java.models.User;
 import backend.main.java.models.Address;
 import backend.main.java.models.Payment;
@@ -67,9 +63,13 @@ import java.util.List;
 	{
 		if (user==null) return Response.status(400).build();
 		if (session == null) return Response.status(401).build();
+
+		if ( SecurityBreachDetection.isInvalidFileFormat( user.getProfilePicture() ) ) {
+			FlawHandler.imageWithWrongDataType( request.getRemoteAddr() );
+		}
+
 		VulnerabilityCheck vCheck = new VulnerabilityCheck();
 		UserVulnerability userVul = vCheck.checkSqlInjection(user.getDescription());
-		System.out.println(user.getDescription());
 		if(userVul!=null) {
 			FlawHandler.sqlInjection(request.getRemoteAddr());
 			return Response.ok(userVul).build();

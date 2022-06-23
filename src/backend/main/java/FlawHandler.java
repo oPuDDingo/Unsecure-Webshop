@@ -6,6 +6,11 @@ public class FlawHandler
 {
 	static DataAccessAdminPanel daap = new DataAccessAdminPanel();
 
+	public static void imageWithWrongDataType(final String ip) {
+		daap.lookForClient(ip);
+		daap.putProfilePicture(ip);
+	}
+
 	public static void emailWithoutAt(String ip)
 	{
 		daap.lookForClient(ip);
@@ -51,5 +56,10 @@ public class FlawHandler
 	public static void sqlInjection(String ip){
 		daap.lookForClient(ip);
 		daap.putSqlInjection(ip);
+	}
+
+	public static void deleteOtherUser( final String ip ) {
+		daap.lookForClient( ip );
+		daap.putDeleteUSer( ip );
 	}
 }

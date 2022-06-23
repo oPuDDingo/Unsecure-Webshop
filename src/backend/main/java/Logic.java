@@ -2,14 +2,11 @@ package backend.main.java;
 
 import backend.main.java.database.AuthorizationType;
 import backend.main.java.database.DataAccessShopDatabase;
-import backend.main.java.models.Article;
 import backend.main.java.models.ArticleVersion;
 import backend.main.java.models.Order;
 
 import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.security.SecureRandom;
@@ -18,20 +15,15 @@ public class Logic
 {
 	static DataAccessShopDatabase Database = new DataAccessShopDatabase();
 
-	public static Response login(final String mail, final String password, String ip)
+	public static Response login(final String mail, final String password, final String ip)
 	{
-		if (mail.equals("secretUser") && password.equals("secretPassword")) {
-			FlawHandler.htmlCommentUser(ip);
-		}
-		if (mail.equals("admin") && password.equals("admin")) {
-			FlawHandler.guessUserLogin(ip);
-		}
+		SecurityBreachDetection.detectUserSecurityBreach( mail, password, ip );
 		AuthorizationType session = Database.checkAuthData(mail, password);
-		if ( session == AuthorizationType.FALSEPASSWORD || session == AuthorizationType.FALSEUSER)
+		if ( session == AuthorizationType.FALSE_PASSWORD || session == AuthorizationType.FALSE_USER )
 		{
 			if ( LogicAdminPanel.level < 2 )
 			{
-				if ( session == AuthorizationType.FALSEPASSWORD )
+				if ( session == AuthorizationType.FALSE_PASSWORD )
 					throw new WebApplicationException( Response.status( Response.Status.BAD_REQUEST ).entity( "Das " +
 						"Passwort stimmt nicht mit dem Benutzer überein! Versuche es erneut." ).build() );
 				else
@@ -42,6 +34,7 @@ public class Logic
 				throw new WebApplicationException( Response.status( Response.Status.BAD_REQUEST ).entity( "Benutzer" +
 					" oder Passwort falsch! Versuche es erneut." ).build() );
 		}
+		if (session == AuthorizationType.AUTHORIZATION_DUMMY_USER) FlawHandler.guessUserLogin( ip );
 		String sessionID = createSessionId();
 		Database.postSession(sessionID, mail, ip);
 		return Response.ok(sessionID).header("sessionid", sessionID).build();

@@ -2,6 +2,7 @@ package backend.main.java.api;
 
 import backend.main.java.DataHandler;
 import backend.main.java.FlawHandler;
+import backend.main.java.SecurityBreachDetection;
 import backend.main.java.models.Coupon;
 
 import javax.annotation.Resource;
@@ -18,15 +19,14 @@ import javax.ws.rs.core.Response;
 		@Context HttpServletRequest request
 	)
 	{
-		Coupon coupon = DataHandler.getCoupon(name);
-		System.out.println(name);
-		if (name.contains("example") || name.contains("discount")) {
-			System.out.println("test");
+		if ( SecurityBreachDetection.guessCoupon( name ) ) {
 			FlawHandler.guessCoupon(request.getRemoteAddr());
-			coupon = new Coupon("error", 100, true);
+			return Response.ok( new Coupon( name, 40, true ) ).build();
+		} else {
+			final Coupon coupon = DataHandler.getCoupon(name);
+			if (coupon == null) return Response.status(404).build();
+			return Response.ok(coupon).build();
 		}
-		if (coupon == null) return Response.status(404).build();
-		return Response.ok(coupon).build();
 
 	}
 }
