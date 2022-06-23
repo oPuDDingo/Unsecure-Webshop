@@ -1,4 +1,5 @@
 import {Component, Input} from "@angular/core";
+import {Commentary} from "../../../data-access/models";
 
 @Component({
   selector: 'article-overview-comment',
@@ -6,15 +7,19 @@ import {Component, Input} from "@angular/core";
   styleUrls: ['./comment.component.scss']
 })
 export class CommentComponent {
-  // @ts-ignore
-  @Input comment: Commentary;
+
+  @Input() comment: Commentary | undefined;
 
   getUserName(): string {
-    if (this.comment.firstName && this.comment.lastName) {
-      return `${this.comment.firstName} ${this.comment.lastName}`;
-    } else {
-      return "Unbekannter Nutzer";
+    if (this.comment) {
+      if (this.comment.firstName && this.comment.lastName) {
+        return `${this.comment.firstName} ${this.comment.lastName}`;
+      } else {
+        return "Unbekannter Nutzer";
+      }
     }
+    return "";
+
   }
 
 
