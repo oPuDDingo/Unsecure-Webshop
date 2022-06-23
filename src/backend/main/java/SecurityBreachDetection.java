@@ -3,6 +3,9 @@ package backend.main.java;
 import backend.main.java.database.DataAccessShopDatabase;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class SecurityBreachDetection
 {
 	static DataAccessShopDatabase db = new DataAccessShopDatabase();
@@ -23,6 +26,12 @@ public class SecurityBreachDetection
 			|| file.startsWith( "tiff" )
 			|| file.startsWith( "gif" )
 			|| file.startsWith( "bmp" ));
+	}
+
+	public static boolean guessCoupon( final String coupon ) {
+		final String lowerCoupon = coupon.toLowerCase();
+		final List<String> dummyCoupons = Arrays.asList( "blackfriday2022", "summersale", "summer", "ausverkauf", "neujahr", "newyear", "winter");
+		return dummyCoupons.stream( ).anyMatch( lowerCoupon::contains );
 	}
 
 }
