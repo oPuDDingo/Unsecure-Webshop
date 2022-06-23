@@ -39,13 +39,28 @@
                   </div>
 
                   <div class="form-outline mb-4">
-                    <input [(ngModel)]="passwordWdh" class="form-control" id="form2Example23"
-                           placeholder="Dein Geheimnis wiederholt" type="password"/>
+                    <input (keydown.enter)="this.onRegister()" [(ngModel)]="passwordWdh" class="form-control"
+                           id="form2Example23" placeholder="Dein Geheimnis wiederholt" type="password"/>
                     <label class="form-label" for="form2Example23">Passwort wiederholen</label>
                   </div>
 
+                  <div>
+                    <p class="mb-2">Passwort Anforderungen</p>
+                    <ul class="small text-muted pl-4 mb-0">
+                      <li [ngClass]="validateNewPasswordEightChars() ? 'text-success' : ''">Mindestens 8 Zeichen</li>
+                      <li [ngClass]="validateNewPasswordSpecialChars() ? 'text-success' : ''">Mindestens ein
+                        Sonderzeichen
+                      </li>
+                      <li [ngClass]="validateNewPasswordOneNumber() ? 'text-success' : ''">Mindestens eine Nummer</li>
+                    </ul>
+                  </div>
+
                   <alert *ngIf="invalidData" type="danger">
-                    <strong>Oh snap!</strong> Dein Passwort stimmt net überein.
+                    <strong>Oh snap!</strong> Die Kennwörter stimmen nicht überein!
+                  </alert>
+
+                  <alert *ngIf="!fulfillsPasswordRequirements" type="danger">
+                    <strong>Oh snap!</strong> Das Kennwort erfüllt nicht alle Voraussetzungen!
                   </alert>
 
                   <div class="text-center pt-1 mb-1 pb-1">
@@ -56,7 +71,7 @@
 
                   <div class="d-flex align-items-center justify-content-center pb-1">
                     <p class="mb-0 me-2">Du hast bereits einen Account?</p>
-                    <button class="btn btn-outline-primary" type="button" routerLink="/login">Login</button>
+                    <button class="btn btn-outline-primary" routerLink="/login" type="button">Login</button>
                   </div>
 
                 </div>
