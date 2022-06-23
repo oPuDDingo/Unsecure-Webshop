@@ -99,13 +99,13 @@
         </div>
         <hr class="my-4"/>
         <div class="row mb-4">
-          <alert *ngIf="matchingNewPasswords" type="danger">
+          <alert *ngIf="!matchingNewPasswords" type="danger">
             <strong>Fehler!</strong> Die neuen Kennwörter stimmen nicht überein!
           </alert>
-          <alert *ngIf="fulfillsPasswordRequirements" type="danger">
+          <alert *ngIf="!fulfillsPasswordRequirements" type="danger">
             <strong>Fehler!</strong> Das neue Kennwort erfüllt nicht alle Voraussetzungen!
           </alert>
-          <alert *ngIf="validOldPassword" type="danger">
+          <alert *ngIf="!validOldPassword" type="danger">
             <strong>Fehler!</strong> Das alte Kennwort ist falsch!
           </alert>
           <div class="col-md-6">
