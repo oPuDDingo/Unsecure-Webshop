@@ -22,8 +22,8 @@
                   </div>
 
                   <div class="form-outline mb-4">
-                    <input [(ngModel)]="password" class="form-control" id="form2Example22"
-                           placeholder="Dein Geheimnis" type="password"/>
+                    <input (keyup.enter)="this.onLogin()" [(ngModel)]="password" class="form-control"
+                           id="form2Example22" placeholder="Dein Geheimnis" type="password"/>
                     <label class="form-label" for="form2Example22">Passwort</label>
                   </div>
 

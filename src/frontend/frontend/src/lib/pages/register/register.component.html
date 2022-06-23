@@ -39,8 +39,8 @@
                   </div>
 
                   <div class="form-outline mb-4">
-                    <input [(ngModel)]="passwordWdh" class="form-control" id="form2Example23"
-                           placeholder="Dein Geheimnis wiederholt" type="password"/>
+                    <input (keydown.enter)="this.onRegister()" [(ngModel)]="passwordWdh" class="form-control"
+                           id="form2Example23" placeholder="Dein Geheimnis wiederholt" type="password"/>
                     <label class="form-label" for="form2Example23">Passwort wiederholen</label>
                   </div>
 
@@ -56,7 +56,7 @@
 
                   <div class="d-flex align-items-center justify-content-center pb-1">
                     <p class="mb-0 me-2">Du hast bereits einen Account?</p>
-                    <button class="btn btn-outline-primary" type="button" routerLink="/login">Login</button>
+                    <button class="btn btn-outline-primary" routerLink="/login" type="button">Login</button>
                   </div>
 
                 </div>
