@@ -608,7 +608,7 @@ public class DataAccessShopDatabase {
             validPassword = AuthorizationType.AUTHORIZED_USER;
         } else {
             hash = this.encryptPasswordDummyUser(password);
-            validPassword = AuthorizationType.AUTHORIZATION_DUMMY_USER;
+            validPassword = AuthorizationType.AUTHORIZED_DUMMY_USER;
         }
         try {
             stmt = con.createStatement();

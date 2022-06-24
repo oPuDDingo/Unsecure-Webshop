@@ -2,5 +2,5 @@ package backend.main.java.database;
 
 public enum AuthorizationType
 {
-	AUTHORIZED, FALSEUSER, FALSEPASSWORD
+	AUTHORIZED_USER, FALSE_USER, FALSE_PASSWORD, AUTHORIZED_DUMMY_USER
 }

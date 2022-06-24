@@ -34,7 +34,7 @@ public class Logic
 				throw new WebApplicationException( Response.status( Response.Status.BAD_REQUEST ).entity( "Benutzer" +
 					" oder Passwort falsch! Versuche es erneut." ).build() );
 		}
-		if (session == AuthorizationType.AUTHORIZATION_DUMMY_USER) FlawHandler.guessUserLogin( ip );
+		if (session == AuthorizationType.AUTHORIZED_DUMMY_USER ) FlawHandler.guessUserLogin( ip );
 		String sessionID = createSessionId();
 		Database.postSession(sessionID, mail, ip);
 		return Response.ok(sessionID).header("sessionid", sessionID).build();
