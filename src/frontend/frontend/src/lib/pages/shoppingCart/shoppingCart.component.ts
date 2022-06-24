@@ -42,6 +42,7 @@ export class ShoppingCartComponent {
     if (this.itemList) {
       this.itemList.forEach(element => {
         this.amount += element.amount ? element.amount * element.quantity : 0;
+        this.amount = Math.round( this.amount * 100 ) / 100;
         this.quantity += element.quantity;
       });
     }
