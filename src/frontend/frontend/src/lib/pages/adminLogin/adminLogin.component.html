@@ -14,6 +14,10 @@
                        style="width: 185px;">
                 </div>
 
+                <alert *ngIf="invalidData" type="danger">
+                  "Es sieht so aus, als wären Sie kein toller Admin!"
+                </alert>
+
                 <div>
                   <div class="form-outline mb-4">
                     <input [(ngModel)]="username" class="form-control" id="form2Example11"
@@ -47,7 +51,7 @@
             <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
               <div class="text-white px-3 py-4 p-md-5 mx-md-4">
                 <h4 class="mb-4">Hallöchen toller Admin,</h4>
-                <p class="small mb-0">das Wissenwerte über den Allerbesten, <br> befindet sich hinter dieser Tür.</p>
+                <p class="small mb-0">das Wissenswerte über den Allerbesten, <br/> befindet sich hinter dieser Tür.</p>
               </div>
             </div>
           </div>
