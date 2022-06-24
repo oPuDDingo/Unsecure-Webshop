@@ -67,4 +67,12 @@ export class ArticleStore {
     return this.articleSubject;
   }
 
+  searchArticles(searchInput: string): ReplaySubject<Article[]> {
+    this.backendService.searchArticles(searchInput).subscribe(articles => {
+      this.articles = articles;
+      this.articleSubject.next(articles);
+    });
+    return this.articleSubject;
+  }
+
 }
