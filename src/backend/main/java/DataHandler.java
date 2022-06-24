@@ -181,7 +181,7 @@ public class DataHandler
 
 	public static void deleteWishlist(String session)
 	{
-		Database.deleteShoppingCart(Database.getUserId(session));
+		Database.deleteWishList(Database.getUserId(session));
 	}
 
 	public static void deleteWishlistItem(int id)
