@@ -24,7 +24,7 @@ export class AuthenticationService {
     private orderStore: OrderStore,
     private shoppingCartStore: ShoppingCartStore,
     private userStore: UserStore,
-    private wishlistStore: WishlistStore,
+    private wishlistStore: WishlistStore
   ) {
 
     if (sessionStorage.getItem("sessionKey") != null) {
