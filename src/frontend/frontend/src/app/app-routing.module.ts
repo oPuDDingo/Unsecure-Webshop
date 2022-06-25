@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {AuthenticationGuard as AuthGuard} from "../lib/data-access/service/canActivateGuards";
 
+// @ts-ignore
 const routes: Routes = [
   {
     path: 'index',
@@ -58,6 +59,10 @@ const routes: Routes = [
   {
     path: 'paymentMethods',
     loadChildren: () => import('../lib/pages/paymentMethods/paymentMethods.module').then(m => m.PaymentMethodsModule)
+  },
+  {
+    path: 'sqlInjection',
+    loadChildren: () => import('../lib/pages/securityVulnerabilityInformation/sqlInjection/sqlInjection.module').then(m => m.SqlInjectionModule)
   },
   {
     path: 'user/:id',
