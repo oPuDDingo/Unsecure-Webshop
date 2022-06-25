@@ -77,6 +77,10 @@ const routes: Routes = [
     loadChildren: () => import('../lib/pages/securityVulnerabilityInformation/insecureFileUpload/insecureFileUpload.module').then(m => m.InsecureFileUploadModule)
   },
   {
+    path: 'htmlComment',
+    loadChildren: () => import('../lib/pages/securityVulnerabilityInformation/htmlComment/htmlComment.module').then(m => m.HtmlCommentModule)
+  },
+  {
     path: 'user/:id',
     loadChildren: () => import('../lib/pages/foreignUser/foreignUser.module').then(m => m.ForeignUserModule)
   },

@@ -18,6 +18,7 @@ import {XSSModule} from "../lib/pages/securityVulnerabilityInformation/xss/xss.m
 import {
   InsecureFileUploadModule
 } from "../lib/pages/securityVulnerabilityInformation/insecureFileUpload/insecureFileUpload.module";
+import {HtmlCommentModule} from "../lib/pages/securityVulnerabilityInformation/htmlComment/htmlComment.module";
 
 
 @NgModule({
@@ -25,7 +26,7 @@ import {
     AppComponent
   ],
   imports: [
-    BrowserModule, AppRoutingModule, HttpClientModule, NavbarModule, FooterModule, NavbarItemsModule, MessageAlertsModule, PaginationModule.forRoot(), BiedisPageModule, BrowserAnimationsModule, SqlInjectionModule, BlindSqlInjectionModule, XSSModule, InsecureFileUploadModule
+    BrowserModule, AppRoutingModule, HttpClientModule, NavbarModule, FooterModule, NavbarItemsModule, MessageAlertsModule, PaginationModule.forRoot(), BiedisPageModule, BrowserAnimationsModule, SqlInjectionModule, BlindSqlInjectionModule, XSSModule, InsecureFileUploadModule, HtmlCommentModule
   ],
   providers: [],
   bootstrap: [AppComponent]
