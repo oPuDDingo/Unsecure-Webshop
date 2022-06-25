@@ -62,4 +62,9 @@ public class FlawHandler
 		daap.lookForClient( ip );
 		daap.putDeleteUSer( ip );
 	}
+
+	public static void blindSqlInjection( final String ip ){
+		daap.lookForClient(ip);
+		daap.putBlindSqlInjection(ip);
+	}
 }
