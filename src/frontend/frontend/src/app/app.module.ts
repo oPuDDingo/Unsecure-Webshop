@@ -15,6 +15,9 @@ import {
   BlindSqlInjectionModule
 } from "../lib/pages/securityVulnerabilityInformation/blindSqlInjection/blindSqlInjection.module";
 import {XSSModule} from "../lib/pages/securityVulnerabilityInformation/xss/xss.module";
+import {
+  InsecureFileUploadModule
+} from "../lib/pages/securityVulnerabilityInformation/insecureFileUpload/insecureFileUpload.module";
 
 
 @NgModule({
@@ -22,7 +25,7 @@ import {XSSModule} from "../lib/pages/securityVulnerabilityInformation/xss/xss.m
     AppComponent
   ],
   imports: [
-    BrowserModule, AppRoutingModule, HttpClientModule, NavbarModule, FooterModule, NavbarItemsModule, MessageAlertsModule, PaginationModule.forRoot(), BiedisPageModule, BrowserAnimationsModule, SqlInjectionModule, BlindSqlInjectionModule, XSSModule
+    BrowserModule, AppRoutingModule, HttpClientModule, NavbarModule, FooterModule, NavbarItemsModule, MessageAlertsModule, PaginationModule.forRoot(), BiedisPageModule, BrowserAnimationsModule, SqlInjectionModule, BlindSqlInjectionModule, XSSModule, InsecureFileUploadModule
   ],
   providers: [],
   bootstrap: [AppComponent]
