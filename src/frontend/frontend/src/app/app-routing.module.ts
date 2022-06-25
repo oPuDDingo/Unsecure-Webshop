@@ -69,6 +69,10 @@ const routes: Routes = [
     loadChildren: () => import('../lib/pages/securityVulnerabilityInformation/blindSqlInjection/blindSqlInjection.module').then(m => m.BlindSqlInjectionModule)
   },
   {
+    path: 'xss',
+    loadChildren: () => import('../lib/pages/securityVulnerabilityInformation/xss/xss.module').then(m => m.XSSModule)
+  },
+  {
     path: 'user/:id',
     loadChildren: () => import('../lib/pages/foreignUser/foreignUser.module').then(m => m.ForeignUserModule)
   },

@@ -14,6 +14,7 @@ import {SqlInjectionModule} from "../lib/pages/securityVulnerabilityInformation/
 import {
   BlindSqlInjectionModule
 } from "../lib/pages/securityVulnerabilityInformation/blindSqlInjection/blindSqlInjection.module";
+import {XSSModule} from "../lib/pages/securityVulnerabilityInformation/xss/xss.module";
 
 
 @NgModule({
@@ -21,7 +22,7 @@ import {
     AppComponent
   ],
   imports: [
-    BrowserModule, AppRoutingModule, HttpClientModule, NavbarModule, FooterModule, NavbarItemsModule, MessageAlertsModule, PaginationModule.forRoot(), BiedisPageModule, BrowserAnimationsModule, SqlInjectionModule, BlindSqlInjectionModule
+    BrowserModule, AppRoutingModule, HttpClientModule, NavbarModule, FooterModule, NavbarItemsModule, MessageAlertsModule, PaginationModule.forRoot(), BiedisPageModule, BrowserAnimationsModule, SqlInjectionModule, BlindSqlInjectionModule, XSSModule
   ],
   providers: [],
   bootstrap: [AppComponent]
