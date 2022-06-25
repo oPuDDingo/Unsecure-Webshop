@@ -10,6 +10,7 @@ import {MessageAlertsModule} from "../lib/ui/messageAlerts/messageAlerts.module"
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import {BiedisPageModule} from "../lib/pages/biedisPage/biedisPage.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {SqlInjectionModule} from "../lib/pages/securityVulnerabilityInformation/sqlInjection/sqlInjection.module";
 
 
 @NgModule({
@@ -17,7 +18,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     AppComponent
   ],
   imports: [
-    BrowserModule, AppRoutingModule, HttpClientModule, NavbarModule, FooterModule, NavbarItemsModule, MessageAlertsModule, PaginationModule.forRoot(), BiedisPageModule, BrowserAnimationsModule
+    BrowserModule, AppRoutingModule, HttpClientModule, NavbarModule, FooterModule, NavbarItemsModule, MessageAlertsModule, PaginationModule.forRoot(), BiedisPageModule, BrowserAnimationsModule, SqlInjectionModule
   ],
   providers: [],
   bootstrap: [AppComponent]
