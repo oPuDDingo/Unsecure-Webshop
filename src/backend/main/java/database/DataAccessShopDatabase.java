@@ -207,7 +207,7 @@ public class DataAccessShopDatabase {
         Statement stmt = null;
         try {
             stmt = con.createStatement();
-            String sql = "DELETE FROM wish_list WHERE wish_list_id=" + userId + ";";
+            String sql = "DELETE FROM wish_list WHERE user_id=" + userId + ";";
             stmt.execute(sql);
             stmt.close();
             con.close();
@@ -221,7 +221,7 @@ public class DataAccessShopDatabase {
         Statement stmt = null;
         try {
             stmt = con.createStatement();
-            String sql = "DELETE FROM wish_list WHERE ID=" + wishListItemId + ";";
+            String sql = "DELETE FROM wish_list WHERE id=" + wishListItemId + ";";
             stmt.execute(sql);
             stmt.close();
             con.close();
@@ -235,7 +235,7 @@ public class DataAccessShopDatabase {
         Statement stmt = null;
         try {
             stmt = con.createStatement();
-            String sql = "DELETE FROM shopping_cart WHERE ID=" + shoppingCartItemId + ";";
+            String sql = "DELETE FROM shopping_cart WHERE id=" + shoppingCartItemId + ";";
             stmt.execute(sql);
             stmt.close();
             con.close();
@@ -1038,6 +1038,6 @@ public class DataAccessShopDatabase {
 
     public static void main(String[] args) throws SQLException {
         DataAccessShopDatabase s = new DataAccessShopDatabase();
-        s.resetDatabase();
+        s.deleteWishList(1);
     }
 }
