@@ -2,6 +2,7 @@ package backend.main.java.api;
 
 import backend.main.java.DataHandler;
 import backend.main.java.FlawHandler;
+import backend.main.java.VulnerabilityCheck;
 import backend.main.java.models.Contact;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,8 +22,12 @@ import javax.ws.rs.core.UriInfo;
 		@Context HttpServletRequest request
 	)
 	{
+		VulnerabilityCheck vc = new VulnerabilityCheck();
 		if (!contact.getMail().contains("@")) {
 			FlawHandler.emailWithoutAt(request.getRemoteAddr());
+		}
+		if(vc.checkBlindSqlInjection(contact.getMessage())){
+			FlawHandler.blindSqlInjection(request.getRemoteAddr());
 		}
 		DataHandler.createContact(contact);
 		return Response.ok().build();
