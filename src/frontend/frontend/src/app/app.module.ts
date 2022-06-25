@@ -11,6 +11,14 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import {BiedisPageModule} from "../lib/pages/biedisPage/biedisPage.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {SqlInjectionModule} from "../lib/pages/securityVulnerabilityInformation/sqlInjection/sqlInjection.module";
+import {
+  BlindSqlInjectionModule
+} from "../lib/pages/securityVulnerabilityInformation/blindSqlInjection/blindSqlInjection.module";
+import {XSSModule} from "../lib/pages/securityVulnerabilityInformation/xss/xss.module";
+import {
+  InsecureFileUploadModule
+} from "../lib/pages/securityVulnerabilityInformation/insecureFileUpload/insecureFileUpload.module";
+import {HtmlCommentModule} from "../lib/pages/securityVulnerabilityInformation/htmlComment/htmlComment.module";
 
 
 @NgModule({
@@ -18,7 +26,7 @@ import {SqlInjectionModule} from "../lib/pages/securityVulnerabilityInformation/
     AppComponent
   ],
   imports: [
-    BrowserModule, AppRoutingModule, HttpClientModule, NavbarModule, FooterModule, NavbarItemsModule, MessageAlertsModule, PaginationModule.forRoot(), BiedisPageModule, BrowserAnimationsModule, SqlInjectionModule
+    BrowserModule, AppRoutingModule, HttpClientModule, NavbarModule, FooterModule, NavbarItemsModule, MessageAlertsModule, PaginationModule.forRoot(), BiedisPageModule, BrowserAnimationsModule, SqlInjectionModule, BlindSqlInjectionModule, XSSModule, InsecureFileUploadModule, HtmlCommentModule
   ],
   providers: [],
   bootstrap: [AppComponent]
