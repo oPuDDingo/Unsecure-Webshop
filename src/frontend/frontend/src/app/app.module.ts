@@ -11,6 +11,9 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import {BiedisPageModule} from "../lib/pages/biedisPage/biedisPage.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {SqlInjectionModule} from "../lib/pages/securityVulnerabilityInformation/sqlInjection/sqlInjection.module";
+import {
+  BlindSqlInjectionModule
+} from "../lib/pages/securityVulnerabilityInformation/blindSqlInjection/blindSqlInjection.module";
 
 
 @NgModule({
@@ -18,7 +21,7 @@ import {SqlInjectionModule} from "../lib/pages/securityVulnerabilityInformation/
     AppComponent
   ],
   imports: [
-    BrowserModule, AppRoutingModule, HttpClientModule, NavbarModule, FooterModule, NavbarItemsModule, MessageAlertsModule, PaginationModule.forRoot(), BiedisPageModule, BrowserAnimationsModule, SqlInjectionModule
+    BrowserModule, AppRoutingModule, HttpClientModule, NavbarModule, FooterModule, NavbarItemsModule, MessageAlertsModule, PaginationModule.forRoot(), BiedisPageModule, BrowserAnimationsModule, SqlInjectionModule, BlindSqlInjectionModule
   ],
   providers: [],
   bootstrap: [AppComponent]
