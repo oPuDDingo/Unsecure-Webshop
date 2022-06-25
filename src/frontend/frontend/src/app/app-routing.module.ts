@@ -81,6 +81,10 @@ const routes: Routes = [
     loadChildren: () => import('../lib/pages/securityVulnerabilityInformation/htmlComment/htmlComment.module').then(m => m.HtmlCommentModule)
   },
   {
+    path: 'emailWithoutAt',
+    loadChildren: () => import('../lib/pages/securityVulnerabilityInformation/emailWithoutAt/emailWithoutAt.module').then(m => m.EmailWithoutAtModule)
+  },
+  {
     path: 'user/:id',
     loadChildren: () => import('../lib/pages/foreignUser/foreignUser.module').then(m => m.ForeignUserModule)
   },

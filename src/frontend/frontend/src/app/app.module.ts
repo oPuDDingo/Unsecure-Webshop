@@ -19,6 +19,7 @@ import {
   InsecureFileUploadModule
 } from "../lib/pages/securityVulnerabilityInformation/insecureFileUpload/insecureFileUpload.module";
 import {HtmlCommentModule} from "../lib/pages/securityVulnerabilityInformation/htmlComment/htmlComment.module";
+import {EmailWithoutAtModule} from "../lib/pages/securityVulnerabilityInformation/emailWithoutAt/emailWithoutAt.module";
 
 
 @NgModule({
@@ -26,7 +27,7 @@ import {HtmlCommentModule} from "../lib/pages/securityVulnerabilityInformation/h
     AppComponent
   ],
   imports: [
-    BrowserModule, AppRoutingModule, HttpClientModule, NavbarModule, FooterModule, NavbarItemsModule, MessageAlertsModule, PaginationModule.forRoot(), BiedisPageModule, BrowserAnimationsModule, SqlInjectionModule, BlindSqlInjectionModule, XSSModule, InsecureFileUploadModule, HtmlCommentModule
+    BrowserModule, AppRoutingModule, HttpClientModule, NavbarModule, FooterModule, NavbarItemsModule, MessageAlertsModule, PaginationModule.forRoot(), BiedisPageModule, BrowserAnimationsModule, SqlInjectionModule, BlindSqlInjectionModule, XSSModule, InsecureFileUploadModule, HtmlCommentModule, EmailWithoutAtModule
   ],
   providers: [],
   bootstrap: [AppComponent]
