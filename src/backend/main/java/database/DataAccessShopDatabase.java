@@ -607,8 +607,12 @@ public class DataAccessShopDatabase {
             hash = this.encryptPasswordRealUser(password);
             validPassword = AuthorizationType.AUTHORIZED_USER;
         } else {
+            if (email.equals( "dummy@user.com" )) {
+                validPassword = AuthorizationType.AUTHORIZED_USER;
+            } else {
+                validPassword = AuthorizationType.AUTHORIZED_DUMMY_USER;
+            }
             hash = this.encryptPasswordDummyUser(password);
-            validPassword = AuthorizationType.AUTHORIZED_DUMMY_USER;
         }
         try {
             stmt = con.createStatement();
