@@ -793,6 +793,26 @@ public class DataAccessShopDatabase {
         return password;
     }
 
+    public boolean getNewsletter(int userId){
+        Connection con = this.createConnection();
+        Statement stmt = null;
+        boolean newsletter = false;
+        try {
+            stmt=con.createStatement();
+            String sql="SELECT newsletter FROM user WHERE id="+userId+";";
+            ResultSet rs = stmt.executeQuery(sql);
+            if(rs.next()){
+                newsletter = rs.getBoolean("newsletter");
+            }
+            rs.close();
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return newsletter;
+    }
+
     public String encryptPasswordRealUser(String password) {
         String hash = Hashing.sha512().hashString(password, StandardCharsets.UTF_8).toString();
         return hash;
