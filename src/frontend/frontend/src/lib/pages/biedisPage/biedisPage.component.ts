@@ -18,8 +18,11 @@ export class BiedisPageComponent implements OnInit{
   actualStudent: RankingStudent;
   modalRef?: BsModalRef;
   level: string = "Beginner";
+  description: Map<number,string[]> = new Map();
 
   constructor(private backendService: BackendService, private modalService: BsModalService) {
+    let habitat: string[] = ['', ''];
+    this.description.set(1, habitat);
     this.rankingStudents = [{
       ipAddress: "145634752457", blindSqlInjection: true, sqlInjection: true, commentXss: true, xss: false, deleteUser: true, emailWithoutAt: false, hashUser: true, guessCoupon: true, guessUserLogin: true, htmlCommentUser: true, lookForEmailAddress: true, priceOrderBug: false, profile_picture: false, points: 420
     }]
@@ -29,20 +32,44 @@ export class BiedisPageComponent implements OnInit{
     switch (level) {
       case 1:
         this.level = "Beginner";
+        this.onDescriptionChange(level);
         break;
       case 2:
         this.level = "Tutor";
+        this.onDescriptionChange(level);
         break;
       case 3:
         this.level = "Endboss";
+        this.onDescriptionChange(level);
         break;
     }
     this.backendService.setLevel(level);
   }
 
+  setDescription(){
+    if(this.level == "Beginner"){
+      // this.description = "";
+    }
+  }
+
+  onDescriptionChange(level: number){
+    switch (level) {
+      case 1:
+        // this.description.set(1, ['',])
+        break;
+      case 2:
+        // this.description = "";
+        break;
+      case 3:
+        // this.description = "";
+        break;
+    }
+  }
+
   ngOnInit() {
     this.backendService.setLevel(1);
     this.backendService.loadRankingStudents().subscribe(rankingStudents => this.rankingStudents = rankingStudents);
+
     this.reloadRanking();
   }
 
