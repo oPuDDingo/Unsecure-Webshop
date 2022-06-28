@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Article} from "../../data-access/models";
 import {ArticleStore} from "../../data-access/service/store/article.store";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'itemList',
@@ -13,17 +14,13 @@ export class ItemListComponent implements OnInit {
   articles: Article[] = [];
 
 
-  constructor(private articleStore: ArticleStore) {
+  constructor(private articleStore: ArticleStore, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
-    this.articleStore.loadArticles().subscribe(articles => {
-      this.articles = articles;
+    this.route.queryParams.subscribe( params => {
+      this.articleStore.searchArticles(params["search"]).subscribe( articles => this.articles = articles );
     });
-  }
-
-  selectBrand(brand: string) {
-    this.articleStore.loadArticlesByBrand(brand).subscribe(articles => this.articles = articles);
   }
 
 }

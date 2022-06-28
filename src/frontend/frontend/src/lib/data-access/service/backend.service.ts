@@ -32,10 +32,6 @@ export class BackendService {
     return this.httpClient.get<Article[]>(this.url + 'articles', {headers: this.header});
   }
 
-  getArticlesByBrand(brand: string): Observable<Article[]> {
-    return this.httpClient.get<Article[]>(this.url + 'articles?search=' + brand, {headers: this.header});
-  }
-
   getArticleById(articleNumber: number): Observable<Article> {
     return this.httpClient.get<Article>(this.url + 'articles/' + articleNumber, {headers: this.header});
   }

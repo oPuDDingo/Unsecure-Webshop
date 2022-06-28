@@ -18,20 +18,20 @@ export class ArticleStore {
   constructor(private backendService: BackendService) {
   }
 
-  loadArticles(): ReplaySubject<Article[]> {
-    if (this.articles.length == 0) {
-      this.backendService.getArticles().subscribe(articles => {
-        this.articles = articles;
-        this.articleSubject.next(articles);
-      });
-
-    } else {
-      this.articleSubject.next(this.articles);
-    }
-
-    return this.articleSubject;
-
-  }
+  // loadArticles(): ReplaySubject<Article[]> {
+  //   if (this.articles.length == 0) {
+  //     this.backendService.getArticles().subscribe(articles => {
+  //       this.articles = articles;
+  //       this.articleSubject.next(articles);
+  //     });
+  //
+  //   } else {
+  //     this.articleSubject.next(this.articles);
+  //   }
+  //
+  //   return this.articleSubject;
+  //
+  // }
 
   loadArticlesFrontpage(): ReplaySubject<Article[]> {
     if (!this.smallArticles) {
@@ -58,21 +58,12 @@ export class ArticleStore {
     return articleSubject;
   }
 
-  loadArticlesByBrand(brand: string): ReplaySubject<Article[]> {
-      this.backendService.getArticlesByBrand(brand).subscribe(articles => {
-        this.articles = articles;
-        this.articleSubject.next(articles);
-      });
-
-    return this.articleSubject;
-  }
-
   searchArticles(searchInput: string): ReplaySubject<Article[]> {
+    const articleSearchSubject: ReplaySubject<Article[]> = new ReplaySubject<Article[]>(1);
     this.backendService.searchArticles(searchInput).subscribe(articles => {
-      this.articles = articles;
-      this.articleSubject.next(articles);
+      articleSearchSubject.next(articles);
     });
-    return this.articleSubject;
+    return articleSearchSubject;
   }
 
 }

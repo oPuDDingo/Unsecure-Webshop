@@ -1,8 +1,6 @@
 <div class="items d-flex justify-content-between w-50 mx-auto flex-wrap">
-  <a class="clickable" (click)="selectBrand('Apple')"  routerLink="/articles">Apple</a>
-  <a class="clickable" (click)="selectBrand('Samsung')" routerLink="/articles">Samsung</a>
-  <a class="clickable" (click)="selectBrand('Xiaomi')" routerLink="/articles">Xiaomi</a>
-  <a class="clickable" (click)="selectBrand('Sony')" routerLink="/articles">Sony</a>
+  <a routerLink="/articles" [queryParams]="{search: 'Apple'}">Apple</a>
+  <a routerLink="/articles" [queryParams]="{search: 'Samsung'}">Samsung</a>
+  <a routerLink="/articles" [queryParams]="{search: 'Xiaomi'}">Xiaomi</a>
+  <a routerLink="/articles" [queryParams]="{search: 'Sony'}">Sony</a>
 </div>
-
-
