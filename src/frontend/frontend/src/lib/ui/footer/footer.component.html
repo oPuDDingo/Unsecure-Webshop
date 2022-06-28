@@ -7,8 +7,11 @@
   <a type="button" routerLink="/paymentMethods">Zahlungsarten</a>
   <a type="button" routerLink="/sustainable">Nachhaltigkeit</a>
 
-  <a type="button">
-    <newsletter></newsletter>
-  </a>
+  <div *ngIf="login">
+    <a type="button">
+      <newsletter></newsletter>
+    </a>
+  </div>
+
 
 </div>
