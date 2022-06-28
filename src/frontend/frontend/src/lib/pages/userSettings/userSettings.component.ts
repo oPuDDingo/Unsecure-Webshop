@@ -3,6 +3,7 @@ import {Address, User} from "../../data-access/models";
 import {UserStore} from "../../data-access/service/store/user.store";
 import {AddressStore} from "../../data-access/service/store/address.store";
 import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
+import {document} from "ngx-bootstrap/utils";
 
 @Component({
   selector: 'user-settings',
@@ -23,6 +24,10 @@ export class UserSettingsComponent implements OnInit {
   fulfillsPasswordRequirements: boolean = true;
   validOldPassword: boolean = true;
 
+  newsletter: boolean = false;
+
+  element = <HTMLInputElement> document.getElementById("flexSwitchCheckDefault");
+
   // @ts-ignore
   @ViewChild('descriptionField') descriptionRef: ElementRef;
 
@@ -37,6 +42,20 @@ export class UserSettingsComponent implements OnInit {
     this.addressStore.loadAllAddresses().subscribe(addresses => {
       this.addresses = addresses
     });
+
+    if(this.userStore.getNewsletterStatus()){
+      this.newsletter = true;
+    }
+  }
+
+  onNewsletter(){
+    if(!this.element.checked){
+      this.userStore.unsubscribeNewsletter();
+      this.newsletter = false;
+    } else {
+      this.userStore.subscribeNewsletter();
+      this.newsletter = true;
+    }
   }
 
   getUserName(): string {
@@ -118,5 +137,7 @@ export class UserSettingsComponent implements OnInit {
       this.validOldPassword = false;
     }
   }
+
+
 
 }

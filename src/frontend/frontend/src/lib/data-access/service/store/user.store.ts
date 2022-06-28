@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {User} from "../../models";
 import {BackendService} from "../backend.service";
-import {ReplaySubject} from "rxjs";
+import {Observable, ReplaySubject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -56,8 +56,16 @@ export class UserStore {
     return this.userSubject;
   }
 
+  getNewsletterStatus(): Observable<boolean> {
+    return this.backendService.getNewsletterStatus();
+  }
+
   subscribeNewsletter(): void {
     this.backendService.postNewsletter().subscribe();
+  }
+
+  unsubscribeNewsletter(): void {
+    this.backendService.deleteNewsletter();
   }
 
   cleaningUp(): void {
