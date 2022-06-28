@@ -19,7 +19,8 @@
   <specified-item-list
     (onDeleteEvent)="onItemDelete($event)"
     (onQuantityChangeEvent)="onItemChange($event)"
-    [itemList]="itemList">
+    [itemList]="itemList"
+    [showAddCartButton]="true">
   </specified-item-list>
 </div>
 <ng-template #emptyWishlist>

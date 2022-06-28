@@ -2,6 +2,7 @@
   <specified-item *ngFor="let item of itemList"
     [showDeleteButton]="showDeleteButton"
     [editableQuantity]="editableQuantity"
+    [showAddCartButton]="showAddCartButton"
     [specifiedItem]="item"
     (onDeleteEvent)="onItemDelete($event)"
     (onQuantityChangeEvent)="onItemChange($event)">

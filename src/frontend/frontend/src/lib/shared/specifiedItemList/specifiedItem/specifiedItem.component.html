@@ -39,6 +39,9 @@
         <div class="col-md-2 text-center">
           {{ specifiedItem.gbSize }} GB
         </div>
+        <div *ngIf="showAddCartButton" class="col-md-5">
+          <button (click)="onAddToShoppingCart()" class="btn btn-primary" type="button">In den Einkaufswagen</button>
+        </div>
         <div class="col text-end">
           <delete (onClickEvent)="onItemDelete()" *ngIf="showDeleteButton && showTrash"
                   class=" d-none d-md-block"></delete>
