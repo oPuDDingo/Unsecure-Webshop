@@ -63,6 +63,10 @@
                     <strong>Oh snap!</strong> Das Kennwort erfüllt nicht alle Voraussetzungen!
                   </alert>
 
+                  <alert *ngIf="passwordIsAlreadyUsed" type="danger">
+                    <strong>Oh snap!</strong> Das Passwort ist schon vergeben!
+                  </alert>
+
                   <div class="text-center pt-1 mb-1 pb-1">
                     <button (click)="onRegister()" class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"
                             type="button">Registrieren

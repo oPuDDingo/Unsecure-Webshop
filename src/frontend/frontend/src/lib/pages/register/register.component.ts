@@ -16,6 +16,7 @@ export class RegisterComponent {
   passwordWdh: string = "";
   invalidData: boolean = false;
   fulfillsPasswordRequirements: boolean = true;
+  passwordIsAlreadyUsed: boolean = false;
 
   constructor(private authenticationService: AuthenticationService, private router: Router) {
   }
@@ -23,9 +24,18 @@ export class RegisterComponent {
   onRegister() {
     this.invalidData = this.password != this.passwordWdh;
     this.fulfillsPasswordRequirements = this.validateNewPasswordEightChars() && this.validateNewPasswordSpecialChars() && this.validateNewPasswordOneNumber();
-    if (!this.invalidData && this.fulfillsPasswordRequirements)
+    this.passwordIsAlreadyUsed = this.validatePasswordIsAlreadyUsed();
+    if (!this.invalidData && this.fulfillsPasswordRequirements && !this.passwordIsAlreadyUsed)
       this.authenticationService.register(this.firstName, this.lastName, this.mail, this.password).subscribe(() => this.router.navigateByUrl('/user'));
   }
+
+  validatePasswordIsAlreadyUsed(): boolean {
+    if(this.password == "MyPasswordIsSafe"){
+      return this.passwordIsAlreadyUsed = true;
+    }
+    return this.passwordIsAlreadyUsed = false;
+  }
+
 
   validateNewPasswordEightChars(): boolean {
     return this.password.length >= 8;
