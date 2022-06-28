@@ -196,6 +196,15 @@ import java.util.List;
 		return Response.created(locationURI).build();
 	}
 
+	@Path("newsletter") @GET public Response checkNewsletter(
+		@HeaderParam("sessionid") String session
+	)
+	{
+		if (session == null) return Response.status(401).build();
+		boolean value = DataHandler.checkNewsletter(session);
+		return Response.ok(value).build();
+	}
+
 	@Path("newsletter") @POST public Response turnOnNewsletter(
 		@HeaderParam("sessionid") String session
 	)
