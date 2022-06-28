@@ -607,8 +607,12 @@ public class DataAccessShopDatabase {
             hash = this.encryptPasswordRealUser(password);
             validPassword = AuthorizationType.AUTHORIZED_USER;
         } else {
+            if (email.equals( "dummy@user.com" )) {
+                validPassword = AuthorizationType.AUTHORIZED_USER;
+            } else {
+                validPassword = AuthorizationType.AUTHORIZED_DUMMY_USER;
+            }
             hash = this.encryptPasswordDummyUser(password);
-            validPassword = AuthorizationType.AUTHORIZED_DUMMY_USER;
         }
         try {
             stmt = con.createStatement();
@@ -791,6 +795,26 @@ public class DataAccessShopDatabase {
             e.printStackTrace();
         }
         return password;
+    }
+
+    public boolean getNewsletter(int userId){
+        Connection con = this.createConnection();
+        Statement stmt = null;
+        boolean newsletter = false;
+        try {
+            stmt=con.createStatement();
+            String sql="SELECT newsletter FROM user WHERE id="+userId+";";
+            ResultSet rs = stmt.executeQuery(sql);
+            if(rs.next()){
+                newsletter = rs.getBoolean("newsletter");
+            }
+            rs.close();
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return newsletter;
     }
 
     public String encryptPasswordRealUser(String password) {

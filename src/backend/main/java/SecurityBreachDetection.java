@@ -29,8 +29,9 @@ public class SecurityBreachDetection
 	}
 
 	public static boolean guessCoupon( final String coupon ) {
-		final String lowerCoupon = coupon.toLowerCase();
-		final List<String> dummyCoupons = Arrays.asList( "blackfriday2022", "summersale", "summer", "ausverkauf", "neujahr", "newyear", "winter");
+		final String lowerCoupon = coupon.toLowerCase().replace( " ", "" );
+		final List<String> dummyCoupons = Arrays.asList( "blackfriday", "summersale", "summer", "ausverkauf", "neujahr", "newyear", "winter", "bidermann", "biedisshop" );
+		// toDo: look for date (winter, summer)
 		return dummyCoupons.stream( ).anyMatch( lowerCoupon::contains );
 	}
 

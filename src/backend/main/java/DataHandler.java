@@ -154,6 +154,9 @@ public class DataHandler
 		// Database.createUserMail(id);
 	}
 
+	public static boolean checkNewsletter(String session)	{
+		return Database.getNewsletter(Database.getUserId(session));
+	}
 	public static void turnOnNewsletter(String session)
 	{
 		Database.postNewsletter(Database.getUserId(session));
@@ -188,5 +191,6 @@ public class DataHandler
 	{
 		Database.deleteWishListItem(id);
 	}
+
 
 }
