@@ -104,7 +104,7 @@ public class DatabaseQueries {
 
     public static User[] users = new User[]{new User(1, "Test1@test.de", "test", "test", false, "", "", "", "Herzlichen Glückwunsch, du hast den DAU gefunden!", "123456789"),
     new User(2, "Test2@User.de", "test", "test", false, "", "", "", "Herzlichen Glückwunsch, du hast den 2. DAU gefunden!", "test123456789"),
-            new User(3, "Test3@User.de", "test", "test", false, "", "", "", "Herzlichen Glückwunsch, du hast den 3. DAU gefunden!", "12345testUser6789"),
+            new User(3, "Test3@User.de", "test", "test", false, "", "", "", "Herzlichen Glückwunsch, du hast den 3. DAU gefunden!", "0112358132134"),
     new User(4, "dummy@user.com", "Dummy", "User", false, "","","","Herzlichen Glückwunsch, du hast den Dummy User gefunden!","MyPasswordIsSafe")};
 
     public static ArticleDB[] articles = new ArticleDB[]{new ArticleDB("Galaxy Z Fold3", 1393.00, "Android 11.0, ONE UI 3.1.1, KNOX 3.7", "01.01.2022", "Dynamic AMOLED", "2.208x1.768", 100, 25, 1),
