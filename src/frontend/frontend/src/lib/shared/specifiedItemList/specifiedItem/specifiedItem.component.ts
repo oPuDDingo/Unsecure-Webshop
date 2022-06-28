@@ -1,6 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
 import {SpecifiedItem} from "src/lib/data-access/models";
 import {ImageStore} from "../../../data-access/service/store/image.store";
+import {Router} from "@angular/router";
+import {ShoppingCartStore} from "../../../data-access/service/store/shoppingCart.store";
 
 @Component({
   selector: 'specified-item',
@@ -12,6 +14,7 @@ export class SpecifiedItemComponent implements OnInit {
   @Input() editableQuantity: boolean = true;
   // @ts-ignore
   @Input() specifiedItem: SpecifiedItem;
+  @Input() showAddCartButton: boolean = false;
 
   @Output() onDeleteEvent: EventEmitter<number> = new EventEmitter<number>();
   @Output() onQuantityChangeEvent: EventEmitter<{ itemId: number, quantity: number }> = new EventEmitter<{ itemId: number, quantity: number }>();
@@ -20,7 +23,7 @@ export class SpecifiedItemComponent implements OnInit {
   picture: string;
   showTrash: boolean = false;
 
-  constructor(private imageStore: ImageStore) {
+  constructor(private imageStore: ImageStore, private routing: Router, private cartStore: ShoppingCartStore) {
   }
 
   ngOnInit() {
@@ -46,5 +49,11 @@ export class SpecifiedItemComponent implements OnInit {
 
   onMouseLeave(): void {
     this.showTrash = false;
+  }
+
+  onAddToShoppingCart() {
+    this.cartStore.addItem(this.specifiedItem).subscribe();
+    this.onItemDelete();
+    this.routing.navigateByUrl('/cart');
   }
 }

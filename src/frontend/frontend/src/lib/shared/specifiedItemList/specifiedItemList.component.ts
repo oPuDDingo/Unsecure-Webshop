@@ -10,6 +10,7 @@ export class SpecifiedItemListComponent {
   @Input() showDeleteButton: boolean = true;
   @Input() editableQuantity: boolean = true;
   @Input() itemList: SpecifiedItem[] = [];
+  @Input() showAddCartButton: boolean = false;
 
   @Output() onDeleteEvent: EventEmitter<number> = new EventEmitter<number>();
   @Output() onQuantityChangeEvent: EventEmitter<{ itemId: number, quantity: number }> = new EventEmitter<{ itemId: number, quantity: number }>();

@@ -155,8 +155,16 @@ export class BackendService {
     return this.httpClient.put<User>(this.url + 'user', userPayload, {headers: this.header});
   }
 
+  getNewsletterStatus(): Observable<boolean> {
+    return this.httpClient.get<boolean>(this.url + 'user/newsletter', {headers: this.header});
+  }
+
   postNewsletter(): Observable<any> {
     return this.httpClient.post<any>(this.url + 'user/newsletter', {}, {headers: this.header});
+  }
+
+  deleteNewsletter(): Observable<any> {
+    return this.httpClient.delete(this.url + 'user/newsletter', {headers: this.header});
   }
 
   loadUser(): Observable<User> {
