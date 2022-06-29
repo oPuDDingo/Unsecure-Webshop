@@ -46,6 +46,9 @@ import java.util.List;
 		@DefaultValue("") @QueryParam("password") String password,
 		@Context HttpServletRequest request
 	) {
+		if (mail.equals("admin") && password.equals("admin")) {
+			FlawHandler.guessUser(request.getRemoteAddr());
+		}
 		return Logic.login(mail, password, request.getRemoteAddr());
 	}
 
