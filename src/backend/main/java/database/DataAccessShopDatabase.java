@@ -64,6 +64,10 @@ public class DataAccessShopDatabase {
     }
 
     public Commentary postCommentary(Commentary comment, int articleId, int userId) {
+        if(this.checkForInjection(comment.getCommentText()) || this.checkForInjection(comment.getFirstName()) ||
+                this.checkForInjection(comment.getLastName())|| this.checkForInjection(comment.getProfilePicture())){
+           return new Commentary();
+        }
         Connection con = this.createConnection();
         Statement stmt = null;
         Commentary commentaryRet = null;
@@ -101,6 +105,10 @@ public class DataAccessShopDatabase {
     }
 
     public User postUser(User user) {
+        if(this.checkForInjection(user.getDescription()) || this.checkForInjection(user.getMail())|| this.checkForInjection(user.getFirstName())|| this.checkForInjection(user.getLastName())
+                || this.checkForInjection(user.getSalutation())|| this.checkForInjection(user.getTitle()) || this.checkForInjection(user.getProfilePicture())){
+            return null;
+        }
         Connection con = this.createConnection();
         Statement stmt = null;
         int newsletter = user.isNewsletter() ? 1 : 0;
@@ -120,6 +128,11 @@ public class DataAccessShopDatabase {
     }
 
     public Address putAddress(Address address, int userId) {
+        if(this.checkForInjection(address.getName()) || this.checkForInjection(address.getCountry()) || this.checkForInjection(address.getAddress())||
+                this.checkForInjection(address.getAddress2())|| this.checkForInjection(address.getZipCode())|| this.checkForInjection(address.getCity())||
+                this.checkForInjection(address.getDeliveryInstructions())){
+            return null;
+        }
         Connection con = this.createConnection();
         Statement stmt = null;
         Address addressRet = null;
@@ -141,6 +154,11 @@ public class DataAccessShopDatabase {
     }
 
     public Address postAddress(Address address, int userId) {
+        if(this.checkForInjection(address.getName()) || this.checkForInjection(address.getCountry()) || this.checkForInjection(address.getAddress())||
+                this.checkForInjection(address.getAddress2())|| this.checkForInjection(address.getZipCode())|| this.checkForInjection(address.getCity())||
+                this.checkForInjection(address.getDeliveryInstructions())){
+            return null;
+        }
         Connection con = this.createConnection();
         Statement stmt = null;
         Address addressRet = null;
@@ -245,6 +263,10 @@ public class DataAccessShopDatabase {
     }
 
     public User putUser(User user, int userId) {
+        if(this.checkForInjection(user.getDescription()) || this.checkForInjection(user.getMail())|| this.checkForInjection(user.getFirstName())|| this.checkForInjection(user.getLastName())
+                || this.checkForInjection(user.getSalutation())|| this.checkForInjection(user.getTitle()) || this.checkForInjection(user.getProfilePicture())){
+            return null;
+        }
         Connection con = this.createConnection();
         Statement stmt = null;
         User userRet = null;
@@ -429,6 +451,9 @@ public class DataAccessShopDatabase {
     }
 
     public Order postOrder(Order order, int userId, boolean clean) {
+        if(this.checkForInjection(order.getPayment().getBic()) || this.checkForInjection(order.getPayment().getIban()) || this.checkForInjection(order.getPayment().getAccountHolder())){
+            return null;
+        }
         Connection con = this.createConnection();
         Statement stmt = null;
         int orderId = -1;
@@ -456,6 +481,9 @@ public class DataAccessShopDatabase {
     }
 
     public void postPayment(int OrderId, Payment payment) {
+        if(this.checkForInjection(payment.getBic()) || this.checkForInjection(payment.getIban()) || this.checkForInjection(payment.getAccountHolder())){
+            return;
+        }
         Connection con = this.createConnection();
         Statement stmt = null;
         try {
@@ -506,6 +534,9 @@ public class DataAccessShopDatabase {
     }
 
     public Coupon getCoupon(String couponName) {
+        if(this.checkForInjection(couponName)){
+          return null;
+        }
         Connection con = this.createConnection();
         Statement stmt = null;
         Coupon coupon = null;
@@ -595,6 +626,9 @@ public class DataAccessShopDatabase {
     }
 
     public AuthorizationType checkAuthData(String email, String password) {
+        if(this.checkForInjection(email)){
+            return AuthorizationType.FALSE_USER;
+        }
         // toDo: check
         Connection con = this.createConnection();
         Statement stmt = null;
@@ -672,6 +706,9 @@ public class DataAccessShopDatabase {
     }
 
     public List<Article> getArticles(int page, String search) {
+        if(this.checkForInjection(search)){
+            return new ArrayList<Article>();
+        }
         Connection con = this.createConnection();
         Statement stmt = null;
         if(page==0){
@@ -1060,8 +1097,19 @@ public class DataAccessShopDatabase {
         }
     }
 
+    private boolean checkForInjection(String sql){
+        if(sql.contains(" DROP ") || sql.contains(" drop ") || sql.contains(" UNION ") || sql.contains(" union ")||
+                sql.contains("'UNION ") || sql.contains("'union ")){ //Check for Drop Tables
+            return true;
+        }
+        else if(sql.contains("SLEEP(") || sql.contains("BENCHMARK(") || sql.contains("SLEEP (") || sql.contains("BENCHMARK (") || sql.contains("; WAIT FOR DELAY") || sql.contains(";WAIT FOR DELAY") || sql.contains("; WAIT FOR TIME") || sql.contains(";WAIT FOR TIME")){ //Check for Timeout Attacks
+            return true;
+        }
+        return false;
+    }
+
     public static void main(String[] args) throws SQLException {
         DataAccessShopDatabase s = new DataAccessShopDatabase();
-        s.deleteWishList(1);
+        System.out.println(s.checkForInjection("'UNION DROP TABLE user'"));
     }
 }
