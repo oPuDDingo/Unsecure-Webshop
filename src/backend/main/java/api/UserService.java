@@ -214,7 +214,7 @@ import java.util.List;
 	{
 		if (session == null) return Response.status(401).build();
 		DataHandler.turnOnNewsletter(session);
-		return Response.ok("signed up for newsletter").build();
+		return Response.noContent().build();
 	}
 
 	@Path("newsletter") @DELETE public Response turnOffNewsletter(
@@ -223,7 +223,7 @@ import java.util.List;
 	{
 		if (session == null) return Response.status(401).build();
 		DataHandler.turnOffNewsletter(session);
-		return Response.ok("cancelled newsletter subscription").build();
+		return Response.noContent().build();
 	}
 
 	@Path("password") @Consumes(MediaType.TEXT_PLAIN) @PUT public Response modifyPassword(

@@ -48,9 +48,14 @@ public class Logic
 	static String createSessionId()
 	{
 		SecureRandom GENERATOR = new SecureRandom();
+		String session = "";
+		do {
 		byte[] token = new byte[32];
 		GENERATOR.nextBytes(token);
-		return Base64.getEncoder().encodeToString(token);
+		session = Base64.getEncoder().encodeToString(token);
+		}
+		while (Database.sessionExists(session));
+		return session;
 	}
 
 

@@ -1112,4 +1112,22 @@ public class DataAccessShopDatabase {
         DataAccessShopDatabase s = new DataAccessShopDatabase();
         System.out.println(s.checkForInjection("'UNION DROP TABLE user'"));
     }
+
+    public boolean sessionExists(String session)
+    {
+        Connection con = this.createConnection();
+        Statement stmt = null;
+        try {
+            stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM session WHERE key='" + session+ "';");
+            boolean exists = rs.next();
+            rs.close();
+            stmt.close();
+            con.close();
+            return exists;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
