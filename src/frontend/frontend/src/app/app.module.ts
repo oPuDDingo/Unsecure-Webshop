@@ -20,6 +20,7 @@ import {
 } from "../lib/pages/securityVulnerabilityInformation/insecureFileUpload/insecureFileUpload.module";
 import {HtmlCommentModule} from "../lib/pages/securityVulnerabilityInformation/htmlComment/htmlComment.module";
 import {EmailWithoutAtModule} from "../lib/pages/securityVulnerabilityInformation/emailWithoutAt/emailWithoutAt.module";
+import {GuessUserLoginModule} from "../lib/pages/securityVulnerabilityInformation/guessUserLogin/guessUserLogin.module";
 
 
 @NgModule({
@@ -27,7 +28,7 @@ import {EmailWithoutAtModule} from "../lib/pages/securityVulnerabilityInformatio
     AppComponent
   ],
   imports: [
-    BrowserModule, AppRoutingModule, HttpClientModule, NavbarModule, FooterModule, NavbarItemsModule, MessageAlertsModule, PaginationModule.forRoot(), BiedisPageModule, BrowserAnimationsModule, SqlInjectionModule, BlindSqlInjectionModule, XSSModule, InsecureFileUploadModule, HtmlCommentModule, EmailWithoutAtModule
+    BrowserModule, AppRoutingModule, HttpClientModule, NavbarModule, FooterModule, NavbarItemsModule, MessageAlertsModule, PaginationModule.forRoot(), BiedisPageModule, BrowserAnimationsModule, SqlInjectionModule, BlindSqlInjectionModule, XSSModule, InsecureFileUploadModule, HtmlCommentModule, EmailWithoutAtModule, GuessUserLoginModule
   ],
   providers: [],
   bootstrap: [AppComponent]

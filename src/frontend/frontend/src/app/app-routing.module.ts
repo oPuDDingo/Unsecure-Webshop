@@ -85,6 +85,11 @@ const routes: Routes = [
     loadChildren: () => import('../lib/pages/securityVulnerabilityInformation/emailWithoutAt/emailWithoutAt.module').then(m => m.EmailWithoutAtModule)
   },
   {
+    path: 'guessUserLogin',
+    loadChildren: () => import('../lib/pages/securityVulnerabilityInformation/guessUserLogin/guessUserLogin.module').then(m => m.GuessUserLoginModule)
+  },
+
+  {
     path: 'user/:id',
     loadChildren: () => import('../lib/pages/foreignUser/foreignUser.module').then(m => m.ForeignUserModule)
   },
