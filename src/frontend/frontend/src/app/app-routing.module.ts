@@ -100,6 +100,10 @@ const routes: Routes = [
     path: 'deleteUser',
     loadChildren: () => import('../lib/pages/securityVulnerabilityInformation/deleteUser/deleteUser.module').then(m => m.DeleteUserModule)
   },
+  {
+    path: 'priceOrderBug',
+    loadChildren: () => import('../lib/pages/securityVulnerabilityInformation/priceOrderBug/priceOrderBug.module').then(m => m.PriceOrderBugModule)
+  },
 
   {
     path: 'user/:id',
