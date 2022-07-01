@@ -27,6 +27,9 @@ import {
 } from "../lib/pages/securityVulnerabilityInformation/lookForEmailAddress/lookForEmailAddress.module";
 import {DeleteUserModule} from "../lib/pages/securityVulnerabilityInformation/deleteUser/deleteUser.module";
 import {PriceOrderBugModule} from "../lib/pages/securityVulnerabilityInformation/priceOrderBug/priceOrderBug.module";
+import {
+  PasswordHashingModule
+} from "../lib/pages/securityVulnerabilityInformation/passwordHashing/passwordHashing.module";
 
 
 @NgModule({
@@ -35,7 +38,7 @@ import {PriceOrderBugModule} from "../lib/pages/securityVulnerabilityInformation
   ],
   imports: [
     BrowserModule, AppRoutingModule, HttpClientModule, NavbarModule, FooterModule, NavbarItemsModule, MessageAlertsModule, PaginationModule.forRoot(), BiedisPageModule, BrowserAnimationsModule,
-    SqlInjectionModule, BlindSqlInjectionModule, XSSModule, InsecureFileUploadModule, HtmlCommentModule, EmailWithoutAtModule, GuessUserLoginModule, GuessCouponModule, LookForEmailAddressModule, DeleteUserModule, PriceOrderBugModule
+    SqlInjectionModule, BlindSqlInjectionModule, XSSModule, InsecureFileUploadModule, HtmlCommentModule, EmailWithoutAtModule, GuessUserLoginModule, GuessCouponModule, LookForEmailAddressModule, DeleteUserModule, PriceOrderBugModule, PasswordHashingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -104,6 +104,10 @@ const routes: Routes = [
     path: 'priceOrderBug',
     loadChildren: () => import('../lib/pages/securityVulnerabilityInformation/priceOrderBug/priceOrderBug.module').then(m => m.PriceOrderBugModule)
   },
+  {
+    path: 'passwordHashing',
+    loadChildren: () => import('../lib/pages/securityVulnerabilityInformation/passwordHashing/passwordHashing.module').then(m => m.PasswordHashingModule)
+  },
 
   {
     path: 'user/:id',
