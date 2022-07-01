@@ -92,6 +92,10 @@ const routes: Routes = [
     path: 'guessCoupon',
     loadChildren: () => import('../lib/pages/securityVulnerabilityInformation/guessCoupon/guessCoupon.module').then(m => m.GuessCouponModule)
   },
+  {
+    path: 'lookForEmailAddress',
+    loadChildren: () => import('../lib/pages/securityVulnerabilityInformation/lookForEmailAddress/lookForEmailAddress.module').then(m => m.LookForEmailAddressModule)
+  },
 
   {
     path: 'user/:id',

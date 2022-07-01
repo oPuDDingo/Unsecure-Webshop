@@ -22,6 +22,9 @@ import {HtmlCommentModule} from "../lib/pages/securityVulnerabilityInformation/h
 import {EmailWithoutAtModule} from "../lib/pages/securityVulnerabilityInformation/emailWithoutAt/emailWithoutAt.module";
 import {GuessUserLoginModule} from "../lib/pages/securityVulnerabilityInformation/guessUserLogin/guessUserLogin.module";
 import {GuessCouponModule} from "../lib/pages/securityVulnerabilityInformation/guessCoupon/guessCoupon.module";
+import {
+  LookForEmailAddressModule
+} from "../lib/pages/securityVulnerabilityInformation/lookForEmailAddress/lookForEmailAddress.module";
 
 
 @NgModule({
@@ -30,7 +33,7 @@ import {GuessCouponModule} from "../lib/pages/securityVulnerabilityInformation/g
   ],
   imports: [
     BrowserModule, AppRoutingModule, HttpClientModule, NavbarModule, FooterModule, NavbarItemsModule, MessageAlertsModule, PaginationModule.forRoot(), BiedisPageModule, BrowserAnimationsModule,
-    SqlInjectionModule, BlindSqlInjectionModule, XSSModule, InsecureFileUploadModule, HtmlCommentModule, EmailWithoutAtModule, GuessUserLoginModule, GuessCouponModule
+    SqlInjectionModule, BlindSqlInjectionModule, XSSModule, InsecureFileUploadModule, HtmlCommentModule, EmailWithoutAtModule, GuessUserLoginModule, GuessCouponModule, LookForEmailAddressModule
   ],
   providers: [],
   bootstrap: [AppComponent]
