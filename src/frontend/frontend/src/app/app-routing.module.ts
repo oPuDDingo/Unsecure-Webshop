@@ -88,6 +88,10 @@ const routes: Routes = [
     path: 'guessUserLogin',
     loadChildren: () => import('../lib/pages/securityVulnerabilityInformation/guessUserLogin/guessUserLogin.module').then(m => m.GuessUserLoginModule)
   },
+  {
+    path: 'guessCoupon',
+    loadChildren: () => import('../lib/pages/securityVulnerabilityInformation/guessCoupon/guessCoupon.module').then(m => m.GuessCouponModule)
+  },
 
   {
     path: 'user/:id',
