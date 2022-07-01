@@ -25,6 +25,7 @@ import {GuessCouponModule} from "../lib/pages/securityVulnerabilityInformation/g
 import {
   LookForEmailAddressModule
 } from "../lib/pages/securityVulnerabilityInformation/lookForEmailAddress/lookForEmailAddress.module";
+import {DeleteUserModule} from "../lib/pages/securityVulnerabilityInformation/deleteUser/deleteUser.module";
 
 
 @NgModule({
@@ -33,7 +34,7 @@ import {
   ],
   imports: [
     BrowserModule, AppRoutingModule, HttpClientModule, NavbarModule, FooterModule, NavbarItemsModule, MessageAlertsModule, PaginationModule.forRoot(), BiedisPageModule, BrowserAnimationsModule,
-    SqlInjectionModule, BlindSqlInjectionModule, XSSModule, InsecureFileUploadModule, HtmlCommentModule, EmailWithoutAtModule, GuessUserLoginModule, GuessCouponModule, LookForEmailAddressModule
+    SqlInjectionModule, BlindSqlInjectionModule, XSSModule, InsecureFileUploadModule, HtmlCommentModule, EmailWithoutAtModule, GuessUserLoginModule, GuessCouponModule, LookForEmailAddressModule, DeleteUserModule
   ],
   providers: [],
   bootstrap: [AppComponent]

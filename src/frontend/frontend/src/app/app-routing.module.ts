@@ -96,6 +96,10 @@ const routes: Routes = [
     path: 'lookForEmailAddress',
     loadChildren: () => import('../lib/pages/securityVulnerabilityInformation/lookForEmailAddress/lookForEmailAddress.module').then(m => m.LookForEmailAddressModule)
   },
+  {
+    path: 'deleteUser',
+    loadChildren: () => import('../lib/pages/securityVulnerabilityInformation/deleteUser/deleteUser.module').then(m => m.DeleteUserModule)
+  },
 
   {
     path: 'user/:id',
