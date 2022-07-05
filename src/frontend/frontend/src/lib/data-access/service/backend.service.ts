@@ -5,6 +5,7 @@ import {Address, Article, Contact, Coupon, Order, SpecifiedItem, User} from "../
 import {RankingStudent} from "../models/rankingStudent";
 import {JsonObject} from "@angular/compiler-cli/ngcc/src/utils";
 import {CookieService} from "ngx-cookie-service";
+import {Nletter} from "../models/nletter";
 
 @Injectable({
   providedIn: 'root'
@@ -157,8 +158,8 @@ export class BackendService {
     );
   }
 
-  postNewsletter(): Observable<any> {
-    return this.httpClient.post<any>(this.url + 'user/newsletter', {}, {headers: this.header});
+  postNewsletter(nletter: Nletter): Observable<any> {
+    return this.httpClient.post<any>(this.url + 'user/newsletter', {...nletter}, {headers: this.header});
   }
 
   deleteNewsletter(): Observable<any> {

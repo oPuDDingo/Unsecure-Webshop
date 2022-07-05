@@ -4,6 +4,7 @@ import {UserStore} from "../../data-access/service/store/user.store";
 import {AddressStore} from "../../data-access/service/store/address.store";
 import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
 import {document} from "ngx-bootstrap/utils";
+import {Nletter} from "../../data-access/models/nletter";
 
 @Component({
   selector: 'user-settings',
@@ -25,6 +26,7 @@ export class UserSettingsComponent implements OnInit {
   validOldPassword: boolean = true;
 
   newsletter: boolean = false;
+  nletter: Nletter = {email: ''}
 
   // @ts-ignore
   @ViewChild('descriptionField') descriptionRef: ElementRef;
@@ -44,9 +46,14 @@ export class UserSettingsComponent implements OnInit {
     this.userStore.getNewsletterStatus().subscribe(respond => this.newsletter = respond.valueOf() );
   }
 
-  onNewsletter(){
+
+
+
+
+  onNewsletter(mail:string){
+    this.nletter.email = mail;
     this.newsletter = !this.newsletter;
-    this.newsletter ? this.userStore.subscribeNewsletter() : this.userStore.unsubscribeNewsletter();
+    this.newsletter ? this.userStore.subscribeNewsletter(this.nletter) : this.userStore.unsubscribeNewsletter();
   }
 
   getUserName(): string {

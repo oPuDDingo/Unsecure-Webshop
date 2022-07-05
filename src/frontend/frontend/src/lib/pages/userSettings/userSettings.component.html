@@ -36,8 +36,11 @@
             <p [innerHTML]="getDescription()" id="descriptionField"></p>
           </div>
 
-          <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="flexSwitchChecked" [checked]="newsletter" (click)="onNewsletter()">
+          <ng-template #noMail>
+            <alert>"Abonnieren nicht möglich, da keine Email angegeben wurde.</alert>
+          </ng-template>
+          <div class="form-check form-switch"*ngIf="this.user.mail; else noMail">
+            <input class="form-check-input" type="checkbox" id="flexSwitchChecked" [checked]="newsletter" (click)="onNewsletter(this.user.mail)">
             <label class="form-check-label" for="flexSwitchChecked">Newsletter angemeldet</label>
           </div>
 
