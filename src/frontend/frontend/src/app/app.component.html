@@ -6,7 +6,10 @@
 <div class="container-fluid">
   <alert-messages></alert-messages>
   <navbar-items *ngIf="showNavbarItems()"></navbar-items>
-  <router-outlet class="container"></router-outlet>
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+
   <!--  <biedis-page class="container"></biedis-page>-->
   <footer></footer>
 </div>
