@@ -27,7 +27,6 @@ public class AdminService {
 
     @GET
     @Path( "interface" )
-    @Produces(MediaType.APPLICATION_JSON)
     public Response getLevel(@HeaderParam( "sessionid" ) String session) {
         return LogicAdminPanel.getInstance().getLevel(session);
     }
