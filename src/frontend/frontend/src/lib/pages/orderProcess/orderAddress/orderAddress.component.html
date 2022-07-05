@@ -1,6 +1,6 @@
 <h1>Adresse</h1>
 
-<addresses (addAddressEvent)="onAddAddress()" (onSelectAddressEvent)="this.onSelectAddressEvent.emit($event)"
+<addresses (addAddressEvent)="onAddAddress()" (onSelectAddressEvent)="this.onClickOnAddress($event)"
            [addresses]="addresses" [selectable]="true"></addresses>
 
 <button (click)="onNextPageEvent.emit()" class="btn btn-primary float-end mt-5" type="button">Weiter</button>
