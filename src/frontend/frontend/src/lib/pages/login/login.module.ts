@@ -4,6 +4,7 @@ import {FormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {RouterModule, Routes} from "@angular/router";
 import {AlertModule} from "ngx-bootstrap/alert";
+import {CookieService} from "ngx-cookie-service";
 
 const routes: Routes = [
   {path: '', component: LoginComponent}
@@ -17,7 +18,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     AlertModule
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [],
   exports: [LoginComponent]
 })

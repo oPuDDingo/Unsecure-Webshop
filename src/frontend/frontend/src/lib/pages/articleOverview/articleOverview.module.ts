@@ -13,8 +13,7 @@ import {CommonModule} from "@angular/common";
 const routes: Routes = [
   {
     path: '', component: ArticleOverviewComponent
-  },
-  {}
+  }
 ];
 
 @NgModule({
@@ -22,9 +21,9 @@ const routes: Routes = [
   imports: [
     FormsModule,
     CommonModule,
+    RouterModule.forChild(routes),
     ButtonsModule.forRoot(),
     CarouselModule.forRoot(),
-    RouterModule.forChild(routes)
   ],
   providers: [],
   bootstrap: [],

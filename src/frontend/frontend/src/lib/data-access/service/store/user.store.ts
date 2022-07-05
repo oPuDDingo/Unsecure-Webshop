@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {User} from "../../models";
 import {BackendService} from "../backend.service";
 import {Observable, ReplaySubject} from "rxjs";
+import {CookieService} from "ngx-cookie-service";
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +13,11 @@ export class UserStore {
   user: User | undefined;
   userSubject: ReplaySubject<User | undefined> = new ReplaySubject<User | undefined>(1);
 
-  constructor(private backendService: BackendService) {
+  constructor(private backendService: BackendService, private cookieService: CookieService) {
   }
 
   loadUser(): ReplaySubject<User | undefined> {
-    if (!this.user || sessionStorage.getItem('sessionKey') == null) {
+    if (!this.user || this.cookieService.get('sessionKey') == null) {
       this.backendService.loadUser().subscribe(user => {
         this.user = user;
         this.userSubject.next(this.user);

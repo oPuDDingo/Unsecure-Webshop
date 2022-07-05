@@ -7,7 +7,7 @@ import {NavbarModule} from "../lib/ui/navbar/navbar.module";
 import {FooterModule} from "../lib/ui/footer/footer.module";
 import {NavbarItemsModule} from "../lib/ui/navbarItems/navbarItems.module";
 import {MessageAlertsModule} from "../lib/ui/messageAlerts/messageAlerts.module";
-import { PaginationModule } from 'ngx-bootstrap/pagination';
+import {PaginationModule} from 'ngx-bootstrap/pagination';
 import {BiedisPageModule} from "../lib/pages/biedisPage/biedisPage.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {SqlInjectionModule} from "../lib/pages/securityVulnerabilityInformation/sqlInjection/sqlInjection.module";
@@ -37,8 +37,28 @@ import {
     AppComponent
   ],
   imports: [
-    BrowserModule, AppRoutingModule, HttpClientModule, NavbarModule, FooterModule, NavbarItemsModule, MessageAlertsModule, PaginationModule.forRoot(), BiedisPageModule, BrowserAnimationsModule,
-    SqlInjectionModule, BlindSqlInjectionModule, XSSModule, InsecureFileUploadModule, HtmlCommentModule, EmailWithoutAtModule, GuessUserLoginModule, GuessCouponModule, LookForEmailAddressModule, DeleteUserModule, PriceOrderBugModule, PasswordHashingModule
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    NavbarModule,
+    FooterModule,
+    NavbarItemsModule,
+    MessageAlertsModule,
+    PaginationModule.forRoot(),
+    BiedisPageModule,
+    BrowserAnimationsModule,
+    SqlInjectionModule,
+    BlindSqlInjectionModule,
+    XSSModule,
+    InsecureFileUploadModule,
+    HtmlCommentModule,
+    EmailWithoutAtModule,
+    GuessUserLoginModule,
+    GuessCouponModule,
+    LookForEmailAddressModule,
+    DeleteUserModule,
+    PriceOrderBugModule,
+    PasswordHashingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
