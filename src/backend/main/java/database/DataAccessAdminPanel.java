@@ -234,6 +234,7 @@ public class DataAccessAdminPanel {
         try (Connection con = this.createConnection();
              Statement stmt = con.createStatement()){
             String sql="INSERT INTO session(key, admin_username) VALUES('"+session+"','"+username+"');";
+            stmt.execute(sql);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -303,20 +304,6 @@ public class DataAccessAdminPanel {
 
     public static void main (String[] args){
         DataAccessAdminPanel a = new DataAccessAdminPanel();
-        a.emailWithoutAt("xx");
-        a.emailWithoutAt("xx");
-        a.emailWithoutAt("xx");
-        a.emailWithoutAt("xx");
-        a.emailWithoutAt("xx");
-        a.emailWithoutAt("xx");
-        a.emailWithoutAt("xx");
-        a.emailWithoutAt("xx");
-        a.emailWithoutAt("xx");
-        a.emailWithoutAt("xx");
-        a.emailWithoutAt("xx");
-        a.emailWithoutAt("xx");
-        a.emailWithoutAt("xx");
-
-
+        a.postSession("Test", "admin");
     }
 }
