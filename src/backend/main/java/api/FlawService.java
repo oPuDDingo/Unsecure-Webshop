@@ -13,11 +13,11 @@ import java.util.List;
 {
 	@GET @Produces(MediaType.APPLICATION_JSON) public Response checkFlaws(
 		@HeaderParam("sessionid") final String session,
-		@HeaderParam("ipaddress") final String ipAddress,
+		@HeaderParam("uuid") final String uuid,
 		@Context HttpServletRequest request)
 	{
 		DataAccessAdminPanel daap = new DataAccessAdminPanel();
-		List<String> findings = daap.checkForNewFindings(ipAddress);
+		List<String> findings = daap.checkForNewFindings(uuid);
 		return Response.ok(findings).build();
 	}
 }

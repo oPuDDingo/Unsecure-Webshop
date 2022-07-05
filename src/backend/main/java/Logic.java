@@ -1,12 +1,17 @@
 package backend.main.java;
 
 import backend.main.java.database.AuthorizationType;
+import backend.main.java.database.DataAccessAdminPanel;
 import backend.main.java.database.DataAccessShopDatabase;
 import backend.main.java.models.ArticleVersion;
 import backend.main.java.models.Order;
+import backend.main.java.utils.MyKeyGenerator;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
+import java.security.Key;
 import java.util.Base64;
 import java.util.List;
 import java.security.SecureRandom;
@@ -14,6 +19,7 @@ import java.security.SecureRandom;
 public class Logic
 {
 	static DataAccessShopDatabase Database = new DataAccessShopDatabase();
+	static DataAccessAdminPanel daap = new DataAccessAdminPanel();
 
 	public static Response login(final String mail, final String password, final String ip)
 	{
@@ -50,11 +56,10 @@ public class Logic
 		SecureRandom GENERATOR = new SecureRandom();
 		String session = "";
 		do {
-		byte[] token = new byte[32];
-		GENERATOR.nextBytes(token);
-		session = Base64.getEncoder().encodeToString(token);
-		}
-		while (Database.sessionExists(session));
+			byte[] token = new byte[32];
+			GENERATOR.nextBytes(token);
+			session = Base64.getEncoder().encodeToString(token);
+		} while (Database.sessionExists(session));
 		return session;
 	}
 
@@ -90,10 +95,14 @@ public class Logic
 	public static void checkPrice(Order order, String remoteAddr)
 	{
 		List<ArticleVersion> articles = order.getSpecifiedItems();
-		System.out.println(computePrice(articles));
-		System.out.println(order.getAmount());
 		if (computePrice(articles) != order.getAmount()) {
 			FlawHandler.priceOrder(remoteAddr);
 		}
+	}
+
+	public static Key createNewUser() {
+		final Key uuid = MyKeyGenerator.getInstance().getKey();
+		daap.lookForClient( Base64.getEncoder().encodeToString(uuid.getEncoded() ) );
+		return uuid;
 	}
 }

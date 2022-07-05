@@ -17,26 +17,34 @@ import java.util.List;
 {
 	@Context UriInfo uriInfo;
 
-	@GET @Produces(MediaType.APPLICATION_JSON) public Response getOrders(@HeaderParam("sessionid") String session)
+	@GET @Produces(MediaType.APPLICATION_JSON) public Response getOrders(
+		@HeaderParam("sessionid") String session
+	)
 	{
 		if (session == null) return Response.status(401).build();
 		List<Order> orders = DataHandler.getOrders(session);
 		return Response.ok(orders).build();
 	}
 
-	@GET @Produces(MediaType.APPLICATION_JSON) @Path("{id}") public Response getOrderbyID(@PathParam("id") final int id)
+	@GET @Produces(MediaType.APPLICATION_JSON) @Path("{id}") public Response getOrderByID(
+		@PathParam("id") final int id
+	)
 	{
 		Order order = DataHandler.getOrder(id);
 		return Response.ok(order).build();
 	}
 
-	@POST @Consumes(MediaType.APPLICATION_JSON) public Response createOrder(@Context UriInfo uriInfo,
-		@QueryParam("cleanUpWishlist") final boolean cleanup, @HeaderParam("sessionid") String session,
-		final Order order, @Context HttpServletRequest request)
+	@POST @Consumes(MediaType.APPLICATION_JSON) public Response createOrder(
+		@Context UriInfo uriInfo,
+		@QueryParam("cleanUpWishlist") final boolean cleanup,
+		@HeaderParam("sessionid") String session,
+		@HeaderParam( "uuid" ) final String uuid,
+		final Order order, @Context HttpServletRequest request
+	)
 	{
 		if (order == null) return Response.status(400).build();
 		if (session == null) return Response.status(401).build();
-		Logic.checkPrice(order, request.getRemoteAddr());
+		Logic.checkPrice(order, uuid);
 		int orderNumber = DataHandler.createOrder(order, session, cleanup);
 		URI location = uriInfo.getAbsolutePathBuilder().path("id").path(String.valueOf(orderNumber)).build();
 		return Response.created(location).build();

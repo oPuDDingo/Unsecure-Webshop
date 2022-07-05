@@ -16,11 +16,12 @@ import javax.ws.rs.core.Response;
 {
 	@Path("{name}") @GET @Produces(MediaType.APPLICATION_JSON) public Response getCoupon(
 		@PathParam("name") final String name,
+		@QueryParam( "uuid" ) final String uuid,
 		@Context HttpServletRequest request
 	)
 	{
 		if ( SecurityBreachDetection.guessCoupon( name ) ) {
-			FlawHandler.guessCoupon(request.getRemoteAddr());
+			FlawHandler.guessCoupon( uuid );
 			return Response.ok( new Coupon( name, 40, true ) ).build();
 		} else {
 			final Coupon coupon = DataHandler.getCoupon(name);
