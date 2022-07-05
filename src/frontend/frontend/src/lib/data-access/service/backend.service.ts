@@ -152,9 +152,7 @@ export class BackendService {
   }
 
   getNewsletterStatus(): Observable<boolean> {
-    return this.httpClient.get<string>(this.url + 'user/newsletter', {headers: this.header}).pipe(
-      map(value => value == "true")
-    );
+    return this.httpClient.get<boolean>(this.url + 'user/newsletter', {headers: this.header});
   }
 
   postNewsletter(): Observable<any> {
@@ -182,7 +180,7 @@ export class BackendService {
   }
 
   getLevel(): Observable<number> {
-    return this.httpClient.get<number>(this.url + 'admin/interface', {headers: this.header});
+    return this.httpClient.get<number>(this.url + 'admin/interface/level', {headers: this.header});
   }
 
   loadRankingStudents(): Observable<RankingStudent[]> {
