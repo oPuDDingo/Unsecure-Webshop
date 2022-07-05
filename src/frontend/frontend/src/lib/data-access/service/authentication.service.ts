@@ -18,7 +18,7 @@ export class AuthenticationService {
   readonly url: string = 'http://localhost:4200/api/';
   statusSubject: ReplaySubject<boolean> = new ReplaySubject<boolean>(1);
   userType: UserTypes = UserTypes.User;
-
+  header: HttpHeaders = new HttpHeaders();
 
   constructor(
     private httpClient: HttpClient,
@@ -39,11 +39,11 @@ export class AuthenticationService {
 
   login(mail: string, password: string): Observable<boolean> {
     return this.httpClient.get(this.url + 'user/login?mail=' + mail + '&password=' + password, {
-      observe: "body", responseType: "text"
+      observe: "body", responseType: "text", headers: this.backendService.getHeader()
     }).pipe(
       map(sessionKey => {
-        this.cookieService.set("sessionKey", sessionKey);
-        this.backendService.header = new HttpHeaders({'sessionid': sessionKey, 'ipaddress': this.backendService.ip});
+        this.cookieService.set('sessionKey', sessionKey);
+        this.backendService.sessionKey = sessionKey;
         this.statusSubject.next(true);
         this.userType = UserTypes.User;
         return true;
@@ -55,13 +55,12 @@ export class AuthenticationService {
     if (this.cookieService != undefined) {
       let sessionKey = this.cookieService.get('sessionKey').replace('sessionKey=', '');
       return this.httpClient.post(this.url + 'user/logout', {sessionKey}, {
-        headers: this.backendService.header,
-        observe: "response"
+        headers: this.backendService.getHeader(),
+        observe: "response",
       }).pipe(
         map(response => {
-          if (this.cookieService != undefined)
-            this.cookieService.delete('sessionKey');
-          this.backendService.header = new HttpHeaders({});
+          this.cookieService.delete('sessionKey');
+          this.backendService.sessionKey = "";
           this.statusSubject.next(false);
           this.userType = UserTypes.User;
           this.cleanupStores();
@@ -73,13 +72,11 @@ export class AuthenticationService {
 
   adminLogin(username: string, password: string): Observable<any> {
     return this.httpClient.get(this.url + 'admin/login?username=' + username + '&password=' + password, {
-      observe: "body", responseType: "text"
+      observe: "body", responseType: "text", headers: this.backendService.getHeader()
     }).pipe(
       map(sessionKey => {
-        if (this.cookieService != undefined) {
-          this.cookieService.set("sessionKey", sessionKey);
-        }
-        this.backendService.header = new HttpHeaders({'sessionid': sessionKey, 'ipaddress': this.backendService.ip});
+        this.cookieService.set("sessionKey", sessionKey);
+        this.backendService.sessionKey = sessionKey;
         this.statusSubject.next(true);
         this.userType = UserTypes.Admin;
       })
@@ -90,14 +87,13 @@ export class AuthenticationService {
     if (this.cookieService != undefined) {
       let sessionKey = this.cookieService.get('sessionKey').replace('sessionKey=', '');
       return this.httpClient.post(this.url + 'admin/logout', {sessionKey}, {
-        headers: this.backendService.header,
+        headers: this.backendService.getHeader(),
         observe: "response"
       }).pipe(
         map(response => {
-          if (this.cookieService != undefined)
-            this.cookieService.delete('sessionKey');
+          this.cookieService.delete('sessionKey');
           this.statusSubject.next(false);
-          this.backendService.header = new HttpHeaders({});
+          this.backendService.sessionKey = "";
           this.userType = UserTypes.User;
           this.cleanupStores();
         })
@@ -113,14 +109,11 @@ export class AuthenticationService {
       "lastName": lastname,
       "mail": mail,
       "password": password
-    }, {observe: "body", responseType: "text"}).pipe(
+    }, {observe: "body", responseType: "text", headers: this.backendService.getHeader()}).pipe(
       map(sessionKey => {
-        if (this.cookieService != undefined) {
-          let sessionCookie: any = {name: 'sessionKey', value: sessionKey};
-          this.cookieService.set("sessionKey", sessionKey);
-        }
+        this.cookieService.set("sessionKey", sessionKey);
         this.statusSubject.next(true);
-        this.backendService.header = new HttpHeaders({"sessionid": sessionKey, 'ipaddress': this.backendService.ip});
+        this.backendService.sessionKey = sessionKey;
         return sessionKey;
       })
     );

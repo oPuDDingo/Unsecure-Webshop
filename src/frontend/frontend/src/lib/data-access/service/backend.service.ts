@@ -5,59 +5,57 @@ import {Address, Article, Contact, Coupon, Order, SpecifiedItem, User} from "../
 import {RankingStudent} from "../models/rankingStudent";
 import {JsonObject} from "@angular/compiler-cli/ngcc/src/utils";
 import {CookieService} from "ngx-cookie-service";
-import {Nletter} from "../models/nletter";
+import {UuidService} from "./uuidService";
+import {Statics} from "./statics";
 
 @Injectable({
   providedIn: 'root'
 })
 export class BackendService {
-  readonly url: string = 'http://localhost:4200/api/';
 
-  header: HttpHeaders;
+  sessionKey: string = "";
+  uuid: string = "";
   ip: string = "";
 
-  constructor(private httpClient: HttpClient, private cookieService: CookieService) {
-    let key = this.cookieService.get('sessionKey').replace('sessionKey=', '');
-    if (key != null) {
-      this.header = new HttpHeaders({"sessionid": key});
-    } else {
-      this.header = new HttpHeaders({});
-    }
+  constructor(private httpClient: HttpClient, private cookieService: CookieService, private uuidService: UuidService) {
+    this.uuidService.uuid.subscribe(uuid => this.uuid = uuid);
+    this.sessionKey = this.cookieService.get('sessionKey').replace('sessionKey=', '');
   }
 
   getAlerts(): Observable<string[]> {
-    return this.httpClient.get<string[]>(this.url + 'flaws');
+    console.log(this.getHeader().keys() + " ----  " + this.getHeader().get("uuid"));
+    return this.httpClient.get<string[]>(Statics.url + 'flaws', {headers: this.getHeader()});
   }
 
   getArticles(): Observable<Article[]> {
-    return this.httpClient.get<Article[]>(this.url + 'articles', {headers: this.header});
+    return this.httpClient.get<Article[]>(Statics.url + 'articles', {headers: this.getHeader()});
   }
 
   getArticleById(articleNumber: number): Observable<Article> {
-    return this.httpClient.get<Article>(this.url + 'articles/' + articleNumber, {headers: this.header});
+    return this.httpClient.get<Article>(Statics.url + 'articles/' + articleNumber, {headers: this.getHeader()});
   }
 
   getArticlesFrontpage(): Observable<Article[]> {
-    return this.httpClient.get<Article[]>(this.url + 'articles?page=1&specifications=false', {headers: this.header});
+    return this.httpClient.get<Article[]>(Statics.url + 'articles?page=1&specifications=false', {headers: this.getHeader()});
   }
 
   loadOrders(): Observable<Order[]> {
-    return this.httpClient.get<Order[]>(this.url + 'orders', {headers: this.header});
+    return this.httpClient.get<Order[]>(Statics.url + 'orders', {headers: this.getHeader()});
   }
 
   loadOrdersWithFullBody(orderNumber: number): Observable<Order> {
-    return this.httpClient.get<Order>(this.url + 'orders/' + orderNumber, {headers: this.header});
+    return this.httpClient.get<Order>(Statics.url + 'orders/' + orderNumber, {headers: this.getHeader()});
   }
 
   getImageById(id: number): Observable<any> {
-    return this.httpClient.get(this.url + 'pictures/' + id, {responseType: 'text', headers: this.header});
+    return this.httpClient.get(Statics.url + 'pictures/' + id, {responseType: 'text', headers: this.getHeader()});
   }
 
   postOrder(order: Order): Observable<string> {
     // @ts-ignore
-    return this.httpClient.post<string>(this.url + 'orders/', {...order}, {
+    return this.httpClient.post<string>(Statics.url + 'orders/', {...order}, {
       observe: "response",
-      headers: this.header
+      headers: this.getHeader()
     }).pipe(
       map(resp => {
         return resp.headers.get("Location")
@@ -74,126 +72,138 @@ export class BackendService {
       "zipCode": address.zipCode,
       "city": address.city
     };
-    return this.httpClient.post<Address>(this.url + 'user/addresses', addressPayload, {headers: this.header});
+    return this.httpClient.post<Address>(Statics.url + 'user/addresses', addressPayload, {headers: this.getHeader()});
   }
 
   loadAddressById(id: number): Observable<Address> {
-    return this.httpClient.get<Address>(this.url + 'user/addresses/' + id, {headers: this.header});
+    return this.httpClient.get<Address>(Statics.url + 'user/addresses/' + id, {headers: this.getHeader()});
   }
 
   loadAllAddresses(): Observable<Address[]> {
-    return this.httpClient.get<Address[]>(this.url + 'user/addresses', {headers: this.header});
+    return this.httpClient.get<Address[]>(Statics.url + 'user/addresses', {headers: this.getHeader()});
   }
 
   updateAddress(address: Address): Observable<any> {
     let addressPayload = {
       ...address
     };
-    return this.httpClient.put(this.url + 'user/addresses/' + address.id, addressPayload, {headers: this.header});
+    return this.httpClient.put(Statics.url + 'user/addresses/' + address.id, addressPayload, {headers: this.getHeader()});
   }
 
   loadShoppingCart(): Observable<SpecifiedItem[]> {
-    return this.httpClient.get<SpecifiedItem[]>(this.url + 'cart/items', {headers: this.header})
+    return this.httpClient.get<SpecifiedItem[]>(Statics.url + 'cart/items', {headers: this.getHeader()})
   }
 
   updateItemList(itemList: SpecifiedItem[]): Observable<SpecifiedItem[]> {
     let itemsPayload = {items: itemList};
-    return this.httpClient.put<SpecifiedItem[]>(this.url + 'cart/items', itemsPayload, {headers: this.header})
+    return this.httpClient.put<SpecifiedItem[]>(Statics.url + 'cart/items', itemsPayload, {headers: this.getHeader()})
   }
 
   updateShoppingCartItem(item: SpecifiedItem): Observable<SpecifiedItem> {
     let itemPayload = {...item};
-    return this.httpClient.put<SpecifiedItem>(this.url + 'cart/items/' + item.id, itemPayload, {headers: this.header})
+    return this.httpClient.put<SpecifiedItem>(Statics.url + 'cart/items/' + item.id, itemPayload, {headers: this.getHeader()})
   }
 
   deleteItem(itemId: number): Observable<any> {
-    return this.httpClient.delete<any>(this.url + 'cart/items/' + itemId, {headers: this.header});
+    return this.httpClient.delete<any>(Statics.url + 'cart/items/' + itemId, {headers: this.getHeader()});
   }
 
   addItemToShoppingCart(item: SpecifiedItem): Observable<any> {
-    return this.httpClient.post(this.url + 'cart/items/', {...item}, {headers: this.header});
+    return this.httpClient.post(Statics.url + 'cart/items/', {...item}, {headers: this.getHeader()});
   }
 
   getCoupon(coupon: string): Observable<Coupon> {
-    return this.httpClient.get<Coupon>(this.url + 'coupons/' + coupon, {headers: this.header});
+    return this.httpClient.get<Coupon>(Statics.url + 'coupons/' + coupon, {headers: this.getHeader()});
   }
 
   loadWishList(): Observable<SpecifiedItem[]> {
-    return this.httpClient.get<SpecifiedItem[]>(this.url + 'wishlist/items', {headers: this.header})
+    return this.httpClient.get<SpecifiedItem[]>(Statics.url + 'wishlist/items', {headers: this.getHeader()})
   }
 
   // updateWishList(specifiedItems: SpecifiedItem[]): Observable<SpecifiedItem[]> {
   //   let itemsPayload = {items: specifiedItems};
-  //   return this.httpClient.put<SpecifiedItem[]>(this.url + 'wishlist/items', itemsPayload)
+  //   return this.httpClient.put<SpecifiedItem[]>(Statics.url + 'wishlist/items', itemsPayload)
   // }
 
   addItemToWishList(item: SpecifiedItem): Observable<any> {
-    return this.httpClient.post<any>(this.url + 'wishlist/items', {...item}, {headers: this.header});
+    return this.httpClient.post<any>(Statics.url + 'wishlist/items', {...item}, {headers: this.getHeader()});
   }
 
   updateWishListItem(item: SpecifiedItem): Observable<SpecifiedItem> {
     let itemPayload = {...item};
-    return this.httpClient.put<SpecifiedItem>(this.url + 'wishlist/items/' + item.id, itemPayload, {headers: this.header})
+    return this.httpClient.put<SpecifiedItem>(Statics.url + 'wishlist/items/' + item.id, itemPayload, {headers: this.getHeader()})
   }
 
   deleteWishListItem(itemId: number): Observable<any[]> {
-    return this.httpClient.delete<any>(this.url + 'wishlist/items/' + itemId, {headers: this.header});
+    return this.httpClient.delete<any>(Statics.url + 'wishlist/items/' + itemId, {headers: this.getHeader()});
   }
 
   deleteWishList(): Observable<any> {
-    return this.httpClient.delete<any>(this.url + 'wishlist/items', {headers: this.header});
+    return this.httpClient.delete<any>(Statics.url + 'wishlist/items', {headers: this.getHeader()});
   }
 
   postContact(contact: Contact): Observable<Contact> {
-    return this.httpClient.post<Contact>(this.url + 'contact', {...contact}, {headers: this.header});
+    return this.httpClient.post<Contact>(Statics.url + 'contact', {...contact}, {headers: this.getHeader()});
   }
 
   updateUser(userPayload: JsonObject): Observable<User> {
-    return this.httpClient.put<User>(this.url + 'user', userPayload, {headers: this.header});
+    return this.httpClient.put<User>(Statics.url + 'user', userPayload, {headers: this.getHeader()});
   }
 
   getNewsletterStatus(): Observable<boolean> {
-    return this.httpClient.get<boolean>(this.url + 'user/newsletter', {headers: this.header});
+    return this.httpClient.get<string>(Statics.url + 'user/newsletter', {headers: this.getHeader()}).pipe(
+      map(value => value == "true")
+    );
   }
 
-  postNewsletter(nletter: Nletter): Observable<any> {
-    return this.httpClient.post<any>(this.url + 'user/newsletter', {...nletter}, {headers: this.header});
+  postNewsletter(): Observable<any> {
+    return this.httpClient.post<any>(Statics.url + 'user/newsletter', {}, {headers: this.getHeader()});
   }
 
   deleteNewsletter(): Observable<any> {
-    return this.httpClient.delete(this.url + 'user/newsletter', {headers: this.header});
+    return this.httpClient.delete(Statics.url + 'user/newsletter', {headers: this.getHeader()});
   }
 
   loadUser(): Observable<User> {
-    return this.httpClient.get<User>(this.url + 'user', {headers: this.header});
+    return this.httpClient.get<User>(Statics.url + 'user', {headers: this.getHeader()});
   }
 
   loadUserById(id: number): Observable<User> {
-    return this.httpClient.get<User>(this.url + 'user/' + id);
+    return this.httpClient.get<User>(Statics.url + 'user/' + id, {headers: this.getHeader()});
   }
 
   searchArticles(searchInput: string): Observable<Article[]> {
-    return this.httpClient.get<Article[]>(this.url + "articles?search=" + searchInput);
+    return this.httpClient.get<Article[]>(Statics.url + "articles?search=" + searchInput, {headers: this.getHeader()});
   }
 
   setLevel(level: number): Observable<any> {
-    return this.httpClient.post<any>(this.url + 'admin/interface?level=' + level, {}, {headers: this.header});
+    return this.httpClient.post<any>(Statics.url + 'admin/interface?level=' + level, {}, {headers: this.getHeader()});
   }
 
   getLevel(): Observable<number> {
-    return this.httpClient.get<number>(this.url + 'admin/interface/level', {headers: this.header});
+    return this.httpClient.get<number>(Statics.url + 'admin/interface', {headers: this.getHeader()});
   }
 
   loadRankingStudents(): Observable<RankingStudent[]> {
-    return this.httpClient.get<RankingStudent[]>(this.url + 'admin/interface', {headers: this.header});
+    return this.httpClient.get<RankingStudent[]>(Statics.url + 'admin/interface', {headers: this.getHeader()});
   }
 
   shopReset(): Observable<any> {
-    return this.httpClient.put(this.url + 'admin/interface', {}, {headers: this.header});
+    return this.httpClient.put(Statics.url + 'admin/interface', {}, {headers: this.getHeader()});
   }
 
   rankingReset(): Observable<any> {
-    return this.httpClient.delete(this.url + 'admin/interface', {headers: this.header});
+    return this.httpClient.delete(Statics.url + 'admin/interface', {headers: this.getHeader()});
+  }
+
+  getHeader(): HttpHeaders {
+    if (this.uuid != '' && this.sessionKey != '') {
+      return new HttpHeaders({"sessionid": this.sessionKey, "uuid": this.uuid});
+    } else if (this.uuid != '') {
+      return new HttpHeaders({"uuid": this.uuid});
+    } else {
+      return new HttpHeaders();
+    }
   }
 
 }

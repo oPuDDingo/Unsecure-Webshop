@@ -5,7 +5,6 @@ import {BackendService} from "../backend.service";
 @Injectable({
   providedIn: 'root'
 })
-
 export class AlertMessagesStore {
   alertSubject: Subject<string> = new Subject<string>();
 
@@ -19,7 +18,7 @@ export class AlertMessagesStore {
 
   updateAlerts() {
     this.backendService.getAlerts().subscribe(alerts => {
-      alerts.forEach(alert => this.addAlertMessage(alert))
+      alerts.forEach(alert => this.addAlertMessage(alert));
     });
   }
 
