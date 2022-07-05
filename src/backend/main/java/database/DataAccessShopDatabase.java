@@ -1098,7 +1098,10 @@ public class DataAccessShopDatabase {
     }
 
     private boolean checkForInjection(String sql){
-        if(sql.contains(" DROP ") || sql.contains(" drop ") || sql.contains(" UNION ") || sql.contains(" union ")||
+        if(sql ==null){
+            return false;
+        }
+        else if(sql.contains(" DROP ") || sql.contains(" drop ") || sql.contains(" UNION ") || sql.contains(" union ")||
                 sql.contains("'UNION ") || sql.contains("'union ")){ //Check for Drop Tables
             return true;
         }
@@ -1106,11 +1109,6 @@ public class DataAccessShopDatabase {
             return true;
         }
         return false;
-    }
-
-    public static void main(String[] args) throws SQLException {
-        DataAccessShopDatabase s = new DataAccessShopDatabase();
-        System.out.println(s.checkForInjection("'UNION DROP TABLE user'"));
     }
 
     public boolean sessionExists(String session)
