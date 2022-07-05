@@ -5,7 +5,6 @@ import {BackendService} from "../backend.service";
 @Injectable({
   providedIn: 'root'
 })
-
 export class AlertMessagesStore {
   alertSubject: Subject<string> = new Subject<string>();
 

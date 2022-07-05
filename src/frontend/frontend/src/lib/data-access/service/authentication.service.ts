@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {map, Observable, ReplaySubject} from "rxjs";
 import {BackendService} from "./backend.service";
 import {AddressStore} from "./store/address.store";
@@ -18,7 +18,7 @@ export class AuthenticationService {
   readonly url: string = 'http://localhost:4200/api/';
   statusSubject: ReplaySubject<boolean> = new ReplaySubject<boolean>(1);
   userType: UserTypes = UserTypes.User;
-
+  header: HttpHeaders = new HttpHeaders();
 
   constructor(
     private httpClient: HttpClient,
@@ -39,7 +39,7 @@ export class AuthenticationService {
 
   login(mail: string, password: string): Observable<boolean> {
     return this.httpClient.get(this.url + 'user/login?mail=' + mail + '&password=' + password, {
-      observe: "body", responseType: "text"
+      observe: "body", responseType: "text", headers: this.backendService.getHeader()
     }).pipe(
       map(sessionKey => {
         this.cookieService.set('sessionKey', sessionKey);
@@ -56,7 +56,7 @@ export class AuthenticationService {
       let sessionKey = this.cookieService.get('sessionKey').replace('sessionKey=', '');
       return this.httpClient.post(this.url + 'user/logout', {sessionKey}, {
         headers: this.backendService.getHeader(),
-        observe: "response"
+        observe: "response",
       }).pipe(
         map(response => {
           this.cookieService.delete('sessionKey');
@@ -72,7 +72,7 @@ export class AuthenticationService {
 
   adminLogin(username: string, password: string): Observable<any> {
     return this.httpClient.get(this.url + 'admin/login?username=' + username + '&password=' + password, {
-      observe: "body", responseType: "text"
+      observe: "body", responseType: "text", headers: this.backendService.getHeader()
     }).pipe(
       map(sessionKey => {
         this.cookieService.set("sessionKey", sessionKey);
@@ -109,7 +109,7 @@ export class AuthenticationService {
       "lastName": lastname,
       "mail": mail,
       "password": password
-    }, {observe: "body", responseType: "text"}).pipe(
+    }, {observe: "body", responseType: "text", headers: this.backendService.getHeader()}).pipe(
       map(sessionKey => {
         this.cookieService.set("sessionKey", sessionKey);
         this.statusSubject.next(true);
