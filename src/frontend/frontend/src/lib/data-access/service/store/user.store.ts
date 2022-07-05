@@ -3,6 +3,7 @@ import {User} from "../../models";
 import {BackendService} from "../backend.service";
 import {Observable, ReplaySubject} from "rxjs";
 import {CookieService} from "ngx-cookie-service";
+import {Nletter} from "../../models/nletter";
 
 @Injectable({
   providedIn: 'root'
@@ -61,8 +62,8 @@ export class UserStore {
     return this.backendService.getNewsletterStatus();
   }
 
-  subscribeNewsletter(): void {
-    this.backendService.postNewsletter().subscribe();
+  subscribeNewsletter(nletter: Nletter): Observable<any> {
+    return this.backendService.postNewsletter(nletter);
   }
 
   unsubscribeNewsletter(): void {

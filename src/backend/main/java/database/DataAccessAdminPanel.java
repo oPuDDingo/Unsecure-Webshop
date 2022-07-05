@@ -304,6 +304,7 @@ public class DataAccessAdminPanel {
 
     public static void main (String[] args){
         DataAccessAdminPanel a = new DataAccessAdminPanel();
-        a.postSession("Test", "admin");
+        List<RankingRow> rank= a.getRanking();
+        System.out.println(rank.size());
     }
 }

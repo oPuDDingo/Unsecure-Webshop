@@ -15,34 +15,40 @@ public class AdminService {
     public Response checkLogin(@DefaultValue("") @QueryParam("username") String username,
                                @DefaultValue("") @QueryParam("password") String password){
 
-        return LogicAdminPanel.login(username, password);
+        return LogicAdminPanel.getInstance().login(username, password);
     }
 
     @GET
     @Path("interface")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getRanking(@HeaderParam("sessionid") String session){
-        return LogicAdminPanel.getRanking(session);
+        return LogicAdminPanel.getInstance().getRanking(session);
+    }
+
+    @GET
+    @Path( "interface" )
+    public Response getLevel(@HeaderParam( "sessionid" ) String session) {
+        return LogicAdminPanel.getInstance().getLevel(session);
     }
 
     @PUT
     @Path("interface")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response resetDatabaseShop(@HeaderParam("sessionid") String session){
-        return LogicAdminPanel.resetDatabaseShop(session);
+        return LogicAdminPanel.getInstance().resetDatabaseShop(session);
     }
 
     @POST
     @Path("interface")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response setLevel(@HeaderParam("sessionid") String session, @DefaultValue("1") @QueryParam("level") int level){
-        return LogicAdminPanel.setLevel(session, level);
+        return LogicAdminPanel.getInstance().setLevel(session, level);
     }
 
     @DELETE
     @Path("interface")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response resetDatabaseRanking(@HeaderParam("sessionid") String session){
-        return LogicAdminPanel.resetDatabaseRanking(session);
+        return LogicAdminPanel.getInstance().resetDatabaseRanking(session);
     }
 }

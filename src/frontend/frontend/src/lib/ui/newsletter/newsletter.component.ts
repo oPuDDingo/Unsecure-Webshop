@@ -1,6 +1,8 @@
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
 import {UserStore} from "../../data-access/service/store/user.store";
+import {Contact} from "../../data-access/models";
+import {Nletter} from "../../data-access/models/nletter";
 
 @Component({
   selector: 'newsletter',
@@ -9,6 +11,8 @@ import {UserStore} from "../../data-access/service/store/user.store";
 })
 export class NewsletterComponent{// implements OnInit{
   modalRef?: BsModalRef;
+
+  nletter: Nletter = {email: ''};
 
   // @ts-ignore
   //@ViewChild('newsletter') newsletterModal: TemplateRef<any>;
@@ -23,8 +27,7 @@ export class NewsletterComponent{// implements OnInit{
 
 
   onSubscribeToNewsletter(): void {
-    this.modalRef?.hide();
-    this.userStore.subscribeNewsletter();
+    this.userStore.subscribeNewsletter(this.nletter).subscribe(() => this.modalRef?.hide());
   }
 
 
