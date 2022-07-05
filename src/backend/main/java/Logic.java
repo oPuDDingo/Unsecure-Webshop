@@ -21,7 +21,7 @@ public class Logic
 		AuthorizationType session = Database.checkAuthData(mail, password);
 		if ( session == AuthorizationType.FALSE_PASSWORD || session == AuthorizationType.FALSE_USER )
 		{
-			if ( LogicAdminPanel.level < 2 )
+			if ( LogicAdminPanel.getInstance().level < 2 )
 			{
 				if ( session == AuthorizationType.FALSE_PASSWORD )
 					throw new WebApplicationException( Response.status( Response.Status.BAD_REQUEST ).entity( "Das " +
