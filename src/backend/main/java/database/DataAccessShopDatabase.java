@@ -121,8 +121,8 @@ public class DataAccessShopDatabase {
         try (Connection con = this.createConnection();
              Statement stmt = con.createStatement()){
             String sql = "UPDATE address " +
-                " SET(street_house_number='" + address.getAddress() + "', postcode= '" + address.getZipCode() + "', address=supplement='" + address.getAddress2() + "', city='" + address.getCity() + "', country='" + address.getCountry()
-                + "', name='" + address.getName() + "', delivery_instruction='" + address.getDeliveryInstructions() + "' WHERE id=" + address.getId() +"AND"+"user_id="+userId+";";
+                " SET(street_house_number='" + address.getAddress() + "', postcode='" + address.getZipCode() + "', address=supplement='" + address.getAddress2() + "', city='" + address.getCity() + "', country='" + address.getCountry()
+                + "', name='" + address.getName() + "', delivery_instruction='" + address.getDeliveryInstructions() + "' WHERE id=" + address.getId() +" AND "+"user_id="+userId+";";
             stmt.execute(sql);
             addressRet = this.getAddress(address.getId());
         } catch (SQLException e) {
