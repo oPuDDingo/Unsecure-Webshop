@@ -30,13 +30,10 @@ export class AuthenticationService {
     private wishlistStore: WishlistStore,
     private cookieService: CookieService
   ) {
-    console.log("Konstruktor authenticationService")
-    if (this.cookieService.get("sessionKey") != null) {
+    if (this.cookieService.check("sessionKey")) {
       this.statusSubject.next(true);
-      console.log("Neuer statusSubject.next true");
     } else {
       this.statusSubject.next(false);
-      console.log("Neuer statusSubject.next false");
     }
   }
 
@@ -46,9 +43,7 @@ export class AuthenticationService {
     }).pipe(
       map(sessionKey => {
         this.cookieService.set("sessionKey", sessionKey);
-        console.log("Session key gesetzt")
         this.backendService.header = new HttpHeaders({'sessionid': sessionKey, 'ipaddress': this.backendService.ip});
-        console.log("Header updated");
         this.statusSubject.next(true);
         this.userType = UserTypes.User;
         return true;
@@ -82,7 +77,6 @@ export class AuthenticationService {
     }).pipe(
       map(sessionKey => {
         if (this.cookieService != undefined) {
-          let sessionCookie: any = {name: 'sessionKey', value: 'red'};
           this.cookieService.set("sessionKey", sessionKey);
         }
         this.backendService.header = new HttpHeaders({'sessionid': sessionKey, 'ipaddress': this.backendService.ip});
