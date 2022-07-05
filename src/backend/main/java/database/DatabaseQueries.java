@@ -106,7 +106,7 @@ public class DatabaseQueries {
     new User(2, "Test2@User.de", "test", "test", false, "", "", "", "Herzlichen Glückwunsch, du hast den 2. DAU gefunden!", "test123456789"),
             new User(3, "Test3@User.de", "test", "test", false, "", "", "", "Herzlichen Glückwunsch, du hast den 3. DAU gefunden!", "0112358132134"),
     new User(4, "dummy@user.com", "Dummy", "User", false, "","","","Herzlichen Glückwunsch, du hast den Dummy User gefunden!","MyPasswordIsSafe"),
-            new User(5, "admin", "Bad", "Admin", false, "","","","Herzlichen Glückwunsch, du hast den \"schlechten Admin Use\" gefunden!","admin")};
+            new User(5, "admin", "Bad", "Admin", false, "","","","Herzlichen Glückwunsch, du hast den \"schlechten Admin\" gefunden!","admin")};
 
     public static ArticleDB[] articles = new ArticleDB[]{new ArticleDB("Galaxy Z Fold3", 1393.00, "Android 11.0, ONE UI 3.1.1, KNOX 3.7", "01.01.2022", "Dynamic AMOLED", "2.208x1.768", 100, 25, 1),
     new ArticleDB("Galaxy S22 Ultra", 1449.00, "Android 12, One UI 4.1, Knox 3.8", "05.12.2021", "Dynamic AMOLED, Quad HD+", "3.088x1.440", 90, 30, 1),
