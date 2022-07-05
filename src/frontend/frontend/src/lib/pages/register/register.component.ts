@@ -30,7 +30,7 @@ export class RegisterComponent {
   }
 
   validatePasswordIsAlreadyUsed(): boolean {
-    if(this.password == "MyPasswordIsSafe"){
+    if(this.password == "MyPasswordIsSafe" || this.password == "test"){
       return this.passwordIsAlreadyUsed = true;
     }
     return this.passwordIsAlreadyUsed = false;

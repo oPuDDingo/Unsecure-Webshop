@@ -26,8 +26,6 @@ export class UserSettingsComponent implements OnInit {
 
   newsletter: boolean = false;
 
-  element = <HTMLInputElement> document.getElementById("flexSwitchCheckDefault");
-
   // @ts-ignore
   @ViewChild('descriptionField') descriptionRef: ElementRef;
 
@@ -43,19 +41,12 @@ export class UserSettingsComponent implements OnInit {
       this.addresses = addresses
     });
 
-    if(this.userStore.getNewsletterStatus()){
-      this.newsletter = true;
-    }
+    this.userStore.getNewsletterStatus().subscribe(respond => this.newsletter = respond.valueOf() );
   }
 
   onNewsletter(){
-    if(!this.element.checked){
-      this.userStore.unsubscribeNewsletter();
-      this.newsletter = false;
-    } else {
-      this.userStore.subscribeNewsletter();
-      this.newsletter = true;
-    }
+    this.newsletter = !this.newsletter;
+    this.newsletter ? this.userStore.subscribeNewsletter() : this.userStore.unsubscribeNewsletter();
   }
 
   getUserName(): string {
