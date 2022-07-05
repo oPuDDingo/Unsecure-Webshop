@@ -36,8 +36,6 @@ public class DataAccessShopDatabase {
             for (String sql : DatabaseQueries.createDatabase) {
                 stmt.execute(sql);
             }
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -51,8 +49,6 @@ public class DataAccessShopDatabase {
             for (String sql : DatabaseQueries.deleteDatabase) {
                 stmt.execute(sql);
             }
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -72,8 +68,6 @@ public class DataAccessShopDatabase {
             stmt.execute(sql);
             int commentId = stmt.getGeneratedKeys().getInt(1);
             commentaryRet = this.getCommentary(commentId);
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -81,7 +75,6 @@ public class DataAccessShopDatabase {
     }
 
     public Commentary getCommentary(int id) {
-
         Commentary commentary = null;
         try (Connection con = this.createConnection();
              Statement stmt = con.createStatement()){
@@ -91,6 +84,7 @@ public class DataAccessShopDatabase {
                 commentary = new Commentary(rs.getInt("id"), rs.getString("comment_text"), rs.getInt("user_id"),
                     rs.getString("firstname"), rs.getString("lastname"), rs.getString("profile_picture"));
             }
+            rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -102,7 +96,6 @@ public class DataAccessShopDatabase {
                 || this.checkForInjection(user.getSalutation())|| this.checkForInjection(user.getTitle()) || this.checkForInjection(user.getProfilePicture())){
             return null;
         }
-
         int newsletter = user.isNewsletter() ? 1 : 0;
         try (Connection con = this.createConnection();
              Statement stmt = con.createStatement()){
@@ -112,8 +105,6 @@ public class DataAccessShopDatabase {
             stmt.execute(sql);
             int userId = stmt.getGeneratedKeys().getInt(1);
             user.setId(userId);
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -134,9 +125,6 @@ public class DataAccessShopDatabase {
                 + "', name='" + address.getName() + "', delivery_instruction='" + address.getDeliveryInstructions() + "' WHERE id=" + address.getId() +"AND"+"user_id="+userId+";";
             stmt.execute(sql);
             addressRet = this.getAddress(address.getId());
-            stmt.close();
-            con.close();
-
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
@@ -159,8 +147,6 @@ public class DataAccessShopDatabase {
             stmt.execute(sql);
             int addressId = stmt.getGeneratedKeys().getInt(1);
             addressRet = this.getAddress(addressId);
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -173,8 +159,6 @@ public class DataAccessShopDatabase {
              Statement stmt = con.createStatement()) {
             String sql = "UPDATE user SET newsletter=1 WHERE id=" + userId + ";";
             stmt.execute(sql);
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -186,8 +170,6 @@ public class DataAccessShopDatabase {
 
             String sql = "UPDATE user SET newsletter=0 WHERE id=" + userId + ";";
             stmt.execute(sql);
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -199,8 +181,6 @@ public class DataAccessShopDatabase {
 
             String sql = "UPDATE address SET user_id=-1 WHERE id=" + addressId + "AND"+"user_id="+userId+";";
             stmt.execute(sql);
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -211,8 +191,6 @@ public class DataAccessShopDatabase {
              Statement stmt = con.createStatement()){
             String sql = "DELETE FROM wish_list WHERE user_id=" + userId + ";";
             stmt.execute(sql);
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -224,8 +202,6 @@ public class DataAccessShopDatabase {
              Statement stmt = con.createStatement()){
             String sql = "DELETE FROM wish_list WHERE id=" + wishListItemId + ";";
             stmt.execute(sql);
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -236,8 +212,6 @@ public class DataAccessShopDatabase {
              Statement stmt = con.createStatement()){
             String sql = "DELETE FROM shopping_cart WHERE id=" + shoppingCartItemId + ";";
             stmt.execute(sql);
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -255,12 +229,10 @@ public class DataAccessShopDatabase {
                 "salutation='" + user.getSalutation() + "', e_mail='" + user.getMail() + "', profile_picture='" + user.getProfilePicture() + "', description='" + user.getDescription() + "' " + "WHERE id=" + userId + ";";
             stmt.execute(sql);
             userRet = this.getUserInformation(userId);
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return user;
+        return userRet;
     }
 
     public void putPassword(String password, int userId) {
@@ -272,8 +244,6 @@ public class DataAccessShopDatabase {
              Statement stmt = con.createStatement()){
             String sql = "UPDATE user SET password='" + hash + "' WHERE id=" + userId + ";";
             stmt.execute(sql);
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -287,8 +257,6 @@ public class DataAccessShopDatabase {
                 "VALUES(" + articleVersion.getQuantity() + ", " + userId + ", " + articleVersionId + ");";
             stmt.execute(sql);
             articleVersion.setId(stmt.getGeneratedKeys().getInt(1));
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -303,8 +271,6 @@ public class DataAccessShopDatabase {
                 "VALUES(" + articleVersion.getQuantity() + ", " + userId + ", " + articleVersionId + ");";
             stmt.execute(sql);
             articleVersion.setId(stmt.getGeneratedKeys().getInt(1));
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -317,8 +283,6 @@ public class DataAccessShopDatabase {
              Statement stmt = con.createStatement()){
             String sql = "UPDATE wish_list SET quantity=" + articleVersion.getQuantity() + ", article_version_id=" + articleVersionId + " WHERE id=" + articleVersion.getId() + ";";
             stmt.execute(sql);
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -331,8 +295,6 @@ public class DataAccessShopDatabase {
              Statement stmt = con.createStatement()){
             String sql = "UPDATE shopping_cart SET quantity=" + articleVersion.getQuantity() + ", article_version_id=" + articleVersionId + " WHERE id=" + articleVersion.getId() + ";";
             stmt.execute(sql);
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -351,8 +313,6 @@ public class DataAccessShopDatabase {
                     rs.getString("title"), rs.getString("profile_picture"), rs.getString("description"));
             }
             rs.close();
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -371,8 +331,6 @@ public class DataAccessShopDatabase {
                         rs.getString("title"), rs.getString("profile_picture"), rs.getString("description"));
             }
             rs.close();
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -387,8 +345,6 @@ public class DataAccessShopDatabase {
             ResultSet rs = stmt.executeQuery(sql);
             address = new Address(addressId, rs.getString("name"), rs.getString("country"), rs.getString("street_house_number"), rs.getString("address_suplement"), rs.getString("postcode"), rs.getString("city"), rs.getString("delivery_instruction"));
             rs.close();
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -403,8 +359,6 @@ public class DataAccessShopDatabase {
             ResultSet rs = stmt.executeQuery(sql);
             payment = new Payment(rs.getString("iban"), rs.getString("bic"), rs.getString("account_owner"));
             rs.close();
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -424,8 +378,6 @@ public class DataAccessShopDatabase {
             stmt.execute(sql);
             orderId = stmt.getGeneratedKeys().getInt(1);
             order.setOrderNumber(orderId);
-            stmt.close();
-            con.close();
             for (ArticleVersion articleVersion : order.getSpecifiedItems()) {
                 this.postOrderItem(articleVersion, orderId);
             }
@@ -447,8 +399,6 @@ public class DataAccessShopDatabase {
              Statement stmt = con.createStatement()) {
             String sql = "INSERT INTO sales_order(iban, bic, account_owner) VALUES('" + payment.getIban() + "', '" + payment.getBic() + "','" + payment.getAccountHolder() + "');";
             stmt.execute(sql);
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -459,8 +409,6 @@ public class DataAccessShopDatabase {
              Statement stmt = con.createStatement()) {
             String sql = "DELETE FROM shopping_cart WHERE user_id=" + userId + ";";
             stmt.execute(sql);
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -478,8 +426,7 @@ public class DataAccessShopDatabase {
             } else {
                 return null;
             }
-            stmt.close();
-            con.close();
+            rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -500,8 +447,6 @@ public class DataAccessShopDatabase {
             }
 
             rs.close();
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -521,8 +466,6 @@ public class DataAccessShopDatabase {
                 articleVersionList.add(articleVersion);
             }
             rs.close();
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -543,8 +486,6 @@ public class DataAccessShopDatabase {
 
             }
             rs.close();
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -562,8 +503,6 @@ public class DataAccessShopDatabase {
             }
             order.setSpecifiedItems(this.getOrderItems(orderId));
             rs.close();
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -598,8 +537,7 @@ public class DataAccessShopDatabase {
                 rightPassword = rs.getString("password");
                 auth = AuthorizationType.FALSE_PASSWORD;
             }
-            stmt.close();
-            con.close();
+            rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -620,8 +558,6 @@ public class DataAccessShopDatabase {
                 userid = rs.getInt("id");
             }
             rs.close();
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -637,6 +573,7 @@ public class DataAccessShopDatabase {
             while (rs.next()) {
                 orders.add(this.getOrder(rs.getInt("id")));
             }
+            rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -674,6 +611,7 @@ public class DataAccessShopDatabase {
                     articles.add(this.getArticle(rs.getInt("articleId")));
                     fromId++;
                 }
+                rs.close();
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -691,8 +629,6 @@ public class DataAccessShopDatabase {
                 base = rs.getString("picture");
             }
             rs.close();
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -709,8 +645,6 @@ public class DataAccessShopDatabase {
                 addresses.add(this.getAddress(rs.getInt("id")));
             }
             rs.close();
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -723,8 +657,6 @@ public class DataAccessShopDatabase {
              Statement stmt = con.createStatement()){
             String sql = "INSERT INTO session(key, ip_address, user_id) VALUES('" + session + "','" + ipAddress + "', " + userId + ");";
             stmt.execute(sql);
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -735,8 +667,6 @@ public class DataAccessShopDatabase {
              Statement stmt = con.createStatement()){
             String sql="DELETE FROM session WHERE key='"+session+"';";
             stmt.execute(sql);
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -752,8 +682,6 @@ public class DataAccessShopDatabase {
                 password=rs.getString("password");
             }
             rs.close();
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -770,8 +698,6 @@ public class DataAccessShopDatabase {
                 newsletter = rs.getBoolean("newsletter");
             }
             rs.close();
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -798,8 +724,6 @@ public class DataAccessShopDatabase {
                 real = rs.getBoolean("real_user");
             }
             rs.close();
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -814,8 +738,6 @@ public class DataAccessShopDatabase {
             ResultSet rs = stmt.executeQuery(sql);
             articleVersionId = rs.getInt("id");
             rs.close();
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -829,8 +751,6 @@ public class DataAccessShopDatabase {
             String sql = "INSERT INTO sales_order_article_version(quantity, sales_order_id, article_version_id) " +
                 "VALUES(" + articleVersion.getQuantity() + ", " + orderId + ", " + articleVersionId + ");";
             stmt.execute(sql);
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -846,8 +766,6 @@ public class DataAccessShopDatabase {
                 pictureIds.add(rs.getInt("id"));
             }
             rs.close();
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -865,8 +783,6 @@ public class DataAccessShopDatabase {
                 comments.add(new Commentary(rs.getInt("commentId"), rs.getString("comment_text"), rs.getInt("userId"), rs.getString("firstname"), rs.getString("lastname"), rs.getString("profile_picture")));
             }
             rs.close();
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -883,8 +799,6 @@ public class DataAccessShopDatabase {
                 userId = rs.getInt("id");
             }
             rs.close();
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -902,8 +816,6 @@ public class DataAccessShopDatabase {
                 articleVersion = new ArticleVersion(-1, rs.getInt("article_id"), rs.getInt("quantity"), rs.getInt("gb_size"), rs.getString("color"), article.getModelName(), article.getAmount(), this.getPictureIds(article.getArticleNumber()).get(0));
             }
             rs.close();
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -922,8 +834,6 @@ public class DataAccessShopDatabase {
                 articleVersionList.add(articleVersion);
             }
             rs.close();
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -936,8 +846,6 @@ public class DataAccessShopDatabase {
             for (String sql : DatabaseQueries.brands) {
                 stmt.execute("INSERT INTO brand(name) VALUES('" + sql + "');");
             }
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -951,8 +859,6 @@ public class DataAccessShopDatabase {
                     "VALUES('" + u.getMail() + "', '" + u.getFirstName() + "', '" + u.getLastName() + "', '" + this.encryptPasswordDummyUser(u.getPassword()) + "', " + u.isNewsletter() + ",'" +
                     u.getSalutation() + "', '" + u.getTitle() + "', '" + u.getProfilePicture() + "', " + false + ",'" + u.getDescription() + "');");
             }
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -967,8 +873,6 @@ public class DataAccessShopDatabase {
                     "VALUES('" + article.getModelName() + "', " + article.getPrice() + ", '" + article.getOperatingSystem() + "', '" + article.getReleaseDate() + "', '" + article.getScreen() + "','" +
                     article.getResolution() + "', " + article.getValuation_sum() + ", " + article.getNumber_of_valuation() + ", " + article.getBrand_id() + ");");
             }
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -990,8 +894,6 @@ public class DataAccessShopDatabase {
                 }
             }
             rs.close();
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
