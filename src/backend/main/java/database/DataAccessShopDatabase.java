@@ -31,15 +31,11 @@ public class DataAccessShopDatabase {
     }
 
     private void createDatabase() {
-        Connection con = this.createConnection();
-        Statement stmt = null;
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
             for (String sql : DatabaseQueries.createDatabase) {
                 stmt.execute(sql);
             }
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -48,16 +44,11 @@ public class DataAccessShopDatabase {
     }
 
     private void deleteDatabase() {
-        // toDo: optimize
-        Connection con = this.createConnection();
-        Statement stmt = null;
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()) {
             for (String sql : DatabaseQueries.deleteDatabase) {
                 stmt.execute(sql);
             }
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -68,18 +59,15 @@ public class DataAccessShopDatabase {
                 this.checkForInjection(comment.getLastName())|| this.checkForInjection(comment.getProfilePicture())){
            return new Commentary();
         }
-        Connection con = this.createConnection();
-        Statement stmt = null;
         Commentary commentaryRet = null;
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
+
             String sql = "INSERT INTO comment(comment_text, article_id, user_id) " +
                 "VALUES('" + comment.getCommentText() + "', " + articleId + ", " + userId + ");";
             stmt.execute(sql);
             int commentId = stmt.getGeneratedKeys().getInt(1);
             commentaryRet = this.getCommentary(commentId);
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -87,17 +75,16 @@ public class DataAccessShopDatabase {
     }
 
     public Commentary getCommentary(int id) {
-        Connection con = this.createConnection();
-        Statement stmt = null;
         Commentary commentary = null;
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
             String sql = "SELECT * FROM comment INNER JOIN user on user.id=comment.user_id WHERE id=" + id + ";";
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
                 commentary = new Commentary(rs.getInt("id"), rs.getString("comment_text"), rs.getInt("user_id"),
                     rs.getString("firstname"), rs.getString("lastname"), rs.getString("profile_picture"));
             }
+            rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -109,18 +96,15 @@ public class DataAccessShopDatabase {
                 || this.checkForInjection(user.getSalutation())|| this.checkForInjection(user.getTitle()) || this.checkForInjection(user.getProfilePicture())){
             return null;
         }
-        Connection con = this.createConnection();
-        Statement stmt = null;
         int newsletter = user.isNewsletter() ? 1 : 0;
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
+
             String sql = "INSERT INTO User(e_mail, firstname, lastname, password,real_user) " +
                 "VALUES('" + user.getMail() + "', '" + user.getFirstName() + "', '" + user.getLastName() + "', '" + this.encryptPasswordRealUser(user.getPassword()) + "'," + 1 + ");";
             stmt.execute(sql);
             int userId = stmt.getGeneratedKeys().getInt(1);
             user.setId(userId);
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -133,19 +117,14 @@ public class DataAccessShopDatabase {
                 this.checkForInjection(address.getDeliveryInstructions())){
             return null;
         }
-        Connection con = this.createConnection();
-        Statement stmt = null;
         Address addressRet = null;
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
             String sql = "UPDATE address " +
                 " SET(street_house_number='" + address.getAddress() + "', postcode= '" + address.getZipCode() + "', address=supplement='" + address.getAddress2() + "', city='" + address.getCity() + "', country='" + address.getCountry()
                 + "', name='" + address.getName() + "', delivery_instruction='" + address.getDeliveryInstructions() + "' WHERE id=" + address.getId() +"AND"+"user_id="+userId+";";
             stmt.execute(sql);
             addressRet = this.getAddress(address.getId());
-            stmt.close();
-            con.close();
-
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
@@ -159,19 +138,15 @@ public class DataAccessShopDatabase {
                 this.checkForInjection(address.getDeliveryInstructions())){
             return null;
         }
-        Connection con = this.createConnection();
-        Statement stmt = null;
         Address addressRet = null;
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()) {
             String sql = "INSERT INTO address(street_house_number, postcode, address_suplement, city, country, name, delivery_instruction, user_id)" +
                 "VALUES('" + address.getAddress() + "', '" + address.getZipCode() + "', '" + address.getAddress2() + "', '" + address.getCity() + "', '" + address.getCountry()
                 + "', '" + address.getName() + "', '" + address.getDeliveryInstructions() + "', '" + userId+ "');";
             stmt.execute(sql);
             int addressId = stmt.getGeneratedKeys().getInt(1);
             addressRet = this.getAddress(addressId);
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -179,84 +154,64 @@ public class DataAccessShopDatabase {
     }
 
     public void postNewsletter(int userId) {
-        Connection con = this.createConnection();
-        Statement stmt = null;
-        try {
-            stmt = con.createStatement();
+
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()) {
             String sql = "UPDATE user SET newsletter=1 WHERE id=" + userId + ";";
             stmt.execute(sql);
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     public void deleteNewsletter(int userId) {
-        Connection con = this.createConnection();
-        Statement stmt = null;
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
+
             String sql = "UPDATE user SET newsletter=0 WHERE id=" + userId + ";";
             stmt.execute(sql);
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     public void deleteAddress(int addressId, int userId) {
-        Connection con = this.createConnection();
-        Statement stmt = null;
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
+
             String sql = "UPDATE address SET user_id=-1 WHERE id=" + addressId + "AND"+"user_id="+userId+";";
             stmt.execute(sql);
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     public void deleteWishList(int userId) {
-        Connection con = this.createConnection();
-        Statement stmt = null;
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
             String sql = "DELETE FROM wish_list WHERE user_id=" + userId + ";";
             stmt.execute(sql);
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     public void deleteWishListItem(int wishListItemId) {
-        Connection con = this.createConnection();
-        Statement stmt = null;
-        try {
-            stmt = con.createStatement();
+
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
             String sql = "DELETE FROM wish_list WHERE id=" + wishListItemId + ";";
             stmt.execute(sql);
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     public void deleteShoppingCartItem(int shoppingCartItemId) {
-        Connection con = this.createConnection();
-        Statement stmt = null;
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
             String sql = "DELETE FROM shopping_cart WHERE id=" + shoppingCartItemId + ";";
             stmt.execute(sql);
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -267,53 +222,41 @@ public class DataAccessShopDatabase {
                 || this.checkForInjection(user.getSalutation())|| this.checkForInjection(user.getTitle()) || this.checkForInjection(user.getProfilePicture())){
             return null;
         }
-        Connection con = this.createConnection();
-        Statement stmt = null;
         User userRet = null;
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
             String sql = "UPDATE user SET firstname='" + user.getFirstName() + "', lastname='" + user.getLastName() + "', title='" + user.getTitle() + "', " +
                 "salutation='" + user.getSalutation() + "', e_mail='" + user.getMail() + "', profile_picture='" + user.getProfilePicture() + "', description='" + user.getDescription() + "' " + "WHERE id=" + userId + ";";
             stmt.execute(sql);
             userRet = this.getUserInformation(userId);
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return user;
+        return userRet;
     }
 
     public void putPassword(String password, int userId) {
-        Connection con = this.createConnection();
-        Statement stmt = null;
         String hash = this.encryptPasswordRealUser(password);
         if (!this.isRealUser(userId)) {
             return;
         }
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
             String sql = "UPDATE user SET password='" + hash + "' WHERE id=" + userId + ";";
             stmt.execute(sql);
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     public ArticleVersion postWishListItem(ArticleVersion articleVersion, int userId) {
-        Connection con = this.createConnection();
-        Statement stmt = null;
         int articleVersionId = this.findArticleVersionId(articleVersion.getArticleNumber(), articleVersion.getGbSize(), articleVersion.getColor());
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()) {
             String sql = "INSERT INTO wish_list(quantity, user_id, article_version_id) " +
                 "VALUES(" + articleVersion.getQuantity() + ", " + userId + ", " + articleVersionId + ");";
             stmt.execute(sql);
             articleVersion.setId(stmt.getGeneratedKeys().getInt(1));
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -321,17 +264,13 @@ public class DataAccessShopDatabase {
     }
 
     public ArticleVersion postShoppingCartItem(ArticleVersion articleVersion, int userId) {
-        Connection con = this.createConnection();
-        Statement stmt = null;
         int articleVersionId = this.findArticleVersionId(articleVersion.getArticleNumber(), articleVersion.getGbSize(), articleVersion.getColor());
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
             String sql = "INSERT INTO shopping_cart(quantity, user_id, article_version_id) " +
                 "VALUES(" + articleVersion.getQuantity() + ", " + userId + ", " + articleVersionId + ");";
             stmt.execute(sql);
             articleVersion.setId(stmt.getGeneratedKeys().getInt(1));
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -339,15 +278,11 @@ public class DataAccessShopDatabase {
     }
 
     public ArticleVersion putWishListItem(ArticleVersion articleVersion) {
-        Connection con = this.createConnection();
-        Statement stmt = null;
         int articleVersionId = this.findArticleVersionId(articleVersion.getArticleNumber(), articleVersion.getGbSize(), articleVersion.getColor());
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
             String sql = "UPDATE wish_list SET quantity=" + articleVersion.getQuantity() + ", article_version_id=" + articleVersionId + " WHERE id=" + articleVersion.getId() + ";";
             stmt.execute(sql);
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -355,15 +290,11 @@ public class DataAccessShopDatabase {
     }
 
     public ArticleVersion putShoppingCartItem(ArticleVersion articleVersion) {
-        Connection con = this.createConnection();
-        Statement stmt = null;
         int articleVersionId = this.findArticleVersionId(articleVersion.getArticleNumber(), articleVersion.getGbSize(), articleVersion.getColor());
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
             String sql = "UPDATE shopping_cart SET quantity=" + articleVersion.getQuantity() + ", article_version_id=" + articleVersionId + " WHERE id=" + articleVersion.getId() + ";";
             stmt.execute(sql);
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -371,11 +302,9 @@ public class DataAccessShopDatabase {
     }
 
     public User getUserInformation(int userId) {
-        Connection con = this.createConnection();
-        Statement stmt = null;
         User user = null;
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
             String sql = "SELECT id, e_mail, firstname, lastname, newsletter, salutation, title, profile_picture, description FROM user WHERE id=" + userId + ";";
             System.out.println(sql);
             ResultSet rs = stmt.executeQuery(sql);
@@ -384,8 +313,6 @@ public class DataAccessShopDatabase {
                     rs.getString("title"), rs.getString("profile_picture"), rs.getString("description"));
             }
             rs.close();
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -393,11 +320,9 @@ public class DataAccessShopDatabase {
     }
 
     public UserVulnerability getUserInformationVulnerability(int userId) {
-        Connection con = this.createConnection();
-        Statement stmt = null;
         UserVulnerability user = null;
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
             String sql = "SELECT id, e_mail, firstname, lastname, newsletter, salutation, title, profile_picture, description FROM user WHERE id=" + userId + ";";
             System.out.println(sql);
             ResultSet rs = stmt.executeQuery(sql);
@@ -406,26 +331,20 @@ public class DataAccessShopDatabase {
                         rs.getString("title"), rs.getString("profile_picture"), rs.getString("description"));
             }
             rs.close();
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return user;
     }
 
-    public Address getAddress(int addressId) { //nicht fertig
-        Connection con = this.createConnection();
-        Statement stmt = null;
+    public Address getAddress(int addressId) {
         Address address = null;
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()) {
             String sql = "SELECT id, name, street_house_number, address_suplement, postcode, city, country, delivery_instruction FROM address WHERE id=" + addressId;
             ResultSet rs = stmt.executeQuery(sql);
             address = new Address(addressId, rs.getString("name"), rs.getString("country"), rs.getString("street_house_number"), rs.getString("address_suplement"), rs.getString("postcode"), rs.getString("city"), rs.getString("delivery_instruction"));
             rs.close();
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -433,17 +352,13 @@ public class DataAccessShopDatabase {
     }
 
     public Payment getPayment(int orderId) {
-        Connection con = this.createConnection();
-        Statement stmt = null;
         Payment payment = null;
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
             String sql = "SELECT iban, bic, account_owner FROM sales_order WHERE id=" + orderId + ";";
             ResultSet rs = stmt.executeQuery(sql);
             payment = new Payment(rs.getString("iban"), rs.getString("bic"), rs.getString("account_owner"));
             rs.close();
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -454,19 +369,15 @@ public class DataAccessShopDatabase {
         if(this.checkForInjection(order.getPayment().getBic()) || this.checkForInjection(order.getPayment().getIban()) || this.checkForInjection(order.getPayment().getAccountHolder())){
             return null;
         }
-        Connection con = this.createConnection();
-        Statement stmt = null;
         int orderId = -1;
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
             String sql = "INSERT INTO sales_order(order_date, amount, iban, bic, account_owner, user_id, address_id) " +
                 "VALUES('" + order.getDate() + "', " + order.getAmount() + ", '" + order.getPayment().getIban() + "', '" + order.getPayment().getBic() + "', '" + order.getPayment().getAccountHolder() +
                 "', " + userId + ", " + order.getAddress().getId() + ");";
             stmt.execute(sql);
             orderId = stmt.getGeneratedKeys().getInt(1);
             order.setOrderNumber(orderId);
-            stmt.close();
-            con.close();
             for (ArticleVersion articleVersion : order.getSpecifiedItems()) {
                 this.postOrderItem(articleVersion, orderId);
             }
@@ -484,39 +395,29 @@ public class DataAccessShopDatabase {
         if(this.checkForInjection(payment.getBic()) || this.checkForInjection(payment.getIban()) || this.checkForInjection(payment.getAccountHolder())){
             return;
         }
-        Connection con = this.createConnection();
-        Statement stmt = null;
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()) {
             String sql = "INSERT INTO sales_order(iban, bic, account_owner) VALUES('" + payment.getIban() + "', '" + payment.getBic() + "','" + payment.getAccountHolder() + "');";
             stmt.execute(sql);
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     public void deleteShoppingCart(int userId) {
-        Connection con = this.createConnection();
-        Statement stmt = null;
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()) {
             String sql = "DELETE FROM shopping_cart WHERE user_id=" + userId + ";";
             stmt.execute(sql);
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     public Article getArticle(int articleId) {
-        Connection con = this.createConnection();
-        Statement stmt = null;
         Article article = null;
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
             String sql = "SELECT article.id, model_name, price, operating_system, release_date, screen, resolution, valuation_sum, number_of_valuation, name FROM article INNER JOIN brand ON brand.id=article.brand_id WHERE article.id=" + articleId + ";";
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
@@ -525,8 +426,7 @@ public class DataAccessShopDatabase {
             } else {
                 return null;
             }
-            stmt.close();
-            con.close();
+            rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -537,11 +437,9 @@ public class DataAccessShopDatabase {
         if(this.checkForInjection(couponName)){
           return null;
         }
-        Connection con = this.createConnection();
-        Statement stmt = null;
         Coupon coupon = null;
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
             String sql = "SELECT * FROM coupon WHERE code='" + couponName + "';";
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
@@ -549,8 +447,6 @@ public class DataAccessShopDatabase {
             }
 
             rs.close();
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -558,11 +454,9 @@ public class DataAccessShopDatabase {
     }
 
     public List<ArticleVersion> getWishlist(int userId) {
-        Connection con = this.createConnection();
-        Statement stmt = null;
         ArrayList<ArticleVersion> articleVersionList = new ArrayList<>();
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
             String sql = "SELECT id, quantity, article_version_id FROM wish_list WHERE user_Id=" + userId + ";";
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
@@ -572,8 +466,6 @@ public class DataAccessShopDatabase {
                 articleVersionList.add(articleVersion);
             }
             rs.close();
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -581,11 +473,9 @@ public class DataAccessShopDatabase {
     }
 
     public List<ArticleVersion> getShoppingCart(int userId) {
-        Connection con = this.createConnection();
-        Statement stmt = null;
         ArrayList<ArticleVersion> articleVersionList = new ArrayList<>();
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
             String sql = "SELECT id, quantity, article_version_id FROM shopping_cart WHERE user_id=" + userId + ";";
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
@@ -596,8 +486,6 @@ public class DataAccessShopDatabase {
 
             }
             rs.close();
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -605,11 +493,9 @@ public class DataAccessShopDatabase {
     }
 
     public Order getOrder(int orderId) {
-        Connection con = this.createConnection();
-        Statement stmt = null;
         Order order = null;
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
             String sql = "SELECT * FROM sales_order WHERE id=" + orderId + ";";
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
@@ -617,8 +503,6 @@ public class DataAccessShopDatabase {
             }
             order.setSpecifiedItems(this.getOrderItems(orderId));
             rs.close();
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -629,9 +513,6 @@ public class DataAccessShopDatabase {
         if(this.checkForInjection(email)){
             return AuthorizationType.FALSE_USER;
         }
-        // toDo: check
-        Connection con = this.createConnection();
-        Statement stmt = null;
         String hash = "";
         String rightPassword = "";
         int userId;
@@ -648,16 +529,15 @@ public class DataAccessShopDatabase {
             }
             hash = this.encryptPasswordDummyUser(password);
         }
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
             String sql = "SELECT password FROM user WHERE e_mail='" + email + "';";
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
                 rightPassword = rs.getString("password");
                 auth = AuthorizationType.FALSE_PASSWORD;
             }
-            stmt.close();
-            con.close();
+            rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -669,19 +549,15 @@ public class DataAccessShopDatabase {
     }
 
     public int getUserId(String sessionKey) {
-        Connection con = this.createConnection();
-        Statement stmt = null;
         int userid = -1;
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
             String sql = "SELECT user.id FROM user INNER JOIN session ON user.id = session.user_id WHERE session.key='" + sessionKey + "';";
             ResultSet rs = stmt.executeQuery(sql);
             if(rs.next()){
                 userid = rs.getInt("id");
             }
             rs.close();
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -689,16 +565,15 @@ public class DataAccessShopDatabase {
     }
 
     public List<Order> getOrders(int userId) {
-        Connection con = this.createConnection();
-        Statement stmt = null;
         List<Order> orders = new ArrayList<>();
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
             String sql = "SELECT id FROM sales_order WHERE user_id=" + userId + ";";
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 orders.add(this.getOrder(rs.getInt("id")));
             }
+            rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -709,16 +584,14 @@ public class DataAccessShopDatabase {
         if(this.checkForInjection(search)){
             return new ArrayList<Article>();
         }
-        Connection con = this.createConnection();
-        Statement stmt = null;
         if(page==0){
             page=1;
         }
         List<Article> articles = new ArrayList<>();
         int toId = page * 9;
         int fromId = toId - 8;
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
             if (search.equals("")) {
                 while (fromId <= toId) {
                     Article article = this.getArticle(fromId);
@@ -738,6 +611,7 @@ public class DataAccessShopDatabase {
                     articles.add(this.getArticle(rs.getInt("articleId")));
                     fromId++;
                 }
+                rs.close();
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -746,19 +620,15 @@ public class DataAccessShopDatabase {
     }
 
     public String getPicture(int id) {
-        Connection con = this.createConnection();
-        Statement stmt = null;
         String base = "";
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
             String sql = "SELECT picture FROM picture WHERE id=" + id + ";";
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
                 base = rs.getString("picture");
             }
             rs.close();
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -766,19 +636,15 @@ public class DataAccessShopDatabase {
     }
 
     public List<Address> getAddresses(int userId) {
-        Connection con = this.createConnection();
-        Statement stmt = null;
         List<Address> addresses = new ArrayList<Address>();
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
             String sql = "SELECT id FROM address WHERE user_id=" + userId + ";";
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 addresses.add(this.getAddress(rs.getInt("id")));
             }
             rs.close();
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -786,48 +652,36 @@ public class DataAccessShopDatabase {
     }
 
     public void postSession(String session, String email, String ipAddress) {
-        Connection con = this.createConnection();
-        Statement stmt = null;
         int userId = this.findUserId(email);
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
             String sql = "INSERT INTO session(key, ip_address, user_id) VALUES('" + session + "','" + ipAddress + "', " + userId + ");";
             stmt.execute(sql);
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     public void deleteSession(String session){
-        Connection con = this.createConnection();
-        Statement stmt = null;
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
             String sql="DELETE FROM session WHERE key='"+session+"';";
             stmt.execute(sql);
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     public String getPassword(int userId){
-        Connection con = this.createConnection();
-        Statement stmt = null;
         String password="";
-        try {
-            stmt=con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
             String sql="SELECT password FROM user WHERE id="+userId+";";
             ResultSet rs = stmt.executeQuery(sql);
             if(rs.next()){
                 password=rs.getString("password");
             }
             rs.close();
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -835,19 +689,15 @@ public class DataAccessShopDatabase {
     }
 
     public boolean getNewsletter(int userId){
-        Connection con = this.createConnection();
-        Statement stmt = null;
         boolean newsletter = false;
-        try {
-            stmt=con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()) {
             String sql="SELECT newsletter FROM user WHERE id="+userId+";";
             ResultSet rs = stmt.executeQuery(sql);
             if(rs.next()){
                 newsletter = rs.getBoolean("newsletter");
             }
             rs.close();
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -865,19 +715,15 @@ public class DataAccessShopDatabase {
     }
 
     private boolean isRealUser(int userId) {
-        Connection con = this.createConnection();
-        Statement stmt = null;
         boolean real = false;
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
             String sql = "SELECT real_user FROM user WHERE id=" + userId + ";";
             ResultSet rs = stmt.executeQuery(sql);
             if(rs.next()){
                 real = rs.getBoolean("real_user");
             }
             rs.close();
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -885,17 +731,13 @@ public class DataAccessShopDatabase {
     }
 
     private int findArticleVersionId(int articleId, int gbSize, String color) {
-        Connection con = this.createConnection();
-        Statement stmt = null;
         int articleVersionId = -1;
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
             String sql = "SELECT id FROM article_version WHERE article_id=" + articleId + " AND gb_size=" + gbSize + " AND color='" + color + "';";
             ResultSet rs = stmt.executeQuery(sql);
             articleVersionId = rs.getInt("id");
             rs.close();
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -903,35 +745,27 @@ public class DataAccessShopDatabase {
     }
 
     private void postOrderItem(ArticleVersion articleVersion, int orderId) {
-        Connection con = this.createConnection();
-        Statement stmt = null;
         int articleVersionId = this.findArticleVersionId(articleVersion.getArticleNumber(), articleVersion.getGbSize(), articleVersion.getColor());
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()) {
             String sql = "INSERT INTO sales_order_article_version(quantity, sales_order_id, article_version_id) " +
                 "VALUES(" + articleVersion.getQuantity() + ", " + orderId + ", " + articleVersionId + ");";
             stmt.execute(sql);
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     private List<Integer> getPictureIds(int articleId) {
-        Connection con = this.createConnection();
-        Statement stmt = null;
         List<Integer> pictureIds = new ArrayList<>();
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
             String sql = "SELECT id FROM picture WHERE article_id=" + articleId + ";";
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 pictureIds.add(rs.getInt("id"));
             }
             rs.close();
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -939,11 +773,9 @@ public class DataAccessShopDatabase {
     }
 
     private List<Commentary> getCommentaries(int articleId) {
-        Connection con = this.createConnection();
-        Statement stmt = null;
         List<Commentary> comments = new ArrayList<>();
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
             String sql = "SELECT comment.id AS commentId, comment.comment_text, user.firstname, user.lastname, user.id AS userId, user.profile_picture FROM comment INNER JOIN user ON comment.user_id = user.id " +
                 "WHERE article_id=" + articleId + ";";
             ResultSet rs = stmt.executeQuery(sql);
@@ -951,8 +783,6 @@ public class DataAccessShopDatabase {
                 comments.add(new Commentary(rs.getInt("commentId"), rs.getString("comment_text"), rs.getInt("userId"), rs.getString("firstname"), rs.getString("lastname"), rs.getString("profile_picture")));
             }
             rs.close();
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -960,19 +790,15 @@ public class DataAccessShopDatabase {
     }
 
     private int findUserId(String email) {
-        Connection con = this.createConnection();
-        Statement stmt = null;
         int userId = -1;
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
             String sql = "SELECT id FROM user WHERE e_mail='" + email + "';";
             ResultSet rs = stmt.executeQuery(sql);
             if(rs.next()){
                 userId = rs.getInt("id");
             }
             rs.close();
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -980,11 +806,9 @@ public class DataAccessShopDatabase {
     }
 
     private ArticleVersion getArticleVersion(int articleVersionId) {
-        Connection con = this.createConnection();
-        Statement stmt = null;
         ArticleVersion articleVersion = null;
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
             String sql = "SELECT * FROM article_version WHERE id=" + articleVersionId + ";";
             ResultSet rs = stmt.executeQuery(sql);
             Article article = this.getArticle(rs.getInt("article_id"));
@@ -992,8 +816,6 @@ public class DataAccessShopDatabase {
                 articleVersion = new ArticleVersion(-1, rs.getInt("article_id"), rs.getInt("quantity"), rs.getInt("gb_size"), rs.getString("color"), article.getModelName(), article.getAmount(), this.getPictureIds(article.getArticleNumber()).get(0));
             }
             rs.close();
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -1001,11 +823,9 @@ public class DataAccessShopDatabase {
     }
 
     private List<ArticleVersion> getOrderItems(int orderId) {
-        Connection con = this.createConnection();
-        Statement stmt = null;
         ArrayList<ArticleVersion> articleVersionList = new ArrayList<>();
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
             String sql = "SELECT id, article_version_id FROM sales_order_article_version WHERE sales_order_id=" + orderId + ";";
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
@@ -1014,8 +834,6 @@ public class DataAccessShopDatabase {
                 articleVersionList.add(articleVersion);
             }
             rs.close();
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -1023,32 +841,24 @@ public class DataAccessShopDatabase {
     }
 
     private void postBrands() {
-        Connection con = this.createConnection();
-        Statement stmt = null;
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
             for (String sql : DatabaseQueries.brands) {
                 stmt.execute("INSERT INTO brand(name) VALUES('" + sql + "');");
             }
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     private void postDummyUsers() {
-        Connection con = this.createConnection();
-        Statement stmt = null;
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
             for (User u : DatabaseQueries.users) {
                 stmt.execute("INSERT INTO user(e_mail, firstname, lastname, password, newsletter, salutation, title, profile_picture, real_user, description) " +
                     "VALUES('" + u.getMail() + "', '" + u.getFirstName() + "', '" + u.getLastName() + "', '" + this.encryptPasswordDummyUser(u.getPassword()) + "', " + u.isNewsletter() + ",'" +
                     u.getSalutation() + "', '" + u.getTitle() + "', '" + u.getProfilePicture() + "', " + false + ",'" + u.getDescription() + "');");
             }
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -1056,27 +866,21 @@ public class DataAccessShopDatabase {
     }
 
     private void postArticles() {
-        Connection con = this.createConnection();
-        Statement stmt = null;
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
             for (ArticleDB article : DatabaseQueries.articles) {
                 stmt.execute("INSERT INTO article(model_name, price, operating_system, release_date, screen, resolution, valuation_sum, number_of_valuation, brand_id) " +
                     "VALUES('" + article.getModelName() + "', " + article.getPrice() + ", '" + article.getOperatingSystem() + "', '" + article.getReleaseDate() + "', '" + article.getScreen() + "','" +
                     article.getResolution() + "', " + article.getValuation_sum() + ", " + article.getNumber_of_valuation() + ", " + article.getBrand_id() + ");");
             }
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     private void postArticleVersions() {
-        Connection con = this.createConnection();
-        Statement stmt = null;
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
             ArrayList<Integer> articleIds = new ArrayList<>();
             ResultSet rs = stmt.executeQuery("SELECT id FROM article");
             while (rs.next()) {  //because ResultSet resets after new execute of an SQL statement
@@ -1090,8 +894,6 @@ public class DataAccessShopDatabase {
                 }
             }
             rs.close();
-            stmt.close();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -1113,10 +915,8 @@ public class DataAccessShopDatabase {
 
     public boolean sessionExists(String session)
     {
-        Connection con = this.createConnection();
-        Statement stmt = null;
-        try {
-            stmt = con.createStatement();
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
             ResultSet rs = stmt.executeQuery("SELECT * FROM session WHERE key='" + session+ "';");
             boolean exists = rs.next();
             rs.close();
