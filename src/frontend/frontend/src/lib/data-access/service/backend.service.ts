@@ -2,9 +2,8 @@ import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {map, Observable} from "rxjs";
 import {Address, Article, Contact, Coupon, Order, SpecifiedItem, User} from "../models";
-import {JsonObject} from "@angular/compiler-cli/ngcc/src/packages/entry_point";
 import {RankingStudent} from "../models/rankingStudent";
-
+import {JsonObject} from "@angular/compiler-cli/ngcc/src/utils";
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +15,7 @@ export class BackendService {
   ip: string = "";
 
   constructor(private httpClient: HttpClient) {
-    let key = sessionStorage.getItem('sessionKey');
+    let key = this.cookieService.get('sessionKey').replace('sessionKey=', '');
     if (key != null) {
       this.header = new HttpHeaders({"sessionid": key});
     } else {
