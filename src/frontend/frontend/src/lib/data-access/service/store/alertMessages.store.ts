@@ -19,8 +19,7 @@ export class AlertMessagesStore {
 
   updateAlerts() {
     this.backendService.getAlerts().subscribe(alerts => {
-      alerts.forEach(alert => this.addAlertMessage(alert))
-      console.log(alerts)
+      alerts.forEach(alert => this.addAlertMessage(alert));
     });
   }
 
