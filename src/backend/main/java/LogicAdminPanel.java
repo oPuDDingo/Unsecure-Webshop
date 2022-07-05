@@ -42,6 +42,16 @@ public class LogicAdminPanel {
         }
     }
 
+    //TODO: Valerie: Ich hab des hier gemacht, wenn was falsch ist bitte mitteilen
+    public static Response getLevel(String session){
+        if(daap.checkSession( session )){
+            return Response.ok(level).build();
+        }
+        else{
+            return Response.status(403).build();
+        }
+    }
+
     public static Response setLevel(String session, int levelModel){
         if(daap.checkSession(session)){
             if(levelModel >=1 && levelModel <=3){

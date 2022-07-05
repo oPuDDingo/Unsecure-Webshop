@@ -25,6 +25,13 @@ public class AdminService {
         return LogicAdminPanel.getRanking(session);
     }
 
+    @GET
+    @Path( "interface" )
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getLevel(@HeaderParam( "sessionid" ) String session) {
+        return LogicAdminPanel.getLevel(session);
+    }
+
     @PUT
     @Path("interface")
     @Consumes(MediaType.APPLICATION_JSON)
