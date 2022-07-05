@@ -53,12 +53,24 @@
     <button (click)="modalRef?.hide()" aria-label="Close" class="btn-close close pull-right" type="button">
     </button>
   </div>
+
   <div class="modal-body d-flex flex-column">
-    <p>Momentanes Level: {{level}} <i class="fas fa-dragon"></i></p>
-    <div [ngClass]="actualStudent.sqlInjection ? 'text-success' : 'text-secondary'">sqlInjection</div>
-    <div>
-      <p>Zu finden in der Suche, einfach ein script eingeben <a type="button"><i class="fas fa-question-circle-o"></i></a></p>
+    <div *ngIf="levelNumber==1">
+      <p>Momentanes Level: {{level}}  <i class="fas fa-fish"></i></p>
     </div>
+    <div *ngIf="levelNumber==2">
+      <p>Momentanes Level: {{level}}  <i class="fas fa-cat"></i></p>
+    </div>
+    <div *ngIf="levelNumber==3">
+      <p>Momentanes Level: {{level}}  <i class="fas fa-dragon"></i></p>
+    </div>
+
+    <div *ngFor="let item of getInformationArray(levelNumber)">
+      <div [ngClass]="item[2] ? 'text-success' : 'text-secondary'">{{item[1]}}</div>
+      <p> {{item[0]}} <a type="button"><i class="fas fa-question-circle-o"></i></a></p>
+    </div>
+
+
     <span><hr style="border-style: solid"/></span>
     <div [ngClass]="actualStudent.blindSqlInjection ? 'text-success' : 'text-secondary'">blindSqlInjection</div>
     <span><hr style="border-style: solid"/></span>

@@ -12,50 +12,55 @@ import {RankingStudent} from "../../data-access/models/rankingStudent";
 export class BiedisPageComponent implements OnInit{
 
 
-  // @ts-ignore
   rankingStudents: RankingStudent[];
   // @ts-ignore
   actualStudent: RankingStudent;
   modalRef?: BsModalRef;
   level: string = "Beginner";
+  levelNumber: number = 1;
   description: Map<number,string[]> = new Map();
+  levelNames: string[] = ["Beginner", "Tutor", "Endboss"];
 
   constructor(private backendService: BackendService, private modalService: BsModalService) {
-    let habitat: string[] = ['', ''];
-    this.description.set(1, habitat);
+    this.backendService.getLevel().subscribe(levelNumber => {
+      this.levelNumber = levelNumber;
+      this.level = this.levelNames[levelNumber-1];
+    });
+    this.onLevelChange(this.levelNumber);
+
     this.rankingStudents = [{
-      ipAddress: "145634752457", blindSqlInjection: true, sqlInjection: true, commentXss: true, xss: false, deleteUser: true, emailWithoutAt: false, hashUser: true, guessCoupon: true, guessUserLogin: true, htmlCommentUser: true, lookForEmailAddress: true, priceOrderBug: false, profile_picture: false, points: 420
-    }]
+      ipAddress: "145.634.752", blindSqlInjection: false, sqlInjection: true, commentXss: true, xss: false, deleteUser: true, emailWithoutAt: false, hashUser: true, guessCoupon: true, guessUserLogin: true, htmlCommentUser: true, lookForEmailAddress: true, priceOrderBug: false, profile_picture: false, points: 420
+    }];
   }
 
   onLevelChange(level: number){
     switch (level) {
       case 1:
         this.level = "Beginner";
+        this.levelNumber = 1;
+        this.backendService.setLevel(this.levelNumber);
         this.onDescriptionChange(level);
         break;
       case 2:
         this.level = "Tutor";
+        this.levelNumber = 2;
+        this.backendService.setLevel(this.levelNumber);
         this.onDescriptionChange(level);
         break;
       case 3:
         this.level = "Endboss";
+        this.levelNumber = 3;
+        this.backendService.setLevel(this.levelNumber);
         this.onDescriptionChange(level);
         break;
     }
     this.backendService.setLevel(level);
   }
 
-  setDescription(){
-    if(this.level == "Beginner"){
-      // this.description = "";
-    }
-  }
-
   onDescriptionChange(level: number){
     switch (level) {
       case 1:
-        // this.description.set(1, ['',])
+        this.description.set(1, ["Zu finden in der Suche, einfach ein script eingeben", "blindSqlInjection"],);
         break;
       case 2:
         // this.description = "";
@@ -66,10 +71,20 @@ export class BiedisPageComponent implements OnInit{
     }
   }
 
-  ngOnInit() {
-    this.backendService.setLevel(1);
-    this.backendService.loadRankingStudents().subscribe(rankingStudents => this.rankingStudents = rankingStudents);
+  getInformationArray(level: number) {
+    var information: string[] = ["SQL-Injection","Blind-Sql-Injection","..","sfg","sdfg","afg","adfg","afdg","adfg","adfg","adfg","adfg","adfg"];
+    var boolIdentifier: string[] = ["sqlInjection"];
+    var tmpStudent: RankingStudent = this.actualStudent;
+    // @ts-ignore
+    return this.description.get(level).map(function(item, index){
+      let identifier = boolIdentifier[index] as keyof RankingStudent;
+      return [item, information[index], tmpStudent[identifier]];
+    })
+  }
 
+  ngOnInit() {
+    this.backendService.getLevel().subscribe(levelNumber => this.levelNumber = levelNumber);
+    this.backendService.loadRankingStudents().subscribe(rankingStudents => this.rankingStudents = rankingStudents);
     this.reloadRanking();
   }
 
