@@ -121,7 +121,7 @@ public class DataAccessShopDatabase {
         try (Connection con = this.createConnection();
              Statement stmt = con.createStatement()){
             String sql = "UPDATE address " +
-                " SET(street_house_number='" + address.getAddress() + "', postcode='" + address.getZipCode() + "', address=supplement='" + address.getAddress2() + "', city='" + address.getCity() + "', country='" + address.getCountry()
+                " SET street_house_number='" + address.getAddress() + "', postcode='" + address.getZipCode() + "', address_supplement='" + address.getAddress2() + "', city='" + address.getCity() + "', country='" + address.getCountry()
                 + "', name='" + address.getName() + "', delivery_instruction='" + address.getDeliveryInstructions() + "' WHERE id=" + address.getId() +" AND "+"user_id="+userId+";";
             stmt.execute(sql);
             addressRet = this.getAddress(address.getId());
@@ -141,7 +141,7 @@ public class DataAccessShopDatabase {
         Address addressRet = null;
         try (Connection con = this.createConnection();
              Statement stmt = con.createStatement()) {
-            String sql = "INSERT INTO address(street_house_number, postcode, address_suplement, city, country, name, delivery_instruction, user_id)" +
+            String sql = "INSERT INTO address(street_house_number, postcode, address_supplement, city, country, name, delivery_instruction, user_id)" +
                 "VALUES('" + address.getAddress() + "', '" + address.getZipCode() + "', '" + address.getAddress2() + "', '" + address.getCity() + "', '" + address.getCountry()
                 + "', '" + address.getName() + "', '" + address.getDeliveryInstructions() + "', '" + userId+ "');";
             stmt.execute(sql);
@@ -341,9 +341,9 @@ public class DataAccessShopDatabase {
         Address address = null;
         try (Connection con = this.createConnection();
              Statement stmt = con.createStatement()) {
-            String sql = "SELECT id, name, street_house_number, address_suplement, postcode, city, country, delivery_instruction FROM address WHERE id=" + addressId;
+            String sql = "SELECT id, name, street_house_number, address_supplement, postcode, city, country, delivery_instruction FROM address WHERE id=" + addressId;
             ResultSet rs = stmt.executeQuery(sql);
-            address = new Address(addressId, rs.getString("name"), rs.getString("country"), rs.getString("street_house_number"), rs.getString("address_suplement"), rs.getString("postcode"), rs.getString("city"), rs.getString("delivery_instruction"));
+            address = new Address(addressId, rs.getString("name"), rs.getString("country"), rs.getString("street_house_number"), rs.getString("address_supplement"), rs.getString("postcode"), rs.getString("city"), rs.getString("delivery_instruction"));
             rs.close();
         } catch (SQLException e) {
             e.printStackTrace();

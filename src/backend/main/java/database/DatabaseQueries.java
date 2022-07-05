@@ -37,7 +37,7 @@ public class DatabaseQueries {
                     "    id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                     "    street_house_number TEXT,\n" +
                     "    postcode TEXT,\n" +
-                    "    address_suplement TEXT,\n" +
+                    "    address_supplement TEXT,\n" +
                     "    city TEXT,\n" +
                     "    country TEXT,\n" +
                     "    name TEXT,\n" +
