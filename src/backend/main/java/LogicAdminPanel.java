@@ -42,10 +42,10 @@ public class LogicAdminPanel {
         }
     }
 
-    public static Response setLevel(String session, int level){
+    public static Response setLevel(String session, int levelModel){
         if(daap.checkSession(session)){
-            if(level >=1 && level <=3){
-                level=level;
+            if(levelModel >=1 && levelModel <=3){
+                level=levelModel;
                 return Response.ok().build();
             }
             else{
