@@ -233,7 +233,7 @@ public class DataAccessAdminPanel {
     public void postSession(String session, String username){
         try (Connection con = this.createConnection();
              Statement stmt = con.createStatement()){
-            String sql="INSERT INTO session(key, admin_username) VALUES('"+session+"','"+username+"';";
+            String sql="INSERT INTO session(key, admin_username) VALUES('"+session+"','"+username+"');";
         } catch (SQLException e) {
             e.printStackTrace();
         }

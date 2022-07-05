@@ -23,7 +23,7 @@ public class DatabaseQueries {
                    ");",
             "CREATE TABLE user(\n" +
                     "    id INTEGER PRIMARY KEY AUTOINCREMENT ,\n" +
-                    "    e_mail TEXT UNIQUE,\n" +
+                    "    e_mail TEXT,\n" +
                     "    firstname TEXT,\n" +
                     "    lastname TEXT,\n" +
                     "    password TEXT,\n" +
