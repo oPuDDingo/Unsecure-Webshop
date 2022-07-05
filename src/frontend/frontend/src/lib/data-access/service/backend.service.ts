@@ -4,6 +4,7 @@ import {map, Observable} from "rxjs";
 import {Address, Article, Contact, Coupon, Order, SpecifiedItem, User} from "../models";
 import {RankingStudent} from "../models/rankingStudent";
 import {JsonObject} from "@angular/compiler-cli/ngcc/src/utils";
+import {CookieService} from "ngx-cookie-service";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class BackendService {
   header: HttpHeaders;
   ip: string = "";
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private cookieService: CookieService) {
     let key = this.cookieService.get('sessionKey').replace('sessionKey=', '');
     if (key != null) {
       this.header = new HttpHeaders({"sessionid": key});
