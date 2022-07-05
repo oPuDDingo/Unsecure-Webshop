@@ -1,10 +1,7 @@
 package backend.main.java.api;
 
 import backend.main.java.*;
-import backend.main.java.models.User;
-import backend.main.java.models.Address;
-import backend.main.java.models.Payment;
-import backend.main.java.models.UserVulnerability;
+import backend.main.java.models.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
@@ -208,11 +205,14 @@ import java.util.List;
 		return Response.ok(value).build();
 	}
 
-	@Path("newsletter") @POST public Response turnOnNewsletter(
-		@HeaderParam("sessionid") String session
+	@Path("newsletter") @POST @Consumes(MediaType.APPLICATION_JSON) public Response turnOnNewsletter(
+		@HeaderParam("sessionid") String session, @Context HttpServletRequest request, final Nletter nletter
 	)
 	{
 		if (session == null) return Response.status(401).build();
+		if(!nletter.getEmail().contains("@")) {
+			FlawHandler.emailWithoutAt(request.getRemoteAddr());
+		}
 		DataHandler.turnOnNewsletter(session);
 		return Response.noContent().build();
 	}
