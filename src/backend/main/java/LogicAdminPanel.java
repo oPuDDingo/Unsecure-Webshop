@@ -16,7 +16,7 @@ public class LogicAdminPanel {
         if(daap.login(username, password)){
             String sessionId = Logic.createSessionId();
             daap.postSession(sessionId, username);
-            return Response.ok(sessionId).cookie(new NewCookie("sessionID", sessionId)).build();
+            return Response.ok(sessionId).header("sessionid", sessionId).build();
         }
         else{
             return Response.status(401).build();
