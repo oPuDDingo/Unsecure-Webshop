@@ -2,7 +2,6 @@ import {Component, Input, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {AuthenticationService} from "../../data-access/service/authentication.service";
 import {UserTypes} from "../../data-access/enums/userTypes";
-import {ArticleStore} from "../../data-access/service/store/article.store";
 
 @Component({
   selector: 'navbar',
@@ -10,12 +9,11 @@ import {ArticleStore} from "../../data-access/service/store/article.store";
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  @Input()
-  title?: String;
+  @Input() title?: String;
   login: boolean = false;
   searchInput: string = "";
 
-  constructor(private authenticationService: AuthenticationService, private router: Router, private articleStore: ArticleStore) {
+  constructor(private authenticationService: AuthenticationService, private router: Router) {
   }
 
   ngOnInit() {
