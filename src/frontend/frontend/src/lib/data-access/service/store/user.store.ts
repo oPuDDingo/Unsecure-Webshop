@@ -65,7 +65,7 @@ export class UserStore {
   }
 
   unsubscribeNewsletter(): void {
-    this.backendService.deleteNewsletter();
+    this.backendService.deleteNewsletter().subscribe();
   }
 
   cleaningUp(): void {
