@@ -7,10 +7,9 @@ import backend.main.java.models.ArticleVersion;
 import backend.main.java.models.Order;
 import backend.main.java.utils.MyKeyGenerator;
 
+import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Base64;
 import java.util.List;
@@ -101,7 +100,12 @@ public class Logic
 	}
 
 	public static Key createNewUser() {
-		final Key uuid = MyKeyGenerator.getInstance().getKey();
+		// toDo if a uuid is given, store this one in the database
+		final Key uuid = MyKeyGenerator.getNewKey();
+		if (uuid == null) {
+			// toDo: handle on frontend
+			throw new InternalServerErrorException( "" );
+		}
 		daap.lookForClient( Base64.getEncoder().encodeToString(uuid.getEncoded() ) );
 		return uuid;
 	}
