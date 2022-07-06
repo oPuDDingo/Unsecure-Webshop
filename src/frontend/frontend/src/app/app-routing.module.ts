@@ -44,8 +44,14 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {path: 'login', loadChildren: () => import('../lib/pages/login/login.module').then(m => m.LoginModule)},
-  {path: 'adminLogin', loadChildren: () => import('../lib/pages/adminLogin/adminLogin.module').then(m => m.AdminLoginModule)},
-  {path: 'admin', loadChildren: () => import('../lib/pages/biedisPage/biedisPage.module').then(m => m.BiedisPageModule)},
+  {
+    path: 'adminLogin',
+    loadChildren: () => import('../lib/pages/adminLogin/adminLogin.module').then(m => m.AdminLoginModule)
+  },
+  {
+    path: 'admin',
+    loadChildren: () => import('../lib/pages/biedisPage/biedisPage.module').then(m => m.BiedisPageModule)
+  },
   {path: 'register', loadChildren: () => import('../lib/pages/register/register.module').then(m => m.RegisterModule)},
   {
     path: 'sustainable',
@@ -77,7 +83,7 @@ const routes: Routes = [
     loadChildren: () => import('../lib/pages/securityVulnerabilityInformation/insecureFileUpload/insecureFileUpload.module').then(m => m.InsecureFileUploadModule)
   },
   {
-    path: 'htmlComment',
+    path: 'html_comment_user',
     loadChildren: () => import('../lib/pages/securityVulnerabilityInformation/htmlComment/htmlComment.module').then(m => m.HtmlCommentModule)
   },
   {
