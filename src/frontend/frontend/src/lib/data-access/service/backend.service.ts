@@ -7,6 +7,7 @@ import {JsonObject} from "@angular/compiler-cli/ngcc/src/utils";
 import {CookieService} from "ngx-cookie-service";
 import {UuidService} from "./uuidService";
 import {Statics} from "./statics";
+import {Nletter} from "../models/nletter";
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,6 @@ export class BackendService {
   }
 
   getAlerts(): Observable<string[]> {
-    console.log(this.getHeader().keys() + " ----  " + this.getHeader().get("uuid"));
     return this.httpClient.get<string[]>(Statics.url + 'flaws', {headers: this.getHeader()});
   }
 
@@ -156,8 +156,8 @@ export class BackendService {
     );
   }
 
-  postNewsletter(): Observable<any> {
-    return this.httpClient.post<any>(Statics.url + 'user/newsletter', {}, {headers: this.getHeader()});
+  postNewsletter(newsLetter: Nletter): Observable<any> {
+    return this.httpClient.post<any>(Statics.url + 'user/newsletter', {...newsLetter}, {headers: this.getHeader()});
   }
 
   deleteNewsletter(): Observable<any> {
