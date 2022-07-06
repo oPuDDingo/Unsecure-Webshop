@@ -58,7 +58,6 @@ public class LogicAdminPanel {
         }
     }
 
-    //TODO: Valerie: Ich hab des hier gemacht, wenn was falsch ist bitte mitteilen
     public Response getLevel(String session){
         if(daap.checkSession( session )){
             return Response.ok(level).build();
