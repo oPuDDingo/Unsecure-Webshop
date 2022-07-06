@@ -11,7 +11,6 @@ export class UuidService {
   uuid: ReplaySubject<string> = new ReplaySubject<string>(1);
 
   constructor(private cookieService: CookieService, private httpClient: HttpClient) {
-    this.cookieService.deleteAll();
     if (this.cookieService.check('uuid')) {
       this.uuid.next(this.cookieService.get('uuid').replace('uuid=', ''));
     } else {
