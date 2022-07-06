@@ -6,23 +6,7 @@ import java.security.SecureRandom;
 
 public class MyKeyGenerator
 {
-	private static MyKeyGenerator INSTANCE;
-
-	public static MyKeyGenerator getInstance( )
-	{
-		if ( INSTANCE == null )
-		{
-			INSTANCE = new MyKeyGenerator( );
-		}
-
-		return INSTANCE;
-	}
-
-	private MyKeyGenerator( )
-	{
-	}
-
-	public Key getNewKey( )
+	public static Key getNewKey( )
 	{
 		try
 		{
