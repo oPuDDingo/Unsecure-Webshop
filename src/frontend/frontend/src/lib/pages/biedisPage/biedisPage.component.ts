@@ -38,19 +38,19 @@ export class BiedisPageComponent implements OnInit{
       case 1:
         this.level = "Beginner";
         this.levelNumber = 1;
-        this.backendService.setLevel(this.levelNumber);
+        this.backendService.setLevel(this.levelNumber).subscribe();
         this.onDescriptionChange(level);
         break;
       case 2:
         this.level = "Tutor";
         this.levelNumber = 2;
-        this.backendService.setLevel(this.levelNumber);
+        this.backendService.setLevel(this.levelNumber).subscribe();
         this.onDescriptionChange(level);
         break;
       case 3:
         this.level = "Endboss";
         this.levelNumber = 3;
-        this.backendService.setLevel(this.levelNumber);
+        this.backendService.setLevel(this.levelNumber).subscribe();
         this.onDescriptionChange(level);
         break;
     }

@@ -3,7 +3,6 @@ import {Address, User} from "../../data-access/models";
 import {UserStore} from "../../data-access/service/store/user.store";
 import {AddressStore} from "../../data-access/service/store/address.store";
 import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
-import {document} from "ngx-bootstrap/utils";
 import {Nletter} from "../../data-access/models/nletter";
 
 @Component({
@@ -43,14 +42,10 @@ export class UserSettingsComponent implements OnInit {
       this.addresses = addresses
     });
 
-    this.userStore.getNewsletterStatus().subscribe(respond => this.newsletter = respond.valueOf() );
+    this.userStore.getNewsletterStatus().subscribe(respond => this.newsletter = respond.valueOf());
   }
 
-
-
-
-
-  onNewsletter(mail:string){
+  onNewsletter(mail: string) {
     this.nletter.email = mail;
     this.newsletter = !this.newsletter;
     this.newsletter ? this.userStore.subscribeNewsletter(this.nletter) : this.userStore.unsubscribeNewsletter();
@@ -135,7 +130,6 @@ export class UserSettingsComponent implements OnInit {
       this.validOldPassword = false;
     }
   }
-
 
 
 }
