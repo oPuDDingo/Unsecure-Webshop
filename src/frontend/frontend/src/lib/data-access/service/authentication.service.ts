@@ -9,13 +9,13 @@ import {UserStore} from "./store/user.store";
 import {WishlistStore} from "./store/wishlist.store";
 import {UserTypes} from "../enums/userTypes";
 import {CookieService} from "ngx-cookie-service";
+import {Statics} from "./statics";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
-  readonly url: string = 'http://localhost:4200/api/';
   statusSubject: ReplaySubject<boolean> = new ReplaySubject<boolean>(1);
   userType: UserTypes = UserTypes.User;
   header: HttpHeaders = new HttpHeaders();
@@ -38,7 +38,7 @@ export class AuthenticationService {
   }
 
   login(mail: string, password: string): Observable<boolean> {
-    return this.httpClient.get(this.url + 'user/login?mail=' + mail + '&password=' + password, {
+    return this.httpClient.get(Statics.url + 'user/login?mail=' + mail + '&password=' + password, {
       observe: "body", responseType: "text", headers: this.backendService.getHeader()
     }).pipe(
       map(sessionKey => {
@@ -54,7 +54,7 @@ export class AuthenticationService {
   logout(): Observable<any> {
     if (this.cookieService != undefined) {
       let sessionKey = this.cookieService.get('sessionKey').replace('sessionKey=', '');
-      return this.httpClient.post(this.url + 'user/logout', {sessionKey}, {
+      return this.httpClient.post(Statics.url + 'user/logout', {sessionKey}, {
         headers: this.backendService.getHeader(),
         observe: "response",
       }).pipe(
@@ -71,7 +71,7 @@ export class AuthenticationService {
   }
 
   adminLogin(username: string, password: string): Observable<any> {
-    return this.httpClient.get(this.url + 'admin/login?username=' + username + '&password=' + password, {
+    return this.httpClient.get(Statics.url + 'admin/login?username=' + username + '&password=' + password, {
       observe: "body", responseType: "text", headers: this.backendService.getHeader()
     }).pipe(
       map(sessionKey => {
@@ -86,7 +86,7 @@ export class AuthenticationService {
   adminLogout(): Observable<any> {
     if (this.cookieService != undefined) {
       let sessionKey = this.cookieService.get('sessionKey').replace('sessionKey=', '');
-      return this.httpClient.post(this.url + 'admin/logout', {sessionKey}, {
+      return this.httpClient.post(Statics.url + 'admin/logout', {sessionKey}, {
         headers: this.backendService.getHeader(),
         observe: "response"
       }).pipe(
@@ -104,7 +104,7 @@ export class AuthenticationService {
   }
 
   register(firstname: string, lastname: string, mail: string, password: string): Observable<any> {
-    return this.httpClient.post(this.url + 'user/register', {
+    return this.httpClient.post(Statics.url + 'user/register', {
       "firstName": firstname,
       "lastName": lastname,
       "mail": mail,
