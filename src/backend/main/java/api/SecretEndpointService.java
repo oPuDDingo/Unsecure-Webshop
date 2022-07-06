@@ -5,7 +5,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
-@Path("backup") public class BackupService
+@Path("backup") public class SecretEndpointService
 {
 	// secret endpoint. its a vulnerability
 	@GET
