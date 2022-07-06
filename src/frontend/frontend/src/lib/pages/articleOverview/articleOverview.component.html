@@ -1,5 +1,5 @@
-<div class="gap-5">
-  <div *ngIf="article" class="row">
+<div *ngIf="article" class="gap-5">
+  <div class="row">
     <article-overview-images [article]="article"
                              class="col-xl-5 col-lg-5 col-md-6">
     </article-overview-images>
@@ -20,7 +20,7 @@
 
 
   <div class="container">
-    <article-overview-comment *ngFor="let comment of this.article.comments"
+    <article-overview-comment *ngFor="let comment of article.comments"
                               [comment]="comment"></article-overview-comment>
   </div>
 </div>
