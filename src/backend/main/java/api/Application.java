@@ -17,7 +17,7 @@ import java.util.Set;
 	protected Set<Class<?>> getServiceClasses()
 	{
 		final Set<Class<?>> services = new HashSet<>();
-
+		services.add( CommentaryService.class );
 		services.add(ArticleService.class);
 		services.add(CartService.class);
 		services.add(ContactService.class);

@@ -41,7 +41,10 @@ public class AdminService {
     @POST
     @Path("interface")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response setLevel(@HeaderParam("sessionid") String session, @DefaultValue("1") @QueryParam("level") int level){
+    public Response setLevel(
+        @HeaderParam("sessionid") String session,
+        @DefaultValue("1") @QueryParam("level") int level
+    ){
         return LogicAdminPanel.getInstance().setLevel(session, level);
     }
 
