@@ -16,7 +16,7 @@ import javax.ws.rs.core.Response;
 {
 	@Path("{name}") @GET @Produces(MediaType.APPLICATION_JSON) public Response getCoupon(
 		@PathParam("name") final String name,
-		@QueryParam( "uuid" ) final String uuid,
+		@HeaderParam( "uuid" ) final String uuid,
 		@Context HttpServletRequest request
 	)
 	{

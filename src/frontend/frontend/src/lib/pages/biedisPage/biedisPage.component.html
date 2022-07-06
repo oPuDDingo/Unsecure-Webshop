@@ -35,7 +35,13 @@
         </thead>
           <tbody *ngFor="let rankingStudent of rankingStudents">
             <tr>
-              <td>{{rankingStudent.ipAddress}}</td>
+              <td>
+                <div style="width: 200px;">
+                  <p style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                    {{rankingStudent.ipAddress}}
+                  </p>
+                </div>
+              </td>
               <td>{{rankingStudent.points}}</td>
               <td>{{getSecurityBreaches(rankingStudent)}}/13</td>
               <td><a (click)="openModal(securityBreaches, rankingStudent)" type="button"><i class='fas fa-plus-circle'></i>
@@ -49,51 +55,25 @@
 
 <ng-template #securityBreaches>
   <div class="modal-header">
-    <h2 class="modal-title">Gefundene Sicherheitslücken von {{actualStudent.ipAddress}}</h2>
+    <div>
+      <h3 class="modal-title">Gefundene Sicherheitslücken von </h3><br/>
+      <h6>{{actualStudent.ipAddress}}</h6>
+    </div>
     <button (click)="modalRef?.hide()" aria-label="Close" class="btn-close close pull-right" type="button">
     </button>
   </div>
 
   <div class="modal-body d-flex flex-column">
-    <div *ngIf="levelNumber==1">
-      <p>Momentanes Level: {{level}}  <i class="fas fa-fish"></i></p>
-    </div>
-    <div *ngIf="levelNumber==2">
-      <p>Momentanes Level: {{level}}  <i class="fas fa-cat"></i></p>
-    </div>
-    <div *ngIf="levelNumber==3">
-      <p>Momentanes Level: {{level}}  <i class="fas fa-dragon"></i></p>
-    </div>
+<!--      Hier stimmt was nicht-->
+<!--      <p [hidden]="levelNumber==1">Momentanes Level: {{level}}  <i class="fas fa-fish"></i></p>-->
+<!--      <p [hidden]="levelNumber==2">Momentanes Level: {{level}}  <i class="fas fa-cat"></i></p>-->
+<!--      <p [hidden]="levelNumber==3">Momentanes Level: {{level}}  <i class="fas fa-dragon"></i></p>-->
 
     <div *ngFor="let item of getInformationArray(levelNumber)">
       <div [ngClass]="item[2] ? 'text-success' : 'text-secondary'">{{item[1]}}</div>
-      <p> {{item[0]}} <a type="button"><i class="fas fa-question-circle-o"></i></a></p>
+        <p> {{item[0]}} <a type="button" (click)="getInfoSites('' + item[1])"><i class="fas fa-question-circle-o"></i></a></p>
+      <span><hr style="border-style: solid"/></span>
     </div>
 
-
-    <span><hr style="border-style: solid"/></span>
-    <div [ngClass]="actualStudent.blindSqlInjection ? 'text-success' : 'text-secondary'">blindSqlInjection</div>
-    <span><hr style="border-style: solid"/></span>
-    <div [ngClass]="actualStudent.emailWithoutAt ? 'text-success' : 'text-secondary'">emailWithoutAt </div>
-    <span><hr style="border-style: solid"/></span>
-    <div [ngClass]="actualStudent.xss ? 'text-success' : 'text-secondary'">xss </div>
-    <span><hr style="border-style: solid"/></span>
-    <div [ngClass]="actualStudent.priceOrderBug ? 'text-success' : 'text-secondary'">profile_picture </div>
-    <span><hr style="border-style: solid"/></span>
-    <div [ngClass]="actualStudent.htmlCommentUser ? 'text-success' : 'text-secondary'">htmlCommentUser </div>
-    <span><hr style="border-style: solid"/></span>
-    <div [ngClass]="actualStudent.priceOrderBug ? 'text-success' : 'text-secondary'">priceOrderBug </div>
-    <span><hr style="border-style: solid"/></span>
-    <div [ngClass]="actualStudent.guessUserLogin ? 'text-success' : 'text-secondary'">guessUserLogin </div>
-    <span><hr style="border-style: solid"/></span>
-    <div [ngClass]="actualStudent.guessCoupon ? 'text-success' : 'text-secondary'">guessCoupon </div>
-    <span><hr style="border-style: solid"/></span>
-    <div [ngClass]="actualStudent.deleteUser ? 'text-success' : 'text-secondary'">deleteUser </div>
-    <span><hr style="border-style: solid"/></span>
-    <div [ngClass]="actualStudent.commentXss ? 'text-success' : 'text-secondary'">commentXss </div>
-    <span><hr style="border-style: solid"/></span>
-    <div [ngClass]="actualStudent.lookForEmailAddress ? 'text-success' : 'text-secondary'">lookForEmailAddress </div>
-    <span><hr style="border-style: solid"/></span>
-    <div [ngClass]="actualStudent.hashUser ? 'text-success' : 'text-secondary'">hashUser </div>
   </div>
 </ng-template>

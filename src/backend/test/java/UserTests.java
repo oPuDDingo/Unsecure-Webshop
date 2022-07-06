@@ -3,40 +3,29 @@ package backend.test.java;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.net.HttpCookie;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.URL;
+
+import static backend.test.java.TestHelper.*;
 
 public class UserTests
 {
-	HttpURLConnection doRequest(String url_param) {return doRequest(url_param, null, "GET");}
-	HttpURLConnection doRequest(String url_param, String session, String method)
-	{
-		try
-		{
-			URL url = new URL(url_param);
-			HttpURLConnection con = (HttpURLConnection) url.openConnection();
-			if (session != null) con.setRequestProperty("sessionid", session);
-			con.setRequestMethod(method);
-			return con;
-		} catch (Exception e) {
-			e.printStackTrace();
+	@Test
+	void getUser() throws IOException {
+		HttpURLConnection con = doRequest("http://localhost:8080/api/user", getSession(), "GET");
+		BufferedReader in = new BufferedReader(
+			new InputStreamReader(con.getInputStream()));
+		String inputLine;
+		StringBuffer content = new StringBuffer();
+		while ((inputLine = in.readLine()) != null) {
+			content.append(inputLine);
 		}
-		return null;
-	}
-
-	String getSession() {
-		try
-		{
-			HttpURLConnection con = doRequest("http://localhost:8080/api/user/login?"
-				+ "mail=Test1@test.de&"
-				+ "password=123456789");
-			String cookiesHeader = con.getHeaderField("sessionid");
-			return HttpCookie.parse(cookiesHeader).get(0).getValue();
-		} catch (Exception e) {
-			return null;
-		}
+		System.out.println(content);
+		in.close();
+		con.disconnect();
+		Assertions.assertEquals(content, "test");
 	}
 
 	@Test

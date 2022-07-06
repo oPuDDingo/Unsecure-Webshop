@@ -21,8 +21,8 @@ export class AuthenticationService {
   header: HttpHeaders = new HttpHeaders();
 
   constructor(
+    public backendService: BackendService,
     private httpClient: HttpClient,
-    private backendService: BackendService,
     private addressStore: AddressStore,
     private orderStore: OrderStore,
     private shoppingCartStore: ShoppingCartStore,

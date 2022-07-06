@@ -11,7 +11,8 @@
     </alert>
     <h3>Gutschein</h3>
     <div class="input-group mb-3">
-      <input [(ngModel)]="coupon.name" class="form-control" placeholder="Gutscheincode" type="text">
+      <input (keyup.enter)="onUpdateCoupon()" [(ngModel)]="coupon.name" class="form-control" placeholder="Gutscheincode"
+             type="text">
       <button (click)="onUpdateCoupon()" class="btn btn-primary" type="button">{{getCouponButtonText()}}</button>
     </div>
   </div>
