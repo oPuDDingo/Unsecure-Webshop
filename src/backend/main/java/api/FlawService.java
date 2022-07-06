@@ -12,8 +12,8 @@ import java.util.List;
 @Path("flaws") public class FlawService
 {
 	@GET @Produces(MediaType.APPLICATION_JSON) public Response checkFlaws(
+		@HeaderParam( "uuid" ) final String uuid,
 		@HeaderParam("sessionid") final String session,
-		@HeaderParam("uuid") final String uuid,
 		@Context HttpServletRequest request)
 	{
 		DataAccessAdminPanel daap = new DataAccessAdminPanel();

@@ -18,26 +18,23 @@ public class MyKeyGenerator
 		return INSTANCE;
 	}
 
-	private Key key;
-
 	private MyKeyGenerator( )
+	{
+	}
+
+	public Key getNewKey( )
 	{
 		try
 		{
 			final SecureRandom rand = new SecureRandom( );
 			final KeyGenerator keyGen = KeyGenerator.getInstance( "AES" );
 			keyGen.init( 256, rand );
-			this.key = keyGen.generateKey( );
+			return keyGen.generateKey( );
 		}
 		catch ( final Exception e )
 		{
 			e.printStackTrace( );
-			this.key = null;
+			return null;
 		}
-	}
-
-	public Key getKey( )
-	{
-		return this.key;
 	}
 }

@@ -13,7 +13,6 @@ import javax.ws.rs.core.Response;
 		@QueryParam( "uuid" ) final String uuid
 	)
 	{
-		System.out.println(uuid );
 		String picture = DataHandler.getPicture(id);
 		return Response.ok(picture).build();
 	}

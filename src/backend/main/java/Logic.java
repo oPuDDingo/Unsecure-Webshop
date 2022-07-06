@@ -9,8 +9,6 @@ import backend.main.java.utils.MyKeyGenerator;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Base64;
 import java.util.List;
@@ -101,7 +99,7 @@ public class Logic
 	}
 
 	public static Key createNewUser() {
-		final Key uuid = MyKeyGenerator.getInstance().getKey();
+		final Key uuid = MyKeyGenerator.getInstance().getNewKey();
 		daap.lookForClient( Base64.getEncoder().encodeToString(uuid.getEncoded() ) );
 		return uuid;
 	}
