@@ -22,6 +22,7 @@ public class Logic
 
 	public static Response login(final String mail, final String password, final String ip)
 	{
+		SecurityBreachDetection.detectLoginSecurityBreach( ip );
 		SecurityBreachDetection.detectUserSecurityBreach( mail, password, ip );
 		AuthorizationType session = Database.checkAuthData(mail, password);
 		if ( session == AuthorizationType.FALSE_PASSWORD || session == AuthorizationType.FALSE_USER )
