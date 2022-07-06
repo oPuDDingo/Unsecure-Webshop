@@ -181,7 +181,7 @@ export class BackendService {
   }
 
   getLevel(): Observable<number> {
-    return this.httpClient.get<number>(Statics.url + 'admin/interface', {headers: this.getHeader()});
+    return this.httpClient.get<number>(Statics.url + 'admin/level', {headers: this.getHeader()});
   }
 
   loadRankingStudents(): Observable<RankingStudent[]> {
