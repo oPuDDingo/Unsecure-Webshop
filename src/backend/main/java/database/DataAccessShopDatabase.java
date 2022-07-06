@@ -306,7 +306,6 @@ public class DataAccessShopDatabase {
         try (Connection con = this.createConnection();
              Statement stmt = con.createStatement()){
             String sql = "SELECT id, e_mail, firstname, lastname, newsletter, salutation, title, profile_picture, description FROM user WHERE id=" + userId + ";";
-            System.out.println(sql);
             ResultSet rs = stmt.executeQuery(sql);
             if(rs.next()){
                 user = new User(rs.getInt("id"), rs.getString("e_mail"), rs.getString("firstname"), rs.getString("lastname"), rs.getBoolean("newsletter"), rs.getString("salutation"),
@@ -324,7 +323,6 @@ public class DataAccessShopDatabase {
         try (Connection con = this.createConnection();
              Statement stmt = con.createStatement()){
             String sql = "SELECT id, e_mail, firstname, lastname, newsletter, salutation, title, profile_picture, description FROM user WHERE id=" + userId + ";";
-            System.out.println(sql);
             ResultSet rs = stmt.executeQuery(sql);
             if(rs.next()){
                 user = new UserVulnerability(rs.getInt("id"), rs.getString("e_mail"), rs.getString("firstname"), rs.getString("lastname"), rs.getBoolean("newsletter"), rs.getString("salutation"),
@@ -522,11 +520,7 @@ public class DataAccessShopDatabase {
             hash = this.encryptPasswordRealUser(password);
             validPassword = AuthorizationType.AUTHORIZED_USER;
         } else {
-            if (email.equals( "dummy@user.com" )) {
-                validPassword = AuthorizationType.AUTHORIZED_USER;
-            } else {
-                validPassword = AuthorizationType.AUTHORIZED_DUMMY_USER;
-            }
+            validPassword = email.equals( "dummy@user.com" ) ? AuthorizationType.AUTHORIZED_DUMMY_USER : AuthorizationType.AUTHORIZED_USER;
             hash = this.encryptPasswordDummyUser(password);
         }
         try (Connection con = this.createConnection();

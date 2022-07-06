@@ -12,12 +12,12 @@ import java.util.List;
 @Path("flaws") public class FlawService
 {
 	@GET @Produces(MediaType.APPLICATION_JSON) public Response checkFlaws(
+		@HeaderParam( "uuid" ) final String uuid,
 		@HeaderParam("sessionid") final String session,
-		@HeaderParam("ipaddress") final String ipAddress,
 		@Context HttpServletRequest request)
 	{
 		DataAccessAdminPanel daap = new DataAccessAdminPanel();
-		List<String> findings = daap.checkForNewFindings(ipAddress);
+		List<String> findings = daap.checkForNewFindings(uuid);
 		return Response.ok(findings).build();
 	}
 }

@@ -7,3 +7,7 @@ export * from './specifiedItem';
 export * from './user';
 export * from './commentary';
 export * from './contact';
+export * from './nletter';
+export * from './uuid';
+export * from './rankingStudent';
+export * from './item';

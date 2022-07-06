@@ -2,6 +2,7 @@ package backend.main.java.api;
 
 import backend.main.java.*;
 import backend.main.java.models.*;
+import org.jvnet.mimepull.Header;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
@@ -32,21 +33,24 @@ import java.util.List;
 	@POST @Path("register") @Consumes(MediaType.APPLICATION_JSON) public Response createUser(
 		@Context UriInfo uriInfo,
 		final User user,
-		@Context HttpServletRequest request)
+		@Context HttpServletRequest request,
+		@HeaderParam( "uuid" ) final String uuid
+	)
 	{
 		DataHandler.createUser(user);
-		return Logic.login(user.getMail(), user.getPassword(), request.getRemoteAddr());
+		return Logic.login(user.getMail(), user.getPassword(), uuid);
 	}
 
 	@GET @Path("login") @Produces(MediaType.TEXT_PLAIN) public Response checkLogin(
 		@DefaultValue("") @QueryParam("mail") String mail,
 		@DefaultValue("") @QueryParam("password") String password,
+		@HeaderParam( "uuid" ) final String uuid,
 		@Context HttpServletRequest request
 	) {
 		if (mail.equals("admin") && password.equals("admin")) {
-			FlawHandler.guessUser(request.getRemoteAddr());
+			FlawHandler.guessUser(uuid);
 		}
-		return Logic.login(mail, password, request.getRemoteAddr());
+		return Logic.login(mail, password, uuid);
 	}
 
 	@POST @Path("logout") public Response logout(
@@ -58,6 +62,7 @@ import java.util.List;
 
 	@PUT @Consumes(MediaType.APPLICATION_JSON) public Response modifyUser(
 		@HeaderParam("sessionid") String session,
+		@HeaderParam( "uuid" ) final String uuid,
 		final User user,
 		@Context HttpServletRequest request)
 	{
@@ -65,17 +70,17 @@ import java.util.List;
 		if (session == null) return Response.status(401).build();
 
 		if ( SecurityBreachDetection.isInvalidFileFormat( user.getProfilePicture() ) ) {
-			FlawHandler.imageWithWrongDataType( request.getRemoteAddr() );
+			FlawHandler.imageWithWrongDataType( uuid );
 		}
 
 		VulnerabilityCheck vCheck = new VulnerabilityCheck();
 		UserVulnerability userVul = vCheck.checkSqlInjection(user.getDescription());
 		if(userVul!=null) {
-			FlawHandler.sqlInjection(request.getRemoteAddr());
+			FlawHandler.sqlInjection(uuid);
 			return Response.ok(userVul).build();
 		}
 		else{
-			DataHandler.modifyUser(session, user, request.getRemoteAddr());
+			DataHandler.modifyUser(session, user, uuid);
 			return Response.ok(user).build();
 		}
 
@@ -206,12 +211,15 @@ import java.util.List;
 	}
 
 	@Path("newsletter") @POST @Consumes(MediaType.APPLICATION_JSON) public Response turnOnNewsletter(
-		@HeaderParam("sessionid") String session, @Context HttpServletRequest request, final Nletter nletter
+		@HeaderParam("sessionid") String session,
+		@HeaderParam( "uuid" ) final String uuid,
+		@Context HttpServletRequest request,
+		final Nletter nletter
 	)
 	{
 		if (session == null) return Response.status(401).build();
 		if(!nletter.getEmail().contains("@")) {
-			FlawHandler.emailWithoutAt(request.getRemoteAddr());
+			FlawHandler.emailWithoutAt(uuid);
 		}
 		DataHandler.turnOnNewsletter(session);
 		return Response.noContent().build();
@@ -235,6 +243,11 @@ import java.util.List;
 		//toDO get user with sessionid
 		// modify in database
 		return Response.ok(password).build();
+	}
+
+	@Path( "me" )
+	@GET public Response getNewUuid() {
+		return Response.ok( Logic.createNewUser() ).build();
 	}
 
 }

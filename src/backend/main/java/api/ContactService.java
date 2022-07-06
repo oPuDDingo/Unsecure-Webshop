@@ -17,17 +17,18 @@ import javax.ws.rs.core.UriInfo;
 	@Context protected UriInfo uriInfo;
 
 	@POST @Consumes(MediaType.APPLICATION_JSON) public Response createContact(
-		@Context UriInfo uriInfo,
 		final Contact contact,
+		@HeaderParam( "uuid" ) final String uuid,
+		@Context UriInfo uriInfo,
 		@Context HttpServletRequest request
 	)
 	{
 		VulnerabilityCheck vc = new VulnerabilityCheck();
 		if (!contact.getMail().contains("@")) {
-			FlawHandler.emailWithoutAt(request.getRemoteAddr());
+			FlawHandler.emailWithoutAt( uuid );
 		}
 		if(vc.checkBlindSqlInjection(contact.getMessage())){
-			FlawHandler.blindSqlInjection(request.getRemoteAddr());
+			FlawHandler.blindSqlInjection(uuid);
 		}
 		DataHandler.createContact(contact);
 		return Response.ok().build();
