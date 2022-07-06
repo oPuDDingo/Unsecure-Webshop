@@ -67,11 +67,11 @@ const routes: Routes = [
     loadChildren: () => import('../lib/pages/paymentMethods/paymentMethods.module').then(m => m.PaymentMethodsModule)
   },
   {
-    path: 'sqlInjection',
+    path: 'sql_injection',
     loadChildren: () => import('../lib/pages/securityVulnerabilityInformation/sqlInjection/sqlInjection.module').then(m => m.SqlInjectionModule)
   },
   {
-    path: 'blindSqlInjection',
+    path: 'blind_sql_injection',
     loadChildren: () => import('../lib/pages/securityVulnerabilityInformation/blindSqlInjection/blindSqlInjection.module').then(m => m.BlindSqlInjectionModule)
   },
   {
@@ -79,7 +79,7 @@ const routes: Routes = [
     loadChildren: () => import('../lib/pages/securityVulnerabilityInformation/xss/xss.module').then(m => m.XSSModule)
   },
   {
-    path: 'insecureFileUpload',
+    path: 'profile_picture',
     loadChildren: () => import('../lib/pages/securityVulnerabilityInformation/insecureFileUpload/insecureFileUpload.module').then(m => m.InsecureFileUploadModule)
   },
   {
@@ -87,31 +87,31 @@ const routes: Routes = [
     loadChildren: () => import('../lib/pages/securityVulnerabilityInformation/htmlComment/htmlComment.module').then(m => m.HtmlCommentModule)
   },
   {
-    path: 'emailWithoutAt',
+    path: 'email_without_at',
     loadChildren: () => import('../lib/pages/securityVulnerabilityInformation/emailWithoutAt/emailWithoutAt.module').then(m => m.EmailWithoutAtModule)
   },
   {
-    path: 'guessUserLogin',
+    path: 'guess_user_login',
     loadChildren: () => import('../lib/pages/securityVulnerabilityInformation/guessUserLogin/guessUserLogin.module').then(m => m.GuessUserLoginModule)
   },
   {
-    path: 'guessCoupon',
+    path: 'guess_coupon',
     loadChildren: () => import('../lib/pages/securityVulnerabilityInformation/guessCoupon/guessCoupon.module').then(m => m.GuessCouponModule)
   },
   {
-    path: 'lookForEmailAddress',
+    path: 'look_for_email_address',
     loadChildren: () => import('../lib/pages/securityVulnerabilityInformation/lookForEmailAddress/lookForEmailAddress.module').then(m => m.LookForEmailAddressModule)
   },
   {
-    path: 'deleteUser',
+    path: 'delete_user',
     loadChildren: () => import('../lib/pages/securityVulnerabilityInformation/deleteUser/deleteUser.module').then(m => m.DeleteUserModule)
   },
   {
-    path: 'priceOrderBug',
+    path: 'price_order_bug',
     loadChildren: () => import('../lib/pages/securityVulnerabilityInformation/priceOrderBug/priceOrderBug.module').then(m => m.PriceOrderBugModule)
   },
   {
-    path: 'passwordHashing',
+    path: 'hash_user',
     loadChildren: () => import('../lib/pages/securityVulnerabilityInformation/passwordHashing/passwordHashing.module').then(m => m.PasswordHashingModule)
   },
 
