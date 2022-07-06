@@ -12,6 +12,7 @@ import {RankingStudent} from "../../data-access/models/rankingStudent";
 export class BiedisPageComponent implements OnInit{
 
 
+  // @ts-ignore
   rankingStudents: RankingStudent[];
   // @ts-ignore
   actualStudent: RankingStudent;
@@ -27,10 +28,6 @@ export class BiedisPageComponent implements OnInit{
       this.level = this.levelNames[levelNumber-1];
     });
     this.onLevelChange(this.levelNumber);
-
-    this.rankingStudents = [{
-      ipAddress: "145.634.752", blindSqlInjection: false, sqlInjection: true, commentXss: true, xss: false, deleteUser: true, emailWithoutAt: false, hashUser: true, guessCoupon: true, guessUserLogin: true, htmlCommentUser: true, lookForEmailAddress: true, priceOrderBug: false, profile_picture: false, points: 420
-    }];
   }
 
   onLevelChange(level: number){
@@ -38,19 +35,19 @@ export class BiedisPageComponent implements OnInit{
       case 1:
         this.level = "Beginner";
         this.levelNumber = 1;
-        this.backendService.setLevel(this.levelNumber);
+        this.backendService.setLevel(this.levelNumber).subscribe();
         this.onDescriptionChange(level);
         break;
       case 2:
         this.level = "Tutor";
         this.levelNumber = 2;
-        this.backendService.setLevel(this.levelNumber);
+        this.backendService.setLevel(this.levelNumber).subscribe();
         this.onDescriptionChange(level);
         break;
       case 3:
         this.level = "Endboss";
         this.levelNumber = 3;
-        this.backendService.setLevel(this.levelNumber);
+        this.backendService.setLevel(this.levelNumber).subscribe();
         this.onDescriptionChange(level);
         break;
     }
@@ -60,7 +57,21 @@ export class BiedisPageComponent implements OnInit{
   onDescriptionChange(level: number){
     switch (level) {
       case 1:
-        this.description.set(1, ["Zu finden in der Suche, einfach ein script eingeben", "blindSqlInjection"],);
+        this.description.set(1, [
+          "Zu finden in der Suche, einfach ein script eingeben",
+          "Zu finden - blindSqlInjection",
+          "Zu finden - emailWithoutAt",
+          "Zu finden - xss",
+          "Zu finden - profile_picture",
+          "Zu finden - htmlCommentUser",
+          "Zu finden - priceOrderBug",
+          "Zu finden - guessUserLogin",
+          "Zu finden - guessCoupon",
+          "Zu finden - deleteUser",
+          "Zu finden - commentXss",
+          "Zu finden - lookForEmailAddress",
+          "Zu finden - hashUser"
+        ],);
         break;
       case 2:
         // this.description = "";
@@ -72,8 +83,8 @@ export class BiedisPageComponent implements OnInit{
   }
 
   getInformationArray(level: number) {
-    var information: string[] = ["SQL-Injection","Blind-Sql-Injection","..","sfg","sdfg","afg","adfg","afdg","adfg","adfg","adfg","adfg","adfg"];
-    var boolIdentifier: string[] = ["sqlInjection"];
+    var information: string[] = ["SQL-Injection","Blind-Sql-Injection","E-Mail without @","XSS - Cross-Site-Scripting","Profile Picture","HTML Comment User","Price Order Bug","Guess User Login","Guess Coupon","Delete User","Comment XSS - Cross-Site-Scripting","Look for E-Mail Address","Hash User"];
+    var boolIdentifier: string[] = ["sqlInjection", "blindSqlInjection", "emailWithoutAt", "xss", "profile_picture", "htmlCommentUser", "priceOrderBug", "guessUserLogin", "guessCoupon", "deleteUser", "commentXss", "lookForEmailAddress", "hashUser"];
     var tmpStudent: RankingStudent = this.actualStudent;
     // @ts-ignore
     return this.description.get(level).map(function(item, index){
