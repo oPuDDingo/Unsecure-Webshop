@@ -1,6 +1,10 @@
+<div *ngIf="this.invalidData" class="mt-5">
+  <alert type="danger">Bitte wähle zunächst eine Adresse aus, bevor du mit dem nächsten Schritt weiter machst!</alert>
+</div>
+
 <h1>Adresse</h1>
 
 <addresses (addAddressEvent)="onAddAddress()" (onSelectAddressEvent)="this.onClickOnAddress($event)"
            [addresses]="addresses" [selectable]="true"></addresses>
 
-<button (click)="onNextPageEvent.emit()" class="btn btn-primary float-end mt-5" type="button">Weiter</button>
+<button (click)="this.onClickOnNextPage()" class="btn btn-primary float-end mt-5" type="button">Weiter</button>
