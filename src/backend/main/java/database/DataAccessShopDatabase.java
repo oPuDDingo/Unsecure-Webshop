@@ -2,6 +2,7 @@ package backend.main.java.database;
 
 import backend.main.java.models.*;
 import backend.main.java.models.modelsdb.ArticleDB;
+import backend.main.java.models.modelsdb.CommentDB;
 import com.google.common.hash.Hashing;
 
 import java.nio.charset.StandardCharsets;
@@ -41,6 +42,13 @@ public class DataAccessShopDatabase {
         }
         this.postDummyUsers();
         this.postArticleVersions();
+        this.postComments();
+    }
+
+    private void postComments(){
+        for(CommentDB comment : DatabaseQueries.comments){
+            this.postCommentDB(comment);
+        }
     }
 
     private void deleteDatabase() {
@@ -907,19 +915,25 @@ public class DataAccessShopDatabase {
         return false;
     }
 
-    public boolean sessionExists(String session)
-    {
+    public boolean sessionExists(String session) {
         try (Connection con = this.createConnection();
              Statement stmt = con.createStatement()){
             ResultSet rs = stmt.executeQuery("SELECT * FROM session WHERE key='" + session+ "';");
             boolean exists = rs.next();
             rs.close();
-            stmt.close();
-            con.close();
             return exists;
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
+    }
+
+    private void postCommentDB(CommentDB comment){
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
+           stmt.execute("INSERT INTO comment(comment_text, article_id, user_id) VALUES('"+comment.getText()+"', "+comment.getArticleId()+","+comment.getUserId()+");");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

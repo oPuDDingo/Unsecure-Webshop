@@ -1,8 +1,10 @@
 package backend.main.java.database;
 
 import backend.main.java.models.Article;
+import backend.main.java.models.Commentary;
 import backend.main.java.models.User;
 import backend.main.java.models.modelsdb.ArticleDB;
+import backend.main.java.models.modelsdb.CommentDB;
 
 
 public class DatabaseQueries {
@@ -106,7 +108,10 @@ public class DatabaseQueries {
     new User(2, "Test2@User.de", "test", "test", false, "", "", "", "Herzlichen Glückwunsch, du hast den 2. DAU gefunden!", "test123456789"),
             new User(3, "Test3@User.de", "test", "test", false, "", "", "", "Herzlichen Glückwunsch, du hast den 3. DAU gefunden!", "0112358132134"),
     new User(4, "dummy@user.com", "Dummy", "User", false, "","","","Herzlichen Glückwunsch, du hast den Dummy User gefunden!","MyPasswordIsSafe"),
-            new User(5, "admin", "Bad", "Admin", false, "","","","Herzlichen Glückwunsch, du hast den \"schlechten Admin\" gefunden!","admin")};
+            new User(5, "admin", "Bad", "Admin", false, "","","","Herzlichen Glückwunsch, du hast den \"schlechten Admin\" gefunden!","admin"),
+            new User(6, "Walter.Schmitt@gegglemail.com", "Walter", "Schmitt", false, "","","","Hallo ich bin der Walter","Xv96!54PoUaCvL"),
+            new User(7, "Zufall.Rainer@fmx.de", "Rainer", "Zufall", false, "","","","Was ein Zufall, dass wir uns hier sehen :)","VBU846?ZcN!"),
+            new User(8, "XXDestroyerXX@mab.de", "Leon", "Münch", false, "","","","...","Przu8964!!BcV")};
 
     public static ArticleDB[] articles = new ArticleDB[]{new ArticleDB("Galaxy Z Fold3", 1393.00, "Android 11.0, ONE UI 3.1.1, KNOX 3.7", "01.01.2022", "Dynamic AMOLED", "2.208x1.768", 100, 25, 1),
     new ArticleDB("Galaxy S22 Ultra", 1449.00, "Android 12, One UI 4.1, Knox 3.8", "05.12.2021", "Dynamic AMOLED, Quad HD+", "3.088x1.440", 90, 30, 1),
@@ -153,6 +158,24 @@ public class DatabaseQueries {
                     "    admin_username TEXT,\n" +
                     "    FOREIGN KEY (admin_username) REFERENCES admin(username)\n" +
                     ");"
+    };
+
+    public static CommentDB[] comments = new CommentDB[]{new CommentDB(1, 6, "geiles Teil!"), new CommentDB(1, 7, "gut diese"), new CommentDB(1, 8, "Bestes Gerät, dass ich je hatte"),
+            new CommentDB(2, 6, "Wie der Name schon sagt ULTRA"),new CommentDB(2, 7, "kam leider mit Displayschaden an"),new CommentDB(2, 8, "Unser Sohn findet es super"),
+            new CommentDB(3, 6, "Top"),new CommentDB(3, 7, "Schlechter als der Vorgänger"),new CommentDB(3, 8, "is ok"),
+            new CommentDB(4, 6, "flippt sich gut <3"),new CommentDB(4, 7, "hab meines Flippi genannt"),new CommentDB(4, 8, "Nicht geeignet für flip cup"), new CommentDB(4, 8, "ich flippe aus wie geil!"),
+            new CommentDB(5, 6, "Schlechtes Gerät"),new CommentDB(5, 7, "Naja"),new CommentDB(5, 8, "da nehm ich lieber mein alten Nokia"),
+            new CommentDB(6, 6, "Android ist besser"),new CommentDB(6, 7, "geiles Teil!"),new CommentDB(6, 8, "Super"),
+            new CommentDB(7, 6, "geiles Teil!"),new CommentDB(7, 7, "Passt"),new CommentDB(7, 8, "absolut genial"),
+            new CommentDB(8, 6, "Super Smartphone!"),new CommentDB(8, 7, "!"),new CommentDB(8, 8, "Super Kamera"),
+            new CommentDB(9, 6, "hab gleich 10 gekauft"),new CommentDB(9, 7, "gutes Gerät"),new CommentDB(9, 8, "passt scho"),
+            new CommentDB(10, 6, "geiles Teil!"),new CommentDB(10, 7, "HAMMER!"),new CommentDB(10, 8, "bestes Redmi"),
+            new CommentDB(11, 6, "2. bestes Redmi"),new CommentDB(11, 7, "Besser als Iphone!"),new CommentDB(11, 8, "Hat mein Leben bereichert!"),
+            new CommentDB(12, 6, "3. bestes Redmi"),new CommentDB(12, 7, "Meine Oma liebt es"),new CommentDB(12, 8, "Ist das das Internet?"),
+            new CommentDB(13, 6, "besser als Poco Domäne!"),new CommentDB(13, 7, "Absolut bestes Handy der Welt"),new CommentDB(13, 8, "Läuft"),
+            new CommentDB(14, 6, "Es ist eine Offenbarung!"),new CommentDB(14, 7, "bestes Sony"),new CommentDB(14, 8, "geiles Teilchen!"),
+            new CommentDB(15, 6, "Habs nicht gekauft aber gutes Gerät"),new CommentDB(15, 7, "kam kaputt an"),new CommentDB(15, 8, "hatte beim Tiefseetauchen gelich nen Wasserschaden :("),
+            new CommentDB(16, 6, "Nicht als Football geeignet"),new CommentDB(16, 7, ":D"),new CommentDB(16, 8, "Super Briefbeschwerer!")
     };
 }
 
