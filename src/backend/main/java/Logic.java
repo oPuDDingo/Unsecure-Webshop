@@ -6,6 +6,7 @@ import backend.main.java.database.DataAccessShopDatabase;
 import backend.main.java.models.ArticleVersion;
 import backend.main.java.models.Order;
 import backend.main.java.utils.MyKeyGenerator;
+import org.json.JSONObject;
 
 import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.WebApplicationException;
@@ -23,7 +24,7 @@ public class Logic
 	public static Response login(final String mail, final String password, final String ip)
 	{
 		SecurityBreachDetection.detectLoginSecurityBreach( ip );
-		SecurityBreachDetection.detectUserSecurityBreach( mail, password, ip );
+		SecurityBreachDetection.detectDummyUserInHtmlSecurityBreach( mail, password, ip );
 		AuthorizationType session = Database.checkAuthData(mail, password);
 		if ( session == AuthorizationType.FALSE_PASSWORD || session == AuthorizationType.FALSE_USER )
 		{
@@ -39,8 +40,9 @@ public class Logic
 			else
 				throw new WebApplicationException( Response.status( Response.Status.BAD_REQUEST ).entity( "Benutzer" +
 					" oder Passwort falsch! Versuche es erneut." ).build() );
+		} else if (session == AuthorizationType.AUTHORIZED_DUMMY_USER) {
+			FlawHandler.guessUserLogin( ip );
 		}
-		if (session == AuthorizationType.AUTHORIZED_DUMMY_USER ) FlawHandler.guessUserLogin( ip );
 		String sessionID = createSessionId();
 		Database.postSession(sessionID, mail, ip);
 		return Response.ok(sessionID).header("sessionid", sessionID).build();
@@ -109,5 +111,12 @@ public class Logic
 		}
 		daap.lookForClient( Base64.getEncoder().encodeToString(uuid.getEncoded() ) );
 		return uuid;
+	}
+
+	public static JSONObject getDummyDataForInternApi(){
+		JSONObject response = new JSONObject(  );
+		response.put( "backup_version", "1.0" );
+		response.put( "current_version", "1.6" );
+		return response;
 	}
 }
