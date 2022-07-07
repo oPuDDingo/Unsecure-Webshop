@@ -39,6 +39,11 @@ public class LogicAdminPanel {
         }
     }
 
+    public Response logout(final String session){
+        daap.deleteSession( session );
+        return Response.ok().build();
+    }
+
     public Response getRanking(String session){
         if(daap.checkSession(session)){
             return Response.ok(daap.getRanking()).build();

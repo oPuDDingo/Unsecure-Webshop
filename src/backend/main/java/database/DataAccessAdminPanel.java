@@ -76,7 +76,7 @@ public class DataAccessAdminPanel {
                         rs.getInt("html_comment_user"), rs.getInt("price_order_bug"), rs.getInt("guess_user_login"), rs.getInt("guess_coupon"),
                         rs.getInt("delete_user"), rs.getInt("comment_xss"), rs.getInt("look_for_email_address"), rs.getInt("hash_user"), rs.getInt("sum")));
             }
-            rs.close();;
+            rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -98,6 +98,16 @@ public class DataAccessAdminPanel {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public void deleteSession(final String session){
+        try (Connection con = this.createConnection();
+            Statement stmt = con.createStatement()){
+            String sql="DELETE FROM session WHERE key='"+session+"';";
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void putSqlInjection(String ipAddress){

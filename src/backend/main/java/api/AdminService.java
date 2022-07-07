@@ -39,6 +39,15 @@ public class AdminService {
     }
 
     @POST
+    @Path("logout")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response logout(
+        @HeaderParam("sessionid") String session
+    ){
+        return LogicAdminPanel.getInstance().logout( session );
+    }
+
+    @POST
     @Path("interface")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response setLevel(
