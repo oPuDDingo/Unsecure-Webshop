@@ -28,6 +28,8 @@ export class OrderProcessComponent implements OnInit {
   currentStep: number = 0;
   reachedStep: number = 0;
 
+  invalidData: boolean = false;
+
   constructor(private shoppingCartStore: ShoppingCartStore, private addressStore: AddressStore, private orderStore: OrderStore) {
   }
 
@@ -39,8 +41,33 @@ export class OrderProcessComponent implements OnInit {
   }
 
   changeStep(selectedStep: number): void {
-    this.reachedStep++;
-    this.currentStep = selectedStep;
+    // bin 0, reached 1, möchte 2
+    if (selectedStep < this.reachedStep) {
+      this.currentStep = selectedStep;
+    } else if (selectedStep <= this.reachedStep + 1) {
+      switch (this.reachedStep) {
+        case 1:
+          if (this.selectedAddress == undefined) {
+            this.invalidData = true;
+            this.currentStep = this.reachedStep;
+            return;
+          }
+          break;
+        case 2:
+          if (this.paymentInformation == undefined) {
+            this.invalidData = true;
+            this.currentStep = this.reachedStep;
+            return;
+          }
+          break;
+        default:
+          break;
+      }
+      if (selectedStep == this.reachedStep + 1)
+        this.reachedStep++;
+      this.invalidData = false;
+      this.onNextPage();
+    }
   }
 
   getItemList(): SpecifiedItem[] {
@@ -52,6 +79,7 @@ export class OrderProcessComponent implements OnInit {
     if (this.currentStep > this.reachedStep) {
       this.reachedStep = this.currentStep;
     }
+
   }
 
   onBuy(): void {
@@ -76,5 +104,25 @@ export class OrderProcessComponent implements OnInit {
 
   onUpdateCoupon(coupon: string): void {
     this.coupon = coupon;
+  }
+
+  getOrderItemsClasses(): string {
+    let output: string = this.reachedStep >= 0 ? 'active' : '';
+    return this.currentStep < 3 ? output + ' disabled' : output;
+  }
+
+  getAddressClasses(): string {
+    let output: string = this.reachedStep >= 1 ? 'active' : '';
+    return this.currentStep > 0 && this.currentStep < 3 ? output + ' disabled' : output;
+  }
+
+  getPaymentClasses(): string {
+    let output: string = this.reachedStep >= 2 ? 'active' : '';
+    return this.currentStep > 1 && this.currentStep < 3 ? output + ' disabled' : output;
+  }
+
+  getConfirmationClasses(): string {
+    let output: string = this.reachedStep >= 3 ? 'active' : '';
+    return this.currentStep < 3 ? output + ' disabled' : output;
   }
 }
