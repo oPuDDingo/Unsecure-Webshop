@@ -16,18 +16,21 @@ export class ContactformComponent {
   // @ts-ignore
   contact: Contact = {firstName: '', lastName: '', mail: '', message: ''};
   requiredInput: boolean = true;
+  checkBox: boolean = false;
 
   constructor(private contactStore: ContactStore, private router: Router) {
   }
 
   onSubmit(): void {
-    if(this.contact.firstName == '' || this.contact.lastName == '' || this.contact.mail == '' || this.contact.message == '')
+    if(this.contact.firstName == '' || this.contact.lastName == '' || this.contact.mail == '' || this.contact.message == ''|| !this.checkBox)
     {
       this.requiredInput = false;
     }
     else{
       this.requiredInput = true;
-      this.contactStore.createContact(this.contact).subscribe(() => this.router.navigateByUrl('/index'));
+      if(this.requiredInput && this.checkBox) {
+        this.contactStore.createContact(this.contact).subscribe(() => this.router.navigateByUrl('/index'));
+      }
     }
 
   }
