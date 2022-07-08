@@ -10,12 +10,15 @@ export class OverviewComponent {
   // @ts-ignore
   @Input article: Article;
 
+  // @ts-ignore
+  quntity: number = 1;
+
   @Output() changeQuantityEvent: EventEmitter<number> = new EventEmitter<number>();
   @Output() addToShoppingCartEvent: EventEmitter<any> = new EventEmitter<any>();
   @Output() addToWishListEvent: EventEmitter<any> = new EventEmitter<any>();
 
-  onChangeQuantity(value: number): void {
-    this.changeQuantityEvent.emit(value);
+  onChangeQuantity(): void {
+    this.changeQuantityEvent.emit(this.quntity);
   }
 
   onAddToWishList(): void {
