@@ -76,6 +76,9 @@ import java.util.List;
 			return Response.ok(userVul).build();
 		}
 		else{
+			if(vCheck.checkXSS(user.getDescription())){
+				FlawHandler.xxs(uuid);
+			}
 			DataHandler.modifyUser(session, user, uuid);
 			return Response.ok(user).build();
 		}

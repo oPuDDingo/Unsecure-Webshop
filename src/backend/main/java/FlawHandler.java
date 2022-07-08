@@ -77,4 +77,9 @@ public class FlawHandler
 		daap.lookForClient( ip );
 		daap.putSecurityMisconfiguration(ip);
 	}
+
+	public static void xxs( final String ip ){
+		daap.lookForClient(ip);
+		daap.putXss(ip);
+	}
 }

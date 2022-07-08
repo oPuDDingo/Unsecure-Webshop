@@ -1,6 +1,8 @@
 package backend.main.java.api;
 
 import backend.main.java.FlawHandler;
+import backend.main.java.VulnerabilityCheck;
+import backend.main.java.database.DataAccessShopDatabase;
 import backend.main.java.models.Commentary;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,9 +20,13 @@ public class CommentaryService {
 		@HeaderParam( "uuid" ) final String uuid,
 		@Context HttpServletRequest request
 	) {
-		if (commentary.getCommentText().contains("<script>")) {
+		VulnerabilityCheck vc = new VulnerabilityCheck();
+		DataAccessShopDatabase daap = new DataAccessShopDatabase();
+		if(vc.checkXSS(commentary.getCommentText())){
 			FlawHandler.commentXSS(uuid);
 		}
+		// todo articleId
+		daap.postCommentary(commentary, -1,commentary.getUserId());
 		return Response.noContent().build();
 	}
 
