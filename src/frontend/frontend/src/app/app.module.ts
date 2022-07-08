@@ -31,6 +31,9 @@ import {
   PasswordHashingModule
 } from "../lib/pages/securityVulnerabilityInformation/passwordHashing/passwordHashing.module";
 import {CommentXSSModule} from "../lib/pages/securityVulnerabilityInformation/commentXSS/commentXSS.module";
+import {
+  SecurityMissconfigurationModule
+} from "../lib/pages/securityVulnerabilityInformation/securityMissconfiguration/securityMissconfiguration.module";
 
 
 @NgModule({
@@ -60,7 +63,8 @@ import {CommentXSSModule} from "../lib/pages/securityVulnerabilityInformation/co
     DeleteUserModule,
     PriceOrderBugModule,
     PasswordHashingModule,
-    CommentXSSModule
+    CommentXSSModule,
+    SecurityMissconfigurationModule
   ],
   providers: [],
   bootstrap: [AppComponent]
