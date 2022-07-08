@@ -278,8 +278,16 @@ public class DataAccessShopDatabase {
         int articleVersionId = this.findArticleVersionId(articleVersion.getArticleNumber(), articleVersion.getGbSize(), articleVersion.getColor());
         try (Connection con = this.createConnection();
              Statement stmt = con.createStatement()){
-            String sql = "INSERT INTO shopping_cart(quantity, user_id, article_version_id) " +
-                "VALUES(" + articleVersion.getQuantity() + ", " + userId + ", " + articleVersionId + ");";
+            String sql="";
+            int quantity=this.checkShoppingCartItemExist(userId, articleVersionId);
+            if(quantity!=0){
+                int quantitySum=quantity+articleVersion.getQuantity();
+                sql="UPDATE shopping_cart SET quantity="+quantitySum+" WHERE user_id="+userId+" AND article_version_id="+articleVersionId+";";
+            }
+            else{
+                sql = "INSERT INTO shopping_cart(quantity, user_id, article_version_id) " +
+                        "VALUES(" + articleVersion.getQuantity() + ", " + userId + ", " + articleVersionId + ");";
+            }
             stmt.execute(sql);
             articleVersion.setId(stmt.getGeneratedKeys().getInt(1));
         } catch (SQLException e) {
@@ -741,7 +749,9 @@ public class DataAccessShopDatabase {
              Statement stmt = con.createStatement()){
             String sql = "SELECT id FROM article_version WHERE article_id=" + articleId + " AND gb_size=" + gbSize + " AND color='" + color + "';";
             ResultSet rs = stmt.executeQuery(sql);
-            articleVersionId = rs.getInt("id");
+            if(rs.next()){
+                articleVersionId = rs.getInt("id");
+            }
             rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -956,8 +966,22 @@ public class DataAccessShopDatabase {
         return id;
     }
 
+    private int checkShoppingCartItemExist(int userId, int articleVersionId){
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
+            String sql="SELECT quantity FROM shopping_cart WHERE user_id="+userId+" AND article_version_id="+articleVersionId+";";
+            ResultSet rs = stmt.executeQuery(sql);
+            if(rs.next()){
+                return rs.getInt("quantity");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     public static void main(String[] args){
         DataAccessShopDatabase d = new DataAccessShopDatabase();
-        d.resetDatabase();
+       d.resetDatabase();
     }
 }
