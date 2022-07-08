@@ -37,9 +37,9 @@ public class DataHandler
 		return articleVersion;
 	}
 
-	public static void deleteCartItem(int id)
+	public static void deleteCartItem(String session, int id)
 	{
-		Database.deleteShoppingCartItem(id);
+		Database.deleteShoppingCartItem(session, id);
 	}
 
 	public static void createContact(Contact contact)

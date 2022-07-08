@@ -310,11 +310,4 @@ public class DataAccessAdminPanel {
             e.printStackTrace();
         }
     }
-
-
-    public static void main (String[] args){
-        DataAccessAdminPanel a = new DataAccessAdminPanel();
-        List<String> rank= a.checkForNewFindings("127.0.0.1");
-        System.out.println(rank);
-    }
 }

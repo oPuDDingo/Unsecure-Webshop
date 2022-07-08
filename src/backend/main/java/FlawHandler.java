@@ -72,4 +72,9 @@ public class FlawHandler
 		daap.lookForClient(ip);
 		daap.putBlindSqlInjection(ip);
 	}
+
+	public static void endpointScanning( final String ip ){
+		daap.lookForClient( ip );
+		// daap.putEndpointScanning(ip);
+	}
 }

@@ -2,7 +2,6 @@ package backend.main.java.api;
 
 import backend.main.java.*;
 import backend.main.java.models.*;
-import org.jvnet.mimepull.Header;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
@@ -47,9 +46,6 @@ import java.util.List;
 		@HeaderParam( "uuid" ) final String uuid,
 		@Context HttpServletRequest request
 	) {
-		if (mail.equals("admin") && password.equals("admin")) {
-			FlawHandler.guessUser(uuid);
-		}
 		return Logic.login(mail, password, uuid);
 	}
 
