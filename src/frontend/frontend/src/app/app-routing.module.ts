@@ -118,7 +118,10 @@ const routes: Routes = [
     path: 'comment_xss',
     loadChildren: () => import('../lib/pages/securityVulnerabilityInformation/commentXSS/commentXSS.module').then(m => m.CommentXSSModule)
   },
-
+  {
+    path: 'security_misconfiguration',
+    loadChildren: () => import('../lib/pages/securityVulnerabilityInformation/securityMissconfiguration/securityMissconfiguration.module').then(m => m.SecurityMissconfigurationModule)
+  },
   {
     path: 'user/:id',
     loadChildren: () => import('../lib/pages/foreignUser/foreignUser.module').then(m => m.ForeignUserModule)
