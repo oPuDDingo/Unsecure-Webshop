@@ -1,6 +1,7 @@
 import {Component} from "@angular/core";
 import {Contact} from "../../data-access/models";
 import {ContactStore} from "../../data-access/service/store/contact.store";
+import {Router} from "@angular/router";
 
 @Component(
   {
@@ -14,12 +15,21 @@ export class ContactformComponent {
 
   // @ts-ignore
   contact: Contact = {firstName: '', lastName: '', mail: '', message: ''};
+  requiredInput: boolean = true;
 
-  constructor(private contactStore: ContactStore) {
+  constructor(private contactStore: ContactStore, private router: Router) {
   }
 
   onSubmit(): void {
-    this.contactStore.createContact(this.contact);
+    if(this.contact.firstName == '' || this.contact.lastName == '' || this.contact.mail == '' || this.contact.message == '')
+    {
+      this.requiredInput = false;
+    }
+    else{
+      this.requiredInput = true;
+      this.contactStore.createContact(this.contact).subscribe(() => this.router.navigateByUrl('/index'));
+    }
+
   }
 
 }
