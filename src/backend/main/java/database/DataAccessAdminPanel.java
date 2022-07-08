@@ -240,6 +240,16 @@ public class DataAccessAdminPanel {
         }
     }
 
+    public void putSecurityMisconfiguration(String ipAddress){
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
+            String sql="UPDATE ranking SET security_misconfiguration=1 WHERE ip_address='"+ipAddress+"';";
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void postSession(String session, String username){
         try (Connection con = this.createConnection();
              Statement stmt = con.createStatement()){

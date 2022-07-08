@@ -75,6 +75,6 @@ public class FlawHandler
 
 	public static void endpointScanning( final String ip ){
 		daap.lookForClient( ip );
-		// daap.putEndpointScanning(ip);
+		daap.putSecurityMisconfiguration(ip);
 	}
 }
