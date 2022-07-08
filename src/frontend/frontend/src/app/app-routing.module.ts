@@ -114,6 +114,10 @@ const routes: Routes = [
     path: 'hash_user',
     loadChildren: () => import('../lib/pages/securityVulnerabilityInformation/passwordHashing/passwordHashing.module').then(m => m.PasswordHashingModule)
   },
+  {
+    path: 'comment_xss',
+    loadChildren: () => import('../lib/pages/securityVulnerabilityInformation/commentXSS/commentXSS.module').then(m => m.CommentXSSModule)
+  },
 
   {
     path: 'user/:id',
