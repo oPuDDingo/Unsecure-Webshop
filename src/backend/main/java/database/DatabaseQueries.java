@@ -150,7 +150,8 @@ public class DatabaseQueries {
             "    delete_user INTEGER DEFAULT 0,\n" +
             "    comment_xss INTEGER DEFAULT 0,\n" +
             "    look_for_email_address INTEGER DEFAULT 0,\n" +
-            "    hash_user INTEGER DEFAULT 0\n" +
+            "    hash_user INTEGER DEFAULT 0,\n" +
+            "    security_misconfiguration INTEGER DEFAULT 0\n" +
             ");\n",
             "CREATE TABLE session(\n" +
                     "    id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
