@@ -215,7 +215,10 @@ public class DataAccessShopDatabase {
         }
     }
 
-    public void deleteShoppingCartItem(int shoppingCartItemId) {
+    public void deleteShoppingCartItem(String session,int shoppingCartItemId) {
+        if(this.getUserId(session) != this.getUserIdFromShoppingCartItem(shoppingCartItemId)){
+            return;
+        }
         try (Connection con = this.createConnection();
              Statement stmt = con.createStatement()){
             String sql = "DELETE FROM shopping_cart WHERE id=" + shoppingCartItemId + ";";
@@ -935,5 +938,26 @@ public class DataAccessShopDatabase {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private int getUserIdFromShoppingCartItem(int shoppingCartItemId){
+        int id=-1;
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
+            String sql="SELECT user_id AS id FROM shopping_cart WHERE id="+shoppingCartItemId+";";
+            ResultSet rs = stmt.executeQuery(sql);
+            if(rs.next()){
+                id = rs.getInt("id");
+            }
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
+
+    public static void main(String[] args){
+        DataAccessShopDatabase d = new DataAccessShopDatabase();
+        d.resetDatabase();
     }
 }

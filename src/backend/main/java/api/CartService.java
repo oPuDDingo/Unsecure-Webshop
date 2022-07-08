@@ -47,7 +47,7 @@ import javax.ws.rs.core.UriInfo;
 		@HeaderParam("sessionid") String session)
 	{
 		if (session == null) return Response.status(401).build();
-		DataHandler.deleteCartItem(id);
+		DataHandler.deleteCartItem(session, id);
 		return Response.noContent().build();
 	}
 }
