@@ -18,7 +18,9 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     this.authenticationService.getStatus().subscribe(
-      status => this.login = status
+      status => {
+        this.login = status;
+      }
     );
   }
 
