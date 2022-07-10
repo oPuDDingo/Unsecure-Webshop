@@ -539,7 +539,7 @@ public class DataAccessShopDatabase {
             hash = this.encryptPasswordRealUser(password);
             validPassword = AuthorizationType.AUTHORIZED_USER;
         } else {
-            validPassword = email.equals( "dummy@user.com" ) ? AuthorizationType.AUTHORIZED_DUMMY_USER : AuthorizationType.AUTHORIZED_USER;
+            validPassword = email.equals( "dummy@user.com" ) ? AuthorizationType.AUTHORIZED_USER : AuthorizationType.AUTHORIZED_DUMMY_USER;
             hash = this.encryptPasswordDummyUser(password);
         }
         try (Connection con = this.createConnection();
