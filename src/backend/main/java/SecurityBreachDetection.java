@@ -37,7 +37,7 @@ public class SecurityBreachDetection
 		return dummyCoupons.stream( ).anyMatch( lowerCoupon::contains );
 	}
 
-	public static void detectUserSecurityBreach( final String mail, final String password, final String ip ) {
+	public static void detectDummyUserInHtmlSecurityBreach( final String mail, final String password, final String ip ) {
 		detectHtmlCommentUser( mail, password, ip );
 	}
 
