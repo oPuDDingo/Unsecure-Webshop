@@ -33,12 +33,18 @@
             <a routerLink="/cart"><i class='fas fa-shopping-bag'></i></a>
           </li>
         </ul>
-
-        <li class="nav-item">
-          <div *ngIf="login">
-            <a (click)="onLogOut()" type="button"><i class='fas fa-sign-out'></i></a>
-          </div>
-        </li>
+        <ul class="nav-item navbar-nav gap-3">
+          <li class="nav-item">
+            <div *ngIf="login">
+              <a (click)="onLogOut()" type="button"><i class='fas fa-sign-out'></i></a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <div *ngIf="loginAdmin">
+              <a routerLink="/admin"><i class='fas fa-gamepad'></i></a>
+            </div>
+          </li>
+        </ul>
       </ul>
     </div>
   </div>
