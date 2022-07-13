@@ -6,6 +6,11 @@ import org.apache.commons.lang.StringUtils;
 
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.InternalServerErrorException;
+import javax.ws.rs.core.UriInfo;
+import java.util.Arrays;
+import java.util.Objects;
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public abstract class AbstractStateBuilder
 {
@@ -17,6 +22,8 @@ public abstract class AbstractStateBuilder
 	int idToWorkWith;
 	boolean validInputData = true;
 	String invalidInputDataMessage;
+
+	UriInfo uriInfo;
 
 
 	public AbstractState build(){
@@ -62,6 +69,16 @@ public abstract class AbstractStateBuilder
 
 	public AbstractStateBuilder defineResponseBody( final Object responseBody ){
 		this.responseBody = responseBody;
+		return this;
+	}
+
+	public AbstractStateBuilder withUriInfo( final UriInfo uriInfo ){
+		this.uriInfo = uriInfo;
+		return this;
+	}
+
+	public AbstractStateBuilder withNotNull( final Object... objects ){
+		if ( Arrays.stream( objects ).anyMatch( Objects::isNull ) ) throw new BadRequestException( "" );
 		return this;
 	}
 
