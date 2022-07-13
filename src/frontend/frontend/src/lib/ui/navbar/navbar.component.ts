@@ -11,6 +11,7 @@ import {UserTypes} from "../../data-access/enums/userTypes";
 export class NavbarComponent implements OnInit {
   @Input() title?: String;
   login: boolean = false;
+  loginAdmin: boolean = false;
   searchInput: string = "";
 
   constructor(private authenticationService: AuthenticationService, private router: Router) {
@@ -20,6 +21,11 @@ export class NavbarComponent implements OnInit {
     this.authenticationService.getStatus().subscribe(
       status => {
         this.login = status;
+      }
+    );
+    this.authenticationService.getAdminStatus().subscribe(
+      status => {
+        this.loginAdmin = status;
       }
     );
   }
