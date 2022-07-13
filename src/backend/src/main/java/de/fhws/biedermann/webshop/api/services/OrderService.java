@@ -1,8 +1,8 @@
-package de.fhws.biedermann.webshop.api;
+package de.fhws.biedermann.webshop.api.services;
 
-import de.fhws.biedermann.webshop.DataHandler;
-import de.fhws.biedermann.webshop.Logic;
+import de.fhws.biedermann.webshop.utils.handler.DataHandler;
 import de.fhws.biedermann.webshop.models.Order;
+import de.fhws.biedermann.webshop.api.states.OrderState;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
@@ -11,7 +11,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.net.URI;
-import java.util.List;
 
 @Path("orders") public class OrderService
 {
@@ -22,16 +21,14 @@ import java.util.List;
 	)
 	{
 		if (session == null) return Response.status(401).build();
-		List<Order> orders = DataHandler.getOrders(session);
-		return Response.ok(orders).build();
+		return Response.ok(DataHandler.getOrders(session)).build();
 	}
 
 	@GET @Produces(MediaType.APPLICATION_JSON) @Path("{id}") public Response getOrderByID(
 		@PathParam("id") final int id
 	)
 	{
-		Order order = DataHandler.getOrder(id);
-		return Response.ok(order).build();
+		return Response.ok(DataHandler.getOrder(id)).build();
 	}
 
 	@POST @Consumes(MediaType.APPLICATION_JSON) public Response createOrder(
@@ -44,7 +41,7 @@ import java.util.List;
 	{
 		if (order == null) return Response.status(400).build();
 		if (session == null) return Response.status(401).build();
-		Logic.checkPrice(order, uuid);
+		OrderState.checkPrice(order, uuid);
 		int orderNumber = DataHandler.createOrder(order, session, cleanup);
 		URI location = uriInfo.getAbsolutePathBuilder().path("id").path(String.valueOf(orderNumber)).build();
 		return Response.created(location).build();

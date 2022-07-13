@@ -1,6 +1,7 @@
-package de.fhws.biedermann.webshop;
+package de.fhws.biedermann.webshop.utils;
 
 import de.fhws.biedermann.webshop.database.DataAccessShopDatabase;
+import de.fhws.biedermann.webshop.utils.handler.FlawHandler;
 import org.apache.commons.lang.StringUtils;
 
 import java.time.LocalDateTime;

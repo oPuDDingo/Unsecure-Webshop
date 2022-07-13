@@ -1,8 +1,9 @@
-package de.fhws.biedermann.webshop.api;
+package de.fhws.biedermann.webshop.api.services;
 
-import de.fhws.biedermann.webshop.DataHandler;
-import de.fhws.biedermann.webshop.FlawHandler;
-import de.fhws.biedermann.webshop.SecurityBreachDetection;
+import de.fhws.biedermann.webshop.api.states.CouponState;
+import de.fhws.biedermann.webshop.utils.handler.DataHandler;
+import de.fhws.biedermann.webshop.utils.handler.FlawHandler;
+import de.fhws.biedermann.webshop.utils.SecurityBreachDetection;
 import de.fhws.biedermann.webshop.models.Coupon;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,5 +29,11 @@ import javax.ws.rs.core.Response;
 			return Response.ok(coupon).build();
 		}
 
+//		return new CouponState.Builder()
+//			.withUuid( uuid )
+//			.defineResponseBody( DataHandler.getCoupon(name) )
+//			.build( )
+//			.ok( );
 	}
+
 }

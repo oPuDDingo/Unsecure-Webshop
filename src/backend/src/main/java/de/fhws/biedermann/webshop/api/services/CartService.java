@@ -1,6 +1,7 @@
-package de.fhws.biedermann.webshop.api;
+package de.fhws.biedermann.webshop.api.services;
 
-import de.fhws.biedermann.webshop.DataHandler;
+import de.fhws.biedermann.webshop.api.states.CartState;
+import de.fhws.biedermann.webshop.utils.handler.DataHandler;
 import de.fhws.biedermann.webshop.models.ArticleVersion;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,9 +19,11 @@ import javax.ws.rs.core.UriInfo;
 		@HeaderParam("sessionid") String session,
 		@Context HttpServletRequest request)
 	{
-		//request.getHeaders( "sessionid" ).asIterator().forEachRemaining( System.out::println );
-		if (session == null) return Response.status(401).build();
-		return Response.ok(DataHandler.getCartItems(session)).build();
+		return new CartState.Builder()
+			.withSession( session )
+			.defineResponseBody( DataHandler.getCartItems(session) )
+			.build( )
+			.ok( );
 	}
 
 	@Path("items") @POST @Consumes(MediaType.APPLICATION_JSON) public Response createCartItem(
@@ -28,26 +31,32 @@ import javax.ws.rs.core.UriInfo;
 		@HeaderParam("sessionid") String session,
 		final ArticleVersion articleVersion)
 	{
-		if (session == null) return Response.status(401).build();
-		DataHandler.createCartItem(articleVersion, session);
-		return Response.ok().build();
+		return new CartState.Builder()
+			.withSession( session )
+			.defineResponseBody( DataHandler.createCartItem(articleVersion, session) )
+			.build( )
+			.noContent( );
 	}
 
 	@Path("items/{id}") @PUT @Consumes(MediaType.APPLICATION_JSON) public Response modifyCartItem(
 		@PathParam("id") final int id, final ArticleVersion articleVersion,
 		@HeaderParam("sessionid") String session)
 	{
-		if (session == null) return Response.status(401).build();
-		DataHandler.modifyCartItem(id, articleVersion);
-		return Response.ok(articleVersion).build();
+		return new CartState.Builder()
+			.withUuid( session )
+			.defineResponseBody( DataHandler.modifyCartItem(id, articleVersion) )
+			.build( )
+			.ok( );
 	}
 
 	@Path("items/{id}") @DELETE @Consumes(MediaType.APPLICATION_JSON) public Response deleteCartItem(
 		@PathParam("id") final int id,
 		@HeaderParam("sessionid") String session)
 	{
-		if (session == null) return Response.status(401).build();
-		DataHandler.deleteCartItem(session, id);
-		return Response.noContent().build();
+		return new CartState.Builder()
+			.withSession( session )
+			.defineResponseBody( DataHandler.deleteCartItem(session, id) )
+			.build( )
+			.noContent( );
 	}
 }

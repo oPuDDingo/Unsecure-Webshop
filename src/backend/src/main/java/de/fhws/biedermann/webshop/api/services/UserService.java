@@ -1,7 +1,10 @@
-package de.fhws.biedermann.webshop.api;
+package de.fhws.biedermann.webshop.api.services;
 
-import de.fhws.biedermann.webshop.*;
 import de.fhws.biedermann.webshop.models.*;
+import de.fhws.biedermann.webshop.utils.*;
+import de.fhws.biedermann.webshop.utils.handler.DataHandler;
+import de.fhws.biedermann.webshop.utils.handler.FlawHandler;
+import de.fhws.biedermann.webshop.utils.logic.AuthenticationLogic;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
@@ -11,6 +14,8 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.net.URI;
 import java.util.List;
+
+import static de.fhws.biedermann.webshop.api.states.UserState.createNewUser;
 
 @Path("user") public class UserService
 {
@@ -37,7 +42,7 @@ import java.util.List;
 	)
 	{
 		DataHandler.createUser(user);
-		return Logic.login(user.getMail(), user.getPassword(), uuid);
+		return AuthenticationLogic.login(user.getMail(), user.getPassword(), uuid);
 	}
 
 	@GET @Path("login") @Produces(MediaType.TEXT_PLAIN) public Response checkLogin(
@@ -46,14 +51,14 @@ import java.util.List;
 		@HeaderParam( "uuid" ) final String uuid,
 		@Context HttpServletRequest request
 	) {
-		return Logic.login(mail, password, uuid);
+		return AuthenticationLogic.login(mail, password, uuid);
 	}
 
 	@POST @Path("logout") public Response logout(
 		@HeaderParam("sessionid") final String session
 	) {
 		if (session == null) return Response.status(401).build();
-		return Logic.logout(session);
+		return AuthenticationLogic.logout(session);
 	}
 
 	@PUT @Consumes(MediaType.APPLICATION_JSON) public Response modifyUser(
@@ -246,7 +251,7 @@ import java.util.List;
 
 	@Path( "me" )
 	@GET public Response getNewUuid() {
-		return Response.ok( Logic.createNewUser() ).build();
+		return Response.ok( createNewUser() ).build();
 	}
 
 }

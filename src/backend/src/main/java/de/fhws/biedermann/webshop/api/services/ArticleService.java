@@ -1,6 +1,7 @@
-package de.fhws.biedermann.webshop.api;
+package de.fhws.biedermann.webshop.api.services;
 
-import de.fhws.biedermann.webshop.DataHandler;
+import de.fhws.biedermann.webshop.api.states.ArticleState;
+import de.fhws.biedermann.webshop.utils.handler.DataHandler;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -14,11 +15,21 @@ import javax.ws.rs.core.Response;
 		@DefaultValue("") @QueryParam("search") final String search
 
 	)
-	{ return Response.ok(DataHandler.getArticles(page, search, specifications)).build(); }
+	{
+		return new ArticleState.Builder()
+			.defineResponseBody( DataHandler.getArticles(page, search, specifications) )
+			.build( )
+			.ok( );
+	}
 
 
 	@GET @Path("{id}") @Produces(MediaType.APPLICATION_JSON) public Response getArticleByID(
 		@PathParam("id") final int id
 	)
-	{ return Response.ok(DataHandler.getArticle(id)).build(); }
+	{
+		return new ArticleState.Builder()
+			.defineResponseBody( DataHandler.getArticle(id) )
+			.build( )
+			.ok( );
+	}
 }

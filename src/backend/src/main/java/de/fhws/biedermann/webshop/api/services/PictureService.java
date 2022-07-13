@@ -1,6 +1,6 @@
-package de.fhws.biedermann.webshop.api;
+package de.fhws.biedermann.webshop.api.services;
 
-import de.fhws.biedermann.webshop.DataHandler;
+import de.fhws.biedermann.webshop.utils.handler.DataHandler;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;

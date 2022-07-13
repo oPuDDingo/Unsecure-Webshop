@@ -6,6 +6,8 @@ import de.fhws.biedermann.webshop.models.modelsdb.ArticleDB;
 import de.fhws.biedermann.webshop.models.modelsdb.CommentDB;
 
 import java.nio.charset.StandardCharsets;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,12 +19,12 @@ public class DataAccessShopDatabase {
         Connection c = null;
         try {
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:src/backend/src/main/java/de/fhws/biedermann/webshop/database/shopDatabase.db");
+            Path currentRelativePath = FileSystems.getDefault( ).getPath( "" );
+            c = DriverManager.getConnection( String.format( "jdbc:sqlite:%s/src/backend/src/main/java/de/fhws/biedermann/webshop/database/shopDatabase.db", currentRelativePath.toAbsolutePath() ) );
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-            System.out.println("Can't create Connection!");
+            ex.printStackTrace();
         } catch (ClassNotFoundException e) {
-            System.out.println("Class not found!");
+            e.printStackTrace();
         }
         return c;
     }

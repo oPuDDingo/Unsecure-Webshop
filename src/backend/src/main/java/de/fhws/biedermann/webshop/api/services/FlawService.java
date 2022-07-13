@@ -1,4 +1,4 @@
-package de.fhws.biedermann.webshop.api;
+package de.fhws.biedermann.webshop.api.services;
 
 import de.fhws.biedermann.webshop.database.DataAccessAdminPanel;
 

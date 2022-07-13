@@ -1,23 +1,20 @@
-package de.fhws.biedermann.webshop;
+package de.fhws.biedermann.webshop.utils.logic;
 
+import de.fhws.biedermann.webshop.database.AuthorizationType;
 import de.fhws.biedermann.webshop.database.DataAccessAdminPanel;
 import de.fhws.biedermann.webshop.database.DataAccessShopDatabase;
-import de.fhws.biedermann.webshop.database.AuthorizationType;
-import de.fhws.biedermann.webshop.models.ArticleVersion;
-import de.fhws.biedermann.webshop.models.Order;
-import de.fhws.biedermann.webshop.utils.MyKeyGenerator;
-import org.json.JSONObject;
+import de.fhws.biedermann.webshop.utils.LogicAdminPanel;
+import de.fhws.biedermann.webshop.utils.SecurityBreachDetection;
+import de.fhws.biedermann.webshop.utils.handler.FlawHandler;
 
-import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
-import java.security.Key;
-import java.util.Base64;
 import java.security.SecureRandom;
-import java.util.List;
+import java.util.Base64;
 
-public class Logic
+public class AuthenticationLogic
 {
+
 	static DataAccessShopDatabase Database = new DataAccessShopDatabase();
 	static DataAccessAdminPanel daap = new DataAccessAdminPanel();
 
@@ -65,58 +62,4 @@ public class Logic
 		return session;
 	}
 
-
-	public static double computePrice( List<ArticleVersion> articles)
-	{
-		double sum = 0;
-		for (ArticleVersion article : articles)
-		{
-			sum += article.getAmount() * article.getQuantity();
-		}
-		return sum;
-	}
-
-	public static boolean preventCheckXSS(int level, String request)
-	{
-		if (level == 1)
-		{
-			request = request.replace("script", "");
-			return request.contains("<script>");
-		}
-		else if (level == 2)
-		{
-			request = request.replace("<script>", "");
-			return request.contains("<script>");
-		} else if (level == 3) {
-			return request.contains("<img src=") && request.contains("onerror=");
-		}
-		return false;
-	}
-
-
-	public static void checkPrice( Order order, String remoteAddr)
-	{
-		List<ArticleVersion> articles = order.getSpecifiedItems();
-		if (computePrice(articles) != order.getAmount()) {
-			FlawHandler.priceOrder(remoteAddr);
-		}
-	}
-
-	public static Key createNewUser() {
-		// toDo if a uuid is given, store this one in the database
-		final Key uuid = MyKeyGenerator.getNewKey();
-		if (uuid == null) {
-			// toDo: handle on frontend
-			throw new InternalServerErrorException( "" );
-		}
-		daap.lookForClient( Base64.getEncoder().encodeToString(uuid.getEncoded() ) );
-		return uuid;
-	}
-
-	public static JSONObject getDummyDataForInternApi(){
-		JSONObject response = new JSONObject(  );
-		response.put( "backup_version", "1.0" );
-		response.put( "current_version", "1.6" );
-		return response;
-	}
 }

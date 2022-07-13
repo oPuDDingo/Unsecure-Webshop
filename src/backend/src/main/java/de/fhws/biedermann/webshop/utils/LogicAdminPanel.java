@@ -1,7 +1,8 @@
-package de.fhws.biedermann.webshop;
+package de.fhws.biedermann.webshop.utils;
 
 import de.fhws.biedermann.webshop.database.DataAccessAdminPanel;
 import de.fhws.biedermann.webshop.database.DataAccessShopDatabase;
+import de.fhws.biedermann.webshop.utils.logic.AuthenticationLogic;
 
 import javax.ws.rs.core.Response;
 
@@ -31,7 +32,7 @@ public class LogicAdminPanel {
 
     public Response login(final String username,final String password){
         if(daap.login(username, password)){
-            String sessionId = Logic.createSessionId();
+            String sessionId = AuthenticationLogic.createSessionId();
             daap.postSession(sessionId, username);
             return Response.ok(sessionId).header("sessionid", sessionId).build();
         }

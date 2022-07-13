@@ -2,7 +2,7 @@ package de.fhws.biedermann.webshop.models;
 
 import java.io.Serializable;
 
-public class RankingRow implements Serializable {
+public class RankingRow implements Serializable, IModel {
 
     private String ipAddress;
     private boolean sqlInjection;

@@ -1,4 +1,4 @@
-package de.fhws.biedermann.webshop.utils;
+package de.fhws.biedermann.webshop.utils.authentication;
 
 import javax.crypto.KeyGenerator;
 import java.security.Key;

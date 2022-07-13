@@ -1,8 +1,9 @@
-package de.fhws.biedermann.webshop.api;
+package de.fhws.biedermann.webshop.api.services;
 
-import de.fhws.biedermann.webshop.DataHandler;
-import de.fhws.biedermann.webshop.FlawHandler;
-import de.fhws.biedermann.webshop.VulnerabilityCheck;
+import de.fhws.biedermann.webshop.api.states.ContactState;
+import de.fhws.biedermann.webshop.utils.handler.DataHandler;
+import de.fhws.biedermann.webshop.utils.handler.FlawHandler;
+import de.fhws.biedermann.webshop.utils.VulnerabilityCheck;
 import de.fhws.biedermann.webshop.models.Contact;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,14 +24,11 @@ import javax.ws.rs.core.UriInfo;
 		@Context HttpServletRequest request
 	)
 	{
-		VulnerabilityCheck vc = new VulnerabilityCheck();
-		if (!contact.getMail().contains("@")) {
-			FlawHandler.emailWithoutAt( uuid );
-		}
-		if(vc.checkBlindSqlInjection(contact.getMessage())){
-			FlawHandler.blindSqlInjection(uuid);
-		}
-		DataHandler.createContact(contact);
-		return Response.ok().build();
+		return new ContactState.Builder()
+			.withUuid( uuid )
+			.withModel( contact )
+			.defineResponseBody( null )
+			.build( )
+			.noContent( );
 	}
 }

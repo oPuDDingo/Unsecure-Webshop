@@ -1,9 +1,13 @@
-package de.fhws.biedermann.webshop;
+package de.fhws.biedermann.webshop.utils.handler;
 
 import de.fhws.biedermann.webshop.database.DataAccessShopDatabase;
 import de.fhws.biedermann.webshop.models.*;
+import de.fhws.biedermann.webshop.utils.Logic;
+import de.fhws.biedermann.webshop.utils.LogicAdminPanel;
+import de.fhws.biedermann.webshop.utils.SecurityBreachDetection;
 import org.apache.commons.lang.StringUtils;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class DataHandler
@@ -26,9 +30,9 @@ public class DataHandler
 		return Database.getShoppingCart(Database.getUserId(session));
 	}
 
-	public static void createCartItem(ArticleVersion articleVersion, String session)
+	public static Nullable createCartItem(ArticleVersion articleVersion, String session)
 	{
-		Database.postShoppingCartItem(articleVersion, Database.getUserId(session));  //get user id from
+		return ( Nullable ) Database.postShoppingCartItem(articleVersion, Database.getUserId(session));  //get user id from
 	}
 
 	public static ArticleVersion modifyCartItem(int id, ArticleVersion articleVersion)
@@ -37,14 +41,16 @@ public class DataHandler
 		return articleVersion;
 	}
 
-	public static void deleteCartItem(String session, int id)
+	public static Nullable deleteCartItem(String session, int id)
 	{
 		Database.deleteShoppingCartItem(session, id);
+		return null;
 	}
 
-	public static void createContact( Contact contact)
+	public static Nullable createContact( Contact contact)
 	{
 		//TODO detect attack
+		return null;
 	}
 
 	public static Coupon getCoupon(String name)
@@ -89,23 +95,26 @@ public class DataHandler
 		return 1;
 	}
 
-	public static void modifyUser(String session, User user, String remoteAddr)
+	public static Nullable modifyUser(String session, User user, String remoteAddr)
 	{
-		if ( StringUtils.isNotEmpty( user.getDescription() ) && Logic.preventCheckXSS(LogicAdminPanel.getInstance().level,user.getDescription())) {
+		if ( StringUtils.isNotEmpty( user.getDescription() ) && Logic.preventCheckXSS( LogicAdminPanel.getInstance().level,user.getDescription())) {
 			FlawHandler.putXSS(remoteAddr);
 		}
 		Database.putUser(user, Database.getUserId(session));
+		return null;
 	}
 
-	public static void deleteUser(String session)
+	public static Nullable deleteUser(String session)
 	{
 		// Database.deleteUser(Database.getUserId(session));
+		return null;
 	}
 
-	public static void deleteUserById(final String session, final long userId, final String ipOfRequest) {
+	public static Nullable deleteUserById(final String session, final long userId, final String ipOfRequest) {
 		if (!SecurityBreachDetection.matchSessionToUserId( session, userId )) {
 			FlawHandler.deleteOtherUser( ipOfRequest );
 		}
+		return null;
 	}
 
 	public static Payment getUserPayment(String session)
@@ -139,9 +148,10 @@ public class DataHandler
 		return Database.putAddress(address, Database.getUserId(session));
 	}
 
-	public static void deleteAddress(String session, int addressID)
+	public static Nullable deleteAddress(String session, int addressID)
 	{
 		Database.deleteAddress(addressID, Database.getUserId(session));
+		return null;
 	}
 
 	public static String getUserMail(String session)
@@ -149,22 +159,25 @@ public class DataHandler
 		return Database.getUserInformation(Database.getUserId(session)).getMail();
 	}
 
-	public static void createUserMail(String session, String mail)
+	public static Nullable createUserMail(String session, String mail)
 	{
 		// Database.createUserMail(id);
+		return null;
 	}
 
 	public static boolean checkNewsletter(String session)	{
 		return Database.getNewsletter(Database.getUserId(session));
 	}
-	public static void turnOnNewsletter(String session)
+	public static Nullable turnOnNewsletter(String session)
 	{
 		Database.postNewsletter(Database.getUserId(session));
+		return null;
 	}
 
-	public static void turnOffNewsletter(String session)
+	public static Nullable turnOffNewsletter(String session)
 	{
 		Database.deleteNewsletter(Database.getUserId(session));
+		return null;
 	}
 
 	public static List<ArticleVersion> getWishlist(String session)
@@ -172,24 +185,28 @@ public class DataHandler
 		return Database.getWishlist(Database.getUserId(session));
 	}
 
-	public static void createWishlistItem(ArticleVersion articleVersion, String session)
+	public static Nullable createWishlistItem(ArticleVersion articleVersion, String session)
 	{
 		Database.postWishListItem(articleVersion, Database.getUserId(session));
+		return null;
 	}
 
-	public static void modifyWhishlistItem(ArticleVersion articleVersion, String session, int id)
+	public static Nullable modifyWhishlistItem(ArticleVersion articleVersion, String session, int id)
 	{
 		Database.putWishListItem(articleVersion);
+		return null;
 	}
 
-	public static void deleteWishlist(String session)
+	public static Nullable deleteWishlist(String session)
 	{
 		Database.deleteWishList(Database.getUserId(session));
+		return null;
 	}
 
-	public static void deleteWishlistItem(int id)
+	public static Nullable deleteWishlistItem(int id)
 	{
 		Database.deleteWishListItem(id);
+		return null;
 	}
 
 
