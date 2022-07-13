@@ -4,7 +4,6 @@ import {UserStore} from "../../data-access/service/store/user.store";
 import {AddressStore} from "../../data-access/service/store/address.store";
 import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
 import {Nletter} from "../../data-access/models";
-import {timeout} from "rxjs";
 
 @Component({
   selector: 'user-settings',
