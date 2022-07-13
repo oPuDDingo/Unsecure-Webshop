@@ -33,7 +33,7 @@
           </div>
           <div *ngIf="user.description" class="about">
             <h5 *ngIf="user.description != ''" class="mb-2 text-primary">About</h5>
-            <p [innerHTML]="getDescription()" id="descriptionField"></p>
+            <p id="descriptionField"></p>
           </div>
 
           <ng-template #noMail>
