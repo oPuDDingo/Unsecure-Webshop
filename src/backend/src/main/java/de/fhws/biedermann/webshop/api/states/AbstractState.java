@@ -29,6 +29,7 @@ public abstract class AbstractState
 	}
 
 	public Response ok(){
+		if (this.responseBody == null) return Response.status( Response.Status.NOT_FOUND ).build();
 		return Response.ok( this.responseBody ).build();
 	}
 
