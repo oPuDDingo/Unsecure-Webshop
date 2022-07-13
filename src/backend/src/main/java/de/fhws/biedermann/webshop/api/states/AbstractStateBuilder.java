@@ -13,7 +13,7 @@ public abstract class AbstractStateBuilder
 	String uuid = "";
 	Object responseBody;
 	IModel modelToWorkWith;
-	long idToWorkWith;
+	int idToWorkWith;
 	boolean validInputData = true;
 	String invalidInputDataMessage;
 
@@ -48,6 +48,11 @@ public abstract class AbstractStateBuilder
 
 	public AbstractStateBuilder withModel( final IModel model ){
 		this.modelToWorkWith = model;
+		return this;
+	}
+
+	public AbstractStateBuilder withId( final int id ){
+		this.idToWorkWith = id;
 		return this;
 	}
 
