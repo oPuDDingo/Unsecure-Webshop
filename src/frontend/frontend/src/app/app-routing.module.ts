@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {AuthenticationGuard as AuthGuard} from "../lib/data-access/service/canActivateGuards";
+import {AdminAuthenticationGuard as AdminAuthGuard} from "../lib/data-access/service/canActivateGuards/adminAuthentication.guard";
 
 // @ts-ignore
 const routes: Routes = [
@@ -50,7 +51,8 @@ const routes: Routes = [
   },
   {
     path: 'admin',
-    loadChildren: () => import('../lib/pages/biedisPage/biedisPage.module').then(m => m.BiedisPageModule)
+    loadChildren: () => import('../lib/pages/biedisPage/biedisPage.module').then(m => m.BiedisPageModule),
+    canActivate: [AdminAuthGuard]
   },
   {path: 'register', loadChildren: () => import('../lib/pages/register/register.module').then(m => m.RegisterModule)},
   {

@@ -3,7 +3,7 @@
     <div class="row">
       <img *ngIf="this.comment.profilePicture; else defaultPicture" [src]="this.comment.profilePicture"
            class="col" routerLink="/user/{{this.comment.userId}}">
-      <h3 class="col">{{this.getUserName()}}</h3>
+      <h5 class="d-flex col align-items-center">{{this.getUserName()}}</h5>
     </div>
   </div>
   <div class="card-body">
