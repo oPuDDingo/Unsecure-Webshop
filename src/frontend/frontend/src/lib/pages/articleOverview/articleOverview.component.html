@@ -20,8 +20,13 @@
 
 
   <div class="container">
+    <h2 class="mb-4 d-flex justify-content-around" >Kundenrezensionen</h2>
     <article-overview-comment *ngFor="let comment of article.comments"
                               [comment]="comment"></article-overview-comment>
+    <div class="d-flex justify-content-center col align-items-center">
+      <h5 class="">Kommentar hinzufügen</h5>
+      <a (click)="openCommentField()" class="inputField button"><i class="fa-solid fa-comment-dots"></i></a>
+    </div>
   </div>
 </div>
 
