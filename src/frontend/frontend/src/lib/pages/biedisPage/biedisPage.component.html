@@ -64,14 +64,15 @@
   </div>
 
   <div class="modal-body d-flex flex-column">
-<!--      Hier stimmt was nicht-->
-<!--      <p [hidden]="levelNumber==1">Momentanes Level: {{level}}  <i class="fas fa-fish"></i></p>-->
-<!--      <p [hidden]="levelNumber==2">Momentanes Level: {{level}}  <i class="fas fa-cat"></i></p>-->
-<!--      <p [hidden]="levelNumber==3">Momentanes Level: {{level}}  <i class="fas fa-dragon"></i></p>-->
+
+      <p>Momentanes Level: {{level}}  <i [class]="getLevelClass()"></i></p>
 
     <div *ngFor="let item of getInformationArray(levelNumber)">
       <div [ngClass]="item[2] ? 'text-success' : 'text-secondary'">{{item[1]}}</div>
-      <p> {{item[0]}} <a type="button"><i class="fas fa-question-circle-o"></i></a></p>
+      <div class="d-flex col">
+        <p> {{item[0]}} </p>
+        <button routerLink="{{item[3]}}" type="button" class="btn clickable" ><i class="fas fa-file-circle-question"></i></button>
+      </div>
       <span><hr style="border-style: solid"/></span>
     </div>
 

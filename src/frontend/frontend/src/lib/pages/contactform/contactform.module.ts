@@ -1,8 +1,9 @@
-import {ContactformComponent} from "./contactform.component.";
+import {ContactformComponent} from "./contactform.component"
 import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {RouterModule, Routes} from "@angular/router";
+import {AlertModule} from "ngx-bootstrap/alert";
 
 const routes: Routes = [
   {path: '', component: ContactformComponent}
@@ -15,7 +16,8 @@ const routes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    AlertModule
   ],
   providers: [],
   bootstrap: [],

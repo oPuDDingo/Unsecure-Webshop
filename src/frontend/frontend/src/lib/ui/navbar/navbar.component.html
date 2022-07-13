@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-sm fixed-top ms-5 me-5 mt-4">
+<nav class="navbar navbar-expand-sm fixed-top ms-5 me-5 mt-4 overflow-hidden">
   <div class="container-fluid">
     <a class="navbar-shop-logo me-3"
        href="https://www.fhws.de/forschung/caf-campus-angewandte-forschung/forschungsfoerderung/forschenden-datenbank/sebastian-biedermann/">
@@ -8,9 +8,6 @@
     <a class="navbar-shop-name navbar-text d-none d-xl-block"
        routerLink="/index">Biedermann's
       Shop</a>
-<!--    <button class="navbar-toggler" data-bs-target="#collapsibleNavbar" data-bs-toggle="collapse" type="button">-->
-<!--      <img alt="dropdown" src="../../../assets/icons/ausrichten.png">-->
-<!--    </button>-->
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav mx-auto gap-5">
         <li class="nav-item d-none d-lg-block">
@@ -36,12 +33,18 @@
             <a routerLink="/cart"><i class='fas fa-shopping-bag'></i></a>
           </li>
         </ul>
-
-        <li class="nav-item">
-          <div *ngIf="login">
-            <a (click)="onLogOut()" type="button"><i class='fas fa-sign-out'></i></a>
-          </div>
-        </li>
+        <ul class="nav-item navbar-nav gap-3">
+          <li class="nav-item">
+            <div *ngIf="login">
+              <a (click)="onLogOut()" type="button"><i class='fas fa-sign-out'></i></a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <div *ngIf="loginAdmin">
+              <a routerLink="/admin"><i class='fas fa-gamepad'></i></a>
+            </div>
+          </li>
+        </ul>
       </ul>
     </div>
   </div>

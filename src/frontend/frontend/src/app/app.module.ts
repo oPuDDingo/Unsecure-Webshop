@@ -30,6 +30,10 @@ import {PriceOrderBugModule} from "../lib/pages/securityVulnerabilityInformation
 import {
   PasswordHashingModule
 } from "../lib/pages/securityVulnerabilityInformation/passwordHashing/passwordHashing.module";
+import {CommentXSSModule} from "../lib/pages/securityVulnerabilityInformation/commentXSS/commentXSS.module";
+import {
+  SecurityMissconfigurationModule
+} from "../lib/pages/securityVulnerabilityInformation/securityMissconfiguration/securityMissconfiguration.module";
 
 
 @NgModule({
@@ -58,7 +62,9 @@ import {
     LookForEmailAddressModule,
     DeleteUserModule,
     PriceOrderBugModule,
-    PasswordHashingModule
+    PasswordHashingModule,
+    CommentXSSModule,
+    SecurityMissconfigurationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

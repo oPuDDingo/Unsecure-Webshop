@@ -1,17 +1,27 @@
 <div
-  class="btm d-flex flex-row justify-content-around footer gap-3 w-50 mx-auto rounded-top mt-5">
-
-  <a type="button" routerLink="/aboutUs">Über uns</a>
-  <a type="button" routerLink="/contact">Kontakt</a>
-  <a type="button" routerLink="/impressum">Impressum</a>
-  <a type="button" routerLink="/paymentMethods">Zahlungsarten</a>
-  <a type="button" routerLink="/sustainable">Nachhaltigkeit</a>
+  class="d-flex flex-row justify-content-around footer gap-3 w-50 mx-auto rounded-top mt-5 p-2 overflow-hidden">
+  <a (click)="openUuidModal(showUuid)" class="text-light" type="button">UUID anzeigen</a>
+  <a routerLink="/aboutUs" type="button">Über uns</a>
+  <a routerLink="/contact" type="button">Kontakt</a>
+  <a routerLink="/impressum" type="button">Impressum</a>
+  <a routerLink="/paymentMethods" type="button">Zahlungsarten</a>
+  <a routerLink="/sustainable" type="button">Nachhaltigkeit</a>
 
   <div *ngIf="login">
     <a type="button">
       <newsletter></newsletter>
     </a>
   </div>
-
-
 </div>
+
+<ng-template #showUuid>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Modal</h4>
+    <button (click)="modalRef?.hide()" aria-label="Close" class="btn-close close pull-right" type="button">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    Deine UUID lautet: <b>{{this.uuid}}</b>
+  </div>
+</ng-template>

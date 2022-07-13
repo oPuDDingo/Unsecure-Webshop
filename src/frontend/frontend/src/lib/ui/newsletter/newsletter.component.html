@@ -11,9 +11,10 @@
     </button>
   </div>
   <div class="modal-body d-flex flex-column">
+    <form class="was-validated">
     <div class="form-floating mb-3 mt-3">
       <input [(ngModel)]="nletter.email" class="form-control" id="email" name="email" placeholder="Enter email"
-             type="text">
+             type="text" required>
       <label for="email">Email</label>
     </div>
     <label>
@@ -21,5 +22,6 @@
       <p>
     </label>
     <button (click)="onSubscribeToNewsletter()" class="btn btn-primary w-25" type="submit">ANMELDEN</button>
+    </form>
   </div>
 </ng-template>

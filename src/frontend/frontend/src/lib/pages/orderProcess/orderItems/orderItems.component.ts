@@ -33,7 +33,7 @@ export class OrderItemsComponent {
     this.shoppingCartStore.updateItem(itemId, quantity);
   }
 
-  onNextPageClick(): void {
+  public onNextPageClick(): void {
     this.onUpdateCouponEvent.emit(this.coupon.name);
     this.onNextPageEvent.emit();
   }
@@ -71,5 +71,4 @@ export class OrderItemsComponent {
     if (this.coupon.percent) return "Ändern";
     else return 'Einlösen';
   }
-
 }

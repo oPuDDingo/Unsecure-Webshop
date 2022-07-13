@@ -17,12 +17,13 @@ import {Statics} from "./statics";
 export class AuthenticationService {
 
   statusSubject: ReplaySubject<boolean> = new ReplaySubject<boolean>(1);
+  statusAdminSubject: ReplaySubject<boolean> = new ReplaySubject<boolean>(1);
   userType: UserTypes = UserTypes.User;
   header: HttpHeaders = new HttpHeaders();
 
   constructor(
+    public backendService: BackendService,
     private httpClient: HttpClient,
-    private backendService: BackendService,
     private addressStore: AddressStore,
     private orderStore: OrderStore,
     private shoppingCartStore: ShoppingCartStore,
@@ -32,8 +33,10 @@ export class AuthenticationService {
   ) {
     if (this.cookieService.check("sessionKey")) {
       this.statusSubject.next(true);
-    } else {
+      this.statusAdminSubject.next(true);
+    }else {
       this.statusSubject.next(false);
+      this.statusAdminSubject.next(false);
     }
   }
 
@@ -79,6 +82,7 @@ export class AuthenticationService {
         this.backendService.sessionKey = sessionKey;
         this.statusSubject.next(true);
         this.userType = UserTypes.Admin;
+        this.statusAdminSubject.next(true);
       })
     );
   }
@@ -93,6 +97,7 @@ export class AuthenticationService {
         map(response => {
           this.cookieService.delete('sessionKey');
           this.statusSubject.next(false);
+          this.statusAdminSubject.next(false);
           this.backendService.sessionKey = "";
           this.userType = UserTypes.User;
           this.cleanupStores();
@@ -121,6 +126,10 @@ export class AuthenticationService {
 
   getStatus(): ReplaySubject<boolean> {
     return this.statusSubject;
+  }
+
+  getAdminStatus(): ReplaySubject<boolean>{
+    return this.statusAdminSubject;
   }
 
   cleanupStores(): void {
