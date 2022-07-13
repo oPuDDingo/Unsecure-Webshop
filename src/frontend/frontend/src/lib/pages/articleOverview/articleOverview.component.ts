@@ -50,4 +50,15 @@ export class ArticleOverviewComponent implements OnInit {
     this.routing.navigateByUrl('/wishlist');
   }
 
+  //Hier mal gucken wie man des verbessern kann
+  openCommentField(){
+    let row = document.createElement('div');
+    row.className = 'row';
+    row.innerHTML = `
+      <br>
+      <input type="text">`;
+    // @ts-ignore
+    document.querySelector('.inputField').appendChild(row);
+  }
+
 }

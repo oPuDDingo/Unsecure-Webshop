@@ -9,7 +9,7 @@ export class AlertMessagesStore {
   alertSubject: Subject<string> = new Subject<string>();
 
   constructor(private backendService: BackendService) {
-    setInterval(() => this.updateAlerts(), 4000);
+    setInterval(() => this.updateAlerts(), 3000);
   }
 
   addAlertMessage(message: string): void {

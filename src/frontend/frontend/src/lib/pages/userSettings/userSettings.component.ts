@@ -3,7 +3,7 @@ import {Address, User} from "../../data-access/models";
 import {UserStore} from "../../data-access/service/store/user.store";
 import {AddressStore} from "../../data-access/service/store/address.store";
 import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
-import {Nletter} from "../../data-access/models/nletter";
+import {Nletter} from "../../data-access/models";
 
 @Component({
   selector: 'user-settings',
@@ -35,8 +35,15 @@ export class UserSettingsComponent implements OnInit {
 
   ngOnInit() {
     this.userStore.loadUser().subscribe(user => {
-      if (user)
+      if (user) {
+        if( user.description == undefined ) {
+          user.description = "";
+        }
         this.user = user;
+        setTimeout(() => {
+          this.getDescription();
+        }, 2000);
+      }
     });
     this.addressStore.loadAllAddresses().subscribe(addresses => {
       this.addresses = addresses
@@ -55,10 +62,14 @@ export class UserSettingsComponent implements OnInit {
     return this.user.firstName + " " + this.user.lastName;
   }
 
-  getDescription(): SafeHtml {
-    //let description: string = this.user.description ? this.user.description : "";
-    //return this.sanitizer.bypassSecurityTrustScript(description);
-    return this.user.description ? this.user.description : "";
+  getDescription(): void {
+    let content = document.getElementById("descriptionField");
+    console.log( content );
+    if ( content != undefined ) {
+      content!.replaceChildren();
+      // @ts-ignore
+      content!.appendChild(document.createRange().createContextualFragment(this.user.description));
+    }
   }
 
   validateNewPasswordEightChars(): boolean {

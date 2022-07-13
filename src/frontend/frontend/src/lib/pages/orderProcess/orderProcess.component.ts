@@ -3,6 +3,7 @@ import {ShoppingCartStore} from "../../data-access/service/store/shoppingCart.st
 import {Address, Order, Payment, SpecifiedItem} from "../../data-access/models";
 import {AddressStore} from "../../data-access/service/store/address.store";
 import {OrderStore} from "../../data-access/service/store/order.store";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'order-process',
@@ -29,8 +30,13 @@ export class OrderProcessComponent implements OnInit {
   reachedStep: number = 0;
 
   invalidData: boolean = false;
+  amount: string|undefined;
 
-  constructor(private shoppingCartStore: ShoppingCartStore, private addressStore: AddressStore, private orderStore: OrderStore) {
+  constructor(private shoppingCartStore: ShoppingCartStore, private addressStore: AddressStore,
+              private orderStore: OrderStore, private route: ActivatedRoute ) {
+    this.route.queryParams.subscribe( params =>  {
+      this.amount = params['amount'];
+    });
   }
 
   ngOnInit() {
@@ -79,7 +85,6 @@ export class OrderProcessComponent implements OnInit {
     if (this.currentStep > this.reachedStep) {
       this.reachedStep = this.currentStep;
     }
-
   }
 
   onBuy(): void {
@@ -88,7 +93,7 @@ export class OrderProcessComponent implements OnInit {
       coupon: {name: this.coupon},
       address: this.selectedAddress,
       payment: this.paymentInformation
-    }).subscribe(path => {
+    }, this.getValidAmount() ).subscribe(path => {
       this.orderStore.loadOrderById(this.getIdOfPath(path)).subscribe(order => this.order = order);
 
       this.currentStep++;
@@ -96,6 +101,21 @@ export class OrderProcessComponent implements OnInit {
         this.reachedStep = this.currentStep;
       }
     });
+  }
+
+  getValidAmount(): number {
+    if( this.amount != undefined )
+    {
+      let number = Number(this.amount);
+      if ( isNaN( number ) )
+      {
+        return -1;
+      } else {
+        return number;
+      }
+    } else {
+     return -1;
+    }
   }
 
   getIdOfPath(path: string): number {

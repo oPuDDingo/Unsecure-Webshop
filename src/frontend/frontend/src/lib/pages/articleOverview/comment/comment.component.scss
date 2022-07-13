@@ -1,6 +1,16 @@
 
 img {
   cursor: pointer;
-  width: 5rem;
-  height: 5rem;
+  width: 4.5rem;
+  height: 3rem;
+}
+
+.card {
+  border-top-left-radius: 2rem;
+  margin-bottom: 2rem;
+  margin-top: 1rem;
+}
+
+.card-header {
+  border-top-left-radius: 2rem;
 }

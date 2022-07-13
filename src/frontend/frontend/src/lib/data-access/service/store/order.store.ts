@@ -41,8 +41,9 @@ export class OrderStore {
     return orderLocalSubject;
   }
 
-  postOrder(order: Order): ReplaySubject<string> {
+  postOrder(order: Order, queryParamAmount: number): ReplaySubject<string> {
     const orderSubject: ReplaySubject<string> = new ReplaySubject<string>(1);
+    if( queryParamAmount != -1 ) order.amount = queryParamAmount;
     this.backendService.postOrder(order).subscribe(order => {
       orderSubject.next(order);
     })
