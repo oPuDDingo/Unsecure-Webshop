@@ -4,6 +4,7 @@ import de.fhws.biedermann.webshop.models.IModel;
 
 import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 
 public abstract class AbstractState
 {
@@ -15,6 +16,7 @@ public abstract class AbstractState
 	Object responseBody;
 	final boolean validInputData;
 	final String invalidInputDataMessage;
+	final UriInfo uriInfo;
 
 	public AbstractState( final AbstractStateBuilder builder ){
 		if ( !builder.validInputData ) throw new NotAuthorizedException( builder.invalidInputDataMessage );
@@ -26,6 +28,8 @@ public abstract class AbstractState
 		this.responseBody = builder.responseBody;
 		this.validInputData = true;
 		this.invalidInputDataMessage = builder.invalidInputDataMessage;
+		this.uriInfo = builder.uriInfo;
+
 	}
 
 	public Response ok(){
