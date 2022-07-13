@@ -29,12 +29,23 @@ public abstract class AbstractState
 	}
 
 	public Response ok(){
+		this.execute();
 		if (this.responseBody == null) return Response.status( Response.Status.NOT_FOUND ).build();
 		return Response.ok( this.responseBody ).build();
 	}
 
+	public Response create(){
+		this.execute();
+		return Response.status( Response.Status.CREATED ).build();
+	}
+
 	public Response noContent(){
+		this.execute();
 		return Response.noContent().build();
+	}
+
+	private void execute() {
+		lookForFlaw();
 	}
 
 	abstract void lookForFlaw();

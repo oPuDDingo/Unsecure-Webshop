@@ -4,6 +4,7 @@ import de.fhws.biedermann.webshop.models.IModel;
 import de.fhws.biedermann.webshop.utils.ErrorMessages;
 import org.apache.commons.lang.StringUtils;
 
+import javax.ws.rs.BadRequestException;
 import javax.ws.rs.InternalServerErrorException;
 
 public abstract class AbstractStateBuilder
@@ -47,6 +48,9 @@ public abstract class AbstractStateBuilder
 	}
 
 	public AbstractStateBuilder withModel( final IModel model ){
+		if (model == null) {
+			throw new BadRequestException( "" );
+		}
 		this.modelToWorkWith = model;
 		return this;
 	}
