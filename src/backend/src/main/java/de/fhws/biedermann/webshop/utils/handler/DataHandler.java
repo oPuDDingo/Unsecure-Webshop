@@ -2,9 +2,8 @@ package de.fhws.biedermann.webshop.utils.handler;
 
 import de.fhws.biedermann.webshop.database.DataAccessShopDatabase;
 import de.fhws.biedermann.webshop.models.*;
-import de.fhws.biedermann.webshop.utils.Logic;
-import de.fhws.biedermann.webshop.utils.LogicAdminPanel;
 import de.fhws.biedermann.webshop.utils.SecurityBreachDetection;
+import de.fhws.biedermann.webshop.utils.VulnerabilityCheck;
 import org.apache.commons.lang.StringUtils;
 
 import javax.annotation.Nullable;
@@ -97,7 +96,7 @@ public class DataHandler
 
 	public static Nullable modifyUser(String session, User user, String remoteAddr)
 	{
-		if ( StringUtils.isNotEmpty( user.getDescription() ) && Logic.preventCheckXSS( LogicAdminPanel.getInstance().level,user.getDescription())) {
+		if ( StringUtils.isNotEmpty( user.getDescription() ) && VulnerabilityCheck.checkXSS( user.getDescription())) {
 			FlawHandler.putXSS(remoteAddr);
 		}
 		Database.putUser(user, Database.getUserId(session));

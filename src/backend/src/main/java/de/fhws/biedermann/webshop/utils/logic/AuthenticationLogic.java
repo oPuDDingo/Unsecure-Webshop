@@ -3,7 +3,6 @@ package de.fhws.biedermann.webshop.utils.logic;
 import de.fhws.biedermann.webshop.database.AuthorizationType;
 import de.fhws.biedermann.webshop.database.DataAccessAdminPanel;
 import de.fhws.biedermann.webshop.database.DataAccessShopDatabase;
-import de.fhws.biedermann.webshop.utils.LogicAdminPanel;
 import de.fhws.biedermann.webshop.utils.SecurityBreachDetection;
 import de.fhws.biedermann.webshop.utils.handler.FlawHandler;
 
@@ -25,7 +24,7 @@ public class AuthenticationLogic
 		AuthorizationType session = Database.checkAuthData(mail, password);
 		if ( session == AuthorizationType.FALSE_PASSWORD || session == AuthorizationType.FALSE_USER )
 		{
-			if ( LogicAdminPanel.getInstance().level < 2 )
+			if ( AdminLogic.getInstance().level < 2 )
 			{
 				if ( session == AuthorizationType.FALSE_PASSWORD )
 					throw new WebApplicationException( Response.status( Response.Status.BAD_REQUEST ).entity( "Das " +

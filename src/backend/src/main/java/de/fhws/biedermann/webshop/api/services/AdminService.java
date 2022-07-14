@@ -1,7 +1,7 @@
 package de.fhws.biedermann.webshop.api.services;
 
 import de.fhws.biedermann.webshop.api.states.AdminState;
-import de.fhws.biedermann.webshop.utils.LogicAdminPanel;
+import de.fhws.biedermann.webshop.utils.logic.AdminLogic;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -17,7 +17,7 @@ public class AdminService {
                                @DefaultValue("") @QueryParam("password") String password){
 
         return new AdminState.Builder()
-            .defineResponseBody( LogicAdminPanel.getInstance().login(username, password) )
+            .defineResponseBody( AdminLogic.getInstance().login(username, password) )
             .build()
             .ok();
     }
@@ -28,7 +28,7 @@ public class AdminService {
     public Response getRanking(@HeaderParam("sessionid") String session){
         return new AdminState.Builder()
             .withSession( session )
-            .defineResponseBody( LogicAdminPanel.getInstance().getRanking(session) )
+            .defineResponseBody( AdminLogic.getInstance().getRanking(session) )
             .build()
             .ok();
     }
@@ -38,7 +38,7 @@ public class AdminService {
     public Response getLevel(@HeaderParam( "sessionid" ) String session) {
         return new AdminState.Builder()
             .withSession( session )
-            .defineResponseBody( LogicAdminPanel.getInstance().getLevel(session) )
+            .defineResponseBody( AdminLogic.getInstance().getLevel(session) )
             .build( )
             .ok( );
     }
@@ -49,7 +49,7 @@ public class AdminService {
     public Response resetDatabaseShop(@HeaderParam("sessionid") String session){
         return new AdminState.Builder()
             .withSession( session )
-            .defineResponseBody( LogicAdminPanel.getInstance().resetDatabaseShop(session) )
+            .defineResponseBody( AdminLogic.getInstance().resetDatabaseShop(session) )
             .build( )
             .ok( );
     }
@@ -62,7 +62,7 @@ public class AdminService {
     ){
         return new AdminState.Builder()
             .withSession( session )
-            .defineResponseBody( LogicAdminPanel.getInstance().logout( session ) )
+            .defineResponseBody( AdminLogic.getInstance().logout( session ) )
             .build( )
             .noContent( );
     }
@@ -76,7 +76,7 @@ public class AdminService {
     ){
         return new AdminState.Builder()
             .withSession( session )
-            .defineResponseBody( LogicAdminPanel.getInstance().setLevel(session, level) )
+            .defineResponseBody( AdminLogic.getInstance().setLevel(session, level) )
             .build( )
             .noContent( );
     }
@@ -87,7 +87,7 @@ public class AdminService {
     public Response resetDatabaseRanking(@HeaderParam("sessionid") String session){
         return new AdminState.Builder()
             .withSession( session )
-            .defineResponseBody( LogicAdminPanel.getInstance().resetDatabaseRanking(session) )
+            .defineResponseBody( AdminLogic.getInstance().resetDatabaseRanking(session) )
             .build( )
             .noContent( );
     }

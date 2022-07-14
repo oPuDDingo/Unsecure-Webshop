@@ -1,30 +1,30 @@
-package de.fhws.biedermann.webshop.utils;
+package de.fhws.biedermann.webshop.utils.logic;
 
 import de.fhws.biedermann.webshop.database.DataAccessAdminPanel;
 import de.fhws.biedermann.webshop.database.DataAccessShopDatabase;
-import de.fhws.biedermann.webshop.utils.logic.AuthenticationLogic;
 
 import javax.ws.rs.core.Response;
 
-public class LogicAdminPanel {
+public class AdminLogic
+{
 
-    private static LogicAdminPanel INSTANCE;
+    private static AdminLogic INSTANCE;
 
     private final DataAccessAdminPanel daap;
     private final DataAccessShopDatabase dasd;
     public int level;
 
-    private LogicAdminPanel(final int level) {
+    private AdminLogic(final int level) {
         this.daap = new DataAccessAdminPanel();
         this.dasd = new DataAccessShopDatabase();
         this.level = level;
     }
 
-    public static final LogicAdminPanel getInstance( )
+    public static AdminLogic getInstance( )
     {
         if ( INSTANCE == null )
         {
-            INSTANCE = new LogicAdminPanel( 1 );
+            INSTANCE = new AdminLogic( 1 );
         }
 
         return INSTANCE;
