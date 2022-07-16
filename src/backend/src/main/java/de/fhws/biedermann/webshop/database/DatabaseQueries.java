@@ -108,7 +108,9 @@ public class DatabaseQueries {
             new User(5, "admin", "Bad", "Admin", false, "","","","Herzlichen Glückwunsch, du hast den \"schlechten Admin\" gefunden!","admin"),
             new User(6, "Walter.Schmitt@gegglemail.com", "Walter", "Schmitt", false, "","","","Hallo ich bin der Walter","Xv96!54PoUaCvL"),
             new User(7, "Zufall.Rainer@fmx.de", "Rainer", "Zufall", false, "","","","Was ein Zufall, dass wir uns hier sehen :)","VBU846?ZcN!"),
-            new User(8, "XXDestroyerXX@mab.de", "Leon", "Münch", false, "","","","...","Przu8964!!BcV")};
+            new User(8, "XXDestroyerXX@mab.de", "Leon", "Münch", false, "","","","...","Przu8964!!BcV"),};
+
+    public static User[] bidermannUser = new User[]{new User(9, "biedermann", "Admin", "Admin", false, "", "", "", "Hallo Herr Biedermann", "Cv3!56PQ76mLh7?")};
 
     public static ArticleDB[] articles = new ArticleDB[]{new ArticleDB("Galaxy Z Fold3", 1393.00, "Android 11.0, ONE UI 3.1.1, KNOX 3.7", "01.01.2022", "Dynamic AMOLED", "2.208x1.768", 100, 25, 1),
     new ArticleDB("Galaxy S22 Ultra", 1449.00, "Android 12, One UI 4.1, Knox 3.8", "05.12.2021", "Dynamic AMOLED, Quad HD+", "3.088x1.440", 90, 30, 1),
@@ -131,7 +133,7 @@ public class DatabaseQueries {
 
     public static String[] gbSizes = new String[]{"128", "256", "512"};
 
-    public static String[] deleteDatabaseAdminPanel = new String[]{"DROP TABLE ranking;","DROP TABLE session"};
+    public static String[] deleteDatabaseAdminPanel = new String[]{"DROP TABLE ranking;","DROP TABLE session;"};
 
     public static String[] createDatabaseAdminPanel = new String[]{"CREATE TABLE ranking(\n" +
             "    ip_address TEXT PRIMARY KEY,\n" +
@@ -155,7 +157,7 @@ public class DatabaseQueries {
                     "    key TEXT,\n" +
                     "    admin_username TEXT,\n" +
                     "    FOREIGN KEY (admin_username) REFERENCES admin(username)\n" +
-                    ");"
+                    ")"
     };
 
     public static CommentDB[] comments = new CommentDB[]{new CommentDB(1, 6, "geiles Teil!"), new CommentDB(1, 7, "gut diese"), new CommentDB(1, 8, "Bestes Gerät, dass ich je hatte"),
