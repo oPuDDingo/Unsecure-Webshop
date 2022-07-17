@@ -51,7 +51,7 @@ import javax.ws.rs.core.UriInfo;
 			.withSession( session )
 			.withUuid( uuid )
 			.withNotNull( order )
-			.defineResponseBody( OrderLogic.getUriLocation( cleanup, session, order, uriInfo ) )
+			.withUriInfo( OrderLogic.createOrder( cleanup, session, order, uriInfo ) )
 			.build()
 			.create();
 	}

@@ -132,7 +132,7 @@ import static de.fhws.biedermann.webshop.api.states.UserState.createNewUser;
 			.withSession( session )
 			.withModel( payment )
 			.defineResponseBody( DataHandler.createUserPayment(session, payment) )
-			.withUriInfo( uriInfo )
+			.withUriInfo( uriInfo.getAbsolutePathBuilder().build(  ) )
 			.build()
 			.create();
 	}
@@ -142,14 +142,14 @@ import static de.fhws.biedermann.webshop.api.states.UserState.createNewUser;
 		final Payment payment)
 	{
 		// DataHandler.modifyUserPayment(session, payment);
-		return Response.ok("momentan deaktiviert").build();
+		return Response.status( 501 ).build();
 	}
 
 	@Path("payment") @DELETE public Response deleteUserPayment(
 		@HeaderParam("sessionid") String session)
 	{
 		// DataHandler.deleteUserPayment(session);
-		return Response.ok("momentan deaktiviert").build();
+		return Response.status( 501 ).build();
 	}
 
 	@GET @Path("addresses") @Produces(MediaType.APPLICATION_JSON) public Response getAllUserAddresses(
@@ -229,7 +229,7 @@ import static de.fhws.biedermann.webshop.api.states.UserState.createNewUser;
 		return new UserState.Builder()
 			.withSession( session )
 			.defineResponseBody( DataHandler.createUserMail(session, mail) )
-			.withUriInfo( uriInfo )
+			.withUriInfo( uriInfo.getAbsolutePathBuilder().build(  ) )
 			.build()
 			.create();
 	}
