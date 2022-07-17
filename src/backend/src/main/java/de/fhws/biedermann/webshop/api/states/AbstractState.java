@@ -40,7 +40,11 @@ public abstract class AbstractState
 
 	public Response create(){
 		this.execute();
-		return Response.status( Response.Status.CREATED ).build();
+		if ( uriInfo == null ) {
+			return Response.status( Response.Status.CREATED ).build();
+		} else {
+			return Response.created( uriInfo.getAbsolutePathBuilder().build( ) ).build();
+		}
 	}
 
 	public Response noContent(){
