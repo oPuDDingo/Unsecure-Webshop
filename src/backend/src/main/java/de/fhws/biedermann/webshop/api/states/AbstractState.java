@@ -38,7 +38,7 @@ public abstract class AbstractState
 
 	public Response ok(){
 		this.execute();
-		if (this.responseBody == null) return Response.status( Response.Status.NOT_FOUND ).build();
+//		if (this.responseBody == null) return Response.status( Response.Status.NOT_FOUND ).build();
 		return addHeaderToResponse( Response.ok( this.responseBody ) );
 	}
 
