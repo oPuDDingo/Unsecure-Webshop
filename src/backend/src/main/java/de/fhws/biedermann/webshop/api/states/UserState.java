@@ -1,7 +1,13 @@
 package de.fhws.biedermann.webshop.api.states;
 
 import de.fhws.biedermann.webshop.database.DataAccessAdminPanel;
+import de.fhws.biedermann.webshop.models.Nletter;
+import de.fhws.biedermann.webshop.models.User;
+import de.fhws.biedermann.webshop.utils.SecurityBreachDetection;
+import de.fhws.biedermann.webshop.utils.VulnerabilityCheck;
 import de.fhws.biedermann.webshop.utils.authentication.MyKeyGenerator;
+import de.fhws.biedermann.webshop.utils.handler.FlawHandler;
+import org.apache.commons.lang.StringUtils;
 
 import javax.ws.rs.InternalServerErrorException;
 import java.security.Key;
@@ -29,7 +35,23 @@ public class UserState extends AbstractState
 
 	@Override void lookForFlaw( )
 	{
+		if ( this.modelToWorkWith instanceof User user ){
+			if ( SecurityBreachDetection.isInvalidFileFormat( user.getProfilePicture() ) ) {
+				FlawHandler.imageWithWrongDataType( uuid );
+			}
 
+			if ( StringUtils.isNotEmpty( user.getDescription() ) && VulnerabilityCheck.checkXSS( user.getDescription())) {
+				FlawHandler.putXSS(uuid);
+			}
+
+			if( this.modelToWorkWith != this.responseBody )
+				FlawHandler.sqlInjection( uuid );
+		} else if ( (this.modelToWorkWith instanceof Nletter nletter ))
+		{
+			if(!nletter.getEmail().contains("@")) {
+				FlawHandler.emailWithoutAt(uuid);
+			}
+		}
 	}
 
 	public static class Builder extends AbstractStateBuilder{

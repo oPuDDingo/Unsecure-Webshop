@@ -1,7 +1,6 @@
 package de.fhws.biedermann.webshop.api.states;
 
 import de.fhws.biedermann.webshop.utils.handler.FlawHandler;
-import org.json.JSONObject;
 
 public class BackupState extends AbstractState
 {

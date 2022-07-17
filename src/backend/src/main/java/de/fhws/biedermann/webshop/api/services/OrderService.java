@@ -3,6 +3,7 @@ package de.fhws.biedermann.webshop.api.services;
 import de.fhws.biedermann.webshop.utils.handler.DataHandler;
 import de.fhws.biedermann.webshop.models.Order;
 import de.fhws.biedermann.webshop.api.states.OrderState;
+import de.fhws.biedermann.webshop.utils.logic.OrderLogic;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
@@ -10,7 +11,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
-import java.net.URI;
 
 @Path("orders") public class OrderService
 {
@@ -20,30 +20,39 @@ import java.net.URI;
 		@HeaderParam("sessionid") String session
 	)
 	{
-		if (session == null) return Response.status(401).build();
-		return Response.ok(DataHandler.getOrders(session)).build();
+		return new OrderState.Builder()
+			.withSession( session )
+			.defineResponseBody( DataHandler.getOrders( session ) )
+			.build()
+			.ok();
 	}
 
 	@GET @Produces(MediaType.APPLICATION_JSON) @Path("{id}") public Response getOrderByID(
 		@PathParam("id") final int id
 	)
 	{
-		return Response.ok(DataHandler.getOrder(id)).build();
+		return new OrderState.Builder()
+			.withId( id )
+			.defineResponseBody( DataHandler.getOrder( id ) )
+			.build()
+			.ok();
 	}
 
 	@POST @Consumes(MediaType.APPLICATION_JSON) public Response createOrder(
 		@Context UriInfo uriInfo,
-		@QueryParam("cleanUpWishlist") final boolean cleanup,
+		@DefaultValue( "false" ) @QueryParam("cleanUpWishlist") final boolean cleanup,
 		@HeaderParam("sessionid") String session,
 		@HeaderParam( "uuid" ) final String uuid,
-		final Order order, @Context HttpServletRequest request
+		@Context HttpServletRequest request,
+		final Order order
 	)
 	{
-		if (order == null) return Response.status(400).build();
-		if (session == null) return Response.status(401).build();
-		OrderState.checkPrice(order, uuid);
-		int orderNumber = DataHandler.createOrder(order, session, cleanup);
-		URI location = uriInfo.getAbsolutePathBuilder().path("id").path(String.valueOf(orderNumber)).build();
-		return Response.created(location).build();
+		return new OrderState.Builder()
+			.withSession( session )
+			.withUuid( uuid )
+			.withNotNull( order )
+			.defineResponseBody( OrderLogic.getUriLocation( cleanup, session, order, uriInfo ) )
+			.build()
+			.create();
 	}
 }

@@ -3,8 +3,6 @@ package de.fhws.biedermann.webshop.utils.handler;
 import de.fhws.biedermann.webshop.database.DataAccessShopDatabase;
 import de.fhws.biedermann.webshop.models.*;
 import de.fhws.biedermann.webshop.utils.SecurityBreachDetection;
-import de.fhws.biedermann.webshop.utils.VulnerabilityCheck;
-import org.apache.commons.lang.StringUtils;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -15,8 +13,8 @@ public class DataHandler
 
 	public static List<Article> getArticles(int page, String search, boolean specifications)
 	{
-		List<Article> list = Database.getArticles(page, search); //search name also and return ArticleVersion
-		return list;
+		// toDo: without specifications
+		return Database.getArticles(page, search);
 	}
 
 	public static Article getArticle(int id)
@@ -62,17 +60,17 @@ public class DataHandler
 		return Database.getPicture(id);
 	}
 
-	public static List<Order> getOrders(String session)
+	public static List<Order> getOrders( final String session )
 	{
 		return Database.getOrders(Database.getUserId(session));
 	}
 
-	public static Order getOrder(int id)
+	public static Order getOrder( final int id )
 	{
 		return Database.getOrder(id);
 	}
 
-	public static int createOrder(Order order, String session, boolean cleanup)
+	public static int createOrder( final Order order, final String session, final boolean cleanup )
 	{
 		Database.postOrder(order, Database.getUserId(session), cleanup);  //TODO return order id
 		return 1;
@@ -83,45 +81,42 @@ public class DataHandler
 		return Database.getUserInformation(Database.getUserId(session));
 	}
 
-	public static User getUserById(int id)
+	public static User getUserById( final int id )
 	{
 		return Database.getUserInformation(id);
 	}
 
-	public static int createUser(User user)
+	public static int createUser( final User user )
 	{
 		Database.postUser(user);
 		return 1;
 	}
 
-	public static Nullable modifyUser(String session, User user, String remoteAddr)
+	public static Nullable modifyUser( final String session, final User user )
 	{
-		if ( StringUtils.isNotEmpty( user.getDescription() ) && VulnerabilityCheck.checkXSS( user.getDescription())) {
-			FlawHandler.putXSS(remoteAddr);
-		}
 		Database.putUser(user, Database.getUserId(session));
 		return null;
 	}
 
-	public static Nullable deleteUser(String session)
+	public static Nullable deleteUser( final String session )
 	{
 		// Database.deleteUser(Database.getUserId(session));
 		return null;
 	}
 
-	public static Nullable deleteUserById(final String session, final long userId, final String ipOfRequest) {
+	public static Nullable deleteUserById( final String session, final long userId, final String ipOfRequest ) {
 		if (!SecurityBreachDetection.matchSessionToUserId( session, userId )) {
 			FlawHandler.deleteOtherUser( ipOfRequest );
 		}
 		return null;
 	}
 
-	public static Payment getUserPayment(String session)
+	public static Payment getUserPayment( final String session )
 	{
 		return Database.getPayment(Database.getUserId(session));
 	}
 
-	public static int createUserPayment(String session, Payment payment)
+	public static int createUserPayment( final String session, final Payment payment )
 	{
 		Database.postPayment(Database.getUserId(session), payment);
 		return 1;

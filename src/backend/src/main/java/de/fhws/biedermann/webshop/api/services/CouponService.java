@@ -20,20 +20,11 @@ import javax.ws.rs.core.Response;
 		@Context HttpServletRequest request
 	)
 	{
-		if ( SecurityBreachDetection.guessCoupon( name ) ) {
-			FlawHandler.guessCoupon( uuid );
-			return Response.ok( new Coupon( name, 40, true ) ).build();
-		} else {
-			final Coupon coupon = DataHandler.getCoupon(name);
-			if (coupon == null) return Response.status(404).build();
-			return Response.ok(coupon).build();
-		}
-
-//		return new CouponState.Builder()
-//			.withUuid( uuid )
-//			.defineResponseBody( DataHandler.getCoupon(name) )
-//			.build( )
-//			.ok( );
+		return new CouponState.Builder()
+			.withUuid( uuid )
+			.withModel( name )
+			.defineResponseBody( DataHandler.getCoupon(name) )
+			.build( )
+			.ok( );
 	}
-
 }

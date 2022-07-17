@@ -15,10 +15,9 @@ public class ContactState extends AbstractState
 
 	@Override void lookForFlaw( )
 	{
-		if ( this.modelToWorkWith instanceof Contact ){
+		if ( !( this.modelToWorkWith instanceof Contact contact ) ){
 			throw new BadRequestException( "Invalid model was given!" );
 		}
-		Contact contact = ( Contact ) this.modelToWorkWith;
 		VulnerabilityCheck vc = new VulnerabilityCheck();
 		if ( !contact.getMail().contains("@") ) {
 			FlawHandler.emailWithoutAt( uuid );
