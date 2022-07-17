@@ -1,18 +1,15 @@
 package de.fhws.biedermann.webshop.api.states;
 
-import de.fhws.biedermann.webshop.models.IModel;
 import de.fhws.biedermann.webshop.utils.ErrorMessages;
+import okhttp3.internal.http2.Header;
 import org.apache.commons.lang.StringUtils;
 
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.ForbiddenException;
 import javax.ws.rs.InternalServerErrorException;
-import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.util.Arrays;
 import java.util.Objects;
-import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 public abstract class AbstractStateBuilder
 {
@@ -24,8 +21,8 @@ public abstract class AbstractStateBuilder
 	int idToWorkWith;
 	boolean validInputData = true;
 	String invalidInputDataMessage;
-
 	UriInfo uriInfo;
+	Header header;
 
 
 	public AbstractState build(){
@@ -36,7 +33,7 @@ public abstract class AbstractStateBuilder
 		this.session = session;
 		if ( !this.validInputData ){
 			return this;
-		} else if ( StringUtils.isEmpty( uuid ) ) {
+		} else if ( StringUtils.isEmpty( session ) ) {
 			this.invalidInputDataMessage = ErrorMessages.MISSING_SESSION;
 			this.validInputData = false;
 		}
@@ -86,6 +83,11 @@ public abstract class AbstractStateBuilder
 
 	public AbstractStateBuilder withAuthorize( final boolean authorized ) {
 		if ( !authorized ) throw new ForbiddenException( );
+		return this;
+	}
+
+	public AbstractStateBuilder withHeader( final Header header ) {
+		this.header = header;
 		return this;
 	}
 
