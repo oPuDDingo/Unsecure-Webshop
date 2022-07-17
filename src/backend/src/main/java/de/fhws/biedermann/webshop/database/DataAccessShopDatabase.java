@@ -44,6 +44,7 @@ public class DataAccessShopDatabase {
             e.printStackTrace();
         }
         this.postDummyUsers();
+        this.postRealUser();
         this.postArticleVersions();
         this.postComments();
     }
@@ -880,7 +881,19 @@ public class DataAccessShopDatabase {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
 
+    private void postRealUser() {
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
+            for (User u : DatabaseQueries.bidermannUser) {
+                stmt.execute("INSERT INTO user(e_mail, firstname, lastname, password, newsletter, salutation, title, profile_picture, real_user, description) " +
+                        "VALUES('" + u.getMail() + "', '" + u.getFirstName() + "', '" + u.getLastName() + "', '" + this.encryptPasswordRealUser(u.getPassword()) + "', " + u.isNewsletter() + ",'" +
+                        u.getSalutation() + "', '" + u.getTitle() + "', '" + u.getProfilePicture() + "', " + true + ",'" + u.getDescription() + "');");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private void postArticles() {
@@ -981,10 +994,5 @@ public class DataAccessShopDatabase {
             e.printStackTrace();
         }
         return 0;
-    }
-
-    public static void main(String[] args){
-        DataAccessShopDatabase d = new DataAccessShopDatabase();
-       d.resetDatabase();
     }
 }
