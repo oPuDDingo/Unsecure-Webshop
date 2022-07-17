@@ -4,7 +4,6 @@ import de.fhws.biedermann.webshop.api.states.UserState;
 import de.fhws.biedermann.webshop.models.*;
 import de.fhws.biedermann.webshop.utils.*;
 import de.fhws.biedermann.webshop.utils.handler.DataHandler;
-import de.fhws.biedermann.webshop.utils.handler.FlawHandler;
 import de.fhws.biedermann.webshop.utils.logic.AuthenticationLogic;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,8 +12,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
-import java.net.URI;
-import java.util.List;
 
 import static de.fhws.biedermann.webshop.api.states.UserState.createNewUser;
 

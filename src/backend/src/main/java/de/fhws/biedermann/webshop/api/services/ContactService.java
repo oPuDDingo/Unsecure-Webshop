@@ -1,9 +1,6 @@
 package de.fhws.biedermann.webshop.api.services;
 
 import de.fhws.biedermann.webshop.api.states.ContactState;
-import de.fhws.biedermann.webshop.utils.handler.DataHandler;
-import de.fhws.biedermann.webshop.utils.handler.FlawHandler;
-import de.fhws.biedermann.webshop.utils.VulnerabilityCheck;
 import de.fhws.biedermann.webshop.models.Contact;
 
 import javax.servlet.http.HttpServletRequest;

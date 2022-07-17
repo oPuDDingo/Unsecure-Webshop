@@ -1,7 +1,5 @@
 package de.fhws.biedermann.webshop.api.states;
 
-import de.fhws.biedermann.webshop.database.DataAccessAdminPanel;
-import de.fhws.biedermann.webshop.database.DataAccessShopDatabase;
 
 public class AdminState extends AbstractState
 {

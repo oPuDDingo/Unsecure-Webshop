@@ -1,16 +1,12 @@
 package de.fhws.biedermann.webshop.api.services;
 
 import de.fhws.biedermann.webshop.api.states.CommentaryState;
-import de.fhws.biedermann.webshop.utils.handler.FlawHandler;
-import de.fhws.biedermann.webshop.utils.VulnerabilityCheck;
 import de.fhws.biedermann.webshop.database.DataAccessShopDatabase;
 import de.fhws.biedermann.webshop.models.Commentary;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 
 @Path("comments")

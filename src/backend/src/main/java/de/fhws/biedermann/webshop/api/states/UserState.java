@@ -3,18 +3,13 @@ package de.fhws.biedermann.webshop.api.states;
 import de.fhws.biedermann.webshop.database.DataAccessAdminPanel;
 import de.fhws.biedermann.webshop.models.Nletter;
 import de.fhws.biedermann.webshop.models.User;
-import de.fhws.biedermann.webshop.models.UserVulnerability;
 import de.fhws.biedermann.webshop.utils.SecurityBreachDetection;
 import de.fhws.biedermann.webshop.utils.VulnerabilityCheck;
 import de.fhws.biedermann.webshop.utils.authentication.MyKeyGenerator;
-import de.fhws.biedermann.webshop.utils.handler.DataHandler;
 import de.fhws.biedermann.webshop.utils.handler.FlawHandler;
-import de.fhws.biedermann.webshop.utils.logic.AdminLogic;
 import org.apache.commons.lang.StringUtils;
 
-import javax.ws.rs.BadRequestException;
 import javax.ws.rs.InternalServerErrorException;
-import javax.ws.rs.core.Response;
 import java.security.Key;
 import java.util.Base64;
 
