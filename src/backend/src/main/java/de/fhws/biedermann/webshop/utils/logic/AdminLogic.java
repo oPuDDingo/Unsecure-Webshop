@@ -2,21 +2,27 @@ package de.fhws.biedermann.webshop.utils.logic;
 
 import de.fhws.biedermann.webshop.database.DataAccessAdminPanel;
 import de.fhws.biedermann.webshop.database.DataAccessShopDatabase;
+import de.fhws.biedermann.webshop.models.RankingRow;
 
+import javax.annotation.Nullable;
+import javax.ws.rs.BadRequestException;
+import javax.ws.rs.ForbiddenException;
+import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 public class AdminLogic
 {
 
     private static AdminLogic INSTANCE;
 
-    private final DataAccessAdminPanel daap;
-    private final DataAccessShopDatabase dasd;
-    public int level;
+    private final DataAccessAdminPanel dataAccessAdminPanel;
+    private final DataAccessShopDatabase dataAccessShopDatabase;
+    private int level;
 
-    private AdminLogic(final int level) {
-        this.daap = new DataAccessAdminPanel();
-        this.dasd = new DataAccessShopDatabase();
+    private AdminLogic( final int level ) {
+        this.dataAccessAdminPanel = new DataAccessAdminPanel();
+        this.dataAccessShopDatabase = new DataAccessShopDatabase();
         this.level = level;
     }
 
@@ -30,72 +36,52 @@ public class AdminLogic
         return INSTANCE;
     }
 
-    public Response login(final String username,final String password){
-        if(daap.login(username, password)){
-            String sessionId = AuthenticationLogic.createSessionId();
-            daap.postSession(sessionId, username);
-            return Response.ok(sessionId).header("sessionid", sessionId).build();
+    public String login( final String username, final String password ){
+        String sessionId = AuthenticationLogic.createSessionId();
+        dataAccessAdminPanel.postSession( sessionId, username );
+        if ( !dataAccessAdminPanel.login( username, password ) ) {
+            throw new NotAuthorizedException( "" );
         }
-        else{
-            return Response.status(401).build();
-        }
+        return sessionId;
     }
 
-    public Response logout(final String session){
-        daap.deleteSession( session );
-        return Response.ok().build();
+    public Nullable logout( final String session ){
+        authorizeRequest( session );
+        dataAccessAdminPanel.deleteSession( session );
+        return null;
     }
 
-    public Response getRanking(String session){
-        if(daap.checkSession(session)){
-            return Response.ok(daap.getRanking()).build();
-        }
-        else{
-            return Response.status(403).build();
-        }
+    public List<RankingRow> getRanking( final String session ){
+        authorizeRequest( session );
+        return dataAccessAdminPanel.getRanking();
     }
 
-    public Response resetDatabaseShop (String session){
-        if(daap.checkSession(session)){
-            dasd.resetDatabase();
-            return Response.ok().build();
-        }
-        else{
-            return Response.status(403).build();
-        }
+    public Nullable resetDatabaseShop ( final String session ){
+        authorizeRequest( session );
+        dataAccessShopDatabase.resetDatabase();
+        return null;
     }
 
-    public Response getLevel(String session){
-        if(daap.checkSession( session )){
-            return Response.ok(level).build();
-        }
-        else{
-            return Response.status(403).build();
-        }
+    public int getLevel( ){
+        return level;
     }
 
-    public Response setLevel(String session, int levelModel){
-        if(daap.checkSession(session)){
-            if(levelModel >=1 && levelModel <=3){
-                level=levelModel;
-                return Response.ok().build();
-            }
-            else{
-                return Response.status(406).build();
-            }
-        }
-        else{
-            return Response.status(403).build();
-        }
+    public Nullable setLevel( int levelModel, final String session ){
+        authorizeRequest( session );
+        if ( levelModel < 1 || levelModel > 3) throw new BadRequestException( );
+        level = levelModel;
+        return null;
     }
 
-    public Response resetDatabaseRanking(String session){
-        if(daap.checkSession(session)){
-            daap.resetDatabase();
-            return Response.ok().build();
-        }
-        else{
-            return Response.status(403).build();
+    public Nullable resetDatabaseRanking( final String session ){
+        authorizeRequest( session );
+        dataAccessAdminPanel.resetDatabase();
+        return null;
+    }
+
+    private void authorizeRequest( final String session ) {
+        if ( dataAccessAdminPanel.checkSession(session) ) {
+            throw new ForbiddenException( );
         }
     }
 }
