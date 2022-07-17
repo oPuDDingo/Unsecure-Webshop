@@ -20,7 +20,7 @@ public abstract class AbstractStateBuilder
 	String session = "";
 	String uuid = "";
 	Object responseBody;
-	IModel modelToWorkWith;
+	Object modelToWorkWith;
 	int idToWorkWith;
 	boolean validInputData = true;
 	String invalidInputDataMessage;
@@ -56,7 +56,7 @@ public abstract class AbstractStateBuilder
 		return this;
 	}
 
-	public AbstractStateBuilder withModel( final IModel model ){
+	public AbstractStateBuilder withModel( final Object model ){
 		if (model == null) {
 			throw new BadRequestException( "" );
 		}

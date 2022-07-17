@@ -11,7 +11,7 @@ public abstract class AbstractState
 
 	final String session;
 	final String uuid;
-	final IModel modelToWorkWith;
+	final Object modelToWorkWith;
 	final long idToWorkWith;
 	Object responseBody;
 	final boolean validInputData;

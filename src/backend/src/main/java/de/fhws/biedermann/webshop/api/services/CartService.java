@@ -43,7 +43,7 @@ import javax.ws.rs.core.UriInfo;
 		@HeaderParam("sessionid") String session)
 	{
 		return new CartState.Builder()
-			.withUuid( session )
+			.withSession( session )
 			.defineResponseBody( DataHandler.modifyCartItem(id, articleVersion) )
 			.build( )
 			.ok( );

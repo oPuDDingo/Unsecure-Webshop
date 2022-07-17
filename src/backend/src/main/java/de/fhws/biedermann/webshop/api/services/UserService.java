@@ -1,5 +1,6 @@
 package de.fhws.biedermann.webshop.api.services;
 
+import de.fhws.biedermann.webshop.api.states.UserState;
 import de.fhws.biedermann.webshop.models.*;
 import de.fhws.biedermann.webshop.utils.*;
 import de.fhws.biedermann.webshop.utils.handler.DataHandler;
@@ -22,16 +23,20 @@ import static de.fhws.biedermann.webshop.api.states.UserState.createNewUser;
 	@GET @Produces(MediaType.APPLICATION_JSON) public Response getUser(
 		@HeaderParam("sessionid") String session)
 	{
-		if (session == null) return Response.status(401).build();
-		User user = DataHandler.getUser(session);
-		return Response.ok(user).build();
+		return new UserState.Builder()
+			.withSession( session )
+			.defineResponseBody( DataHandler.getUser(session) )
+			.build()
+			.ok();
 	}
 
 	@Path("{id}") @GET @Produces(MediaType.APPLICATION_JSON) public Response getUserById(
 		@PathParam("id") final int id)
 	{
-		User user = DataHandler.getUserById(id);
-		return Response.ok(user).build();
+		return new UserState.Builder()
+			.defineResponseBody( DataHandler.getUserById(id) )
+			.build()
+			.ok();
 	}
 
 	@POST @Path("register") @Consumes(MediaType.APPLICATION_JSON) public Response createUser(
@@ -42,7 +47,7 @@ import static de.fhws.biedermann.webshop.api.states.UserState.createNewUser;
 	)
 	{
 		DataHandler.createUser(user);
-		return AuthenticationLogic.login(user.getMail(), user.getPassword(), uuid);
+		return AuthenticationLogic.login(user.getMail(), user.getPassword(), uuid); //todo überprüfen wie das gelöst wird
 	}
 
 	@GET @Path("login") @Produces(MediaType.TEXT_PLAIN) public Response checkLogin(
@@ -67,56 +72,51 @@ import static de.fhws.biedermann.webshop.api.states.UserState.createNewUser;
 		final User user,
 		@Context HttpServletRequest request)
 	{
-		if (user==null) return Response.status(400).build();
-		if (session == null) return Response.status(401).build();
+		final UserVulnerability userVul = VulnerabilityCheck.checkSqlInjection( user.getDescription() );
 
-		if ( SecurityBreachDetection.isInvalidFileFormat( user.getProfilePicture() ) ) {
-			FlawHandler.imageWithWrongDataType( uuid );
-		}
-
-		VulnerabilityCheck vCheck = new VulnerabilityCheck();
-		UserVulnerability userVul = vCheck.checkSqlInjection(user.getDescription());
-		if(userVul!=null) {
-			FlawHandler.sqlInjection(uuid);
-			return Response.ok(userVul).build();
-		}
-		else{
-			if(vCheck.checkXSS(user.getDescription())){
-				FlawHandler.xxs(uuid);
-			}
-			DataHandler.modifyUser(session, user, uuid);
-			return Response.ok(user).build();
-		}
+		return new UserState.Builder()
+			.withSession( session )
+			.withUuid( uuid )
+			.withModel( user )
+			.defineResponseBody( userVul != null ? userVul : DataHandler.modifyUser(session, user) )
+			.build()
+			.ok();
 
 	}
 
 	@DELETE public Response deleteUser(
 		@HeaderParam("sessionid") String session)
 	{
-		DataHandler.deleteUser(session);
-		return Response.noContent().build();
+		return new UserState.Builder()
+			.withSession( session )
+			.defineResponseBody( DataHandler.deleteUser(session) )
+			.build()
+			.noContent();
 	}
 
 	@Path( "{id:\\d+}" )
 	@DELETE public Response deleteUserById(
 		@DefaultValue( "" ) @HeaderParam("sessionid") String session,
-		@PathParam( "id" ) final long id,
+		@PathParam( "id" ) final int id,
 		@Context HttpServletRequest req
 	)
 	{
-		if (session == null)
-			throw new BadRequestException( "Missing session key!" );
-
-		DataHandler.deleteUserById(session, id, req.getRemoteAddr());
-		return Response.noContent().build();
+		return new UserState.Builder()
+			.withSession( session )
+			.withId( id )
+			.defineResponseBody( DataHandler.deleteUserById(session, id, req.getRemoteAddr()) )
+			.build()
+			.noContent();
 	}
 
 	@Path("payment") @GET @Produces(MediaType.APPLICATION_JSON) public Response getUserPayment(
 		@HeaderParam("sessionid") String session)
 	{
-		if (session == null) return Response.status(401).build();
-		Payment payment = DataHandler.getUserPayment(session);
-		return Response.ok(payment).build();
+		return new UserState.Builder()
+			.withSession( session )
+			.defineResponseBody( DataHandler.getUserPayment(session) )
+			.build()
+			.ok();
 	}
 
 	@Path("payment") @POST @Consumes(MediaType.APPLICATION_JSON) public Response createUserPayment(
@@ -124,10 +124,13 @@ import static de.fhws.biedermann.webshop.api.states.UserState.createNewUser;
 		@Context UriInfo uriInfo,
 		final Payment payment)
 	{
-		if (session == null) return Response.status(401).build();
-		DataHandler.createUserPayment(session, payment);
-		final URI locationURI = uriInfo.getAbsolutePathBuilder().build();
-		return Response.created(locationURI).build();
+		return new UserState.Builder()
+			.withSession( session )
+			.withModel( payment )
+			.defineResponseBody( DataHandler.createUserPayment(session, payment) )
+			.withUriInfo( uriInfo )
+			.build()
+			.create();
 	}
 
 	@Path("payment") @PUT @Consumes(MediaType.APPLICATION_JSON) public Response modifyUserPayment(
@@ -148,15 +151,22 @@ import static de.fhws.biedermann.webshop.api.states.UserState.createNewUser;
 	@GET @Path("addresses") @Produces(MediaType.APPLICATION_JSON) public Response getAllUserAddresses(
 		@HeaderParam("sessionid") String session)
 	{
-		List<Address> userAddresses = DataHandler.getAllUserAddresses(session);
-		return Response.ok(userAddresses).build();
+		return new UserState.Builder()
+			.withSession( session )
+			.defineResponseBody( DataHandler.getAllUserAddresses(session) )
+			.build()
+			.ok();
 	}
 
 	@GET @Path("/addresses/{id}") @Produces(MediaType.APPLICATION_JSON) public Response getUserAddress(
 		@HeaderParam("sessionid") String session,
 		@PathParam("id") final int id)
 	{
-		return Response.ok(DataHandler.getUserAddress(session, id)).build();
+		return new UserState.Builder()
+			.withSession( session )
+			.defineResponseBody( DataHandler.getUserAddress(session, id) )
+			.build()
+			.ok();
 	}
 
 	@Path("addresses") @POST @Produces(MediaType.APPLICATION_JSON) public Response createUserAddress(
@@ -164,34 +174,47 @@ import static de.fhws.biedermann.webshop.api.states.UserState.createNewUser;
 		@Context UriInfo uriInfo,
 		final Address address)
 	{
-		return Response.ok(DataHandler.createAddress(session, address)).build();
+		return new UserState.Builder()
+			.withSession( session )
+			.defineResponseBody( DataHandler.createAddress( session, address ) )
+			.build()
+			.ok();
 	}
 
 	@Path("addresses/{id}") @PUT @Consumes(MediaType.APPLICATION_JSON) public Response modifyUserAddress(
 		@HeaderParam("sessionid") final String session,
 		@PathParam("id") final int id,
-		final Address address)
+		final Address  address)
 	{
-		if (id != address.getId()){
+		if (id != address.getId()){ //todo überprüfen
 			return Response.status( 422 ).build();
 		}
-		return Response.ok(DataHandler.modifyAddress(address, session)).build();
+		return new UserState.Builder()
+			.withSession( session )
+			.defineResponseBody( DataHandler.modifyAddress( address, session ) )
+			.build()
+			.ok();
 	}
 
 	@Path("addresses/{id}") @DELETE public Response deleteUserAddress(
 		@HeaderParam("sessionid") String session,
 		@PathParam("id") final int id)
 	{
-		DataHandler.deleteAddress(session, id);
-		return Response.noContent().build();
+		return new UserState.Builder()
+			.withSession( session )
+			.defineResponseBody( DataHandler.deleteAddress( session, id ) )
+			.build()
+			.noContent();
 	}
 
 	@Path("mail") @GET @Produces(MediaType.APPLICATION_JSON) public Response getUserMail(
 		@HeaderParam("sessionid") String session)
 	{
-		if (session == null) return Response.status(401).build();
-		String mail = DataHandler.getUserMail(session);
-		return Response.ok(mail).build();
+		return new UserState.Builder()
+			.withSession( session )
+			.defineResponseBody( DataHandler.getUserMail(session) )
+			.build()
+			.ok();
 	}
 
 	@Path("mail") @POST @Consumes(MediaType.APPLICATION_JSON) public Response createUserMail(
@@ -199,19 +222,24 @@ import static de.fhws.biedermann.webshop.api.states.UserState.createNewUser;
 		@Context UriInfo uriInfo,
 		final String mail)
 	{
-		if (session == null) return Response.status(401).build();
-		DataHandler.createUserMail(session, mail);
-		final URI locationURI = uriInfo.getAbsolutePathBuilder().build();
-		return Response.created(locationURI).build();
+		return new UserState.Builder()
+			.withSession( session )
+			.defineResponseBody( DataHandler.createUserMail(session, mail) )
+			.withUriInfo( uriInfo )
+			.build()
+			.create();
 	}
 
 	@Path("newsletter") @GET public Response checkNewsletter(
 		@HeaderParam("sessionid") String session
 	)
 	{
-		if (session == null) return Response.status(401).build();
-		boolean value = DataHandler.checkNewsletter(session);
-		return Response.ok(value).build();
+		return new UserState.Builder()
+			.withSession( session )
+			.defineResponseBody( DataHandler.checkNewsletter(session) )
+			.build()
+			.ok();
+
 	}
 
 	@Path("newsletter") @POST @Consumes(MediaType.APPLICATION_JSON) public Response turnOnNewsletter(
@@ -221,21 +249,23 @@ import static de.fhws.biedermann.webshop.api.states.UserState.createNewUser;
 		final Nletter nletter
 	)
 	{
-		if (session == null) return Response.status(401).build();
-		if(!nletter.getEmail().contains("@")) {
-			FlawHandler.emailWithoutAt(uuid);
-		}
-		DataHandler.turnOnNewsletter(session);
-		return Response.noContent().build();
+		return new UserState.Builder()
+			.withSession( session )
+			.withUuid( uuid )
+			.defineResponseBody( DataHandler.turnOnNewsletter(session) )
+			.build()
+			.noContent();
 	}
 
 	@Path("newsletter") @DELETE public Response turnOffNewsletter(
 		@HeaderParam("sessionid") String session
 	)
 	{
-		if (session == null) return Response.status(401).build();
-		DataHandler.turnOffNewsletter(session);
-		return Response.noContent().build();
+		return new UserState.Builder()
+			.withSession( session )
+			.defineResponseBody( DataHandler.turnOffNewsletter(session) )
+			.build()
+			.noContent();
 	}
 
 	@Path("password") @Consumes(MediaType.TEXT_PLAIN) @PUT public Response modifyPassword(
@@ -243,15 +273,21 @@ import static de.fhws.biedermann.webshop.api.states.UserState.createNewUser;
 		final String password)
 	{
 		// TODO something with password here
-		if (session == null) return Response.status(401).build();
 		//toDO get user with sessionid
 		// modify in database
-		return Response.ok(password).build();
+		return new UserState.Builder()
+			.withSession( session )
+			.defineResponseBody( password )
+			.build()
+			.ok();
 	}
 
 	@Path( "me" )
 	@GET public Response getNewUuid() {
-		return Response.ok( createNewUser() ).build();
+		return new UserState.Builder()
+			.defineResponseBody( createNewUser() )
+			.build()
+			.ok();
 	}
 
 }

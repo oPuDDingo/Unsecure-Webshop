@@ -1,5 +1,6 @@
 package de.fhws.biedermann.webshop.api.services;
 
+import de.fhws.biedermann.webshop.api.states.PicturesState;
 import de.fhws.biedermann.webshop.utils.handler.DataHandler;
 
 import javax.ws.rs.*;
@@ -13,7 +14,9 @@ import javax.ws.rs.core.Response;
 		@QueryParam( "uuid" ) final String uuid
 	)
 	{
-		String picture = DataHandler.getPicture(id);
-		return Response.ok(picture).build();
+		return new PicturesState.Builder()
+			.defineResponseBody( DataHandler.getPicture(id) )
+			.build()
+			.ok();
 	}
 }

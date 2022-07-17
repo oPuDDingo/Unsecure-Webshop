@@ -3,7 +3,6 @@ package de.fhws.biedermann.webshop.utils.handler;
 import de.fhws.biedermann.webshop.database.DataAccessShopDatabase;
 import de.fhws.biedermann.webshop.models.*;
 import de.fhws.biedermann.webshop.utils.SecurityBreachDetection;
-import de.fhws.biedermann.webshop.utils.VulnerabilityCheck;
 import org.apache.commons.lang.StringUtils;
 
 import javax.annotation.Nullable;
@@ -94,11 +93,8 @@ public class DataHandler
 		return 1;
 	}
 
-	public static Nullable modifyUser(String session, User user, String remoteAddr)
+	public static Nullable modifyUser(String session, User user)
 	{
-		if ( StringUtils.isNotEmpty( user.getDescription() ) && VulnerabilityCheck.checkXSS( user.getDescription())) {
-			FlawHandler.putXSS(remoteAddr);
-		}
 		Database.putUser(user, Database.getUserId(session));
 		return null;
 	}
@@ -121,7 +117,7 @@ public class DataHandler
 		return Database.getPayment(Database.getUserId(session));
 	}
 
-	public static int createUserPayment(String session, Payment payment)
+	public static int createUserPayment(String session, Payment payment) //todo ID vom created User zurück geben
 	{
 		Database.postPayment(Database.getUserId(session), payment);
 		return 1;
@@ -190,10 +186,10 @@ public class DataHandler
 		return null;
 	}
 
-	public static Nullable modifyWhishlistItem(ArticleVersion articleVersion, String session, int id)
+	public static ArticleVersion modifyWhishlistItem(ArticleVersion articleVersion, String session, int id)
 	{
 		Database.putWishListItem(articleVersion);
-		return null;
+		return articleVersion;
 	}
 
 	public static Nullable deleteWishlist(String session)
