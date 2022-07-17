@@ -29,7 +29,8 @@ public class DataHandler
 
 	public static Nullable createCartItem(ArticleVersion articleVersion, String session)
 	{
-		return ( Nullable ) Database.postShoppingCartItem(articleVersion, Database.getUserId(session));  //get user id from
+		Database.postShoppingCartItem(articleVersion, Database.getUserId(session));  //get user id from
+		return null;
 	}
 
 	public static ArticleVersion modifyCartItem(int id, ArticleVersion articleVersion)
