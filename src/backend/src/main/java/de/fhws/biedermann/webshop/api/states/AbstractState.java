@@ -22,6 +22,7 @@ public abstract class AbstractState
 	final Header header;
 
 	public AbstractState( final AbstractStateBuilder builder ){
+		// toDo: in den Builder verlagern
 		if ( !builder.validInputData ) throw new NotAuthorizedException( builder.invalidInputDataMessage );
 
 		this.session = builder.session;
@@ -49,7 +50,12 @@ public abstract class AbstractState
 
 	public Response noContent(){
 		this.execute();
-		return Response.noContent().build();
+		return addHeaderToResponse( Response.noContent( ) );
+	}
+
+	public Response statusCode( final int status ) {
+		this.execute();
+		return addHeaderToResponse( Response.status( status ) );
 	}
 
 	private Response handleUriInfo( ) {

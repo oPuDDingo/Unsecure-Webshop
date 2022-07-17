@@ -4,9 +4,7 @@ import de.fhws.biedermann.webshop.utils.ErrorMessages;
 import okhttp3.internal.http2.Header;
 import org.apache.commons.lang.StringUtils;
 
-import javax.ws.rs.BadRequestException;
-import javax.ws.rs.ForbiddenException;
-import javax.ws.rs.InternalServerErrorException;
+import javax.ws.rs.*;
 import javax.ws.rs.core.UriInfo;
 import java.util.Arrays;
 import java.util.Objects;
@@ -66,7 +64,13 @@ public abstract class AbstractStateBuilder
 		return this;
 	}
 
+	public AbstractStateBuilder withCheckId( final int modelId, final int requestedId ) {
+		if ( modelId != requestedId ) throw new BadRequestException( "Model id does not match the id from the request!" );
+		return this;
+	}
+
 	public AbstractStateBuilder defineResponseBody( final Object responseBody ){
+		// use this function as the last call before build() !!!
 		this.responseBody = responseBody;
 		return this;
 	}
