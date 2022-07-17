@@ -56,8 +56,6 @@ public class UserState extends AbstractState
 			if(!nletter.getEmail().contains("@")) {
 				FlawHandler.emailWithoutAt(uuid);
 			}
-		} else {
-			throw new BadRequestException( "Invalid model was given!" );
 		}
 	}
 
