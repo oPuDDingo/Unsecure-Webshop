@@ -5,7 +5,9 @@ import de.fhws.biedermann.webshop.utils.ErrorMessages;
 import org.apache.commons.lang.StringUtils;
 
 import javax.ws.rs.BadRequestException;
+import javax.ws.rs.ForbiddenException;
 import javax.ws.rs.InternalServerErrorException;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.util.Arrays;
 import java.util.Objects;
@@ -79,6 +81,11 @@ public abstract class AbstractStateBuilder
 
 	public AbstractStateBuilder withNotNull( final Object... objects ){
 		if ( Arrays.stream( objects ).anyMatch( Objects::isNull ) ) throw new BadRequestException( "" );
+		return this;
+	}
+
+	public AbstractStateBuilder withAuthorize( final boolean authorized ) {
+		if ( !authorized ) throw new ForbiddenException( );
 		return this;
 	}
 
