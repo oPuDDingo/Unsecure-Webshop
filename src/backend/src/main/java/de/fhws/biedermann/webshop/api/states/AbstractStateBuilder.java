@@ -5,7 +5,7 @@ import okhttp3.internal.http2.Header;
 import org.apache.commons.lang.StringUtils;
 
 import javax.ws.rs.*;
-import javax.ws.rs.core.UriInfo;
+import java.net.URI;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -19,7 +19,7 @@ public abstract class AbstractStateBuilder
 	int idToWorkWith;
 	boolean validInputData = true;
 	String invalidInputDataMessage;
-	UriInfo uriInfo;
+	URI uri;
 	Header header;
 
 
@@ -75,8 +75,8 @@ public abstract class AbstractStateBuilder
 		return this;
 	}
 
-	public AbstractStateBuilder withUriInfo( final UriInfo uriInfo ){
-		this.uriInfo = uriInfo;
+	public AbstractStateBuilder withUriInfo( final URI uriInfo ){
+		this.uri = uriInfo;
 		return this;
 	}
 

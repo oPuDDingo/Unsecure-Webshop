@@ -1,11 +1,10 @@
 package de.fhws.biedermann.webshop.api.states;
 
-import de.fhws.biedermann.webshop.models.IModel;
 import okhttp3.internal.http2.Header;
 
 import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
+import java.net.URI;
 
 public abstract class AbstractState
 {
@@ -17,7 +16,7 @@ public abstract class AbstractState
 	Object responseBody;
 	final boolean validInputData;
 	final String invalidInputDataMessage;
-	final UriInfo uriInfo;
+	final URI uri;
 
 	final Header header;
 
@@ -32,7 +31,7 @@ public abstract class AbstractState
 		this.responseBody = builder.responseBody;
 		this.validInputData = true;
 		this.invalidInputDataMessage = builder.invalidInputDataMessage;
-		this.uriInfo = builder.uriInfo;
+		this.uri = builder.uri;
 		this.header = builder.header;
 
 	}
@@ -59,10 +58,10 @@ public abstract class AbstractState
 	}
 
 	private Response handleUriInfo( ) {
-		if ( uriInfo == null ) {
+		if ( uri == null ) {
 			return addHeaderToResponse( Response.status( Response.Status.CREATED ) );
 		} else {
-			return addHeaderToResponse( Response.created( uriInfo.getAbsolutePathBuilder().build( ) ) );
+			return addHeaderToResponse( Response.created( uri ) );
 		}
 	}
 
