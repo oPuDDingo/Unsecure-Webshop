@@ -58,7 +58,7 @@ public class AdminLogic
 
     public Nullable resetDatabaseShop ( final String session ){
         authorizeRequest( session );
-        dataAccessShopDatabase.resetDatabase();
+        dataAccessShopDatabase.resetDatabaseInProduction();
         return null;
     }
 
@@ -75,7 +75,7 @@ public class AdminLogic
 
     public Nullable resetDatabaseRanking( final String session ){
         authorizeRequest( session );
-        dataAccessAdminPanel.resetDatabase();
+        dataAccessAdminPanel.resetRanking();
         return null;
     }
 

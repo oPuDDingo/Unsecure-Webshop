@@ -122,4 +122,6 @@ public class User implements IModel {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+
 }

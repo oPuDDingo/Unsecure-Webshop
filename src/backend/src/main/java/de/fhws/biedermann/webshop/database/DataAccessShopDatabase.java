@@ -34,6 +34,35 @@ public class DataAccessShopDatabase {
         this.createDatabase();
     }
 
+    public void resetDatabaseInProduction() {
+        this.deleteDatabaseInProduction();
+        this.createDatabaseInProduction();
+    }
+
+    private void deleteDatabaseInProduction() {
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()) {
+            for (String sql : DatabaseQueries.deleteDatabaseInProduction) {
+                stmt.execute(sql);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void createDatabaseInProduction() {
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
+            for (String sql : DatabaseQueries.createDatabaseInProduction) {
+                stmt.execute(sql);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        this.postArticleVersions();
+        this.postComments();
+    }
+
     private void createDatabase() {
         try (Connection con = this.createConnection();
              Statement stmt = con.createStatement()){
@@ -522,7 +551,8 @@ public class DataAccessShopDatabase {
             if (rs.next()) {
                 order = new Order(orderId, null, this.getCoupon(rs.getString("coupon_code")), this.getAddress(rs.getInt("address_id")), this.getPayment(orderId), rs.getString("order_date"), rs.getDouble("amount"));
             }
-            order.setSpecifiedItems(this.getOrderItems(orderId));
+            List<ArticleVersion> articles =this.getOrderItems(orderId);
+            order.setSpecifiedItems(articles);
             rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -845,10 +875,11 @@ public class DataAccessShopDatabase {
         ArrayList<ArticleVersion> articleVersionList = new ArrayList<>();
         try (Connection con = this.createConnection();
              Statement stmt = con.createStatement()){
-            String sql = "SELECT id, article_version_id FROM sales_order_article_version WHERE sales_order_id=" + orderId + ";";
+            String sql = "SELECT id, article_version_id, quantity FROM sales_order_article_version WHERE sales_order_id=" + orderId + ";";
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 ArticleVersion articleVersion = this.getArticleVersion(rs.getInt("article_version_id"));
+                articleVersion.setQuantity(rs.getInt("quantity"));
                 articleVersion.setId(rs.getInt("id"));
                 articleVersionList.add(articleVersion);
             }

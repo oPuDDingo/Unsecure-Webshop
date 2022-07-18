@@ -151,9 +151,7 @@ export class BackendService {
   }
 
   getNewsletterStatus(): Observable<boolean> {
-    return this.httpClient.get<string>(Statics.url + 'user/newsletter', {headers: this.getHeader()}).pipe(
-      map(value => value == "true")
-    );
+    return this.httpClient.get<boolean>(Statics.url + 'user/newsletter', {headers: this.getHeader()});
   }
 
   postNewsletter(newsLetter: Nletter): Observable<any> {
