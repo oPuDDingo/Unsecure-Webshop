@@ -274,7 +274,6 @@ export class BiedisPageComponent implements OnInit{
   }
 
   onRedirectToFlawDescription( flaw: string ): void {
-    console.log(flaw);
     this.router.navigateByUrl!( `/${flaw}` );
   }
 
