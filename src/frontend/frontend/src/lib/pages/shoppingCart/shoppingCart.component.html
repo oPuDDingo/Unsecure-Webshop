@@ -4,11 +4,13 @@
     <img src="assets/shopping_cart_opsz40.svg" type="heart"/>
   </div>
 </div>
-<specified-item-list
-  (onDeleteEvent)="onItemDelete($event)"
-  (onQuantityChangeEvent)="onItemChange($event)"
-  [itemList]="itemList">
-</specified-item-list>
+<div *ngIf="this.itemList != undefined" >
+  <specified-item-list
+    (onDeleteEvent)="onItemDelete($event)"
+    (onQuantityChangeEvent)="onItemChange($event)"
+    [itemList]="itemList">
+  </specified-item-list>
+</div>
 <div class="d-flex flex-row-reverse">
   <div class="col-2 text-end">
     Gesamtsumme ({{this.quantity}} Artikel) : {{this.amount}} €
@@ -21,7 +23,7 @@
   <button class="btn-sm btn-primary text-white rounded-pill"
           style="font-weight: bold"
           type="button"
-          routerLink="/checkout">
+          (click)="onNavigateToOrderProcess()">
     <span>Zahlen</span>
     <img src="assets/shopping_cart_checkout_white_opsz24.ico">
   </button>
