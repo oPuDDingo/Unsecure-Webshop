@@ -1,5 +1,6 @@
 import {Component, Input} from "@angular/core";
 import {Commentary} from "../../../data-access/models";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'article-overview-comment',
@@ -10,6 +11,9 @@ export class CommentComponent {
 
   @Input() comment: Commentary | undefined;
 
+  constructor(private router: Router) {
+  }
+
   getUserName(): string {
     if (this.comment) {
       if (this.comment.firstName && this.comment.lastName) {
@@ -19,7 +23,10 @@ export class CommentComponent {
       }
     }
     return "";
+  }
 
+  redirectToUser( comment: Commentary): void {
+    this.router.navigateByUrl!( `/user/${comment.userId}` );
   }
 
 
