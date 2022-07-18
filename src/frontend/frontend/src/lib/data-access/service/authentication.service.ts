@@ -18,7 +18,6 @@ export class AuthenticationService {
 
   statusSubject: ReplaySubject<boolean> = new ReplaySubject<boolean>(1);
   statusAdminSubject: ReplaySubject<boolean> = new ReplaySubject<boolean>(1);
-  userType: UserTypes = UserTypes.User;
   header: HttpHeaders = new HttpHeaders();
 
   constructor(
@@ -48,7 +47,7 @@ export class AuthenticationService {
         this.cookieService.set('sessionKey', sessionKey);
         this.backendService.sessionKey = sessionKey;
         this.statusSubject.next(true);
-        this.userType = UserTypes.User;
+        this.cookieService.set("userType", UserTypes.User.toString());
         return true;
       })
     );
@@ -60,7 +59,7 @@ export class AuthenticationService {
       this.cookieService.delete('sessionKey');
       this.backendService.sessionKey = "";
       this.statusSubject.next(false);
-      this.userType = UserTypes.User;
+      this.cookieService.set("userType", UserTypes.User.toString());
       this.cleanupStores();
       return this.httpClient.post(Statics.url + 'users/logout', {sessionKey}, {
         headers: this.backendService.getHeader(),
@@ -78,7 +77,7 @@ export class AuthenticationService {
         this.cookieService.set("sessionKey", sessionKey);
         this.backendService.sessionKey = sessionKey;
         this.statusSubject.next(true);
-        this.userType = UserTypes.Admin;
+        this.cookieService.set("userType", UserTypes.Admin.toString());
         this.statusAdminSubject.next(true);
       })
     );
@@ -91,7 +90,7 @@ export class AuthenticationService {
       this.statusSubject.next(false);
       this.statusAdminSubject.next(false);
       this.backendService.sessionKey = "";
-      this.userType = UserTypes.User;
+      this.cookieService.set("userType", UserTypes.User.toString());
       this.cleanupStores();
 
       return this.httpClient.post(Statics.url + 'admin/logout', {sessionKey}, {
@@ -133,6 +132,6 @@ export class AuthenticationService {
     this.shoppingCartStore.cleaningUp();
     this.userStore.cleaningUp();
     this.wishlistStore.cleaningUp();
-    this.userType = UserTypes.User;
+    this.cookieService.set("userType", UserTypes.User.toString());
   }
 }

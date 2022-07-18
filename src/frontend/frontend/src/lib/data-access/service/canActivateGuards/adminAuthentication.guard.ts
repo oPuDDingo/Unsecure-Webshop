@@ -13,7 +13,8 @@ export class AdminAuthenticationGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
     Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (this.cookieService.check('sessionKey') && this.authenticationService.userType == UserTypes.Admin) {
+
+    if (this.cookieService.check('sessionKey') && this.cookieService.get("userType") == "" + UserTypes.Admin.valueOf()) {
       return true;
     }
     this.router.navigate!(['/adminLogin'], {queryParams: {returnUrl: state.url}});
