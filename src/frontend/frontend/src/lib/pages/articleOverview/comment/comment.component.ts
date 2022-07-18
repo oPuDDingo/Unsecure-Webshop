@@ -26,7 +26,7 @@ export class CommentComponent {
   }
 
   redirectToUser( comment: Commentary): void {
-    this.router.navigateByUrl!( `/user/${comment.userId}` );
+    this.router.navigateByUrl!( `/users/${comment.userId}` );
   }
 
 
