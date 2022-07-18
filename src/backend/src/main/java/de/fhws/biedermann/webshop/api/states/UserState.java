@@ -36,6 +36,8 @@ public class UserState extends AbstractState
 
 	@Override void lookForFlaw( )
 	{
+		// Flaw detections based on login are implemented in AuthenticationLogic.login()
+
 		if ( this.modelToWorkWith instanceof User user ){
 			if ( SecurityBreachDetection.isInvalidFileFormat( user.getProfilePicture() ) ) {
 				FlawHandler.imageWithWrongDataType( uuid );

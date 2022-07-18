@@ -38,6 +38,33 @@ public class DataAccessAdminPanel {
         this.createDatabase();
     }
 
+    public void resetRanking(){
+        this.deleteRanking();;
+        this.createRanking();
+    }
+
+    private void deleteRanking(){
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
+            for (String sql : DatabaseQueries.deleteRanking) {
+                stmt.execute(sql);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void createRanking(){
+        try (Connection con = this.createConnection();
+             Statement stmt = con.createStatement()){
+            for (String sql : DatabaseQueries.createRanking) {
+                stmt.execute(sql);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public List<String> checkForNewFindings(String ipAddress){
         ArrayList<String> findings = new ArrayList<>();
         try (Connection con = this.createConnection();

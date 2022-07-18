@@ -20,7 +20,7 @@ public class Start
 	public static void main(final String[] args) throws Exception
 	{
 		DataAccessShopDatabase db = new DataAccessShopDatabase();
-//		db.resetDatabase();
+		db.resetDatabase();
 		DataAccessAdminPanel daap = new DataAccessAdminPanel();
 		daap.resetDatabase();
 		System.out.println("Database reset");

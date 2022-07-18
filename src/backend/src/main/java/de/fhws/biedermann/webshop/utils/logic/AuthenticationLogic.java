@@ -23,10 +23,10 @@ public class AuthenticationLogic
 		return login( user.getMail(), user.getPassword(), uuid );
 	}
 
-	public static String login(final String mail, final String password, final String ip)
+	public static String login(final String mail, final String password, final String uuid)
 	{
-		SecurityBreachDetection.detectLoginSecurityBreach( ip );
-		SecurityBreachDetection.detectDummyUserInHtmlSecurityBreach( mail, password, ip );
+		SecurityBreachDetection.detectLoginSecurityBreach( uuid );
+		SecurityBreachDetection.detectHtmlCommentUser( mail, password, uuid );
 		AuthorizationType session = Database.checkAuthData(mail, password);
 		if ( session == AuthorizationType.FALSE_PASSWORD || session == AuthorizationType.FALSE_USER )
 		{
@@ -43,10 +43,10 @@ public class AuthenticationLogic
 				throw new WebApplicationException( Response.status( Response.Status.BAD_REQUEST ).entity( "Benutzer" +
 					" oder Passwort falsch! Versuche es erneut." ).build() );
 		} else if (session == AuthorizationType.AUTHORIZED_DUMMY_USER) {
-			FlawHandler.guessUserLogin( ip );
+			FlawHandler.guessUserLogin( uuid );
 		}
 		String sessionID = createSessionId();
-		Database.postSession(sessionID, mail, ip);
+		Database.postSession(sessionID, mail, uuid);
 		return sessionID;
 	}
 
