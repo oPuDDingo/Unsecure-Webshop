@@ -5,6 +5,7 @@ import de.fhws.biedermann.webshop.models.*;
 import de.fhws.biedermann.webshop.utils.*;
 import de.fhws.biedermann.webshop.utils.handler.DataHandler;
 import de.fhws.biedermann.webshop.utils.logic.AuthenticationLogic;
+import okhttp3.internal.http2.Header;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
