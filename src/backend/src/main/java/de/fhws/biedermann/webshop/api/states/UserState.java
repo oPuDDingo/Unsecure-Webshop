@@ -3,6 +3,7 @@ package de.fhws.biedermann.webshop.api.states;
 import de.fhws.biedermann.webshop.database.DataAccessAdminPanel;
 import de.fhws.biedermann.webshop.models.Nletter;
 import de.fhws.biedermann.webshop.models.User;
+import de.fhws.biedermann.webshop.models.UserVulnerability;
 import de.fhws.biedermann.webshop.utils.SecurityBreachDetection;
 import de.fhws.biedermann.webshop.utils.VulnerabilityCheck;
 import de.fhws.biedermann.webshop.utils.authentication.MyKeyGenerator;
@@ -44,11 +45,11 @@ public class UserState extends AbstractState
 				FlawHandler.putXSS(uuid);
 			}
 
-			if( this.modelToWorkWith != this.responseBody )
+			if( this.responseBody instanceof UserVulnerability )
 				FlawHandler.sqlInjection( uuid );
 		} else if ( (this.modelToWorkWith instanceof Nletter nletter ))
 		{
-			if(!nletter.getEmail().contains("@")) {
+			if(!nletter.getEmail( ).contains( "@" ) && StringUtils.isNotEmpty( nletter.getEmail( ) )) {
 				FlawHandler.emailWithoutAt(uuid);
 			}
 		}

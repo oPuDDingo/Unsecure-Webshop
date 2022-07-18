@@ -29,7 +29,8 @@ public class DataHandler
 
 	public static Nullable createCartItem(ArticleVersion articleVersion, String session)
 	{
-		return ( Nullable ) Database.postShoppingCartItem(articleVersion, Database.getUserId(session));  //get user id from
+		Database.postShoppingCartItem(articleVersion, Database.getUserId(session));  //get user id from
+		return null;
 	}
 
 	public static ArticleVersion modifyCartItem(int id, ArticleVersion articleVersion)
@@ -62,7 +63,7 @@ public class DataHandler
 
 	public static List<Order> getOrders( final String session )
 	{
-		return Database.getOrders(Database.getUserId(session));
+		return Database.getOrders( Database.getUserId(session) );
 	}
 
 	public static Order getOrder( final int id )
@@ -72,8 +73,7 @@ public class DataHandler
 
 	public static int createOrder( final Order order, final String session, final boolean cleanup )
 	{
-		Database.postOrder(order, Database.getUserId(session), cleanup);  //TODO return order id
-		return 1;
+		return Database.postOrder(order, Database.getUserId(session), cleanup).getOrderNumber();
 	}
 
 	public static User getUser(String session)
