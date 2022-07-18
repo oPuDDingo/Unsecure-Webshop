@@ -44,23 +44,23 @@ public class AdminService {
     }
 
     @PUT
-    @Path("interface")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response resetDatabaseShop(@HeaderParam("sessionid") String session){
+    @Path( "interface" )
+    @Consumes( MediaType.APPLICATION_JSON )
+    public Response resetDatabaseShop( @HeaderParam("sessionid") String session ){
         return new AdminState.Builder()
             .withSession( session )
-            .defineResponseBody( AdminLogic.getInstance().resetDatabaseShop(session) )
+            .defineResponseBody( AdminLogic.getInstance( ).resetDatabaseShop( session ) )
             .build( )
             .ok( );
     }
 
     @POST
-    @Path("logout")
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Path( "logout" )
+    @Consumes( MediaType.APPLICATION_JSON )
     public Response logout(
-        @HeaderParam("sessionid") String session
+        @HeaderParam( "sessionid" ) String session
     ){
-        return new AdminState.Builder()
+        return new AdminState.Builder( )
             .withSession( session )
             .defineResponseBody( AdminLogic.getInstance().logout( session ) )
             .build( )

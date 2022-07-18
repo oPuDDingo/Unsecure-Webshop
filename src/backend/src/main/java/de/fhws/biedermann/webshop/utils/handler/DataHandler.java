@@ -162,6 +162,7 @@ public class DataHandler
 	public static boolean checkNewsletter(String session)	{
 		return Database.getNewsletter(Database.getUserId(session));
 	}
+
 	public static Nullable turnOnNewsletter(String session)
 	{
 		Database.postNewsletter(Database.getUserId(session));
