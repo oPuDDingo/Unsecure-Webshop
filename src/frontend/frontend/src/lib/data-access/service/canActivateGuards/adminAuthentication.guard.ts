@@ -11,14 +11,12 @@ export class AdminAuthenticationGuard implements CanActivate {
   constructor(private router: Router, private cookieService: CookieService, private authenticationService: AuthenticationService) {
   }
 
-  canActivate(route: ActivatedRouteSnapshot,
-              state: RouterStateSnapshot,
-              ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
+    Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     if (this.cookieService.check('sessionKey') && this.authenticationService.userType == UserTypes.Admin) {
       return true;
     }
-
-    this.router.navigate(['/adminLogin'], {queryParams: {returnUrl: state.url}});
+    this.router.navigate!(['/adminLogin'], {queryParams: {returnUrl: state.url}});
     return false;
   }
 }
