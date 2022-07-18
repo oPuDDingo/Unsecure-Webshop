@@ -66,11 +66,9 @@ export class UserSettingsComponent implements OnInit {
 
   getDescription(): void {
     let content = document.getElementById("descriptionField");
-    console.log( content );
     if ( content != undefined ) {
       content!.replaceChildren();
-      // @ts-ignore
-      content!.appendChild(document.createRange().createContextualFragment(this.user.description));
+      content!.appendChild(document.createRange().createContextualFragment(this.user.description!));
     }
   }
 

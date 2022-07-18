@@ -9,6 +9,7 @@ import {ButtonsModule} from 'ngx-bootstrap/buttons';
 import {CarouselModule} from 'ngx-bootstrap/carousel';
 import {RouterModule, Routes} from "@angular/router";
 import {CommonModule} from "@angular/common";
+import {ColorCircleModule} from "../../shared/colorCircle/colorCircle.module";
 
 const routes: Routes = [
   {
@@ -21,6 +22,7 @@ const routes: Routes = [
   imports: [
     FormsModule,
     CommonModule,
+    ColorCircleModule,
     RouterModule.forChild(routes),
     ButtonsModule.forRoot(),
     CarouselModule.forRoot(),

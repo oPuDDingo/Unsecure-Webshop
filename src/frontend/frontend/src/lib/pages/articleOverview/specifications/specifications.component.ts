@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from "@angular/core";
-import {Article} from "../../../data-access/models/article";
+import {Article} from "../../../data-access/models";
 
 @Component({
   selector: 'article-overview-specifications',
