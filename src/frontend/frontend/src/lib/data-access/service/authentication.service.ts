@@ -41,7 +41,7 @@ export class AuthenticationService {
   }
 
   login(mail: string, password: string): Observable<boolean> {
-    return this.httpClient.get(Statics.url + 'user/login?mail=' + mail + '&password=' + password, {
+    return this.httpClient.get(Statics.url + 'users/login?mail=' + mail + '&password=' + password, {
       observe: "body", responseType: "text", headers: this.backendService.getHeader()
     }).pipe(
       map(sessionKey => {
@@ -62,7 +62,7 @@ export class AuthenticationService {
       this.statusSubject.next(false);
       this.userType = UserTypes.User;
       this.cleanupStores();
-      return this.httpClient.post(Statics.url + 'user/logout', {sessionKey}, {
+      return this.httpClient.post(Statics.url + 'users/logout', {sessionKey}, {
         headers: this.backendService.getHeader(),
         observe: "response",
       });
@@ -87,23 +87,26 @@ export class AuthenticationService {
   adminLogout(): Observable<any> {
     if (this.cookieService != undefined) {
       let sessionKey = this.cookieService.get('sessionKey').replace('sessionKey=', '');
-      this.cookieService.delete('sessionKey');
-      this.statusSubject.next(false);
-      this.statusAdminSubject.next(false);
-      this.backendService.sessionKey = "";
-      this.userType = UserTypes.User;
-      this.cleanupStores();
       return this.httpClient.post(Statics.url + 'admin/logout', {sessionKey}, {
         headers: this.backendService.getHeader(),
         observe: "response"
-      });
+      }).pipe(
+        map(response => {
+          this.cookieService.delete('sessionKey');
+          this.statusSubject.next(false);
+          this.statusAdminSubject.next(false);
+          this.backendService.sessionKey = "";
+          this.userType = UserTypes.User;
+          this.cleanupStores();
+        })
+      );
     }
     return new Observable<any>();
 
   }
 
   register(firstname: string, lastname: string, mail: string, password: string): Observable<any> {
-    return this.httpClient.post(Statics.url + 'user/register', {
+    return this.httpClient.post(Statics.url + 'users/register', {
       "firstName": firstname,
       "lastName": lastname,
       "mail": mail,

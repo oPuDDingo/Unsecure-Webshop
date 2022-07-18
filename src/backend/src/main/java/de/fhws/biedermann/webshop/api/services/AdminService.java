@@ -22,6 +22,38 @@ public class AdminService {
             .ok();
     }
 
+    @GET
+    @Path("interface")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getRanking(@HeaderParam("sessionid") String session){
+        return new AdminState.Builder()
+            .withSession( session )
+            .defineResponseBody( AdminLogic.getInstance().getRanking(session) )
+            .build()
+            .ok();
+    }
+
+    @GET
+    @Path( "level" )
+    public Response getLevel(@HeaderParam( "sessionid" ) String session) {
+        return new AdminState.Builder()
+            .withSession( session )
+            .defineResponseBody( AdminLogic.getInstance().getLevel() )
+            .build( )
+            .ok( );
+    }
+
+    @PUT
+    @Path("interface")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response resetDatabaseShop(@HeaderParam("sessionid") String session){
+        return new AdminState.Builder()
+            .withSession( session )
+            .defineResponseBody( AdminLogic.getInstance().resetDatabaseShop(session) )
+            .build( )
+            .ok( );
+    }
+
     @POST
     @Path("logout")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -35,18 +67,8 @@ public class AdminService {
             .noContent( );
     }
 
-    @GET
-    @Path( "level" )
-    public Response getLevel(@HeaderParam( "sessionid" ) String session) {
-        return new AdminState.Builder()
-            .withSession( session )
-            .defineResponseBody( AdminLogic.getInstance().getLevel() ) // session in getLevel removed
-            .build( )
-            .ok( );
-    }
-
     @POST
-    @Path("level")
+    @Path("interface")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response setLevel(
         @HeaderParam("sessionid") String session,
@@ -54,35 +76,10 @@ public class AdminService {
     ){
         return new AdminState.Builder()
             .withSession( session )
-            .defineResponseBody( AdminLogic.getInstance().setLevel(level, session) )  // session and level changed order
+            .defineResponseBody( AdminLogic.getInstance().setLevel(level, session) )
             .build( )
             .noContent( );
     }
-
-
-    @GET
-    @Path("interface")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getRanking(@HeaderParam("sessionid") String session){
-        return new AdminState.Builder()
-            .withSession( session )
-            .defineResponseBody( AdminLogic.getInstance().getRanking(session) )
-            .build()
-            .ok();
-    }
-
-
-    @PUT
-    @Path("interface")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response resetDatabaseShop(@HeaderParam("sessionid") String session){
-        return new AdminState.Builder()
-            .withSession( session )
-            .defineResponseBody( AdminLogic.getInstance().resetDatabaseShop(session) )
-            .build( )
-            .ok( );
-    }
-
 
     @DELETE
     @Path("interface")

@@ -35,7 +35,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'user',
+    path: 'users',
     loadChildren: () => import('../lib/pages/userSettings/userSettings.module').then(m => m.UserSettingsModule),
     canActivate: [AuthGuard]
   },
@@ -125,7 +125,7 @@ const routes: Routes = [
     loadChildren: () => import('../lib/pages/securityVulnerabilityInformation/securityMissconfiguration/securityMissconfiguration.module').then(m => m.SecurityMissconfigurationModule)
   },
   {
-    path: 'user/:id',
+    path: 'users/:id',
     loadChildren: () => import('../lib/pages/foreignUser/foreignUser.module').then(m => m.ForeignUserModule)
   },
   {path: '', redirectTo: 'index', pathMatch: 'full'},

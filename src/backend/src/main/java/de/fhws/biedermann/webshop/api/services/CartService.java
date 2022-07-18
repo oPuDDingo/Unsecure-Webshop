@@ -27,7 +27,7 @@ import javax.ws.rs.core.UriInfo;
 	}
 
 	@Path("items") @POST @Consumes(MediaType.APPLICATION_JSON) public Response createCartItem(
-		// @Context final UriInfo uriInfo,
+		@Context final UriInfo uriInfo,
 		@HeaderParam("sessionid") String session,
 		final ArticleVersion articleVersion)
 	{
