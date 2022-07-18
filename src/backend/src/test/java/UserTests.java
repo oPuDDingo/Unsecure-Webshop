@@ -22,7 +22,6 @@ public class UserTests
 		while ((inputLine = in.readLine()) != null) {
 			content.append(inputLine);
 		}
-		System.out.println(content);
 		in.close();
 		con.disconnect();
 		Assertions.assertEquals(content, "test");

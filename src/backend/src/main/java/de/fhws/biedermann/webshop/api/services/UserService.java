@@ -234,7 +234,9 @@ import static de.fhws.biedermann.webshop.api.states.UserState.createNewUser;
 			.create();
 	}
 
-	@Path("newsletter") @GET public Response checkNewsletter(
+	@Path("newsletter")
+	@GET
+	public Response checkNewsletter(
 		@HeaderParam("sessionid") String session
 	)
 	{
@@ -243,10 +245,12 @@ import static de.fhws.biedermann.webshop.api.states.UserState.createNewUser;
 			.defineResponseBody( DataHandler.checkNewsletter(session) )
 			.build()
 			.ok();
-
 	}
 
-	@Path("newsletter") @POST @Consumes(MediaType.APPLICATION_JSON) public Response turnOnNewsletter(
+	@Path("newsletter")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response turnOnNewsletter(
 		@HeaderParam("sessionid") String session,
 		@HeaderParam( "uuid" ) final String uuid,
 		@Context HttpServletRequest request,
@@ -261,7 +265,8 @@ import static de.fhws.biedermann.webshop.api.states.UserState.createNewUser;
 			.noContent();
 	}
 
-	@Path("newsletter") @DELETE public Response turnOffNewsletter(
+	@Path("newsletter")
+	@DELETE public Response turnOffNewsletter(
 		@HeaderParam("sessionid") String session
 	)
 	{
