@@ -13,10 +13,8 @@ import {Router} from "@angular/router";
 export class BiedisPageComponent implements OnInit{
 
 
-  // @ts-ignore
-  rankingStudents: RankingStudent[];
-  // @ts-ignore
-  actualStudent: RankingStudent;
+  rankingStudents: RankingStudent[] | undefined;
+  actualStudent: RankingStudent | undefined;
   modalRef?: BsModalRef;
   level: string = "Beginner";
   levelNumber: number = 1;
@@ -24,11 +22,18 @@ export class BiedisPageComponent implements OnInit{
   levelNames: string[] = ["Beginner", "Tutor", "Endboss"];
 
   constructor(private backendService: BackendService, private modalService: BsModalService, private router: Router) {
+  }
+
+  ngOnInit() {
     this.backendService.getLevel().subscribe(levelNumber => {
       this.levelNumber = levelNumber;
       this.level = this.levelNames[levelNumber-1];
     });
     this.onLevelChange(this.levelNumber);
+
+    this.backendService.getLevel().subscribe(levelNumber => this.levelNumber = levelNumber);
+    this.backendService.loadRankingStudents().subscribe(rankingStudents => this.rankingStudents = rankingStudents);
+    this.reloadRanking();
   }
 
   onLevelChange(level: number){
@@ -207,18 +212,11 @@ export class BiedisPageComponent implements OnInit{
       "/hash_user"
     ]
 
-    var tmpStudent: RankingStudent = this.actualStudent;
-    // @ts-ignore
-    return this.description.get(level).map(function(item, index){
+    let tmpStudent: RankingStudent = this.actualStudent!;
+    return this.description.get(level)!.map(function(item, index){
       let identifier = boolIdentifier[index] as keyof RankingStudent;
       return [item, information[index], tmpStudent[identifier], routingIdentifier[index]];
     })
-  }
-
-  ngOnInit() {
-    this.backendService.getLevel().subscribe(levelNumber => this.levelNumber = levelNumber);
-    this.backendService.loadRankingStudents().subscribe(rankingStudents => this.rankingStudents = rankingStudents);
-    this.reloadRanking();
   }
 
   reloadRanking() {
@@ -262,7 +260,7 @@ export class BiedisPageComponent implements OnInit{
     if(rankingStudent){
       this.actualStudent = rankingStudent;
     } else {
-      this.actualStudent.ipAddress = "-1";
+      this.actualStudent!.ipAddress = "-1";
     }
       this.modalRef = this.modalService.show(securityBreaches, {animated: true});
   }
@@ -273,6 +271,11 @@ export class BiedisPageComponent implements OnInit{
 
   onRankingReset() {
     this.backendService.rankingReset();
+  }
+
+  onRedirectToFlawDescription( flaw: string ): void {
+    console.log(flaw);
+    this.router.navigateByUrl!( `/${flaw}` );
   }
 
   getLevelClass(): string {
