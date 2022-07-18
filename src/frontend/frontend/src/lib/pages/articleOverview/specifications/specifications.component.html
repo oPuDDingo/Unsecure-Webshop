@@ -1,7 +1,12 @@
 <div class="d-flex flex-column gap-4">
   <h1>{{article.modelName}}</h1>
 
-  <!--<color-cicle></color-cicle>-->
+  <div class="row">
+    <div *ngFor="let color of ['red', 'blue', 'green', 'black', 'white']" class="col">
+      <color-circle [color]="color" [clickable]="true" (onClickEvent)="onColorChange( color )"></color-circle>
+    </div>
+  </div>
+
 
   <div class="form-inline w-75">
     <div btnRadioGroup class="d-flex justify-content-between">
