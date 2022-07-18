@@ -1,3 +1,5 @@
+package backend.test.java;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -6,12 +8,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 
+import static backend.test.java.TestHelper.*;
 
 public class UserTests
 {
 	@Test
 	void getUser() throws IOException {
-		HttpURLConnection con = TestHelper.doRequest("http://localhost:8080/api/user", TestHelper.getSession(), "GET");
+		HttpURLConnection con = doRequest("http://localhost:8080/api/user", getSession(), "GET");
 		BufferedReader in = new BufferedReader(
 			new InputStreamReader(con.getInputStream()));
 		String inputLine;
@@ -27,7 +30,7 @@ public class UserTests
 	@Test
 	void testFlaws() throws IOException
 	{
-		int status = TestHelper.doRequest("http://localhost:8080/api/flaws").getResponseCode();
+		int status = doRequest("http://localhost:8080/api/flaws").getResponseCode();
 		Assertions.assertEquals(status, 200);
 	}
 
@@ -35,9 +38,9 @@ public class UserTests
 	void testLogin() throws IOException
 	{
 		HttpURLConnection request;
-		request = TestHelper.doRequest("http://localhost:8080/api/user/login");
+		request = doRequest("http://localhost:8080/api/user/login");
 		Assertions.assertEquals(request.getResponseCode(), 400);
-		request = TestHelper.doRequest("http://localhost:8080/api/user/login?"
+		request = doRequest("http://localhost:8080/api/user/login?"
 			+ "mail=Test1@test.de&"
 			+ "password=123456789");
 		Assertions.assertEquals(request.getResponseCode(), 200);
@@ -46,16 +49,16 @@ public class UserTests
 	@Test
 	void testLoginCookie()
 	{
-		Assertions.assertNotNull(TestHelper.getSession());
+		Assertions.assertNotNull(getSession());
 	}
 
 	@Test
 	void testLogout() throws IOException
 	{
 		HttpURLConnection request;
-		request = TestHelper.doRequest("http://localhost:8080/api/user/logout/", TestHelper.getSession(), "POST");
+		request = doRequest("http://localhost:8080/api/user/logout/", getSession(), "POST");
 		Assertions.assertEquals(request.getResponseCode(), 200);
-		request = TestHelper.doRequest("http://localhost:8080/api/user/logout/", null, "POST");
+		request = doRequest("http://localhost:8080/api/user/logout/", null, "POST");
 		Assertions.assertEquals(request.getResponseCode(), 401);
 	}
 
@@ -63,13 +66,13 @@ public class UserTests
 	void testNewsletter() throws IOException
 	{
 		HttpURLConnection request;
-		request = TestHelper.doRequest("http://localhost:8080/api/user/newsletter", TestHelper.getSession(), "POST");
+		request = doRequest("http://localhost:8080/api/user/newsletter", getSession(), "POST");
 		Assertions.assertEquals(request.getResponseCode(), 204);
-		request = TestHelper.doRequest("http://localhost:8080/api/user/newsletter", TestHelper.getSession(), "DELETE");
+		request = doRequest("http://localhost:8080/api/user/newsletter",getSession(), "DELETE");
 		Assertions.assertEquals(request.getResponseCode(), 204);
-		request = TestHelper.doRequest("http://localhost:8080/api/user/newsletter", null, "POST");
+		request = doRequest("http://localhost:8080/api/user/newsletter", null, "POST");
 		Assertions.assertEquals(request.getResponseCode(), 401);
-		request = TestHelper.doRequest("http://localhost:8080/api/user/newsletter",null, "DELETE");
+		request = doRequest("http://localhost:8080/api/user/newsletter",null, "DELETE");
 		Assertions.assertEquals(request.getResponseCode(), 401);
 	}
 }
