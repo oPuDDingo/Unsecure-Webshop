@@ -57,18 +57,15 @@ export class AuthenticationService {
   logout(): Observable<any> {
     if (this.cookieService != undefined) {
       let sessionKey = this.cookieService.get('sessionKey').replace('sessionKey=', '');
+      this.cookieService.delete('sessionKey');
+      this.backendService.sessionKey = "";
+      this.statusSubject.next(false);
+      this.userType = UserTypes.User;
+      this.cleanupStores();
       return this.httpClient.post(Statics.url + 'user/logout', {sessionKey}, {
         headers: this.backendService.getHeader(),
         observe: "response",
-      }).pipe(
-        map(response => {
-          this.cookieService.delete('sessionKey');
-          this.backendService.sessionKey = "";
-          this.statusSubject.next(false);
-          this.userType = UserTypes.User;
-          this.cleanupStores();
-        })
-      );
+      });
     }
     return new Observable<any>();
   }
@@ -90,19 +87,16 @@ export class AuthenticationService {
   adminLogout(): Observable<any> {
     if (this.cookieService != undefined) {
       let sessionKey = this.cookieService.get('sessionKey').replace('sessionKey=', '');
+      this.cookieService.delete('sessionKey');
+      this.statusSubject.next(false);
+      this.statusAdminSubject.next(false);
+      this.backendService.sessionKey = "";
+      this.userType = UserTypes.User;
+      this.cleanupStores();
       return this.httpClient.post(Statics.url + 'admin/logout', {sessionKey}, {
         headers: this.backendService.getHeader(),
         observe: "response"
-      }).pipe(
-        map(response => {
-          this.cookieService.delete('sessionKey');
-          this.statusSubject.next(false);
-          this.statusAdminSubject.next(false);
-          this.backendService.sessionKey = "";
-          this.userType = UserTypes.User;
-          this.cleanupStores();
-        })
-      );
+      });
     }
     return new Observable<any>();
 
