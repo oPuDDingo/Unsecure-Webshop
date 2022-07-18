@@ -38,7 +38,7 @@ public class AdminService {
     public Response getLevel(@HeaderParam( "sessionid" ) String session) {
         return new AdminState.Builder()
             .withSession( session )
-            .defineResponseBody( AdminLogic.getInstance().getLevel(session) )
+            .defineResponseBody( AdminLogic.getInstance().getLevel() )
             .build( )
             .ok( );
     }
@@ -76,7 +76,7 @@ public class AdminService {
     ){
         return new AdminState.Builder()
             .withSession( session )
-            .defineResponseBody( AdminLogic.getInstance().setLevel(session, level) )
+            .defineResponseBody( AdminLogic.getInstance().setLevel(level, session) )
             .build( )
             .noContent( );
     }

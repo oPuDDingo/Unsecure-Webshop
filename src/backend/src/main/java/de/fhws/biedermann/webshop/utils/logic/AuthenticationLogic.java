@@ -1,11 +1,13 @@
 package de.fhws.biedermann.webshop.utils.logic;
 
 import de.fhws.biedermann.webshop.database.AuthorizationType;
-import de.fhws.biedermann.webshop.database.DataAccessAdminPanel;
 import de.fhws.biedermann.webshop.database.DataAccessShopDatabase;
+import de.fhws.biedermann.webshop.models.User;
 import de.fhws.biedermann.webshop.utils.SecurityBreachDetection;
+import de.fhws.biedermann.webshop.utils.handler.DataHandler;
 import de.fhws.biedermann.webshop.utils.handler.FlawHandler;
 
+import javax.annotation.Nullable;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import java.security.SecureRandom;
@@ -15,16 +17,20 @@ public class AuthenticationLogic
 {
 
 	static DataAccessShopDatabase Database = new DataAccessShopDatabase();
-	static DataAccessAdminPanel daap = new DataAccessAdminPanel();
 
-	public static Response login(final String mail, final String password, final String ip)
+	public static String register( final User user, final String uuid ) {
+		DataHandler.createUser(user);
+		return login( user.getMail(), user.getPassword(), uuid );
+	}
+
+	public static String login(final String mail, final String password, final String ip)
 	{
 		SecurityBreachDetection.detectLoginSecurityBreach( ip );
-		SecurityBreachDetection.detectDummyUserInHtmlSecurityBreach( mail, password, ip ); //Fixed by Levin
+		SecurityBreachDetection.detectDummyUserInHtmlSecurityBreach( mail, password, ip );
 		AuthorizationType session = Database.checkAuthData(mail, password);
 		if ( session == AuthorizationType.FALSE_PASSWORD || session == AuthorizationType.FALSE_USER )
 		{
-			if ( AdminLogic.getInstance().level < 2 )
+			if ( AdminLogic.getInstance().getLevel() < 2 )
 			{
 				if ( session == AuthorizationType.FALSE_PASSWORD )
 					throw new WebApplicationException( Response.status( Response.Status.BAD_REQUEST ).entity( "Das " +
@@ -41,12 +47,12 @@ public class AuthenticationLogic
 		}
 		String sessionID = createSessionId();
 		Database.postSession(sessionID, mail, ip);
-		return Response.ok(sessionID).header("sessionid", sessionID).build();
+		return sessionID;
 	}
 
-	public static Response logout(String session) {
+	public static Nullable logout(String session) {
 		Database.deleteSession(session);
-		return Response.ok().build();
+		return null;
 	}
 
 	public static String createSessionId( )

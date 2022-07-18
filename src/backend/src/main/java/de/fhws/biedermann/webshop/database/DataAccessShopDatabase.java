@@ -599,7 +599,7 @@ public class DataAccessShopDatabase {
 
     public List<Article> getArticles(int page, String search) {
         if(this.checkForInjection(search)){
-            return new ArrayList<Article>();
+            return new ArrayList<>();
         }
         if(page==0){
             page=1;
