@@ -80,7 +80,7 @@ public class AdminLogic
     }
 
     private void authorizeRequest( final String session ) {
-        if ( dataAccessAdminPanel.checkSession(session) ) {
+        if ( !dataAccessAdminPanel.checkSession(session) ) {
             throw new ForbiddenException( );
         }
     }

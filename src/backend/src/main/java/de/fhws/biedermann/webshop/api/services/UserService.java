@@ -15,9 +15,11 @@ import javax.ws.rs.core.UriInfo;
 
 import static de.fhws.biedermann.webshop.api.states.UserState.createNewUser;
 
-@Path("user") public class UserService
+@Path("users") public class UserService
 {
-	@GET @Produces(MediaType.APPLICATION_JSON) public Response getUser(
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getUser(
 		@HeaderParam("sessionid") String session)
 	{
 		return new UserState.Builder()
@@ -27,7 +29,10 @@ import static de.fhws.biedermann.webshop.api.states.UserState.createNewUser;
 			.ok();
 	}
 
-	@Path("{id}") @GET @Produces(MediaType.APPLICATION_JSON) public Response getUserById(
+	@Path("{id}")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getUserById(
 		@PathParam("id") final int id)
 	{
 		return new UserState.Builder()
@@ -36,7 +41,10 @@ import static de.fhws.biedermann.webshop.api.states.UserState.createNewUser;
 			.ok();
 	}
 
-	@POST @Path("register") @Consumes(MediaType.APPLICATION_JSON) public Response createUser(
+	@POST
+	@Path("register")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response createUser(
 		@Context UriInfo uriInfo,
 		final User user,
 		@Context HttpServletRequest request,
@@ -49,7 +57,10 @@ import static de.fhws.biedermann.webshop.api.states.UserState.createNewUser;
 			.build( ).ok( );
 	}
 
-	@GET @Path("login") @Produces(MediaType.TEXT_PLAIN) public Response checkLogin(
+	@GET
+	@Path("login")
+	@Produces(MediaType.TEXT_PLAIN)
+	public Response checkLogin(
 		@DefaultValue("") @QueryParam("mail") String mail,
 		@DefaultValue("") @QueryParam("password") String password,
 		@HeaderParam( "uuid" ) final String uuid
@@ -61,7 +72,9 @@ import static de.fhws.biedermann.webshop.api.states.UserState.createNewUser;
 			.ok( );
 	}
 
-	@POST @Path("logout") public Response logout(
+	@POST
+	@Path("logout")
+	public Response logout(
 		@HeaderParam("sessionid") final String session
 	) {
 		return new UserState.Builder()
@@ -70,7 +83,9 @@ import static de.fhws.biedermann.webshop.api.states.UserState.createNewUser;
 			.build( ).ok( );
 	}
 
-	@PUT @Consumes(MediaType.APPLICATION_JSON) public Response modifyUser(
+	@PUT
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response modifyUser(
 		@HeaderParam("sessionid") String session,
 		@HeaderParam( "uuid" ) final String uuid,
 		final User user,
@@ -88,7 +103,8 @@ import static de.fhws.biedermann.webshop.api.states.UserState.createNewUser;
 
 	}
 
-	@DELETE public Response deleteUser(
+	@DELETE
+	public Response deleteUser(
 		@HeaderParam("sessionid") String session)
 	{
 		return new UserState.Builder()
@@ -99,7 +115,8 @@ import static de.fhws.biedermann.webshop.api.states.UserState.createNewUser;
 	}
 
 	@Path( "{id:\\d+}" )
-	@DELETE public Response deleteUserById(
+	@DELETE
+	public Response deleteUserById(
 		@DefaultValue( "" ) @HeaderParam("sessionid") String session,
 		@PathParam( "id" ) final int id,
 		@Context HttpServletRequest req
@@ -113,7 +130,9 @@ import static de.fhws.biedermann.webshop.api.states.UserState.createNewUser;
 			.noContent();
 	}
 
-	@Path("payment") @GET @Produces(MediaType.APPLICATION_JSON) public Response getUserPayment(
+	@Path("payment")
+	@GET @Produces(MediaType.APPLICATION_JSON)
+	public Response getUserPayment(
 		@HeaderParam("sessionid") String session)
 	{
 		return new UserState.Builder()
@@ -123,7 +142,10 @@ import static de.fhws.biedermann.webshop.api.states.UserState.createNewUser;
 			.ok();
 	}
 
-	@Path("payment") @POST @Consumes(MediaType.APPLICATION_JSON) public Response createUserPayment(
+	@Path("payment")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response createUserPayment(
 		@HeaderParam("sessionid") String session,
 		@Context UriInfo uriInfo,
 		final Payment payment)
@@ -137,7 +159,10 @@ import static de.fhws.biedermann.webshop.api.states.UserState.createNewUser;
 			.create();
 	}
 
-	@Path("payment") @PUT @Consumes(MediaType.APPLICATION_JSON) public Response modifyUserPayment(
+	@Path("payment")
+	@PUT
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response modifyUserPayment(
 		@HeaderParam("sessionid") String session,
 		final Payment payment)
 	{
@@ -145,14 +170,19 @@ import static de.fhws.biedermann.webshop.api.states.UserState.createNewUser;
 		return Response.status( 501 ).build();
 	}
 
-	@Path("payment") @DELETE public Response deleteUserPayment(
+	@Path("payment")
+	@DELETE
+	public Response deleteUserPayment(
 		@HeaderParam("sessionid") String session)
 	{
 		// DataHandler.deleteUserPayment(session);
 		return Response.status( 501 ).build();
 	}
 
-	@GET @Path("addresses") @Produces(MediaType.APPLICATION_JSON) public Response getAllUserAddresses(
+	@GET
+	@Path("addresses")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getAllUserAddresses(
 		@HeaderParam("sessionid") String session)
 	{
 		return new UserState.Builder()
@@ -162,7 +192,9 @@ import static de.fhws.biedermann.webshop.api.states.UserState.createNewUser;
 			.ok();
 	}
 
-	@GET @Path("/addresses/{id}") @Produces(MediaType.APPLICATION_JSON) public Response getUserAddress(
+	@GET @Path("/addresses/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getUserAddress(
 		@HeaderParam("sessionid") String session,
 		@PathParam("id") final int id)
 	{
@@ -173,7 +205,9 @@ import static de.fhws.biedermann.webshop.api.states.UserState.createNewUser;
 			.ok();
 	}
 
-	@Path("addresses") @POST @Produces(MediaType.APPLICATION_JSON) public Response createUserAddress(
+	@Path("addresses")
+	@POST @Produces(MediaType.APPLICATION_JSON)
+	public Response createUserAddress(
 		@HeaderParam("sessionid") String session,
 		@Context UriInfo uriInfo,
 		final Address address)
@@ -185,7 +219,9 @@ import static de.fhws.biedermann.webshop.api.states.UserState.createNewUser;
 			.ok();
 	}
 
-	@Path("addresses/{id}") @PUT @Consumes(MediaType.APPLICATION_JSON) public Response modifyUserAddress(
+	@Path("addresses/{id}")
+	@PUT @Consumes(MediaType.APPLICATION_JSON)
+	public Response modifyUserAddress(
 		@HeaderParam("sessionid") final String session,
 		@PathParam("id") final int id,
 		final Address  address)
@@ -200,7 +236,9 @@ import static de.fhws.biedermann.webshop.api.states.UserState.createNewUser;
 			.ok();
 	}
 
-	@Path("addresses/{id}") @DELETE public Response deleteUserAddress(
+	@Path("addresses/{id}")
+	@DELETE
+	public Response deleteUserAddress(
 		@HeaderParam("sessionid") String session,
 		@PathParam("id") final int id)
 	{
@@ -211,7 +249,10 @@ import static de.fhws.biedermann.webshop.api.states.UserState.createNewUser;
 			.noContent();
 	}
 
-	@Path("mail") @GET @Produces(MediaType.APPLICATION_JSON) public Response getUserMail(
+	@Path("mail")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getUserMail(
 		@HeaderParam("sessionid") String session)
 	{
 		return new UserState.Builder()
@@ -221,7 +262,10 @@ import static de.fhws.biedermann.webshop.api.states.UserState.createNewUser;
 			.ok();
 	}
 
-	@Path("mail") @POST @Consumes(MediaType.APPLICATION_JSON) public Response createUserMail(
+	@Path("mail")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response createUserMail(
 		@HeaderParam("sessionid") String session,
 		@Context UriInfo uriInfo,
 		final String mail)
@@ -266,7 +310,8 @@ import static de.fhws.biedermann.webshop.api.states.UserState.createNewUser;
 	}
 
 	@Path("newsletter")
-	@DELETE public Response turnOffNewsletter(
+	@DELETE
+	public Response turnOffNewsletter(
 		@HeaderParam("sessionid") String session
 	)
 	{
@@ -277,7 +322,10 @@ import static de.fhws.biedermann.webshop.api.states.UserState.createNewUser;
 			.noContent();
 	}
 
-	@Path("password") @Consumes(MediaType.TEXT_PLAIN) @PUT public Response modifyPassword(
+	@Path("password")
+	@Consumes(MediaType.TEXT_PLAIN)
+	@PUT
+	public Response modifyPassword(
 		@HeaderParam("sessionid") String session,
 		final String password)
 	{
@@ -292,7 +340,8 @@ import static de.fhws.biedermann.webshop.api.states.UserState.createNewUser;
 	}
 
 	@Path( "me" )
-	@GET public Response getNewUuid() {
+	@GET
+	public Response getNewUuid() {
 		return new UserState.Builder()
 			.defineResponseBody( createNewUser() )
 			.build()

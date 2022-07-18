@@ -8,6 +8,7 @@ public class MyKeyGenerator
 {
 	public static Key getNewKey( )
 	{
+		// generate key for uuid
 		try
 		{
 			final SecureRandom rand = new SecureRandom( );
