@@ -49,13 +49,15 @@ export class UserSettingsComponent implements OnInit {
       this.addresses = addresses
     });
 
-    this.userStore.getNewsletterStatus().subscribe(respond => this.newsletter = respond.valueOf());
+    this.userStore.getNewsletterStatus().subscribe(respond => {
+      this.newsletter = respond.valueOf();
+    });
   }
 
   onNewsletter(mail: string) {
     this.nletter.email = mail;
     this.newsletter = !this.newsletter;
-    this.newsletter ? this.userStore.subscribeNewsletter(this.nletter) : this.userStore.unsubscribeNewsletter();
+    this.newsletter ? this.userStore.subscribeNewsletter(this.nletter).subscribe() : this.userStore.unsubscribeNewsletter().subscribe();
   }
 
   getUserName(): string {
