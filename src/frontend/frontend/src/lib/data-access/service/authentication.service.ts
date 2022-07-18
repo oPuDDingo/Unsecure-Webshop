@@ -41,7 +41,7 @@ export class AuthenticationService {
   }
 
   login(mail: string, password: string): Observable<boolean> {
-    return this.httpClient.get(Statics.url + 'user/login?mail=' + mail + '&password=' + password, {
+    return this.httpClient.get(Statics.url + 'users/login?mail=' + mail + '&password=' + password, {
       observe: "body", responseType: "text", headers: this.backendService.getHeader()
     }).pipe(
       map(sessionKey => {
@@ -57,7 +57,7 @@ export class AuthenticationService {
   logout(): Observable<any> {
     if (this.cookieService != undefined) {
       let sessionKey = this.cookieService.get('sessionKey').replace('sessionKey=', '');
-      return this.httpClient.post(Statics.url + 'user/logout', {sessionKey}, {
+      return this.httpClient.post(Statics.url + 'users/logout', {sessionKey}, {
         headers: this.backendService.getHeader(),
         observe: "response",
       }).pipe(
@@ -109,7 +109,7 @@ export class AuthenticationService {
   }
 
   register(firstname: string, lastname: string, mail: string, password: string): Observable<any> {
-    return this.httpClient.post(Statics.url + 'user/register', {
+    return this.httpClient.post(Statics.url + 'users/register', {
       "firstName": firstname,
       "lastName": lastname,
       "mail": mail,
