@@ -91,10 +91,12 @@ export class BiedisPageComponent implements OnInit{
 
           "In das Kommentarfeld bei den einzelnen Artikeln einfach ein Skript rein schreiben, gefiltert wird in diesem Level noch nicht.",
 
-          "Brute Force Attacke.",
+          "Eine einfache Brute Force Attacke.",
 
           "Über die SQL Injection zu finden in der Beschreibung in den User Settings zu finden. Dort erhält man einen Hash von einem Dummyuser und zusammen mit der " +
-          "E-Mail Adresse kann man sich damit einloggen."
+          "E-Mail Adresse kann man sich damit einloggen.",
+
+          "Auf den Endpunkt /api/backup wird von uns aus nie zu gegriffen, wenn man über einen Port Scanner oder über die Url diesen Endpunkt aufruft, wird die Schwachstelle ausgelöst."
         ],);
         break;
       case 2:
@@ -124,10 +126,12 @@ export class BiedisPageComponent implements OnInit{
 
           "In das Kommentarfeld bei den einzelnen Artikeln einfach ein Skript rein schreiben, gefiltert wird nach 'script'. Dies wird aus dem String entfernt.",
 
-          "Beim Registrieren oder beim Einloggen, ploppt ein kleines Fenster auf wenn es die E-Mail Adresse schon gibt. Brute Force Attacke.",
+          "Eine einfache Brute Force Attacke.",
 
           "Über die SQL Injection zu finden in der Beschreibung in den User Settings zu finden. Dort erhält man einen Hash von einem Dummyuser und zusammen mit der " +
-          "E-Mail Adresse kann man sich damit einloggen."
+          "E-Mail Adresse kann man sich damit einloggen.",
+
+          "Auf den Endpunkt /api/backup wird von uns aus nie zu gegriffen, wenn man über einen Port Scanner oder über die Url diesen Endpunkt aufruft, wird die Schwachstelle ausgelöst."
         ],);
         break;
       case 3:
@@ -158,10 +162,12 @@ export class BiedisPageComponent implements OnInit{
 
           "In das Kommentarfeld bei den einzelnen Artikeln einfach ein Skript rein schreiben, gefiltert wird zusätzlich zu 'script' auch noch das erste '<', '>' und '\\'. Diese werden aus dem String entfernt.",
 
-          "Beim Registrieren oder beim Einloggen, ploppt ein kleines Fenster auf wenn es die E-Mail Adresse schon gibt. Brute Force Attacke.",
+          "Eine einfache Brute Force Attacke.",
 
           "Über die SQL Injection zu finden in der Beschreibung in den User Settings zu finden. Dort erhält man einen Hash von einem Dummyuser und zusammen mit der " +
-          "E-Mail Adresse kann man sich damit einloggen."
+          "E-Mail Adresse kann man sich damit einloggen.",
+
+          "Auf den Endpunkt /api/backup wird von uns aus nie zu gegriffen, wenn man über einen Port Scanner oder über die Url diesen Endpunkt aufruft, wird die Schwachstelle ausgelöst."
         ],);
         break;
     }
@@ -180,8 +186,9 @@ export class BiedisPageComponent implements OnInit{
       "Guess Coupon",
       "Delete User",
       "Comment XSS - Cross-Site-Scripting",
-      "Look for E-Mail Address",
-      "Hash User"];
+      "Login Brute Force",
+      "Hash User",
+      "Security Misconfiguration"];
 
     var boolIdentifier: string[] = [
       "sqlInjection",
@@ -195,8 +202,9 @@ export class BiedisPageComponent implements OnInit{
       "guessCoupon",
       "deleteUser",
       "commentXss",
-      "lookForEmailAddress",
-      "hashUser"];
+      "loginBruteForce",
+      "hashUser",
+      "securityMisconfiguration"];
 
     var routingIdentifier: string[] = [
       "/sql_injection",
@@ -210,8 +218,9 @@ export class BiedisPageComponent implements OnInit{
       "/guess_coupon",
       "/delete_user",
       "/sql_injection",
-      "/look_for_email_address",
-      "/hash_user"
+      "/login_brute_force",
+      "/hash_user",
+      "/security_misconfiguration"
     ]
 
     let tmpStudent: RankingStudent = this.actualStudent!;

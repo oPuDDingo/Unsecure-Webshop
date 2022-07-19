@@ -13,5 +13,6 @@ export interface RankingStudent{
   commentXss: boolean;
   lookForEmailAddress: boolean;
   hashUser: boolean;
+  securityMisconfiguration: boolean;
   points: number;
 }
