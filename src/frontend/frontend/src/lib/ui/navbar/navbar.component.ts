@@ -3,6 +3,7 @@ import {Router} from "@angular/router";
 import {AuthenticationService} from "../../data-access/service/authentication.service";
 import {UserTypes} from "../../data-access/enums/userTypes";
 import {CookieService} from "ngx-cookie-service";
+import {AdminAuthenticationGuard} from "../../data-access/service/canActivateGuards/adminAuthentication.guard";
 
 @Component({
   selector: 'navbar',
@@ -15,7 +16,7 @@ export class NavbarComponent implements OnInit {
   loginAdmin: boolean = false;
   searchInput: string = "";
 
-  constructor(private authenticationService: AuthenticationService, private router: Router, private cookieService: CookieService) {
+  constructor(private authenticationService: AuthenticationService, private router: Router, private cookieService: CookieService, private adminAuthentication: AdminAuthenticationGuard) {
   }
 
   ngOnInit() {

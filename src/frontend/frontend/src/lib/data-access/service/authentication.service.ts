@@ -32,8 +32,9 @@ export class AuthenticationService {
   ) {
     if (this.cookieService.check("sessionKey")) {
       this.statusSubject.next(true);
+    } else if (this.cookieService.get("userType") == "" + UserTypes.Admin) {
       this.statusAdminSubject.next(true);
-    }else {
+    } else {
       this.statusSubject.next(false);
       this.statusAdminSubject.next(false);
     }
@@ -47,6 +48,7 @@ export class AuthenticationService {
         this.cookieService.set('sessionKey', sessionKey);
         this.backendService.sessionKey = sessionKey;
         this.statusSubject.next(true);
+        this.statusAdminSubject.next(false);
         this.cookieService.set("userType", UserTypes.User.toString());
         return true;
       })
@@ -64,6 +66,7 @@ export class AuthenticationService {
       this.cookieService.delete('sessionKey');
       this.backendService.sessionKey = "";
       this.statusSubject.next(false);
+      this.statusAdminSubject.next(false) ;
       this.cookieService.set("userType", UserTypes.User.toString());
       this.cleanupStores();
       return response;
@@ -78,9 +81,9 @@ export class AuthenticationService {
       map(sessionKey => {
         this.cookieService.set("sessionKey", sessionKey);
         this.backendService.sessionKey = sessionKey;
-        this.statusSubject.next(true);
-        this.cookieService.set("userType", UserTypes.Admin.toString());
+        this.statusSubject.next(false);
         this.statusAdminSubject.next(true);
+        this.cookieService.set("userType", UserTypes.Admin.toString());
       })
     );
   }
