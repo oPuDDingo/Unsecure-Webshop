@@ -6,7 +6,6 @@ import org.apache.commons.lang.StringUtils;
 
 import javax.ws.rs.core.UriInfo;
 import java.net.URI;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
