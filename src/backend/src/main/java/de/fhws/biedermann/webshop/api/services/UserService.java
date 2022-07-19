@@ -54,7 +54,8 @@ import static de.fhws.biedermann.webshop.api.states.UserState.createNewUser;
 		return new UserState.Builder()
 			.withUuid( uuid )
 			.defineResponseBody( AuthenticationLogic.register( user, uuid ) )
-			.build( ).ok( );
+			.build( )
+			.ok( );
 	}
 
 	@GET
@@ -154,8 +155,8 @@ import static de.fhws.biedermann.webshop.api.states.UserState.createNewUser;
 		return new UserState.Builder()
 			.withSession( session )
 			.withModel( payment )
-			.defineResponseBody( DataHandler.createUserPayment(session, payment) )
 			.withUriInfo( uriInfo.getAbsolutePathBuilder().build(  ) )
+			.defineResponseBody( DataHandler.createUserPayment(session, payment) )
 			.build()
 			.create();
 	}
@@ -273,8 +274,8 @@ import static de.fhws.biedermann.webshop.api.states.UserState.createNewUser;
 	{
 		return new UserState.Builder()
 			.withSession( session )
-			.defineResponseBody( DataHandler.createUserMail(session, mail) )
 			.withUriInfo( uriInfo.getAbsolutePathBuilder().build(  ) )
+			.defineResponseBody( DataHandler.createUserMail(session, mail) )
 			.build()
 			.create();
 	}

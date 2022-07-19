@@ -28,8 +28,9 @@ export class BiedisPageComponent implements OnInit{
     this.backendService.getLevel().subscribe(levelNumber => {
       this.levelNumber = levelNumber;
       this.level = this.levelNames[levelNumber-1];
+      this.onLevelChange(this.levelNumber);
     });
-    this.onLevelChange(this.levelNumber);
+
 
     this.backendService.getLevel().subscribe(levelNumber => this.levelNumber = levelNumber);
     this.backendService.loadRankingStudents().subscribe(rankingStudents => this.rankingStudents = rankingStudents);
