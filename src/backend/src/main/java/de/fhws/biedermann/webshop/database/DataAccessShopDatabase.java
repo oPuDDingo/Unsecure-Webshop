@@ -120,10 +120,10 @@ public class DataAccessShopDatabase {
         Commentary commentary = null;
         try (Connection con = this.createConnection();
              Statement stmt = con.createStatement()){
-            String sql = "SELECT * FROM comment INNER JOIN user on user.id=comment.user_id WHERE id=" + id + ";";
+            String sql = "SELECT * FROM comment INNER JOIN user on user.id=comment.user_id WHERE comment.id=" + id + ";";
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
-                commentary = new Commentary(rs.getInt("comment.id"), rs.getString("comment_text"), rs.getInt("user_id"),
+                commentary = new Commentary(rs.getInt(1), rs.getString("comment_text"), rs.getInt("user_id"),
                     rs.getString("firstname"), rs.getString("lastname"), rs.getString("profile_picture"));
             }
             rs.close();
