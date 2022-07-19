@@ -205,7 +205,7 @@ export class BackendService {
   }
 
   postCommentToArticle(commentary: Commentary, articleId: number): Observable<any>{
-    return this.httpClient.post(Statics.url + 'comments?id=' + articleId, {...commentary},{headers: this.getHeader()} );
+    return this.httpClient.post(Statics.url + 'comments?articleId=' + articleId, {...commentary},{headers: this.getHeader()} );
   }
 
 }
