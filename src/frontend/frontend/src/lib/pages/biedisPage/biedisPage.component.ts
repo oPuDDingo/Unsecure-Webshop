@@ -266,11 +266,11 @@ export class BiedisPageComponent implements OnInit{
   }
 
   onShopReset() {
-    this.backendService.shopReset();
+    this.backendService.shopReset().subscribe();
   }
 
   onRankingReset() {
-    this.backendService.rankingReset();
+    this.backendService.rankingReset().subscribe();
   }
 
   onRedirectToFlawDescription( flaw: string ): void {
