@@ -8,7 +8,6 @@ import javax.annotation.Nullable;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.ForbiddenException;
 import javax.ws.rs.NotAuthorizedException;
-import javax.ws.rs.core.Response;
 import java.util.List;
 
 public class AdminLogic

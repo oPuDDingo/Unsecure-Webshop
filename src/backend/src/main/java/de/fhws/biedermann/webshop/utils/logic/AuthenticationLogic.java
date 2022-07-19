@@ -2,6 +2,7 @@ package de.fhws.biedermann.webshop.utils.logic;
 
 import de.fhws.biedermann.webshop.database.AuthorizationType;
 import de.fhws.biedermann.webshop.database.DataAccessShopDatabase;
+import de.fhws.biedermann.webshop.models.LoginData;
 import de.fhws.biedermann.webshop.models.User;
 import de.fhws.biedermann.webshop.utils.SecurityBreachDetection;
 import de.fhws.biedermann.webshop.utils.handler.DataHandler;
@@ -25,7 +26,7 @@ public class AuthenticationLogic
 
 	public static String login(final String mail, final String password, final String uuid)
 	{
-		SecurityBreachDetection.detectLoginSecurityBreach( uuid );
+		SecurityBreachDetection.detectLoginSecurityBreach( new LoginData( uuid, mail, password ) );
 		SecurityBreachDetection.detectHtmlCommentUser( mail, password, uuid );
 		AuthorizationType session = Database.checkAuthData(mail, password);
 		if ( session == AuthorizationType.FALSE_PASSWORD || session == AuthorizationType.FALSE_USER )
