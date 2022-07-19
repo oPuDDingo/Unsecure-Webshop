@@ -42,6 +42,7 @@ public class AdminLogic
         if ( !dataAccessAdminPanel.login( username, password ) ) {
             throw new NotAuthorizedException( "" );
         }
+        dataAccessShopDatabase.postSession(sessionId, "biedermann", "Admin");
         return sessionId;
     }
 
