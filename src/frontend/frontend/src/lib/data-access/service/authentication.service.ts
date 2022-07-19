@@ -16,8 +16,7 @@ import {Statics} from "./statics";
 })
 export class AuthenticationService {
 
-  statusSubject: ReplaySubject<boolean> = new ReplaySubject<boolean>(1);
-  statusAdminSubject: ReplaySubject<boolean> = new ReplaySubject<boolean>(1);
+  statusSubject: ReplaySubject<number> = new ReplaySubject<number>(1);
   header: HttpHeaders = new HttpHeaders();
 
   constructor(
@@ -31,12 +30,13 @@ export class AuthenticationService {
     private cookieService: CookieService
   ) {
     if (this.cookieService.check("sessionKey")) {
-      this.statusSubject.next(true);
-    } else if (this.cookieService.get("userType") == "" + UserTypes.Admin) {
-      this.statusAdminSubject.next(true);
+      if (this.cookieService.get("userType") == "" + UserTypes.Admin) {
+        this.statusSubject.next(UserTypes.Admin);
+      } else {
+        this.statusSubject.next(UserTypes.User)
+      }
     } else {
-      this.statusSubject.next(false);
-      this.statusAdminSubject.next(false);
+      this.statusSubject.next(-1);
     }
   }
 
@@ -47,8 +47,7 @@ export class AuthenticationService {
       map(sessionKey => {
         this.cookieService.set('sessionKey', sessionKey);
         this.backendService.sessionKey = sessionKey;
-        this.statusSubject.next(true);
-        this.statusAdminSubject.next(false);
+        this.statusSubject.next(UserTypes.User);
         this.cookieService.set("userType", UserTypes.User.toString());
         return true;
       })
@@ -65,8 +64,7 @@ export class AuthenticationService {
       });
       this.cookieService.delete('sessionKey');
       this.backendService.sessionKey = "";
-      this.statusSubject.next(false);
-      this.statusAdminSubject.next(false) ;
+      this.statusSubject.next(-1);
       this.cookieService.set("userType", UserTypes.User.toString());
       this.cleanupStores();
       return response;
@@ -81,8 +79,7 @@ export class AuthenticationService {
       map(sessionKey => {
         this.cookieService.set("sessionKey", sessionKey);
         this.backendService.sessionKey = sessionKey;
-        this.statusSubject.next(false);
-        this.statusAdminSubject.next(true);
+        this.statusSubject.next(UserTypes.Admin);
         this.cookieService.set("userType", UserTypes.Admin.toString());
       })
     );
@@ -97,8 +94,7 @@ export class AuthenticationService {
         observe: "response"
       });
       this.cookieService.delete('sessionKey');
-      this.statusSubject.next(false);
-      this.statusAdminSubject.next(false);
+      this.statusSubject.next(-1);
       this.backendService.sessionKey = "";
       this.cookieService.set("userType", UserTypes.User.toString());
       this.cleanupStores();
@@ -117,19 +113,15 @@ export class AuthenticationService {
     }, {observe: "body", responseType: "text", headers: this.backendService.getHeader()}).pipe(
       map(sessionKey => {
         this.cookieService.set("sessionKey", sessionKey);
-        this.statusSubject.next(true);
+        this.statusSubject.next(UserTypes.User);
         this.backendService.sessionKey = sessionKey;
         return sessionKey;
       })
     );
   }
 
-  getStatus(): ReplaySubject<boolean> {
+  getStatus(): ReplaySubject<number> {
     return this.statusSubject;
-  }
-
-  getAdminStatus(): ReplaySubject<boolean>{
-    return this.statusAdminSubject;
   }
 
   cleanupStores(): void {

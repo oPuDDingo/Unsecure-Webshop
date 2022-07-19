@@ -22,14 +22,10 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
     this.authenticationService.getStatus().subscribe(
       status => {
-        this.login = status;
+        this.login = status == UserTypes.User;
+        this.loginAdmin = status == UserTypes.Admin;
       }
-    );
-    this.authenticationService.getAdminStatus().subscribe(
-      status => {
-        this.loginAdmin = status;
-      }
-    );
+    )
   }
 
   onLogOut(): void {
