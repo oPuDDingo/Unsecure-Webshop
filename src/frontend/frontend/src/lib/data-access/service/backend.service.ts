@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {map, Observable} from "rxjs";
-import {Address, Article, Contact, Coupon, Order, SpecifiedItem, User} from "../models";
+import {Address, Article, Commentary, Contact, Coupon, Order, SpecifiedItem, User} from "../models";
 import {RankingStudent} from "../models/rankingStudent";
 import {JsonObject} from "@angular/compiler-cli/ngcc/src/utils";
 import {CookieService} from "ngx-cookie-service";
@@ -202,6 +202,10 @@ export class BackendService {
     } else {
       return new HttpHeaders();
     }
+  }
+
+  postCommentToArticle(commentary: Commentary, articleId: number): Observable<any>{
+    return this.httpClient.post(Statics.url + 'comments?id=' + articleId, {...commentary},{headers: this.getHeader()} );
   }
 
 }

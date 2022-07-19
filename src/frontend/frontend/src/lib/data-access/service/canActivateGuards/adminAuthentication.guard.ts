@@ -8,7 +8,7 @@ import {UserTypes} from "../../enums/userTypes";
 @Injectable({providedIn: 'root'})
 export class AdminAuthenticationGuard implements CanActivate {
 
-  constructor(private router: Router, private cookieService: CookieService, private authenticationService: AuthenticationService) {
+  constructor(private router: Router, private cookieService: CookieService) {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):

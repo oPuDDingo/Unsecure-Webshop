@@ -266,15 +266,15 @@ export class BiedisPageComponent implements OnInit{
   }
 
   onShopReset() {
-    this.backendService.shopReset();
+    this.backendService.shopReset().subscribe();
   }
 
   onRankingReset() {
-    this.backendService.rankingReset();
+    this.backendService.rankingReset().subscribe();
   }
 
   onRedirectToFlawDescription( flaw: string ): void {
-    console.log(flaw);
+    this.modalRef?.hide();
     this.router.navigateByUrl!( `/${flaw}` );
   }
 
