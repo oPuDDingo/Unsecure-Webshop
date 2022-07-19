@@ -23,7 +23,7 @@ public class OrderState extends AbstractState
 		}
 	}
 
-	private static double computePrice( List<ArticleVersion> articles)
+	public static double computePrice( List<ArticleVersion> articles)
 	{
 		double sum = 0;
 		for (ArticleVersion article : articles)
