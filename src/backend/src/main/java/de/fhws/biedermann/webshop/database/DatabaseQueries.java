@@ -222,7 +222,7 @@ public class DatabaseQueries {
             "    guess_coupon INTEGER DEFAULT 0,\n" +
             "    delete_user INTEGER DEFAULT 0,\n" +
             "    comment_xss INTEGER DEFAULT 0,\n" +
-            "    look_for_email_address INTEGER DEFAULT 0,\n" +
+            "    login_brute_force INTEGER DEFAULT 0,\n" +
             "    hash_user INTEGER DEFAULT 0,\n" +
             "    security_misconfiguration INTEGER DEFAULT 0\n" +
             ");\n",
@@ -249,7 +249,7 @@ public class DatabaseQueries {
             "    guess_coupon INTEGER DEFAULT 0,\n" +
             "    delete_user INTEGER DEFAULT 0,\n" +
             "    comment_xss INTEGER DEFAULT 0,\n" +
-            "    look_for_email_address INTEGER DEFAULT 0,\n" +
+            "    login_brute_force INTEGER DEFAULT 0,\n" +
             "    hash_user INTEGER DEFAULT 0,\n" +
             "    security_misconfiguration INTEGER DEFAULT 0\n" +
             ");"

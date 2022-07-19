@@ -59,7 +59,7 @@ public class SecurityBreachDetection
 
 		if( loginTrys.get( loginData.getUuid() ).size() > 10 )
 		{
-			FlawHandler.guessUserLogin( loginData.getUuid() );
+			FlawHandler.LoginBruteForce( loginData.getUuid() );
 		}
 		loginTrys.put( loginData.getUuid(), loginTrys.get( loginData.getUuid() ).stream( ).filter( byTimeDelta() ).collect(
 			Collectors.toList( ) ) ) ;
@@ -68,6 +68,6 @@ public class SecurityBreachDetection
 	private static Predicate<LoginData> byTimeDelta( )
 	{
 		final LocalDateTime now = LocalDateTime.now();
-		return loginData -> loginData.getTimestamp().until( now, ChronoUnit.SECONDS ) < 10;
+		return loginData -> loginData.getTimestamp().until( now, ChronoUnit.SECONDS ) < 3;
 	}
 }

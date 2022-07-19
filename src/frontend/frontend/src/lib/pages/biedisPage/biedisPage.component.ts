@@ -91,7 +91,7 @@ export class BiedisPageComponent implements OnInit{
 
           "In das Kommentarfeld bei den einzelnen Artikeln einfach ein Skript rein schreiben, gefiltert wird in diesem Level noch nicht.",
 
-          "Eine einfache Brute Force Attacke im Loginbereich.",
+          "Eine einfache Brute Force Attacke im Loginbereich um ein Passwort oder eine E-Mail herauszufinden. Über ein Tool oder manuell.",
 
           "Über die SQL Injection zu finden in der Beschreibung in den User Settings zu finden. Dort erhält man einen Hash von einem Dummyuser und zusammen mit der " +
           "E-Mail Adresse kann man sich damit einloggen.",
@@ -126,7 +126,7 @@ export class BiedisPageComponent implements OnInit{
 
           "In das Kommentarfeld bei den einzelnen Artikeln einfach ein Skript rein schreiben, gefiltert wird nach 'script'. Dies wird aus dem String entfernt.",
 
-          "Eine einfache Brute Force Attacke.",
+          "Eine einfache Brute Force Attacke im Loginbereich um ein Passwort oder eine E-Mail herauszufinden. Über ein Tool oder manuell.",
 
           "Über die SQL Injection zu finden in der Beschreibung in den User Settings zu finden. Dort erhält man einen Hash von einem Dummyuser und zusammen mit der " +
           "E-Mail Adresse kann man sich damit einloggen.",
@@ -162,7 +162,7 @@ export class BiedisPageComponent implements OnInit{
 
           "In das Kommentarfeld bei den einzelnen Artikeln einfach ein Skript rein schreiben, gefiltert wird zusätzlich zu 'script' auch noch das erste '<', '>' und '\\'. Diese werden aus dem String entfernt.",
 
-          "Eine einfache Brute Force Attacke.",
+          "Eine einfache Brute Force Attacke im Loginbereich um ein Passwort oder eine E-Mail herauszufinden. Über ein Tool oder manuell.",
 
           "Über die SQL Injection zu finden in der Beschreibung in den User Settings zu finden. Dort erhält man einen Hash von einem Dummyuser und zusammen mit der " +
           "E-Mail Adresse kann man sich damit einloggen.",

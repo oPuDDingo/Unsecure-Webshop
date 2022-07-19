@@ -65,7 +65,7 @@
 
   <div class="modal-body d-flex flex-column">
 
-      <p>Momentanes Level: {{level}}  <i [class]="getLevelClass()"></i></p>
+      <h6>Momentanes Level: {{level}}  <i [class]="getLevelClass()"></i></h6><br>
 
     <div *ngFor="let item of getInformationArray(levelNumber)">
       <div [ngClass]="item[2] ? 'text-success' : 'text-secondary'">{{item[1]}}</div>
