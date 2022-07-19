@@ -91,7 +91,7 @@ export class BiedisPageComponent implements OnInit{
 
           "In das Kommentarfeld bei den einzelnen Artikeln einfach ein Skript rein schreiben, gefiltert wird in diesem Level noch nicht.",
 
-          "Eine einfache Brute Force Attacke.",
+          "Eine einfache Brute Force Attacke im Loginbereich.",
 
           "Über die SQL Injection zu finden in der Beschreibung in den User Settings zu finden. Dort erhält man einen Hash von einem Dummyuser und zusammen mit der " +
           "E-Mail Adresse kann man sich damit einloggen.",
