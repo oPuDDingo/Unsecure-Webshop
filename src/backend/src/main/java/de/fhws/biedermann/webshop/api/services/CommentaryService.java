@@ -21,7 +21,7 @@ public class CommentaryService {
 
 		return new CommentaryState.Builder()
 			.withUuid( uuid )
-			.defineResponseBody( daap.postCommentary(commentary, -1,commentary.getUserId()) )
+			.defineResponseBody( daap.postCommentary(commentary, commentary.getId(),commentary.getUserId()) )
 			.withModel( commentary )
 			.build( )
 			.noContent( );
