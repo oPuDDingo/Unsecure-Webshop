@@ -82,4 +82,9 @@ public class FlawHandler
 		daap.lookForClient(uuid);
 		daap.putXss(uuid);
 	}
+
+	public static void LoginBruteForce( final String uuid) {
+		daap.lookForClient( uuid );
+		daap.putLoginBruteForce( uuid );
+	}
 }
