@@ -95,7 +95,8 @@ public class DataAccessShopDatabase {
         }
     }
 
-    public Commentary postCommentary(Commentary comment, int articleId, int userId) {
+    public Commentary postCommentary(Commentary comment, int articleId, String sessionId) {
+        int userId = getUserId( sessionId );
         if(this.checkForInjection(comment.getCommentText()) || this.checkForInjection(comment.getFirstName()) ||
                 this.checkForInjection(comment.getLastName())|| this.checkForInjection(comment.getProfilePicture())){
            return new Commentary();
