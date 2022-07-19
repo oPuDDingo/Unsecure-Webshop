@@ -65,105 +65,106 @@ export class BiedisPageComponent implements OnInit{
     switch (level) {
       case 1:
         this.description.set(1, [
-          "In der Beschreibung in den User Settings zu finden, gefiltert wird in diesem Level noch keine SQL Befehle.",
+          "In der Beschreibung in den User Settings zu finden, gefiltert wird in diesem Level noch keine SQL Befehle. Es wird nur überprüfz, ob es sich um eine SQL Injection handelt" +
+          "Geprüft wird auf 'OR 1=1;#' und 'AND 1=1;#'",
+
           "In dem Nachrichtenbereich im Kontaktformular zu finden, das Fenster schließt sich sobald die Injection durch gelaufen ist. " +
-          "Es wird ebenfalls ein SQL Befehl erwartet.",
+          "Es wird ebenfalls ein SQL Befehl erwartet. Geprüft wird auf „sleep (“, „benchmark (“, „; wait for delay“ und „; wait for time“. " +
+          "Wird die Sicherheitslücke ausgelöst, wird eine 15 Sekunden Pause ausgelöst, wodurch der Angreifer seinen Erfolg bemerkt.",
+
           "Beim Newsletter und bei dem Kontaktformular einfach eine E-Mail Adresse ohne @ angeben.",
+
           "Durch die Beschreibung in den User Settings kann man in die Kommentare schreiben, gefiltert wird in diesem Level noch nicht.",
+
           "In den User Settings kann man nicht nur Bildformate hochladen, sondern auch ganz schlimme andere Dateien.",
+
           "Auf der Login Seite ist im Html Code, also Quellcode ein Dummyuser versteckt.",
+
           "In der URL einfach den Betrag über den Queryparam ändern (oder andere Attribute).",
-          "Entweder es wird ein Script geschrieben oder es wird durch eine Brute Force Attacke versucht die E-Mail Adresse und das Passwort herauszufinden.",
+
+          "Entweder es wird ein Script geschrieben oder es wird durch eine Brute Force Attacke versucht die E-Mail Adresse und das Passwort herauszufinden. " +
+          "Level 1 -> E-Mail: Test1@test.de, Passwort: 123456789",
+
           "Zu finden - guessCoupon",
+
           "Man versucht über /id einen User zu löschen, dieser entspricht nicht der gleichen Id wie man selber.",
+
           "Ist im Kommentar",
+
           "Beim Registrieren oder beim Einloggen, ploppt ein kleines Fenster auf wenn es die E-Mail Adresse schon gibt. Brute Force Attacke.",
+
           "Über die SQL Injection zu finden in der Beschreibung in den User Settings zu finden. Dort erhält man einen Hash von einem Dummyuser und zusammen mit der " +
           "E-Mail Adresse kann man sich damit einloggen."
         ],);
         break;
       case 2:
         this.description.set(2, [
-          "In der Beschreibung in den User Settings zu finden, gefiltert wird in diesem Level ' und # in SQL Befehlen.",
+          "In der Beschreibung in den User Settings zu finden, gefiltert wird in diesem Level ' und # in SQL Befehlen. Diese werden am Anfang und am Ende des Strings entfernt.",
+
           "In dem Nachrichtenbereich im Kontaktformular zu finden, das Fenster schließt sich sobald die Injection durch gelaufen ist. " +
-          "Es wird ebenfalls ein SQL Befehl erwartet.",
+          "Es wird ebenfalls ein SQL Befehl erwartet. Geprüft wird auf „sleep (“, „benchmark (“, „; wait for delay“ und „; wait for time“. " +
+          "Wird die Sicherheitslücke ausgelöst, wird eine 15 Sekunden Pause ausgelöst, wodurch der Angreifer seinen Erfolg bemerkt.",
+
           "Beim Newsletter und bei dem Kontaktformular einfach eine E-Mail Adresse ohne @ angeben.",
-          "Durch die Beschreibung in den User Settings kann man in die Kommentare schreiben, gefiltert wird in diesem Level noch nicht.",
+
+          "Durch die Beschreibung in den User Settings kann man in die Kommentare schreiben, gefiltert wird nach 'script'. Dies wird aus dem String entfernt.",
+
           "In den User Settings kann man nicht nur Bildformate hochladen, sondern auch ganz schlimme andere Dateien.",
+
           "Auf der Login Seite ist im Html Code, also Quellcode ein Dummyuser versteckt.",
+
           "In der URL einfach den Betrag über den Queryparam ändern (oder andere Attribute).",
-          "Entweder es wird ein Script geschrieben oder es wird durch eine Brute Force Attacke versucht die E-Mail Adresse und das Passwort herauszufinden.",
+
+          "Entweder es wird ein Script geschrieben oder es wird durch eine Brute Force Attacke versucht die E-Mail Adresse und das Passwort herauszufinden." +
+          "Level 2 -> E-Mail: Test2@User.de, Passwort: test123456789",
+
           "Level 2 Zu finden - guessCoupon",
+
           "Man versucht über /id einen User zu löschen, dieser entspricht nicht der gleichen Id wie man selber.",
+
           "Ist im Kommentar",
+
           "Beim Registrieren oder beim Einloggen, ploppt ein kleines Fenster auf wenn es die E-Mail Adresse schon gibt. Brute Force Attacke.",
+
           "Über die SQL Injection zu finden in der Beschreibung in den User Settings zu finden. Dort erhält man einen Hash von einem Dummyuser und zusammen mit der " +
           "E-Mail Adresse kann man sich damit einloggen."
         ],);
         break;
       case 3:
         this.description.set(3, [
-          "In der Beschreibung in den User Settings zu finden, gefiltert wird in diesem Level ', # und 1=1 in SQL Befehlen.",
+          "In der Beschreibung in den User Settings zu finden, gefiltert wird in diesem Level ', # und 1=1 in SQL Befehlen. Diese werden am Anfang und am Ende des Strings entfernt." +
+          "Zusätzlich wird ohne Veränderung auf 'UNION SELECT email, password FROM user;#' geprüft. Es muss zusätzlich eine Anfrage über ein API Test Tool, wie Postman getätigt werden.",
+
           "In dem Nachrichtenbereich im Kontaktformular zu finden, das Fenster schließt sich sobald die Injection durch gelaufen ist. " +
-          "Es wird ebenfalls ein SQL Befehl erwartet.",
+          "Es wird ebenfalls ein SQL Befehl erwartet. Geprüft wird auf „sleep (“, „benchmark (“, „; wait for delay“ und „; wait for time“. " +
+          "Wird die Sicherheitslücke ausgelöst, wird eine 15 Sekunden Pause ausgelöst, wodurch der Angreifer seinen Erfolg bemerkt.",
+
           "Beim Newsletter und bei dem Kontaktformular einfach eine E-Mail Adresse ohne @ angeben.",
-          "Durch die Beschreibung in den User Settings kann man in die Kommentare schreiben, gefiltert wird in diesem Level noch nicht.",
+
+          "Durch die Beschreibung in den User Settings kann man in die Kommentare schreiben, gefiltert wird zusätzlich zu 'script' auch noch das erste '<', '>' und '\\'. Diese werden aus dem String entfernt.",
+
           "In den User Settings kann man nicht nur Bildformate hochladen, sondern auch ganz schlimme andere Dateien.",
+
           "Auf der Login Seite ist im Html Code, also Quellcode ein Dummyuser versteckt.",
+
           "In der URL einfach den Betrag über den Queryparam ändern (oder andere Attribute).",
-          "Entweder es wird ein Script geschrieben oder es wird durch eine Brute Force Attacke versucht die E-Mail Adresse und das Passwort herauszufinden.",
+
+          "Entweder es wird ein Script geschrieben oder es wird durch eine Brute Force Attacke versucht die E-Mail Adresse und das Passwort herauszufinden." +
+          "Level 3 -> E-Mail: Test3@TestUser.de, Passwort: 0112358132134",
+
           "Level 3 Zu finden - guessCoupon",
+
           "Man versucht über /id einen User zu löschen, dieser entspricht nicht der gleichen Id wie man selber.",
+
           "Ist im Kommentar",
+
           "Beim Registrieren oder beim Einloggen, ploppt ein kleines Fenster auf wenn es die E-Mail Adresse schon gibt. Brute Force Attacke.",
+
           "Über die SQL Injection zu finden in der Beschreibung in den User Settings zu finden. Dort erhält man einen Hash von einem Dummyuser und zusammen mit der " +
           "E-Mail Adresse kann man sich damit einloggen."
         ],);
         break;
     }
-  }
-
-  getInfoSites(vulnerability: string) {
-    // console.log(vulnerability);
-    // if(vulnerability == "SQL-Injection"){
-    //   this.router.navigateByUrl('/sql_injection');
-    // }
-    // if(vulnerability == "Blind-Sql-Injection"){
-    //   this.router.navigateByUrl('/blind_sql_injection');
-    // }
-    // if(vulnerability == "E-Mail without @"){
-    //   this.router.navigateByUrl('/email_without_at');
-    // }
-    // if(vulnerability == "XSS - Cross-Site-Scripting"){
-    //   this.router.navigateByUrl('/xss');
-    // }
-    // if(vulnerability == "Profile Picture"){
-    //   this.router.navigateByUrl('/profile_picture');
-    // }
-    // if(vulnerability == "HTML Comment User"){
-    //   this.router.navigateByUrl('/html_comment_user');
-    // }
-    // if(vulnerability == "Price Order Bug") {
-    //   this.router.navigateByUrl('/price_order_bug');
-    // }
-    // if(vulnerability == "Guess User Login") {
-    //   this.router.navigateByUrl('/guess_user_login');
-    // }
-    // if(vulnerability == "Guess Coupon") {
-    //   this.router.navigateByUrl('/guess_coupon');
-    // }
-    // if(vulnerability == "Delete User") {
-    //   this.router.navigateByUrl('/delete_user');
-    // }
-    // if(vulnerability == "Comment XSS - Cross-Site-Scripting") {
-    //   this.router.navigateByUrl('/sql_injection');
-    // }
-    // if(vulnerability == "Look for E-Mail Address") {
-    //   this.router.navigateByUrl('/look_for_email_address');
-    // }
-    // if(vulnerability == "Hash User") {
-    //   this.router.navigateByUrl('/hash_user');
-    // }
   }
 
   getInformationArray(level: number) {
