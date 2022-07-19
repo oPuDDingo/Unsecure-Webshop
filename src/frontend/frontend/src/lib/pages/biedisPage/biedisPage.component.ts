@@ -65,7 +65,7 @@ export class BiedisPageComponent implements OnInit{
     switch (level) {
       case 1:
         this.description.set(1, [
-          "In der Beschreibung in den User Settings zu finden, gefiltert wird in diesem Level noch keine SQL Befehle. Es wird nur überprüfz, ob es sich um eine SQL Injection handelt" +
+          "In der Beschreibung in den User Settings zu finden, gefiltert wird in diesem Level noch keine SQL Befehle. Es wird nur überprüft, ob es sich um eine SQL Injection handelt" +
           "Geprüft wird auf 'OR 1=1;#' und 'AND 1=1;#'",
 
           "In dem Nachrichtenbereich im Kontaktformular zu finden, das Fenster schließt sich sobald die Injection durch gelaufen ist. " +
@@ -76,22 +76,22 @@ export class BiedisPageComponent implements OnInit{
 
           "Durch die Beschreibung in den User Settings kann man in die Kommentare schreiben, gefiltert wird in diesem Level noch nicht.",
 
-          "In den User Settings kann man nicht nur Bildformate hochladen, sondern auch ganz schlimme andere Dateien.",
+          "In den User Settings kann man nicht nur Bildformate hochladen, sondern auch ganz schlimme andere Dateien. Zum Beispiel: png, jpg, jpeg, tiff, gif und bmp ",
 
           "Auf der Login Seite ist im Html Code, also Quellcode ein Dummyuser versteckt.",
 
           "In der URL einfach den Betrag über den Queryparam ändern (oder andere Attribute).",
 
           "Entweder es wird ein Script geschrieben oder es wird durch eine Brute Force Attacke versucht die E-Mail Adresse und das Passwort herauszufinden. " +
-          "Level 1 -> E-Mail: Test1@test.de, Passwort: 123456789",
+          "Level 1 -> E-Mail: Test1@test.de, Passwort: 123456789 und vom DummyUser das Password: MyPasswordIsSafe",
 
-          "Zu finden - guessCoupon",
+          "Beim Bestellvorgang einfach einen der folgenden Coupons eingeben: blackfriday, summersale, summer, ausverkauf, neujahr, newyear, winter, biedermann, biedisshop",
 
-          "Man versucht über /id einen User zu löschen, dieser entspricht nicht der gleichen Id wie man selber.",
+          "Man versucht über /api/iser/{id} einen User zu löschen, dieser entspricht nicht der gleichen Id wie man selber. Man muss das mit einer Delete Anfrage über ein API Test Tool machen.",
 
-          "Ist im Kommentar",
+          "In das Kommentarfeld bei den einzelnen Artikeln einfach ein Skript rein schreiben, gefiltert wird in diesem Level noch nicht.",
 
-          "Beim Registrieren oder beim Einloggen, ploppt ein kleines Fenster auf wenn es die E-Mail Adresse schon gibt. Brute Force Attacke.",
+          "Brute Force Attacke.",
 
           "Über die SQL Injection zu finden in der Beschreibung in den User Settings zu finden. Dort erhält man einen Hash von einem Dummyuser und zusammen mit der " +
           "E-Mail Adresse kann man sich damit einloggen."
@@ -109,20 +109,20 @@ export class BiedisPageComponent implements OnInit{
 
           "Durch die Beschreibung in den User Settings kann man in die Kommentare schreiben, gefiltert wird nach 'script'. Dies wird aus dem String entfernt.",
 
-          "In den User Settings kann man nicht nur Bildformate hochladen, sondern auch ganz schlimme andere Dateien.",
+          "In den User Settings kann man nicht nur Bildformate hochladen, sondern auch ganz schlimme andere Dateien. Zum Beispiel: png, jpg, jpeg, tiff, gif und bmp ",
 
           "Auf der Login Seite ist im Html Code, also Quellcode ein Dummyuser versteckt.",
 
           "In der URL einfach den Betrag über den Queryparam ändern (oder andere Attribute).",
 
           "Entweder es wird ein Script geschrieben oder es wird durch eine Brute Force Attacke versucht die E-Mail Adresse und das Passwort herauszufinden." +
-          "Level 2 -> E-Mail: Test2@User.de, Passwort: test123456789",
+          "Level 2 -> E-Mail: Test2@User.de, Passwort: test123456789 und vom DummyUser das Password: MyPasswordIsSafe",
 
-          "Level 2 Zu finden - guessCoupon",
+          "Beim Bestellvorgang einfach einen der folgenden Coupons eingeben: blackfriday, summersale, summer, ausverkauf, neujahr, newyear, winter, biedermann, biedisshop",
 
-          "Man versucht über /id einen User zu löschen, dieser entspricht nicht der gleichen Id wie man selber.",
+          "Man versucht über /api/iser/{id} einen User zu löschen, dieser entspricht nicht der gleichen Id wie man selber. Man muss das mit einer Delete Anfrage über ein API Test Tool machen.",
 
-          "Ist im Kommentar",
+          "In das Kommentarfeld bei den einzelnen Artikeln einfach ein Skript rein schreiben, gefiltert wird nach 'script'. Dies wird aus dem String entfernt.",
 
           "Beim Registrieren oder beim Einloggen, ploppt ein kleines Fenster auf wenn es die E-Mail Adresse schon gibt. Brute Force Attacke.",
 
@@ -143,20 +143,20 @@ export class BiedisPageComponent implements OnInit{
 
           "Durch die Beschreibung in den User Settings kann man in die Kommentare schreiben, gefiltert wird zusätzlich zu 'script' auch noch das erste '<', '>' und '\\'. Diese werden aus dem String entfernt.",
 
-          "In den User Settings kann man nicht nur Bildformate hochladen, sondern auch ganz schlimme andere Dateien.",
+          "In den User Settings kann man nicht nur Bildformate hochladen, sondern auch ganz schlimme andere Dateien. Zum Beispiel: png, jpg, jpeg, tiff, gif und bmp ",
 
           "Auf der Login Seite ist im Html Code, also Quellcode ein Dummyuser versteckt.",
 
           "In der URL einfach den Betrag über den Queryparam ändern (oder andere Attribute).",
 
           "Entweder es wird ein Script geschrieben oder es wird durch eine Brute Force Attacke versucht die E-Mail Adresse und das Passwort herauszufinden." +
-          "Level 3 -> E-Mail: Test3@TestUser.de, Passwort: 0112358132134",
+          "Level 3 -> E-Mail: Test3@TestUser.de, Passwort: 0112358132134 und vom DummyUser das Password: MyPasswordIsSafe",
 
-          "Level 3 Zu finden - guessCoupon",
+          "Beim Bestellvorgang einfach einen der folgenden Coupons eingeben: blackfriday, summersale, summer, ausverkauf, neujahr, newyear, winter, biedermann, biedisshop",
 
-          "Man versucht über /id einen User zu löschen, dieser entspricht nicht der gleichen Id wie man selber.",
+          "Man versucht über /api/iser/{id} einen User zu löschen, dieser entspricht nicht der gleichen Id wie man selber. Man muss das mit einer Delete Anfrage über ein API Test Tool machen.",
 
-          "Ist im Kommentar",
+          "In das Kommentarfeld bei den einzelnen Artikeln einfach ein Skript rein schreiben, gefiltert wird zusätzlich zu 'script' auch noch das erste '<', '>' und '\\'. Diese werden aus dem String entfernt.",
 
           "Beim Registrieren oder beim Einloggen, ploppt ein kleines Fenster auf wenn es die E-Mail Adresse schon gibt. Brute Force Attacke.",
 
