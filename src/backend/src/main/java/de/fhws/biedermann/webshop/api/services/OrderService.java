@@ -50,7 +50,7 @@ import javax.ws.rs.core.UriInfo;
 		return new OrderState.Builder()
 			.withSession( session )
 			.withUuid( uuid )
-			.withNotNull( order )
+			.withModel( order )
 			.withUriInfo( OrderLogic.createOrder( cleanup, session, order, uriInfo ) )
 			.build()
 			.create();

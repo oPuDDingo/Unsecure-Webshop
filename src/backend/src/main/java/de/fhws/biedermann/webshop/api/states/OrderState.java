@@ -2,6 +2,7 @@ package de.fhws.biedermann.webshop.api.states;
 
 import de.fhws.biedermann.webshop.models.ArticleVersion;
 import de.fhws.biedermann.webshop.models.Order;
+import de.fhws.biedermann.webshop.models.User;
 import de.fhws.biedermann.webshop.utils.handler.FlawHandler;
 
 import java.util.List;
@@ -34,7 +35,9 @@ public class OrderState extends AbstractState
 
 	@Override void lookForFlaw( )
 	{
-
+		if ( this.modelToWorkWith instanceof Order order ){
+			checkPrice( order, this.uuid );
+		}
 	}
 
 	public static class Builder extends AbstractStateBuilder{
