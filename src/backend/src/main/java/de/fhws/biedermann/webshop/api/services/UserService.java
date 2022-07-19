@@ -80,7 +80,8 @@ import static de.fhws.biedermann.webshop.api.states.UserState.createNewUser;
 		return new UserState.Builder()
 			.withSession( session )
 			.defineResponseBody( AuthenticationLogic.logout( session ) )
-			.build( ).ok( );
+			.build( )
+			.ok( );
 	}
 
 	@PUT
