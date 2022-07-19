@@ -246,7 +246,7 @@ export class BiedisPageComponent implements OnInit{
       securityBreachCounter++;
     if(rankingStudent.priceOrderBug)
       securityBreachCounter++;
-    if(rankingStudent.lookForEmailAddress)
+    if(rankingStudent.loginBruteForce)
       securityBreachCounter++;
     if(rankingStudent.htmlCommentUser)
       securityBreachCounter++;
