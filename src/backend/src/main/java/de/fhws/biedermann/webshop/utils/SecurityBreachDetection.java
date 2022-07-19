@@ -1,6 +1,7 @@
 package de.fhws.biedermann.webshop.utils;
 
 import de.fhws.biedermann.webshop.database.DataAccessShopDatabase;
+import de.fhws.biedermann.webshop.models.LoginData;
 import de.fhws.biedermann.webshop.utils.handler.FlawHandler;
 import org.apache.commons.lang.StringUtils;
 
@@ -8,11 +9,12 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class SecurityBreachDetection
 {
 	static DataAccessShopDatabase db = new DataAccessShopDatabase();
-	static Map<String, Collection<LocalDateTime>> loginTrys = new HashMap<>();
+	static Map<String, List<LoginData>> loginTrys = new HashMap<>();
 	public static boolean matchSessionToUserId(final String session, final long userId) {
 		return db.getUserId( session ) == userId;
 	}
@@ -44,27 +46,28 @@ public class SecurityBreachDetection
 		}
 	}
 
-	public static void detectLoginSecurityBreach( final String uuid )
+	public static void detectLoginSecurityBreach( final LoginData loginData )
 	{
-		if( loginTrys.containsKey( uuid ) )
-		{
-			ArrayList<LocalDateTime> dateTime = new ArrayList<>( loginTrys.get( uuid ) );
-			dateTime.add( LocalDateTime.now() );
-			loginTrys.put( uuid, dateTime );
+		if( loginTrys.containsKey( loginData.getUuid() ) && loginTrys.get( loginData.getUuid() ).stream().noneMatch(
+			loginData::compareTo )) {
+			ArrayList<LoginData> loginList = new ArrayList<>( loginTrys.get( loginData.getUuid() ) );
+			loginList.add( loginData.setTimestamp( LocalDateTime.now() ) );
+			loginTrys.put( loginData.getUuid(), loginList );
 		} else {
-			loginTrys.put( uuid, List.of( LocalDateTime.now() ) );
+			loginTrys.put( loginData.getUuid(), List.of( loginData.setTimestamp( LocalDateTime.now() ) ) );
 		}
 
-		if( loginTrys.get( uuid ).size() > 10 )
+		if( loginTrys.get( loginData.getUuid() ).size() > 10 )
 		{
-			FlawHandler.guessUserLogin( uuid );
+			FlawHandler.guessUserLogin( loginData.getUuid() );
 		}
-		loginTrys.put( uuid, loginTrys.get( uuid ).stream( ).filter( byTimeDelta() ).toList() );
+		loginTrys.put( loginData.getUuid(), loginTrys.get( loginData.getUuid() ).stream( ).filter( byTimeDelta() ).collect(
+			Collectors.toList( ) ) ) ;
 	}
 
-	private static Predicate<LocalDateTime> byTimeDelta( )
+	private static Predicate<LoginData> byTimeDelta( )
 	{
 		final LocalDateTime now = LocalDateTime.now();
-		return givenDate -> givenDate.until( now, ChronoUnit.SECONDS ) < 10;
+		return loginData -> loginData.getTimestamp().until( now, ChronoUnit.SECONDS ) < 10;
 	}
 }
