@@ -20,7 +20,7 @@ public class DataAccessShopDatabase {
         try {
             Class.forName("org.sqlite.JDBC");
             Path currentRelativePath = FileSystems.getDefault( ).getPath( "" );
-            c = DriverManager.getConnection( String.format( "jdbc:sqlite:%s/src/backend/src/main/java/de/fhws/biedermann/webshop/database/shopDatabase.db", currentRelativePath.toAbsolutePath() ) );
+            c = DriverManager.getConnection( String.format( "jdbc:sqlite:%s/src/main/java/de/fhws/biedermann/webshop/database/shopDatabase.db", currentRelativePath.toAbsolutePath() ) );
         } catch (SQLException ex) {
             ex.printStackTrace();
         } catch (ClassNotFoundException e) {

@@ -13,9 +13,9 @@ import de.fhws.biedermann.webshop.database.*;
 public class Start
 {
 	private static final String CONTEXT_PATH = "/api";
-	private static final String WEB_APP_LOCATION = "src/backend/src/main/webapp/";
+	private static final String WEB_APP_LOCATION = "src/main/webapp/";
 	private static final String WEB_APP_MOUNT = "/WEB-INF/classes";
-	private static final String WEB_APP_CLASSES = "src/backend/target/classes";
+	private static final String WEB_APP_CLASSES = "target/classes";
 
 	public static void main(final String[] args) throws Exception
 	{

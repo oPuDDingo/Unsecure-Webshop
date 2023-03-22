@@ -15,7 +15,7 @@ public class DataAccessAdminPanel {
         try {
             Class.forName("org.sqlite.JDBC");
             Path currentRelativePath = FileSystems.getDefault( ).getPath( "" );
-            c = DriverManager.getConnection( String.format( "jdbc:sqlite:%s/src/backend/src/main/java/de/fhws/biedermann/webshop/database/adminPanel.db", currentRelativePath.toAbsolutePath() ) );
+            c = DriverManager.getConnection( String.format( "jdbc:sqlite:%s/src/main/java/de/fhws/biedermann/webshop/database/adminPanel.db", currentRelativePath.toAbsolutePath() ) );
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             System.out.println("Can't create Connection!");
