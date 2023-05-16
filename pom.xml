@@ -144,8 +144,8 @@
     </dependencies>
 
     <properties>
-        <maven.compiler.source>16</maven.compiler.source>
-        <maven.compiler.target>16</maven.compiler.target>
+        <maven.compiler.source>18</maven.compiler.source>
+        <maven.compiler.target>18</maven.compiler.target>
         <tomcat.version>8.5.85</tomcat.version>
         <jersey.version>2.31</jersey.version>
     </properties>
