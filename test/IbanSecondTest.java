@@ -4,7 +4,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.Assert.*;
 
-public class IbanTestSecond
+public class IbanSecondTest
 {
 
 	//Portfolio Abgabe 2
