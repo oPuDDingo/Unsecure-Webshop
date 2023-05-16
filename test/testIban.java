@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class IbanTest
+public class testIban
 {
 
 	//Portfolio Abgabe 1
