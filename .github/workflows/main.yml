@@ -27,4 +27,4 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Build and test with Maven
-        run: mvn --batch-mode --errors --fail-at-end --show-version --no-transfer-progress -DinstallAtEnd=true -DdeployAtEnd=true verify
+        run: mvn -B test --file pom.xml
