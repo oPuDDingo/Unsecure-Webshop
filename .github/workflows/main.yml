@@ -8,10 +8,6 @@ on:
 
 jobs:
   build:
-    runs:
-      using: 'node16'
-    #  main: 'main.yml'
-
     runs-on: ubuntu-latest
 
     steps:
