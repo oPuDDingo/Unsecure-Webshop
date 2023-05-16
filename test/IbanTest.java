@@ -62,6 +62,4 @@ public class IbanTest
 	{
 		assertFalse( OrderLogic.checkIBAN( "2344350700240388249600", "Deutschland" ) );
 	}
-
-
 }
