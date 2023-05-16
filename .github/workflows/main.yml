@@ -4,12 +4,14 @@ on:
   push:
     branches: [ feature/IBANTest ]
 
-runs:
-  using: 'node16'
-#  main: 'main.yml'
+
 
 jobs:
   build:
+    runs:
+      using: 'node16'
+    #  main: 'main.yml'
+
     runs-on: ubuntu-latest
 
     steps:
