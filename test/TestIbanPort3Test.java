@@ -5,7 +5,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class testIbanThird
+public class TestIbanPort3Test
 {
 
 	//Portfolio Abgabe 3
